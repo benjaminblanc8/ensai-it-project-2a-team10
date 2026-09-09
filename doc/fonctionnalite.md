@@ -156,8 +156,6 @@ Si aucun trajet ne correspond à la recherche, un message explicite est affiché
 
 Une recherche peut retourner plusieurs trajets pour une même liaison.
 
-Les trajets supprimés ou devenus indisponibles ne doivent pas être proposés.
-
 #### Entrées
 
 Gare de départ
@@ -193,10 +191,6 @@ Proposer une fonctionnalité permettant de différencier le service du réseau c
 
 
 #### Sortie
-
-
-#### Cas particuliers
-
 
 #### Exemple
 
