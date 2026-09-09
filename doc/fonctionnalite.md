@@ -60,7 +60,7 @@ Les deux gares doivent exister dans les données fournies par l’API SNCF.
 
 Une ligne ne peut pas être créée si la gare de départ et la gare de terminus sont identiques.
 
-Un compte CLIENT ou ADMIN ne peut pas gérer les lignes d’exploitation, sauf évolution ultérieure des droits.
+Un compte CLIENT ne peut pas gérer les lignes d’exploitation, sauf évolution ultérieure des droits.
 
 La suppression d’une ligne peut être refusée si des trajets sont déjà planifiés sur cette ligne, afin de préserver l’intégrité des données.
 
