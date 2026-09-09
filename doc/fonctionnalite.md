@@ -1,0 +1,208 @@
+## Fonctionnalités obligatoires
+
+### F1 : Gestion des comptes utilisateur
+
+#### Description
+
+Permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possède un nom d’utilisateur, un mot de passe et un niveau d’habilitation parmi CLIENT, COLLABORATEUR et ADMIN. Les comptes ADMIN peuvent modifier le niveau d’habilitation des autres utilisateurs, à l’exception des autres comptes ADMIN.
+
+#### Fonctionnement
+
+Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation.
+
+Un compte ADMIN peut consulter les comptes utilisateurs et augmenter ou diminuer leur niveau d’habilitation. Un ADMIN ne peut cependant pas modifier le niveau d’un autre ADMIN.
+
+Le nom d’utilisateur doit être unique.
+
+Un utilisateur ne peut pas créer directement un compte ADMIN, sauf si cette règle est explicitement autorisée par l’application.
+
+Un ADMIN ne peut pas modifier le niveau d’habilitation d’un autre ADMIN.
+
+Un utilisateur non ADMIN ne peut pas modifier les habilitations des autres comptes.
+
+Le mot de passe doit être stocké de manière sécurisée et ne doit jamais être enregistré en clair.
+
+
+#### Entrées
+
+Nom d’utilisateur
+Mot de passe
+Niveau d’habilitation lors de la création ou de la modification
+Identifiant du compte à modifier pour un ADMIN
+
+#### Sortie
+
+Création d’un nouveau compte utilisateur
+Connexion à un compte existant
+Modification du niveau d’habilitation d’un utilisateur
+Message de confirmation ou d’erreur en cas d’échec
+
+
+
+#### Exemple
+
+Un utilisateur crée un compte avec le nom alice et un mot de passe. Son compte est créé avec le rôle CLIENT. Un ADMIN peut ensuite faire évoluer son rôle en COLLABORATEUR. L’ADMIN ne peut toutefois pas modifier le rôle d’un autre compte ayant déjà le niveau ADMIN.
+
+---
+
+###  F2 : Gestion des lignes d’exploitation
+
+#### Description
+Permettre à un compte COLLABORATEUR de créer, modifier et supprimer des lignes d’exploitation reliant une gare de départ à une gare de terminus. Les gares utilisées sont récupérées à partir de l’API SNCF afin de garantir leur existence.
+
+#### Fonctionnement
+
+Lors de la création ou de la modification d’une ligne, le collaborateur recherche les gares grâce à une fonctionnalité d’autocomplétion. Les résultats proposés proviennent de l’API SNCF.
+
+Le collaborateur sélectionne une gare de départ et une gare de terminus parmi les gares existantes, puis enregistre la ligne d’exploitation.
+
+Les deux gares doivent exister dans les données fournies par l’API SNCF.
+
+Une ligne ne peut pas être créée si la gare de départ et la gare de terminus sont identiques.
+
+Un compte CLIENT ou ADMIN ne peut pas gérer les lignes d’exploitation, sauf évolution ultérieure des droits.
+
+La suppression d’une ligne peut être refusée si des trajets sont déjà planifiés sur cette ligne, afin de préserver l’intégrité des données.
+
+
+#### Entrées
+
+Gare de départ
+Gare de terminus
+Compte utilisateur disposant du rôle COLLABORATEUR
+
+#### Sortie
+
+Création d’une nouvelle ligne d’exploitation
+Modification d’une ligne existante
+Suppression d’une ligne
+Confirmation ou message d’erreur
+
+#### Exemple
+
+Un collaborateur saisit "Renn" dans le champ de départ. L’application propose notamment "Rennes" grâce à l’API SNCF. Il sélectionne Rennes comme gare de départ et Paris comme gare de terminus, puis crée la ligne Rennes → Paris.
+
+---
+
+### F3 : Gestion des trajets proposés
+
+#### Description
+Permettre à un compte COLLABORATEUR de planifier des trajets sur une ligne d’exploitation existante. Un trajet est défini notamment par une date et une heure de départ, un nombre de places disponibles et un tarif. Le temps de trajet est automatiquement déterminé à partir de l’API SNCF.
+
+#### Fonctionnement
+
+Le collaborateur sélectionne une ligne d’exploitation existante, puis renseigne la date et l’heure de départ, le nombre de places et le tarif.
+
+L’application interroge l’API SNCF afin de vérifier qu’un trajet en train est possible entre la gare de départ et le terminus. Elle récupère également les informations nécessaires au calcul automatique du temps de trajet.
+
+Le collaborateur peut ensuite modifier ou supprimer le trajet planifié.
+
+
+La ligne d’exploitation doit exister avant de pouvoir planifier un trajet.
+
+Le trajet doit être réalisable en train selon les informations fournies par l’API SNCF.
+
+Le temps de trajet ne doit pas être saisi manuellement par le collaborateur.
+
+La date et l’heure de départ doivent être valides.
+
+Le nombre de places doit être supérieur à zéro.
+
+Le tarif doit être positif ou nul selon les règles commerciales retenues.
+
+Un trajet ne peut pas être planifié si l’API SNCF ne permet pas de vérifier sa faisabilité.
+
+#### Entrées
+
+Ligne d’exploitation
+Date de départ
+Heure de départ
+Nombre de places
+Tarif
+Compte utilisateur disposant du rôle COLLABORATEUR
+
+#### Sortie
+
+Création d’un trajet planifié
+Temps de trajet calculé automatiquement
+Modification ou suppression d’un trajet
+Confirmation ou message d’erreur
+
+
+#### Exemple
+
+Un collaborateur sélectionne la ligne Rennes → Paris, choisit le 15 octobre à 08h00, indique 50 places disponibles et un tarif de 45 €. L’API SNCF confirme qu’un trajet est possible et permet à l’application de calculer automatiquement sa durée.
+
+---
+
+### F4 : Recherche d’un trajet
+
+#### Description
+Permettre à un compte CLIENT de rechercher les trajets proposés entre une gare de départ et une gare d’arrivée. Une autocomplétion facilite la sélection des gares.
+
+#### Fonctionnement
+
+Le client saisit une gare de départ et une gare d’arrivée. L’application propose automatiquement des gares correspondant à la saisie grâce aux données issues de l’API SNCF.
+
+Après validation de la recherche, l’application affiche les trajets proposés correspondant aux critères renseignés.
+
+Pour chaque trajet, le client peut consulter la gare de départ, la gare d’arrivée, la date et l’heure de départ ainsi que le temps de trajet.
+
+Les gares doivent correspondre à des gares existantes.
+
+La gare de départ et la gare d’arrivée doivent être différentes.
+
+Si aucun trajet ne correspond à la recherche, un message explicite est affiché.
+
+Une recherche peut retourner plusieurs trajets pour une même liaison.
+
+Les trajets supprimés ou devenus indisponibles ne doivent pas être proposés.
+
+#### Entrées
+
+Gare de départ
+Gare d’arrivée
+Compte utilisateur disposant du rôle CLIENT
+
+#### Sortie
+
+Une liste de trajets correspondant aux gares recherchées, comprenant au minimum :
+
+Gare de départ
+Gare d’arrivée
+Date de départ
+Heure de départ
+Temps de trajet
+
+
+#### Exemple
+
+Un client sélectionne Rennes comme gare de départ et Paris comme gare d’arrivée. L’application affiche les trajets disponibles entre ces deux gares avec leur date, leur heure de départ et leur durée.
+
+---
+
+###  F5 : Positionnement commercial
+
+#### Description
+Proposer une fonctionnalité permettant de différencier le service du réseau commercial de la SNCF en offrant au client une tarification transparente.
+
+#### Fonctionnement
+
+
+#### Entrées
+
+
+#### Sortie
+
+
+#### Cas particuliers
+
+
+#### Exemple
+
+---
+
+
+
+
+
