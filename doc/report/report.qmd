@@ -1,5 +1,4 @@
----
-bibliography: refs.bib
+--- 
 citeproc: false
 nocite: "@*"
 format:
@@ -260,11 +259,6 @@ Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n'al
 ### Diagramme de classes
 
 ### Modèle de base de données
-
-
-{{< pagebreak >}}
-
-## Bibliography
 
 
 {{< pagebreak >}}
