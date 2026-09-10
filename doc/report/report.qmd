@@ -20,7 +20,7 @@ format:
 #import "model.typ": project_template
 
 #show: body => project_template(
-  title: [Application SNCF_+],
+  title: [Trajecto],
   team: [Équipe 10],
   authors: ([Benjamin Blanc], [Manon Duquesne], [Hugo Lhommeau], [Jérémie L'Hostis], [Alexandre Yu]),
   tutor: [Kévin Leroy],
@@ -32,7 +32,7 @@ format:
 ## Introduction {.unnumbered}
 
 ```{=typst} 
-Et si chacune et chacun pouvait imaginer sa propre manière de voyager en train ? C'est autour de cette idée que s'articule **Trajecto**, une plateforme destinée à proposer, gérer et rechercher des trajets ferroviaires en s'appuyant sur les données du réseau SNCF.
+Et si chacune et chacun pouvait imaginer sa propre manière de voyager en train ? C'est autour de cette idée que s'articule *Trajecto*, une plateforme destinée à proposer, gérer et rechercher des trajets ferroviaires en s'appuyant sur les données du réseau SNCF.
 
 L'objectif de notre application est de fournir une plateforme permettant à une entreprise ferroviaire de gérer son offre de transport et à ses clients de rechercher facilement les trajets disponibles. L’interface graphique étant prise en charge par les webmasters de l’entreprise, notre travail se concentre sur la conception et le développement d’une API robuste, sécurisée et exploitable par différents clients.
 
