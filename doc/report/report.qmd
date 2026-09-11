@@ -246,6 +246,8 @@ Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n'al
 
 ### Architecture générale
 
+<!--![Diagramme d'architecture](Diagrammes/Diagramme_architecture.jpg){fig-align="center"}-->
+
 ### Diagrammes des cas d’utilisation
 
 ### Diagrammes d’activité
