@@ -246,6 +246,29 @@ Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n'al
 
 ### Architecture générale
 
+#### Base de données : 
+
+Pour stocker les données, nous allons utiliser une base de données postgreSQL, sur l’environnement du datalab de l’ENSAI. La base de données contiendra les informations utilisateurs, ainsi que les gares, les lignes de train et les trajets prévus. Ces données seront saisies petit à petit. Ainsi, les collaborateurs écriront dans la base de données lorsqu’ils créeront un nouveau trajet, ou lorsqu’une nouvelle ligne sera créée.
+
+#### API : 
+
+Nous allons aussi récupérer des données via l’API de la SNCF, Navitia. Navitia est une API qui fonctionne par requêtes HTTP GET. Une requête HTTP GET est une demande envoyée à un serveur pour récupérer des informations à partir d’une URL. En envoyant cette requête, l’API demande une clé d’authentification, qui est disponible gratuitement avec une limite de 1500 appels par jour, et dont nous avons fait la demande au préalable. L’API renvoie ensuite une réponse HTTP contenant les données demandées au format JSON. Dans le cadre de notre projet, nous utiliserons l’API pour deux principales raisons :
+
+-Récupérer les gares existantes 
+-Récupérer les temps de trajet existants sur une ligne.
+
+#### DAO : 
+ 
+Les DAO, pour Data Access Object, vont nous permettre de faire le lien entre les classes métier et la base de données. Leur rôle est de gérer l'accès aux données sans que les classes métier aient besoin de connaître le fonctionnement de la base de données.
+Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créés par les collaborateurs (gares, trajets, utilisateurs, etc.) dans la base de données afin de les sauvegarder. Ils permettent également de récupérer les données de la base de données et de les transformer en objets Python utilisables par le reste de l'application. 
+
+### CLASSE OBJET : 
+
+
+
+
+#### CLASSE SERVICE : 
+
 ### Diagrammes des cas d’utilisation
 
 ### Diagrammes d’activité
