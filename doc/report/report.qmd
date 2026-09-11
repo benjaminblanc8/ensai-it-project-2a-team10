@@ -63,35 +63,32 @@ Permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possè
 
 #### Fonctionnement {.unlisted}
 
-Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation.
+Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation CLIENT.
 
 Un compte ADMIN peut consulter les comptes utilisateurs et augmenter ou diminuer leur niveau d’habilitation. Un ADMIN ne peut cependant pas modifier le niveau d’un autre ADMIN.
 
-Le nom d’utilisateur doit être unique.
-
-Un utilisateur ne peut pas créer directement un compte ADMIN, sauf si cette règle est explicitement autorisée par l’application.
+Un compte est associé à un identifiant unique, qui est utilisé pour identifier le compte dans la base de données.
 
 Un ADMIN ne peut pas modifier le niveau d’habilitation d’un autre ADMIN.
 
 Un utilisateur non ADMIN ne peut pas modifier les habilitations des autres comptes.
 
-Le mot de passe doit être stocké de manière sécurisée et ne doit jamais être enregistré en clair.
+( Le mot de passe doit être stocké de manière sécurisée et ne doit jamais être enregistré en clair. )
 
 
-#### Entrées {.unlisted}
+#### Prérequis {.unlisted}
 
 - Nom d’utilisateur
 - Mot de passe
 - Niveau d’habilitation lors de la création ou de la modification
 - Identifiant du compte à modifier pour un ADMIN
 
-#### Sortie {.unlisted}
+#### Tâches effectuées {.unlisted}
 
 - Création d’un nouveau compte utilisateur
 - Connexion à un compte existant
 - Modification du niveau d’habilitation d’un utilisateur
-- Message de confirmation ou d’erreur en cas d’échec
-
+- Affichage d’un message de confirmation ou d’erreur en cas d’échec
 
 
 #### Exemple {.unlisted}
@@ -120,18 +117,18 @@ Un compte CLIENT ne peut pas gérer les lignes d’exploitation, sauf évolution
 La suppression d’une ligne peut être refusée si des trajets sont déjà planifiés sur cette ligne, afin de préserver l’intégrité des données.
 
 
-#### Entrées {.unlisted}
+#### Prérequis {.unlisted}
 
 - Gare de départ
 - Gare de terminus
 - Compte utilisateur disposant du rôle COLLABORATEUR
 
-#### Sortie {.unlisted}
+#### Tâches effectuées {.unlisted}
 
 - Création d’une nouvelle ligne d’exploitation
 - Modification d’une ligne existante
 - Suppression d’une ligne
-- Confirmation ou message d’erreur
+- Affichage d’un message de confirmation ou d’erreur en cas d’échec
 
 #### Exemple {.unlisted}
 
@@ -167,7 +164,7 @@ Le tarif doit être positif ou nul selon les règles commerciales retenues.
 
 Un trajet ne peut pas être planifié si l’API SNCF ne permet pas de vérifier sa faisabilité.
 
-#### Entrées {.unlisted}
+#### Prérequis {.unlisted}
 
 - Ligne d’exploitation
 - Date de départ
@@ -176,7 +173,7 @@ Un trajet ne peut pas être planifié si l’API SNCF ne permet pas de vérifier
 - Tarif
 - Compte utilisateur disposant du rôle COLLABORATEUR
 
-#### Sortie {.unlisted}
+#### Tâches effectuées {.unlisted}
 
 - Création d’un trajet planifié
 - Temps de trajet calculé automatiquement
@@ -211,16 +208,15 @@ Si aucun trajet ne correspond à la recherche, un message explicite est affiché
 
 Une recherche peut retourner plusieurs trajets pour une même liaison.
 
-#### Entrées {.unlisted}
+#### Prérequis {.unlisted}
 
 - Gare de départ
 - Gare d’arrivée
 - Compte utilisateur disposant du rôle CLIENT
 
-#### Sortie {.unlisted}
+#### Tâches effectuées {.unlisted}
 
-Une liste de trajets correspondant aux gares recherchées, comprenant au minimum :
-
+Renvoie une liste de trajets correspondant aux gares recherchées, comprenant au minimum :
 - Gare de départ
 - Gare d’arrivée
 - Date de départ
