@@ -107,12 +107,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="fonctionnalités-principales">Fonctionnalités principales</h2>
 <section id="gestion-des-comptes-utilisateur" class="level3">
 <h3 class="anchored" data-anchor-id="gestion-des-comptes-utilisateur">Gestion des comptes utilisateur</h3>
-<section id="description" class="level4">
-<h4 class="anchored" data-anchor-id="description">Description</h4>
+<section id="description" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="description">Description</h4>
 <p>Permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possède un nom d’utilisateur, un mot de passe et un niveau d’habilitation parmi CLIENT, COLLABORATEUR et ADMIN. Les comptes ADMIN peuvent modifier le niveau d’habilitation des autres utilisateurs, à l’exception des autres comptes ADMIN.</p>
 </section>
-<section id="fonctionnement" class="level4">
-<h4 class="anchored" data-anchor-id="fonctionnement">Fonctionnement</h4>
+<section id="fonctionnement" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="fonctionnement">Fonctionnement</h4>
 <p>Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation.</p>
 <p>Un compte ADMIN peut consulter les comptes utilisateurs et augmenter ou diminuer leur niveau d’habilitation. Un ADMIN ne peut cependant pas modifier le niveau d’un autre ADMIN.</p>
 <p>Le nom d’utilisateur doit être unique.</p>
@@ -121,8 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Un utilisateur non ADMIN ne peut pas modifier les habilitations des autres comptes.</p>
 <p>Le mot de passe doit être stocké de manière sécurisée et ne doit jamais être enregistré en clair.</p>
 </section>
-<section id="entrées" class="level4">
-<h4 class="anchored" data-anchor-id="entrées">Entrées</h4>
+<section id="entrées" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="entrées">Entrées</h4>
 <ul>
 <li>Nom d’utilisateur</li>
 <li>Mot de passe</li>
@@ -130,8 +130,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Identifiant du compte à modifier pour un ADMIN</li>
 </ul>
 </section>
-<section id="sortie" class="level4">
-<h4 class="anchored" data-anchor-id="sortie">Sortie</h4>
+<section id="sortie" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="sortie">Sortie</h4>
 <ul>
 <li>Création d’un nouveau compte utilisateur</li>
 <li>Connexion à un compte existant</li>
@@ -139,20 +139,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Message de confirmation ou d’erreur en cas d’échec</li>
 </ul>
 </section>
-<section id="exemple" class="level4">
-<h4 class="anchored" data-anchor-id="exemple">Exemple</h4>
+<section id="exemple" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="exemple">Exemple</h4>
 <p>Un utilisateur crée un compte avec le nom alice et un mot de passe. Son compte est créé avec le rôle CLIENT. Un ADMIN peut ensuite faire évoluer son rôle en COLLABORATEUR. L’ADMIN ne peut toutefois pas modifier le rôle d’un autre compte ayant déjà le niveau ADMIN.</p>
 <hr>
 </section>
 </section>
 <section id="gestion-des-lignes-dexploitation" class="level3">
 <h3 class="anchored" data-anchor-id="gestion-des-lignes-dexploitation">Gestion des lignes d’exploitation</h3>
-<section id="description-1" class="level4">
-<h4 class="anchored" data-anchor-id="description-1">Description</h4>
+<section id="description-1" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="description-1">Description</h4>
 <p>Permettre à un compte COLLABORATEUR de créer, modifier et supprimer des lignes d’exploitation reliant une gare de départ à une gare de terminus. Les gares utilisées sont récupérées à partir de l’API SNCF afin de garantir leur existence.</p>
 </section>
-<section id="fonctionnement-1" class="level4">
-<h4 class="anchored" data-anchor-id="fonctionnement-1">Fonctionnement</h4>
+<section id="fonctionnement-1" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="fonctionnement-1">Fonctionnement</h4>
 <p>Lors de la création ou de la modification d’une ligne, le collaborateur recherche les gares grâce à une fonctionnalité d’autocomplétion. Les résultats proposés proviennent de l’API SNCF.</p>
 <p>Le collaborateur sélectionne une gare de départ et une gare de terminus parmi les gares existantes, puis enregistre la ligne d’exploitation.</p>
 <p>Les deux gares doivent exister dans les données fournies par l’API SNCF.</p>
@@ -160,16 +160,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Un compte CLIENT ne peut pas gérer les lignes d’exploitation, sauf évolution ultérieure des droits.</p>
 <p>La suppression d’une ligne peut être refusée si des trajets sont déjà planifiés sur cette ligne, afin de préserver l’intégrité des données.</p>
 </section>
-<section id="entrées-1" class="level4">
-<h4 class="anchored" data-anchor-id="entrées-1">Entrées</h4>
+<section id="entrées-1" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="entrées-1">Entrées</h4>
 <ul>
 <li>Gare de départ</li>
 <li>Gare de terminus</li>
 <li>Compte utilisateur disposant du rôle COLLABORATEUR</li>
 </ul>
 </section>
-<section id="sortie-1" class="level4">
-<h4 class="anchored" data-anchor-id="sortie-1">Sortie</h4>
+<section id="sortie-1" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="sortie-1">Sortie</h4>
 <ul>
 <li>Création d’une nouvelle ligne d’exploitation</li>
 <li>Modification d’une ligne existante</li>
@@ -177,20 +177,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Confirmation ou message d’erreur</li>
 </ul>
 </section>
-<section id="exemple-1" class="level4">
-<h4 class="anchored" data-anchor-id="exemple-1">Exemple</h4>
+<section id="exemple-1" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="exemple-1">Exemple</h4>
 <p>Un collaborateur saisit “Rennes” dans le champs de départ. L’application propose notamment “Rennes” grâce à l’API SNCF. Il sélectionne Rennes comme gare de départ et Paris comme gare de terminus, puis crée la ligne Rennes → Paris.</p>
 <hr>
 </section>
 </section>
 <section id="gestion-des-trajets-proposés" class="level3">
 <h3 class="anchored" data-anchor-id="gestion-des-trajets-proposés">Gestion des trajets proposés</h3>
-<section id="description-2" class="level4">
-<h4 class="anchored" data-anchor-id="description-2">Description</h4>
+<section id="description-2" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="description-2">Description</h4>
 <p>Permettre à un compte COLLABORATEUR de planifier des trajets sur une ligne d’exploitation existante. Un trajet est défini notamment par une date et une heure de départ, un nombre de places disponibles et un tarif. Le temps de trajet est automatiquement déterminé à partir de l’API SNCF.</p>
 </section>
-<section id="fonctionnement-2" class="level4">
-<h4 class="anchored" data-anchor-id="fonctionnement-2">Fonctionnement</h4>
+<section id="fonctionnement-2" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="fonctionnement-2">Fonctionnement</h4>
 <p>Le collaborateur sélectionne une ligne d’exploitation existante, puis renseigne la date et l’heure de départ, le nombre de places et le tarif.</p>
 <p>L’application interroge l’API SNCF afin de vérifier qu’un trajet en train est possible entre la gare de départ et le terminus. Elle récupère également les informations nécessaires au calcul automatique du temps de trajet.</p>
 <p>Le collaborateur peut ensuite modifier ou supprimer le trajet planifié.</p>
@@ -202,8 +202,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Le tarif doit être positif ou nul selon les règles commerciales retenues.</p>
 <p>Un trajet ne peut pas être planifié si l’API SNCF ne permet pas de vérifier sa faisabilité.</p>
 </section>
-<section id="entrées-2" class="level4">
-<h4 class="anchored" data-anchor-id="entrées-2">Entrées</h4>
+<section id="entrées-2" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="entrées-2">Entrées</h4>
 <ul>
 <li>Ligne d’exploitation</li>
 <li>Date de départ</li>
@@ -213,8 +213,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Compte utilisateur disposant du rôle COLLABORATEUR</li>
 </ul>
 </section>
-<section id="sortie-2" class="level4">
-<h4 class="anchored" data-anchor-id="sortie-2">Sortie</h4>
+<section id="sortie-2" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="sortie-2">Sortie</h4>
 <ul>
 <li>Création d’un trajet planifié</li>
 <li>Temps de trajet calculé automatiquement</li>
@@ -222,20 +222,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Confirmation ou message d’erreur</li>
 </ul>
 </section>
-<section id="exemple-2" class="level4">
-<h4 class="anchored" data-anchor-id="exemple-2">Exemple</h4>
+<section id="exemple-2" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="exemple-2">Exemple</h4>
 <p>Un collaborateur sélectionne la ligne Rennes → Paris, choisit le 15 octobre à 08h00, indique 50 places disponibles et un tarif de 45 €. L’API SNCF confirme qu’un trajet est possible et permet à l’application de calculer automatiquement sa durée.</p>
 <hr>
 </section>
 </section>
 <section id="recherche-dun-trajet" class="level3">
 <h3 class="anchored" data-anchor-id="recherche-dun-trajet">Recherche d’un trajet</h3>
-<section id="description-3" class="level4">
-<h4 class="anchored" data-anchor-id="description-3">Description</h4>
+<section id="description-3" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="description-3">Description</h4>
 <p>Permettre à un compte CLIENT de rechercher les trajets proposés entre une gare de départ et une gare d’arrivée. Une autocomplétion facilite la sélection des gares.</p>
 </section>
-<section id="fonctionnement-3" class="level4">
-<h4 class="anchored" data-anchor-id="fonctionnement-3">Fonctionnement</h4>
+<section id="fonctionnement-3" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="fonctionnement-3">Fonctionnement</h4>
 <p>Le client saisit une gare de départ et une gare d’arrivée. L’application propose automatiquement des gares correspondant à la saisie grâce aux données issues de l’API SNCF.</p>
 <p>Après validation de la recherche, l’application affiche les trajets proposés correspondant aux critères renseignés.</p>
 <p>Pour chaque trajet, le client peut consulter la gare de départ, la gare d’arrivée, la date et l’heure de départ ainsi que le temps de trajet.</p>
@@ -244,16 +244,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Si aucun trajet ne correspond à la recherche, un message explicite est affiché.</p>
 <p>Une recherche peut retourner plusieurs trajets pour une même liaison.</p>
 </section>
-<section id="entrées-3" class="level4">
-<h4 class="anchored" data-anchor-id="entrées-3">Entrées</h4>
+<section id="entrées-3" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="entrées-3">Entrées</h4>
 <ul>
 <li>Gare de départ</li>
 <li>Gare d’arrivée</li>
 <li>Compte utilisateur disposant du rôle CLIENT</li>
 </ul>
 </section>
-<section id="sortie-3" class="level4">
-<h4 class="anchored" data-anchor-id="sortie-3">Sortie</h4>
+<section id="sortie-3" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="sortie-3">Sortie</h4>
 <p>Une liste de trajets correspondant aux gares recherchées, comprenant au minimum :</p>
 <ul>
 <li>Gare de départ</li>
@@ -263,16 +263,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Temps de trajet</li>
 </ul>
 </section>
-<section id="exemple-3" class="level4">
-<h4 class="anchored" data-anchor-id="exemple-3">Exemple</h4>
+<section id="exemple-3" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="exemple-3">Exemple</h4>
 <p>Un client sélectionne Rennes comme gare de départ et Paris comme gare d’arrivée. L’application affiche les trajets disponibles entre ces deux gares avec leur date, leur heure de départ et leur durée.</p>
 <hr>
 </section>
 </section>
 <section id="positionnement-commercial" class="level3">
 <h3 class="anchored" data-anchor-id="positionnement-commercial">Positionnement commercial</h3>
-<section id="description-4" class="level4">
-<h4 class="anchored" data-anchor-id="description-4">Description</h4>
+<section id="description-4" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="description-4">Description</h4>
 <p>Proposer une fonctionnalité permettant de différencier le service du réseau commercial de la SNCF en offrant au client une tarification transparente. Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n’allons pas l’explorer dans ce rapport pour l’heure.</p>
 <hr>
 </section>
@@ -288,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="diagrammes-dactivité" class="level3">
 <h3 class="anchored" data-anchor-id="diagrammes-dactivité">Diagrammes d’activité</h3>
-<section id="client" class="level4">
-<h4 class="anchored" data-anchor-id="client">Client</h4>
+<section id="client" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="client">Client</h4>
 </section>
-<section id="collaborateur" class="level4">
-<h4 class="anchored" data-anchor-id="collaborateur">Collaborateur</h4>
+<section id="collaborateur" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="collaborateur">Collaborateur</h4>
 </section>
-<section id="administrateur" class="level4">
-<h4 class="anchored" data-anchor-id="administrateur">Administrateur</h4>
+<section id="administrateur" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="administrateur">Administrateur</h4>
 </section>
 </section>
 <section id="diagramme-de-classes" class="level3">
@@ -829,11 +829,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### Gestion des comptes utilisateur</span></span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description {.unlisted}</span></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possède un nom d’utilisateur, un mot de passe et un niveau d’habilitation parmi CLIENT, COLLABORATEUR et ADMIN. Les comptes ADMIN peuvent modifier le niveau d’habilitation des autres utilisateurs, à l’exception des autres comptes ADMIN.</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement {.unlisted}</span></span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation.</span>
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
@@ -850,14 +850,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Le mot de passe doit être stocké de manière sécurisée et ne doit jamais être enregistré en clair.</span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées {.unlisted}</span></span>
 <span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nom d’utilisateur</span>
 <span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mot de passe</span>
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Niveau d’habilitation lors de la création ou de la modification</span>
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Identifiant du compte à modifier pour un ADMIN</span>
 <span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie {.unlisted}</span></span>
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Création d’un nouveau compte utilisateur</span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Connexion à un compte existant</span>
@@ -866,7 +866,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple {.unlisted}</span></span>
 <span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>Un utilisateur crée un compte avec le nom alice et un mot de passe. Son compte est créé avec le rôle CLIENT. Un ADMIN peut ensuite faire évoluer son rôle en COLLABORATEUR. L’ADMIN ne peut toutefois pas modifier le rôle d’un autre compte ayant déjà le niveau ADMIN.</span>
 <span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
@@ -874,10 +874,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">###  Gestion des lignes d’exploitation</span></span>
 <span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description {.unlisted}</span></span>
 <span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>Permettre à un compte COLLABORATEUR de créer, modifier et supprimer des lignes d’exploitation reliant une gare de départ à une gare de terminus. Les gares utilisées sont récupérées à partir de l’API SNCF afin de garantir leur existence.</span>
 <span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement {.unlisted}</span></span>
 <span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>Lors de la création ou de la modification d’une ligne, le collaborateur recherche les gares grâce à une fonctionnalité d’autocomplétion. Les résultats proposés proviennent de l’API SNCF.</span>
 <span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
@@ -892,20 +892,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>La suppression d’une ligne peut être refusée si des trajets sont déjà planifiés sur cette ligne, afin de préserver l’intégrité des données.</span>
 <span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées {.unlisted}</span></span>
 <span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gare de départ</span>
 <span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gare de terminus</span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Compte utilisateur disposant du rôle COLLABORATEUR</span>
 <span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie {.unlisted}</span></span>
 <span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Création d’une nouvelle ligne d’exploitation</span>
 <span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Modification d’une ligne existante</span>
 <span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Suppression d’une ligne</span>
 <span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Confirmation ou message d’erreur</span>
 <span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple {.unlisted}</span></span>
 <span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>Un collaborateur saisit "Rennes" dans le champs de départ. L’application propose notamment "Rennes" grâce à l’API SNCF. Il sélectionne Rennes comme gare de départ et Paris comme gare de terminus, puis crée la ligne Rennes → Paris.</span>
 <span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
@@ -913,10 +913,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="fu">### Gestion des trajets proposés</span></span>
 <span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description {.unlisted}</span></span>
 <span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>Permettre à un compte COLLABORATEUR de planifier des trajets sur une ligne d’exploitation existante. Un trajet est défini notamment par une date et une heure de départ, un nombre de places disponibles et un tarif. Le temps de trajet est automatiquement déterminé à partir de l’API SNCF.</span>
 <span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement {.unlisted}</span></span>
 <span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>Le collaborateur sélectionne une ligne d’exploitation existante, puis renseigne la date et l’heure de départ, le nombre de places et le tarif.</span>
 <span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
@@ -939,7 +939,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>Un trajet ne peut pas être planifié si l’API SNCF ne permet pas de vérifier sa faisabilité.</span>
 <span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées {.unlisted}</span></span>
 <span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ligne d’exploitation</span>
 <span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Date de départ</span>
@@ -948,7 +948,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tarif</span>
 <span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Compte utilisateur disposant du rôle COLLABORATEUR</span>
 <span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie {.unlisted}</span></span>
 <span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Création d’un trajet planifié</span>
 <span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temps de trajet calculé automatiquement</span>
@@ -956,7 +956,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Confirmation ou message d’erreur</span>
 <span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple</span></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple {.unlisted}</span></span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>Un collaborateur sélectionne la ligne Rennes → Paris, choisit le 15 octobre à 08h00, indique 50 places disponibles et un tarif de 45 €. L’API SNCF confirme qu’un trajet est possible et permet à l’application de calculer automatiquement sa durée.</span>
 <span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
@@ -964,10 +964,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="fu">### Recherche d’un trajet</span></span>
 <span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description {.unlisted}</span></span>
 <span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>Permettre à un compte CLIENT de rechercher les trajets proposés entre une gare de départ et une gare d’arrivée. Une autocomplétion facilite la sélection des gares.</span>
 <span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement</span></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fonctionnement {.unlisted}</span></span>
 <span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>Le client saisit une gare de départ et une gare d’arrivée. L’application propose automatiquement des gares correspondant à la saisie grâce aux données issues de l’API SNCF.</span>
 <span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
@@ -983,13 +983,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>Une recherche peut retourner plusieurs trajets pour une même liaison.</span>
 <span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées</span></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Entrées {.unlisted}</span></span>
 <span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gare de départ</span>
 <span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gare d’arrivée</span>
 <span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Compte utilisateur disposant du rôle CLIENT</span>
 <span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sortie {.unlisted}</span></span>
 <span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>Une liste de trajets correspondant aux gares recherchées, comprenant au minimum :</span>
 <span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
@@ -1000,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temps de trajet</span>
 <span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exemple {.unlisted}</span></span>
 <span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>Un client sélectionne Rennes comme gare de départ et Paris comme gare d’arrivée. L’application affiche les trajets disponibles entre ces deux gares avec leur date, leur heure de départ et leur durée.</span>
 <span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
@@ -1008,7 +1008,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="fu">###  Positionnement commercial</span></span>
 <span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description</span></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Description {.unlisted}</span></span>
 <span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>Proposer une fonctionnalité permettant de différencier le service du réseau commercial de la SNCF en offrant au client une tarification transparente.</span>
 <span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n'allons pas l'explorer dans ce rapport pour l'heure.</span>
 <span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
@@ -1022,11 +1022,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagrammes d’activité</span></span>
 <span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Client</span></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Client {.unlisted}</span></span>
 <span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Collaborateur</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Collaborateur {.unlisted}</span></span>
 <span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Administrateur</span></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Administrateur {.unlisted}</span></span>
 <span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagramme de classes</span></span>
 <span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
