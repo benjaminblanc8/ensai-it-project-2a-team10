@@ -47,6 +47,10 @@ Ce rapport d'analyse intermédiaire présente ainsi les choix effectués pour r�
 
 ## Planning
 
+Voici le planning prévisionnel de la réalisation de ce projet, sous forme classique de diagramme de Gantt, incluant les tâches déjà effectuées et les échéances qui guiderons notre organisation au cours des tâches futures :
+
+![Planning](img/Diagramme_Gantt_Projet_Entier.jpg){fig-align="center" width="120%"}
+
 ### Phase d'analyse
 
 ### Phase de développement
