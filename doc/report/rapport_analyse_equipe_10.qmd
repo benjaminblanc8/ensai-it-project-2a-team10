@@ -282,7 +282,11 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ### Diagrammes des cas d’utilisation
 
+Le diagramme de cas d’utilisation ci-dessous permet de présenter simplement l’ensemble des fonctionnalités de l’application et les droits d’accès à ces dernières selon le statut de l’utilisateur. 
+
 ![Cas d'utilisation](img/DiagrammeCasUtilisationV2.jpg){fig-align="center" width="50%"}
+
+L’application s’articule autour de 4 rôles connectés par héritage : l’Utilisateur (visiteur non connecté), le Client, le Collaborateur et l’Administrateur. Grâce à cet héritage, chaque statut bénéficie des fonctionnalités des niveaux précédents tout en accédant à ses propres options. Cette organisation garantit une séparation claire des responsabilités, le Client effectue des recherches, réserve et gère ses trajets, pendant que le Collaborateur assure la gestion opérationnelle du réseau (création, modification ou suppression de lignes et planification, modification ou suppression des trajets). De son côté, l’Administrateur se concentre sur l'attribution et la modification des rôles des utilisateurs. Enfin, les bulles colorées mettent en évidence les fonctionnalités optionnelles de l'application, telles que la réservation ou l'annulation d'un trajet pour le client. 
 
 ### Diagrammes d’activité
 
@@ -290,17 +294,25 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ![Activité de l'utilisateur](img/DiagrammeActiviteUtilisateurFinal.jpg){fig-align="center" width="50%"}
 
+L’utilisateur de base accède à l’application via un point d’entrée lui offrant deux parcours distincts : la connexion à un compte existant ou la création d'un nouveau compte. S’il choisit de créer un compte, il est invité à renseigner ses informations.En cas de saisie invalide, le système lui demande de recommencer, tandis qu’une saisie valide le redirige vers l’étape de connexion. Pour se connecter, l’utilisateur saisit d'abord son identifiant puis son mot de passe. Si le mot de passe est incorrect, une nouvelle saisie lui est demandée. Une fois l'authentification validée, l'accès à l'application lui est définitivement accordé, ce qui met fin au processus.
+
 #### Client {.unlisted}
 
 ![Activité du client](img/DiagrammeActiviteClientFinal.jpg){fig-align="center" width="50%"}
+
+Une fois connecté en tant que Client, deux actions principales sont proposées dès l'entrée dans l'application : rechercher un trajet ou consulter les réservations existantes. Si le client choisit de rechercher un trajet, il saisit les gares de départ et d'arrivée. En cas d'erreur de saisie, le système lui demande de corriger les informations. Dès que la saisie est valide, il peut visualiser les trajets et tarifs disponibles, procéder à la réservation puis choisir sa classe (fonctionnalité optionnelle mise en valeur par la couleur). S'il opte pour la consultation des réservations, il peut sélectionner une réservation afin de l'annuler. Quel que soit le parcours emprunté, l'action se conclut par une confirmation de l'opération avant de mettre fin au processus. 
 
 #### Collaborateur {.unlisted}
 
 ![Activité du collaborateur](img/DiagrammeActiviteCollaborateurFinal.jpg){fig-align="center" width="50%"}
 
+À son entrée dans l’application, le Collaborateur dispose de trois choix d'actions : accéder à l’espace client pour en exécuter les fonctionnalités, assurer la gestion des lignes ou gérer les trajets. Dans le cadre de la gestion des lignes, il doit saisir la gare de départ et d'arrivée. Si les données renseignées sont invalides, une nouvelle saisie est demandée jusqu'à validation. De manière similaire, pour la gestion des trajets, le collaborateur renseigne le trajet, la date ainsi que le tarif, avec une boucle de contrôle qui invite à recommencer en cas d'erreur. Quel que soit le parcours sélectionné, l'activité se conclut par une confirmation de l'opération avant d'achever le processus. 
+
 #### Administrateur {.unlisted}
 
 ![Activité de l'administrateur](img/DiagrammeActiviteAdminFinal.jpg){fig-align="center" width="50%"}
+
+L’administrateur a accès à trois espaces distincts : l’espace Client, l’espace Collaborateur ou l’espace Gestion des comptes. S’il choisit l'un des deux premiers espaces, il peut exécuter directement les fonctionnalités réservées respectivement aux clients ou aux collaborateurs. S’il opte pour la gestion des comptes, il saisit l’identifiant et le rôle à attribuer au compte concerné. De la même façon que précédemment, en cas de saisie invalide, le système l'invite à recommencer. Une fois les informations validées, il peut valider ou éditer le compte. Quel que soit le parcours choisi, l’activité s'achève par une confirmation de l'opération avant de terminer le processus. 
 
 ### Diagramme de classes
 
