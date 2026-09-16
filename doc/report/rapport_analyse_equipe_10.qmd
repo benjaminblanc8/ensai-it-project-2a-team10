@@ -264,35 +264,45 @@ Nous allons aussi récupérer des données via l’API de la SNCF, Navitia. Navi
 Les DAO, pour Data Access Object, vont nous permettre de faire le lien entre les classes métier et la base de données. Leur rôle est de gérer l'accès aux données sans que les classes métier aient besoin de connaître le fonctionnement de la base de données.
 Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créés par les collaborateurs (gares, trajets, utilisateurs, etc.) dans la base de données afin de les sauvegarder. Ils permettent également de récupérer les données de la base de données et de les transformer en objets Python utilisables par le reste de l'application. 
 
-### CLASSE OBJET : 
-
-<!-- Pourquoi renommer cette section ainsi ? -->
-
-
-#### CLASSE SERVICE :  {.unlisted}
-
-<!-- Quoi ?-->
-
-<!-- Mentionner dans un paragraphe le dilemme concernant l'héritage et la décision de mentionner les niveaux d'habilitation par énumération. -->
-<!-- Sinon problème de destruction d'objets (on ne change jamais de classe) et de mémoire (trajets réservés ?) -->
-<!--  Est-ce contradictoire avec le diagramme de cas d'utilisation ? Peut-être pas -->
-
 ### Diagrammes des cas d’utilisation
+
+![Cas d'utilisation](img/DiagrammeCasUtilisationV2.jpg){fig-align="center" width="50%"}
 
 ### Diagrammes d’activité
 
+#### Utilisateur de base {.unlisted}
+
+![Activité de l'utilisateur](img/DiagrammeActiviteUtilisateurFinal.jpg){fig-align="center" width="50%"}
+
 #### Client {.unlisted}
+
+![Activité du client](img/DiagrammeActiviteClientFinal.jpg){fig-align="center" width="50%"}
 
 #### Collaborateur {.unlisted}
 
+![Activité du collaborateur](img/DiagrammeActiviteCollaborateurFinal.jpg){fig-align="center" width="50%"}
+
 #### Administrateur {.unlisted}
+
+![Activité de l'administrateur](img/DiagrammeActiviteAdminFinal.jpg){fig-align="center" width="50%"}
 
 ### Diagramme de classes
 
+
+
+#### Couche objet {.unlisted}
+
+
+
+<!-- Mentionner dans un paragraphe le dilemme concernant l'héritage et la décision de mentionner les niveaux d'habilitation par énumération. -->
+<!-- Sinon problème de destruction d'objets (on ne change jamais de classe) et de mémoire (trajets réservés ?) -->
+<!-- Est-ce contradictoire avec le diagramme de cas d'utilisation ? Peut-être pas -->
+<!-- Gestion de l'affichage ? -->
+
+#### Couche service {.unlisted}
+
+#### Couche DAO {.unlisted}
+
 ### Modèle de base de données
 
-
-{{< pagebreak >}}
-
-## Conclusion intermédiaire {.unnumbered}
-
+![Base de données](img/diagramme_bdd.png){fig-align="center" width="100%"}

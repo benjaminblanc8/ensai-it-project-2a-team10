@@ -296,39 +296,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Les DAO, pour Data Access Object, vont nous permettre de faire le lien entre les classes métier et la base de données. Leur rôle est de gérer l’accès aux données sans que les classes métier aient besoin de connaître le fonctionnement de la base de données. Ils permettent notamment, via des requêtes SQL, d’enregistrer les objets créés par les collaborateurs (gares, trajets, utilisateurs, etc.) dans la base de données afin de les sauvegarder. Ils permettent également de récupérer les données de la base de données et de les transformer en objets Python utilisables par le reste de l’application.</p>
 </section>
 </section>
-<section id="classe-objet" class="level3">
-<h3 class="anchored" data-anchor-id="classe-objet">CLASSE OBJET :</h3>
-<section id="classe-service" class="level4 unlisted">
-<h4 class="unlisted anchored" data-anchor-id="classe-service">CLASSE SERVICE :</h4>
-</section>
-</section>
 <section id="diagrammes-des-cas-dutilisation" class="level3">
 <h3 class="anchored" data-anchor-id="diagrammes-des-cas-dutilisation">Diagrammes des cas d’utilisation</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/DiagrammeCasUtilisationV2.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Cas d’utilisation</figcaption>
+</figure>
+</div>
 </section>
 <section id="diagrammes-dactivité" class="level3">
 <h3 class="anchored" data-anchor-id="diagrammes-dactivité">Diagrammes d’activité</h3>
+<section id="utilisateur-de-base" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="utilisateur-de-base">Utilisateur de base</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/DiagrammeActiviteUtilisateurFinal.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Activité de l’utilisateur</figcaption>
+</figure>
+</div>
+</section>
 <section id="client" class="level4 unlisted">
 <h4 class="unlisted anchored" data-anchor-id="client">Client</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/DiagrammeActiviteClientFinal.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Activité du client</figcaption>
+</figure>
+</div>
 </section>
 <section id="collaborateur" class="level4 unlisted">
 <h4 class="unlisted anchored" data-anchor-id="collaborateur">Collaborateur</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/DiagrammeActiviteCollaborateurFinal.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Activité du collaborateur</figcaption>
+</figure>
+</div>
 </section>
 <section id="administrateur" class="level4 unlisted">
 <h4 class="unlisted anchored" data-anchor-id="administrateur">Administrateur</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/DiagrammeActiviteAdminFinal.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Activité de l’administrateur</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="diagramme-de-classes" class="level3">
 <h3 class="anchored" data-anchor-id="diagramme-de-classes">Diagramme de classes</h3>
+<section id="couche-objet" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="couche-objet">Couche objet</h4>
+<!-- Mentionner dans un paragraphe le dilemme concernant l'héritage et la décision de mentionner les niveaux d'habilitation par énumération. -->
+<!-- Sinon problème de destruction d'objets (on ne change jamais de classe) et de mémoire (trajets réservés ?) -->
+<!-- Est-ce contradictoire avec le diagramme de cas d'utilisation ? Peut-être pas -->
+<!-- Gestion de l'affichage ? -->
+</section>
+<section id="couche-service" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="couche-service">Couche service</h4>
+</section>
+<section id="couche-dao" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="couche-dao">Couche DAO</h4>
+</section>
 </section>
 <section id="modèle-de-base-de-données" class="level3">
 <h3 class="anchored" data-anchor-id="modèle-de-base-de-données">Modèle de base de données</h3>
-<div style="page-break-after: always;"></div>
-</section>
-</section>
-<section id="conclusion-intermédiaire" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="conclusion-intermédiaire">Conclusion intermédiaire</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/diagramme_bdd.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Base de données</figcaption>
+</figure>
+</div>
 <!-- -->
 
+</section>
 </section>
 
 </main>
@@ -1050,31 +1092,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>Les DAO, pour Data Access Object, vont nous permettre de faire le lien entre les classes métier et la base de données. Leur rôle est de gérer l'accès aux données sans que les classes métier aient besoin de connaître le fonctionnement de la base de données.</span>
 <span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créés par les collaborateurs (gares, trajets, utilisateurs, etc.) dans la base de données afin de les sauvegarder. Ils permettent également de récupérer les données de la base de données et de les transformer en objets Python utilisables par le reste de l'application. </span>
 <span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="fu">### CLASSE OBJET : </span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagrammes des cas d’utilisation</span></span>
 <span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="al">![Cas d'utilisation](img/DiagrammeCasUtilisationV2.jpg)</span>{fig-align="center" width="50%"}</span>
 <span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a><span class="fu">#### CLASSE SERVICE :  {.unlisted}</span></span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagrammes des cas d’utilisation</span></span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagrammes d’activité</span></span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Client {.unlisted}</span></span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Collaborateur {.unlisted}</span></span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Administrateur {.unlisted}</span></span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagramme de classes</span></span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modèle de base de données</span></span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagrammes d’activité</span></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Utilisateur de base {.unlisted}</span></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="al">![Activité de l'utilisateur](img/DiagrammeActiviteUtilisateurFinal.jpg)</span>{fig-align="center" width="50%"}</span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Client {.unlisted}</span></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a><span class="al">![Activité du client](img/DiagrammeActiviteClientFinal.jpg)</span>{fig-align="center" width="50%"}</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Collaborateur {.unlisted}</span></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a><span class="al">![Activité du collaborateur](img/DiagrammeActiviteCollaborateurFinal.jpg)</span>{fig-align="center" width="50%"}</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Administrateur {.unlisted}</span></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a><span class="al">![Activité de l'administrateur](img/DiagrammeActiviteAdminFinal.jpg)</span>{fig-align="center" width="50%"}</span>
 <span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>{{&lt; pagebreak &gt;}}</span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagramme de classes</span></span>
 <span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion intermédiaire {.unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Couche objet {.unlisted}</span></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Mentionner dans un paragraphe le dilemme concernant l'héritage et la décision de mentionner les niveaux d'habilitation par énumération. --&gt;</span></span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Sinon problème de destruction d'objets (on ne change jamais de classe) et de mémoire (trajets réservés ?) --&gt;</span></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Est-ce contradictoire avec le diagramme de cas d'utilisation ? Peut-être pas --&gt;</span></span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Gestion de l'affichage ? --&gt;</span></span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Couche service {.unlisted}</span></span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Couche DAO {.unlisted}</span></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modèle de base de données</span></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="al">![Base de données](img/diagramme_bdd.png)</span>{fig-align="center" width="100%"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
