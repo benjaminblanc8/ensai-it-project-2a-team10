@@ -53,11 +53,27 @@ Voici le planning prévisionnel de la réalisation de ce projet, sous forme clas
 
 ### Phase d'analyse
 
+La première phase du projet, qui a duré trois semaines environ, a consisté à prendre connaissance des consignes exactes et ce qu'elles impliquaient en termes de choix technologiques. À ce titre, les premiers travaux pratiques, ayant eu lieu en parallèle de façon hebdomadaire, ont été une aide précieuse à la compréhension du sujet, même s'il nous reste à ce jour des réflexions à achever, des points à préciser et des décisions à prendre (voir notamment la section sur le diagramme de classes à ce sujet).
+
+Nous en avons profité pour faire connaissance et pour répartir les tâches indiquées sur la première semaine selon nos appétences connaissances respectives. Le diagramme des classes, plus complexe, a cependant occupé plusieurs d'entre nous, de même que la rédaction du présent rapport.
+
+Cette phase avait donc pour but principal de cibler nos objectifs de travail et d'assimiler les connaissances informatiques idoines : notions de couches, services, l'ensemble concepts liés aux bases de données, et le fonctionnement de l'API SNCF, nécessaire pour récupérer les données nous permettant, à terme, de gérer les lignes d'exploitation de Trajecto.
+
+Bien entendu, cette phase a aussi servi à organiser le groupe et à effectuer une projection dans le temps des tâches futures; c'est-à-dire celles de la phase de développement.
+
 ### Phase de développement
+
+Cette seconde phase, qui durera deux mois et demie, s'articulera en trois temps.
+
+- *Initialisation* : Entre le rendu du présent rapport et le congé de la Toussaint, cinq semaines s'écouleront. Cette période contient également les deux derniers travaux pratiques, qui se concentreront sur l'expérience utilisateur. Elle contient enfin l'examen de "Compléments d'informatique", l'UE associée au projet. Par conséquent, nous mobiliserons toute la durée pour parfaire nos connaissances nécessaires à la programmation des fonctionnalités et faire deux choses importantes : créer la base de données de notre application (et son s'assurer de la cohérence de sa structure), et de créer les composants les plus fondamentaux de notre API, comme la création de compte utilisateur par exemple. La dernière semaine sera consacrée à toutes les classes de la couche objet "business_object" et aux tests unitaires dédiés auxdits objets : elle nous permettra de nous rendre compte des éventuelles corrections à apporter à notre modélisation.
+
+- *Programmation* : À la rentrée de novembre, trois jours serons consacrés à une immersion totale dans le projet. Cette période dense, dont l'organisation précise reste à définir, servira à programmer la majorité des quatre fonctionnalités (selon notre efficacité, peut-être la cinquième) que nous présentons dans la section @sec-fonc. À son issue, notre application devra être, sinon totalement, du moins partiellement prête à l'usage. 
+
+- *Finalisation* : Pendant les deux semaines qui suivront, il s'agira en parallèle de corriger les bugs, finaliser les quelques algorithmes manquants, et rédiger le rapport final. Enfin, trois semaines resteront et permettront de préparer la présentation orale de notre application en complément du rapport. Ce sera éventuellement l'occasion de créer une frontend attractive, quelques fonctionnalités facultatives, et de générer des exemples d'utilisation convaincants.
 
 {{< pagebreak >}}
 
-## Fonctionnalités principales
+## Fonctionnalités principales {#sec-fonc}
 
 ### Gestion des comptes utilisateur
 
@@ -288,7 +304,7 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ### Diagramme de classes
 
-
+![Classes](img/Diagramme_de_classe_final%20(4).jpg){fig-align="center" width="110%"}
 
 #### Couche objet {.unlisted}
 
