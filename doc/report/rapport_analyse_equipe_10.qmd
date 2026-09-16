@@ -316,7 +316,7 @@ L’administrateur a accès à trois espaces distincts : l’espace Client, l’
 
 ### Diagramme de classes
 
-![Classes](img/Diagramme_de_classe_final%20(4).jpg){fig-align="center" width="110%"}
+![Classes](img/diagramme_classes.jpg){fig-align="center" width="110%"}
 
 #### Couche objet {.unlisted}
 
