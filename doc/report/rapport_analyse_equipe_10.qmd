@@ -53,11 +53,27 @@ Voici le planning prévisionnel de la réalisation de ce projet, sous forme clas
 
 ### Phase d'analyse
 
+La première phase du projet, qui a duré trois semaines environ, a consisté à prendre connaissance des consignes exactes et ce qu'elles impliquaient en termes de choix technologiques. À ce titre, les premiers travaux pratiques, ayant eu lieu en parallèle de façon hebdomadaire, ont été une aide précieuse à la compréhension du sujet, même s'il nous reste à ce jour des réflexions à achever, des points à préciser et des décisions à prendre (voir notamment la section sur le diagramme de classes à ce sujet).
+
+Nous en avons profité pour faire connaissance et pour répartir les tâches indiquées sur la première semaine selon nos appétences connaissances respectives. Le diagramme des classes, plus complexe, a cependant occupé plusieurs d'entre nous, de même que la rédaction du présent rapport.
+
+Cette phase avait donc pour but principal de cibler nos objectifs de travail et d'assimiler les connaissances informatiques idoines : notions de couches, services, l'ensemble concepts liés aux bases de données, et le fonctionnement de l'API SNCF, nécessaire pour récupérer les données nous permettant, à terme, de gérer les lignes d'exploitation de Trajecto.
+
+Bien entendu, cette phase a aussi servi à organiser le groupe et à effectuer une projection dans le temps des tâches futures; c'est-à-dire celles de la phase de développement.
+
 ### Phase de développement
+
+Cette seconde phase, qui durera deux mois et demie, s'articulera en trois temps.
+
+- *Initialisation* : Entre le rendu du présent rapport et le congé de la Toussaint, cinq semaines s'écouleront. Cette période contient également les deux derniers travaux pratiques, qui se concentreront sur l'expérience utilisateur. Elle contient enfin l'examen de "Compléments d'informatique", l'UE associée au projet. Par conséquent, nous mobiliserons toute la durée pour parfaire nos connaissances nécessaires à la programmation des fonctionnalités et faire deux choses importantes : créer la base de données de notre application (et son s'assurer de la cohérence de sa structure), et de créer les composants les plus fondamentaux de notre API, comme la création de compte utilisateur par exemple. La dernière semaine sera consacrée à toutes les classes de la couche objet "business_object" et aux tests unitaires dédiés auxdits objets : elle nous permettra de nous rendre compte des éventuelles corrections à apporter à notre modélisation.
+
+- *Programmation* : À la rentrée de novembre, trois jours serons consacrés à une immersion totale dans le projet. Cette période dense, dont l'organisation précise reste à définir, servira à programmer la majorité des quatre fonctionnalités (selon notre efficacité, peut-être la cinquième) que nous présentons dans la section @sec-fonc. À son issue, notre application devra être, sinon totalement, du moins partiellement prête à l'usage. 
+
+- *Finalisation* : Pendant les deux semaines qui suivront, il s'agira en parallèle de corriger les bugs, finaliser les quelques algorithmes manquants, et rédiger le rapport final. Enfin, trois semaines resteront et permettront de préparer la présentation orale de notre application en complément du rapport. Ce sera éventuellement l'occasion de créer une frontend attractive, quelques fonctionnalités facultatives, et de générer des exemples d'utilisation convaincants.
 
 {{< pagebreak >}}
 
-## Fonctionnalités principales
+## Fonctionnalités principales {#sec-fonc}
 
 ### Gestion des comptes utilisateur
 
@@ -266,7 +282,11 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ### Diagrammes des cas d’utilisation
 
+Le diagramme de cas d’utilisation ci-dessous permet de présenter simplement l’ensemble des fonctionnalités de l’application et les droits d’accès à ces dernières selon le statut de l’utilisateur. 
+
 ![Cas d'utilisation](img/DiagrammeCasUtilisationV2.jpg){fig-align="center" width="50%"}
+
+L’application s’articule autour de 4 rôles connectés par héritage : l’Utilisateur (visiteur non connecté), le Client, le Collaborateur et l’Administrateur. Grâce à cet héritage, chaque statut bénéficie des fonctionnalités des niveaux précédents tout en accédant à ses propres options. Cette organisation garantit une séparation claire des responsabilités, le Client effectue des recherches, réserve et gère ses trajets, pendant que le Collaborateur assure la gestion opérationnelle du réseau (création, modification ou suppression de lignes et planification, modification ou suppression des trajets). De son côté, l’Administrateur se concentre sur l'attribution et la modification des rôles des utilisateurs. Enfin, les bulles colorées mettent en évidence les fonctionnalités optionnelles de l'application, telles que la réservation ou l'annulation d'un trajet pour le client. 
 
 ### Diagrammes d’activité
 
@@ -274,21 +294,29 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ![Activité de l'utilisateur](img/DiagrammeActiviteUtilisateurFinal.jpg){fig-align="center" width="50%"}
 
+L’utilisateur de base accède à l’application via un point d’entrée lui offrant deux parcours distincts : la connexion à un compte existant ou la création d'un nouveau compte. S’il choisit de créer un compte, il est invité à renseigner ses informations.En cas de saisie invalide, le système lui demande de recommencer, tandis qu’une saisie valide le redirige vers l’étape de connexion. Pour se connecter, l’utilisateur saisit d'abord son identifiant puis son mot de passe. Si le mot de passe est incorrect, une nouvelle saisie lui est demandée. Une fois l'authentification validée, l'accès à l'application lui est définitivement accordé, ce qui met fin au processus.
+
 #### Client {.unlisted}
 
 ![Activité du client](img/DiagrammeActiviteClientFinal.jpg){fig-align="center" width="50%"}
+
+Une fois connecté en tant que Client, deux actions principales sont proposées dès l'entrée dans l'application : rechercher un trajet ou consulter les réservations existantes. Si le client choisit de rechercher un trajet, il saisit les gares de départ et d'arrivée. En cas d'erreur de saisie, le système lui demande de corriger les informations. Dès que la saisie est valide, il peut visualiser les trajets et tarifs disponibles, procéder à la réservation puis choisir sa classe (fonctionnalité optionnelle mise en valeur par la couleur). S'il opte pour la consultation des réservations, il peut sélectionner une réservation afin de l'annuler. Quel que soit le parcours emprunté, l'action se conclut par une confirmation de l'opération avant de mettre fin au processus. 
 
 #### Collaborateur {.unlisted}
 
 ![Activité du collaborateur](img/DiagrammeActiviteCollaborateurFinal.jpg){fig-align="center" width="50%"}
 
+À son entrée dans l’application, le Collaborateur dispose de trois choix d'actions : accéder à l’espace client pour en exécuter les fonctionnalités, assurer la gestion des lignes ou gérer les trajets. Dans le cadre de la gestion des lignes, il doit saisir la gare de départ et d'arrivée. Si les données renseignées sont invalides, une nouvelle saisie est demandée jusqu'à validation. De manière similaire, pour la gestion des trajets, le collaborateur renseigne le trajet, la date ainsi que le tarif, avec une boucle de contrôle qui invite à recommencer en cas d'erreur. Quel que soit le parcours sélectionné, l'activité se conclut par une confirmation de l'opération avant d'achever le processus. 
+
 #### Administrateur {.unlisted}
 
 ![Activité de l'administrateur](img/DiagrammeActiviteAdminFinal.jpg){fig-align="center" width="50%"}
 
+L’administrateur a accès à trois espaces distincts : l’espace Client, l’espace Collaborateur ou l’espace Gestion des comptes. S’il choisit l'un des deux premiers espaces, il peut exécuter directement les fonctionnalités réservées respectivement aux clients ou aux collaborateurs. S’il opte pour la gestion des comptes, il saisit l’identifiant et le rôle à attribuer au compte concerné. De la même façon que précédemment, en cas de saisie invalide, le système l'invite à recommencer. Une fois les informations validées, il peut valider ou éditer le compte. Quel que soit le parcours choisi, l’activité s'achève par une confirmation de l'opération avant de terminer le processus. 
+
 ### Diagramme de classes
 
-
+![Classes](img/Diagramme_de_classe_final%20(4).jpg){fig-align="center" width="110%"}
 
 #### Couche objet {.unlisted}
 
