@@ -266,10 +266,16 @@ Ils permettent notamment, via des requêtes SQL, d'enregistrer les objets créé
 
 ### CLASSE OBJET : 
 
-
+<!-- Pourquoi renommer cette section ainsi ? -->
 
 
 #### CLASSE SERVICE :  {.unlisted}
+
+<!-- Quoi ?-->
+
+<!-- Mentionner dans un paragraphe le dilemme concernant l'héritage et la décision de mentionner les niveaux d'habilitation par énumération. -->
+<!-- Sinon problème de destruction d'objets (on ne change jamais de classe) et de mémoire (trajets réservés ?) -->
+<!--  Est-ce contradictoire avec le diagramme de cas d'utilisation ? Peut-être pas -->
 
 ### Diagrammes des cas d’utilisation
 
