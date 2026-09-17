@@ -79,7 +79,7 @@ Cette seconde phase, qui durera deux mois et demi, s'articulera en trois temps.
 
 #### Description {.unlisted}
 
-Permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possède un nom d’utilisateur, un mot de passe et un niveau d’habilitation parmi CLIENT, COLLABORATEUR et ADMIN. Les comptes ADMIN peuvent modifier le niveau d’habilitation des autres utilisateurs, à l’exception des autres comptes ADMIN.
+L'application doit permettre aux utilisateurs de créer et gérer leur compte. Chaque compte possède un nom d’utilisateur, un mot de passe et un niveau d’habilitation parmi CLIENT, COLLABORATEUR et ADMIN. Les comptes ADMIN peuvent modifier le niveau d’habilitation des autres utilisateurs, à l’exception des autres comptes ADMIN.
 
 #### Fonctionnement {.unlisted}
 
@@ -120,11 +120,11 @@ Un utilisateur crée un compte avec le nom alice et un mot de passe. Son compte 
 ###  Gestion des lignes d’exploitation
 
 #### Description {.unlisted}
-Permettre à un compte COLLABORATEUR de créer, modifier et supprimer des lignes d’exploitation reliant une gare de départ à une gare de terminus. Les gares utilisées sont récupérées à partir de l’API SNCF afin de garantir leur existence.
+L'application doit permettre à un compte COLLABORATEUR de créer, modifier et supprimer des lignes d’exploitation reliant une gare de départ à une gare de terminus. Les gares utilisées sont récupérées à partir de l’API SNCF afin de garantir leur existence.
 
 #### Fonctionnement {.unlisted}
 
-Lors de la création ou de la modification d’une ligne, le collaborateur recherche les gares grâce à une fonctionnalité d’autocomplétion. Les résultats proposés proviennent de l’API SNCF.
+Lors de la création ou de la modification d’une ligne, le collaborateur recherche les gares grâce à une fonctionnalité d'autocomplétion. Les résultats proposés proviennent de l’API SNCF.
 
 Le collaborateur sélectionne une gare de départ et une gare de terminus parmi les gares existantes, puis enregistre la ligne d’exploitation.
 
@@ -159,7 +159,7 @@ Un collaborateur saisit "Rennes" dans le champ de départ. L’application propo
 ### Gestion des trajets proposés
 
 #### Description {.unlisted}
-Permettre à un compte COLLABORATEUR de planifier des trajets sur une ligne d’exploitation existante. Un trajet est défini notamment par une date et une heure de départ, un nombre de places disponibles et un tarif. Le temps de trajet est automatiquement déterminé à partir de l’API SNCF.
+L'application dooit permettre à un compte COLLABORATEUR de planifier des trajets sur une ligne d’exploitation existante. Un trajet est défini notamment par une date et une heure de départ, un nombre de places disponibles et un tarif. Le temps de trajet est automatiquement déterminé à partir de l’API SNCF.
 
 #### Fonctionnement {.unlisted}
 
@@ -210,7 +210,7 @@ Un collaborateur sélectionne la ligne Rennes → Paris, choisit le 15 octobre �
 ### Recherche d’un trajet
 
 #### Description {.unlisted}
-Permettre à un compte CLIENT de rechercher les trajets proposés entre une gare de départ et une gare d’arrivée. Une autocomplétion facilite la sélection des gares.
+L'application doit permettre à un compte CLIENT de rechercher les trajets proposés entre une gare de départ et une gare d’arrivée. Une autocomplétion facilite la sélection des gares.
 
 #### Fonctionnement {.unlisted}
 
