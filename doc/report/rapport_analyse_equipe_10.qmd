@@ -338,7 +338,7 @@ La couche service se situe entre l’interface de l’application et les couches
 
 #### Couche DAO {.unlisted}
 
-La couche DAO, pour Data Access Object, constitue une interface entre la couche service et la base de données. Elle regroupe les différentes opérations nécessaires à la gestion des données de l’application. Dans notre projet, elle est composée de trois classes : UtilisateurDao, LigneDao et TrajetDao, chacune étant associée aux objets métier correspondants.Les méthodes de ces classes permettent principalement de convertir les données récupérées depuis la base de données, initialement au format JSON, en objets Python utilisables par le reste de l’application, et inversement, de transformer les attributs des objets en paramètres utilisables dans les requêtes SQL. 
+La couche DAO, pour Data Access Object, constitue une interface entre la couche service et la base de données. Elle regroupe les différentes opérations nécessaires à la gestion des données de l’application. Dans notre projet, elle est composée de quatre classes : UtilisateurDao, LigneDao, TrajetDao et GareDao, chacune étant associée aux objets métier correspondants.Les méthodes de ces classes permettent principalement de convertir les données récupérées depuis la base de données, initialement au format JSON, en objets Python utilisables par le reste de l’application, et inversement, de transformer les attributs des objets en paramètres utilisables dans les requêtes SQL. 
 
 Pour la même raison que dans la couche objet, les attributs de ces classes sont tous publics.
 
