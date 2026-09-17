@@ -47,7 +47,7 @@ Ce rapport d'analyse intermédiaire présente ainsi les choix effectués pour r�
 
 ## Planning
 
-Voici le planning prévisionnel de la réalisation de ce projet, sous forme classique de diagramme de Gantt, incluant les tâches déjà effectuées et les échéances qui guiderons notre organisation au cours des tâches futures :
+Voici le planning prévisionnel de la réalisation de ce projet, sous forme classique de diagramme de Gantt, incluant les tâches déjà effectuées et les échéances qui guideront notre organisation au cours des tâches futures :
 
 ![Planning](img/Diagramme_Gantt_Projet_Entier.jpg){fig-align="center" width="120%"}
 
@@ -57,7 +57,7 @@ La première phase du projet, qui a duré trois semaines environ, a consisté à
 
 Nous en avons profité pour faire connaissance et pour répartir les tâches indiquées sur la première semaine selon nos appétences et connaissances respectives. Le diagramme des classes, plus complexe, a cependant occupé plusieurs d'entre nous, de même que la rédaction du présent rapport.
 
-Cette phase avait donc pour but principal de cibler nos objectifs de travail et d'assimiler les connaissances informatiques idoines : notions de couches, services, l'ensemble concepts liés aux bases de données, et le fonctionnement de l'API SNCF, nécessaire pour récupérer les données nous permettant, à terme, de gérer les lignes d'exploitation de Trajecto.
+Cette phase avait donc pour but principal de cibler nos objectifs de travail et d'assimiler les connaissances informatiques idoines : notions de couches, services, l'ensemble des concepts liés aux bases de données, et le fonctionnement de l'API SNCF, nécessaire pour récupérer les données nous permettant, à terme, de gérer les lignes d'exploitation de Trajecto.
 
 Bien entendu, cette phase a aussi servi à organiser le groupe et à effectuer une projection dans le temps des tâches futures; c'est-à-dire celles de la phase de développement.
 
@@ -65,9 +65,9 @@ Bien entendu, cette phase a aussi servi à organiser le groupe et à effectuer u
 
 Cette seconde phase, qui durera deux mois et demi, s'articulera en trois temps.
 
-- *Initialisation* : Entre le rendu du présent rapport et le congé de la Toussaint, cinq semaines s'écouleront. Cette période contient également les deux derniers travaux pratiques, qui se concentreront sur l'expérience utilisateur. Elle contient enfin l'examen de "Compléments d'informatique", l'UE associée au projet. Par conséquent, nous mobiliserons toute la durée pour parfaire nos connaissances nécessaires à la programmation des fonctionnalités et faire deux choses importantes : créer la base de données de notre application (et son s'assurer de la cohérence de sa structure), et programmer les composants les plus fondamentaux de notre API, comme la fonction de création de compte utilisateur par exemple. La dernière semaine sera consacrée à toutes les classes de la couche objet et aux tests unitaires dédiés auxdits objets : elle nous permettra de nous rendre compte des éventuelles corrections à apporter à notre modélisation.
+- *Initialisation* : Entre le rendu du présent rapport et le congé de la Toussaint, cinq semaines s'écouleront. Cette période contient également les deux derniers travaux pratiques, qui se concentreront sur l'expérience utilisateur. Elle contient enfin l'examen de "Compléments d'informatique", l'UE associée au projet. Par conséquent, nous mobiliserons toute la durée pour parfaire nos connaissances nécessaires à la programmation des fonctionnalités et faire deux choses importantes : créer la base de données de notre application (et donc s'assurer de la cohérence de sa structure), et programmer les composants les plus fondamentaux de notre API, comme la fonction de création de compte utilisateur par exemple. La dernière semaine sera consacrée à toutes les classes de la couche objet et aux tests unitaires dédiés auxdits objets : elle nous permettra de nous rendre compte des éventuelles corrections à apporter à notre modélisation.
 
-- *Programmation* : À la rentrée de novembre, trois jours serons consacrés à une immersion totale dans le projet. Cette période dense, dont l'organisation précise reste à définir, servira à programmer la majorité des quatre fonctionnalités (selon notre efficacité, peut-être la cinquième) que nous présentons dans la @sec-fonc. À son issue, notre application devra être, sinon totalement, du moins partiellement prête à l'usage. 
+- *Programmation* : À la rentrée de novembre, trois jours seront consacrés à une immersion totale dans le projet. Cette période dense, dont l'organisation précise reste à définir, servira à programmer la majorité des quatre fonctionnalités (selon notre efficacité, peut-être la cinquième) que nous présentons dans la @sec-fonc. À son issue, notre application devra être, sinon totalement, du moins partiellement prête à l'usage. 
 
 - *Finalisation* : Pendant les deux semaines qui suivront, il s'agira en parallèle de corriger les bugs, finaliser les quelques algorithmes manquants, et rédiger le rapport final. Enfin, trois semaines resteront et permettront de préparer la présentation orale de notre application en complément du rapport. Ce sera éventuellement l'occasion de créer une frontend attractive, quelques fonctionnalités facultatives, et de générer des exemples d'utilisation convaincants.
 
@@ -85,7 +85,7 @@ L'application doit permettre aux utilisateurs de créer et gérer leur compte. C
 
 Lors de la création d’un compte, l’utilisateur renseigne un nom d’utilisateur et un mot de passe. Le compte est associé à un niveau d’habilitation CLIENT.
 
-Un compte ADMIN peut consulter les comptes utilisateurs et augmenter ou diminuer leur niveau d’habilitation. Un ADMIN ne peut cependant pas modifier le niveau d’un autre ADMIN.
+Un compte ADMIN peut consulter les comptes des utilisateurs et augmenter ou diminuer leur niveau d’habilitation. Un ADMIN ne peut cependant pas modifier le niveau d’un autre ADMIN.
 
 Un compte est associé à un identifiant unique, qui est utilisé pour identifier le compte dans la base de données.
 
@@ -266,7 +266,7 @@ Cette fonctionnalité ne sera implémentée que si le temps le permet: nous n'al
 
 #### Base de données :  {.unlisted}
 
-Pour stocker les données, nous allons utiliser une base de données postgreSQL, sur l’environnement du datalab de l’ENSAI. La base de données contiendra les informations utilisateurs, ainsi que les gares, les lignes de train et les trajets prévus. Ces données seront saisies petit à petit. Ainsi, les collaborateurs écriront dans la base de données lorsqu’ils créeront un nouveau trajet, ou lorsqu’une nouvelle ligne sera créée.
+Pour stocker les données, nous allons utiliser une base de données postgreSQL, sur l’environnement du datalab de l’ENSAI. La base de données contiendra les informations des utilisateurs, ainsi que les gares, les lignes de train et les trajets prévus. Ces données seront saisies petit à petit. Ainsi, les collaborateurs écriront dans la base de données lorsqu’ils créeront un nouveau trajet, ou lorsqu’une nouvelle ligne sera créée.
 
 #### API :  {.unlisted}
 
@@ -323,7 +323,7 @@ L’administrateur a accès à trois espaces distincts : l’espace Client, l’
 
 #### Couche objet {.unlisted} 
 
-Nous présentons dans cette partie le diagramme de classes de notre application, qui regroupe les objets utilisés, leurs attributs, et les méthodes qu'ils permettre de mettre en œuvre. La couche objet est composée de quatre classes principales : Utilisateur, Gare, Ligne et Trajet.
+Nous présentons dans cette partie le diagramme de classes de notre application, qui regroupe les objets utilisés, leurs attributs, et les méthodes qu'ils permettent de mettre en œuvre. La couche objet est composée de quatre classes principales : Utilisateur, Gare, Ligne et Trajet.
 La classe Utilisateur permet de représenter les différents utilisateurs de l’application grâce à son identifiant, son pseudo, son mot de passe et son niveau d’habilitation. Ce dernier peut prendre trois valeurs : CLIENT, COLLABORATEUR ou ADMINISTRATEUR. Cette énumération est présente car il est précisé dans le sujet qu’un administrateur peut modifier le niveau d’habilitation d’un utilisateur (client, collaborateur, admin). Ce choix permet notamment de modifier directement le niveau d’habilitation d’un utilisateur existant, comme le prévoit le sujet. Si chaque niveau avait été représenté par une classe différente, il aurait fallu changer la classe de l’objet lorsque son niveau d’habilitation était modifié, ce qui n’est pas possible directement en programmation orientée objet. 
 La classe Gare représente une gare ferroviaire et contient un identifiant, un nom, une ville ainsi que ses coordonnées géographiques. Elle permet notamment de stocker les informations nécessaires à l’identification et à la localisation d’une gare. 
 La classe Ligne représente une ligne ferroviaire et contient un identifiant, un libellé, une liste ordonnée de gares ainsi qu’une date de création. Elle possède les méthodes  dessert() pour vérifier si une gare appartient à la ligne et position() pour obtenir sa position. Une ligne est associée à une ou plusieurs gares et possède un ou plusieurs trajets.
@@ -338,7 +338,7 @@ La couche service se situe entre l’interface de l’application et les couches
 
 #### Couche DAO {.unlisted}
 
-La couche DAO, pour Data Access Object, constitue une interface entre la couche service et la base de données. Elle regroupe les différentes opérations nécessaires à la gestion des données de l’application. Dans notre projet, elle est composée de quatre classes : UtilisateurDao, LigneDao, TrajetDao et GareDao, chacune étant associée aux objets métier correspondants.Les méthodes de ces classes permettent principalement de convertir les données récupérées depuis la base de données, initialement au format JSON, en objets Python utilisables par le reste de l’application, et inversement, de transformer les attributs des objets en paramètres utilisables dans les requêtes SQL. 
+La couche DAO, pour Data Access Object, constitue une interface entre la couche service et la base de données. Elle regroupe les différentes opérations nécessaires à la gestion des données de l’application. Dans notre projet, elle est composée de quatre classes : UtilisateurDao, LigneDao, TrajetDao et GareDao, chacune étant associée aux objets métier correspondants. Les méthodes de ces classes permettent principalement de convertir les données récupérées depuis la base de données, initialement au format JSON, en objets Python utilisables par le reste de l’application, et inversement, de transformer les attributs des objets en paramètres utilisables dans les requêtes SQL. 
 
 Pour la même raison que dans la couche objet, les attributs de ces classes sont tous publics.
 
@@ -347,3 +347,13 @@ Pour la même raison que dans la couche objet, les attributs de ces classes sont
 ![Base de données](img/diagramme_bdd.png){fig-align="center" width="100%"}
 
 Le diagramme de base de données (MLD) suit le modèle du diagramme de classe. Chaque classe objet principal correspond à une table de la base de données, avec une table Réservation, qui ne sera peut-être pas implementée, car elle correspond à une fonctionnalité optionelle de l’application. Les clés étrangères permettent de représenter les relations entre les différentes tables. Ainsi, un trajet est associé à une ligne et à l’utilisateur qui l’a créé, tandis qu’une ligne est associée à une gare de départ et une gare de terminus. Si elle est implémentée, la table Réservation permettra de relier un utilisateur à un trajet et d’enregistrer le moment de sa réservation.
+
+Notons l'inclusion dans ce diagramme de la fonctionnalité de réservation car elle devra, si nous l'implémentons, faire l'objet d'un stockage en mémoire. Toutefois, comme la fonctionnalité elle-même, la création de cette table est en option.
+
+## Conclusion intermédiaire {.unnumbered}
+
+La première partie de ce projet informatique nous aura permis d'organiser et de préparer la phase de conception de l'application via une planification et une répartition des différentes tâches. Le projet est également l'occasion de mettre en pratique les principes de la programmation orientée objet et le fonctionnement d'une application vus en cours de compléments d'informatique. 
+
+Ce travail préparatoire a également été l'occasion de développer des compétences transversales, notamment en matière de travail d'équipe, de gestion de projet et de communication, indispensables à la bonne conduite d'un développement informatique de cette envergure. La répartition des tâches, la coordination entre les membres du groupe et un point hebdomadaire nous ont permis d'avancer de manière efficace dans notre travail.
+
+Cette première phase constitue ainsi une base utile pour la suite du projet, qui consistera à traduire cette conception en une application conforme aux exigences.
