@@ -350,6 +350,8 @@ Le diagramme de base de données (MLD) suit le modèle du diagramme de classe. C
 
 Notons l'inclusion dans ce diagramme de la fonctionnalité de réservation car elle devra, si nous l'implémentons, faire l'objet d'un stockage en mémoire. Toutefois, comme la fonctionnalité elle-même, la création de cette table est en option.
 
+{{< pagebreak >}}
+
 ## Conclusion intermédiaire {.unnumbered}
 
 La première partie de ce projet informatique nous aura permis d'organiser et de préparer la phase de conception de l'application via une planification et une répartition des différentes tâches. Le projet est également l'occasion de mettre en pratique les principes de la programmation orientée objet et le fonctionnement d'une application vus en cours de compléments d'informatique. 
