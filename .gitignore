@@ -219,6 +219,7 @@ __marimo__/
 
 /.quarto/
 **/*.quarto_ipynb
-.html
+*.html
 .pdf
-.css
+*.css
+*.min.css
