@@ -15,7 +15,7 @@
     ],
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
-      "source.organizeImports": "explicit",
+      "source.organizeImports.ruff": "explicit",
       "source.addMissingImports": "explicit"
     },
     "editor.inlayHints.enabled": "off",
