@@ -18,17 +18,19 @@ class LigneService:
             id_ligne=None,
             gare_depart=gare_depart,
             gare_arrivee=gare_arrivee,
-            libelle=libelle,
             date_creation=datetime.date.today(),
         )
 
         return nouvelle_ligne if LigneDao().creer(nouvelle_ligne) else None
 
     def modifier_ligne(self, ligne: Ligne, gare_depart: Gare, gare_arrivee: Gare):
+
         return LigneDao().modifier(ligne)
 
     def rechercher_ligne(self, id_ligne: int):
+
         return LigneDao().rechercher(id_ligne)
 
     def supprimer_ligne(self, id_ligne: int):
+
         return LigneDao().delete(id_ligne)
