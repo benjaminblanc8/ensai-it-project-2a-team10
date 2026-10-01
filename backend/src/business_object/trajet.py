@@ -6,6 +6,7 @@ from datetime import datetime
 class Trajet:
     def __init__(
         self,
+        id_trajet,
         date_heure_depart: datetime,
         duree_minutes: int,
         ligne: Ligne,
@@ -13,6 +14,7 @@ class Trajet:
         _tarif: float,
         _places_reservees: int = 0
     ):
+        self.id_trajet = id_trajet
         self.date_heure_depart = date_heure_depart
         self.duree_minutes = duree_minutes
         self.ligne = ligne
