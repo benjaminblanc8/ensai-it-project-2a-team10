@@ -1,6 +1,6 @@
-from src.business_object.gare import Gare
-from src.business_object.ligne import Ligne
 from datetime import datetime
+
+from src.business_object.ligne import Ligne
 
 
 class Trajet:
@@ -11,7 +11,7 @@ class Trajet:
         ligne: Ligne,
         _nb_places: int,
         _tarif: float,
-        _places_reservees: int = 0
+        _places_reservees: int = 0,
     ):
         self.date_heure_depart = date_heure_depart
         self.duree_minutes = duree_minutes
@@ -21,33 +21,34 @@ class Trajet:
         self._places_reservees = _places_reservees
 
     def __repr__(self):
-        return (f"Trajet("
-                f"date_heure_depart={self.date_heure_depart}, duree_minutes={self.duree_minutes}, "
-                f"ligne={self.ligne}, nb_places={self._nb_places}, tarif={self._tarif}, "
-                f"places_reservees={self._places_reservees})")
-    
+        return (
+            f"Trajet("
+            f"date_heure_depart={self.date_heure_depart}, duree_minutes={self.duree_minutes}, "
+            f"ligne={self.ligne}, nb_places={self._nb_places}, tarif={self._tarif}, "
+            f"places_reservees={self._places_reservees})"
+        )
+
     def __str__(self):
-        return (f"Trajet de {self.ligne.gare_depart.nom} à {self.ligne.gare_arrivee.nom} "
-                f"le {self.date_heure_depart.strftime('%Y-%m-%d %H:%M')} "
-                f"durée: {self.duree_minutes} minutes, ligne: {self.ligne.nom}, "
-                f"places disponibles: {self._nb_places - self._places_reservees}, tarif: {self._tarif}€")
-    
+        return (
+            f"Trajet de {self.ligne.gare_depart.nom} à {self.ligne.gare_arrivee.nom} "
+            f"le {self.date_heure_depart.strftime('%Y-%m-%d %H:%M')} "
+            f"durée: {self.duree_minutes} minutes, ligne: {self.ligne.nom}, "
+            f"places disponibles: {self._nb_places - self._places_reservees}, tarif: {self._tarif}€"
+        )
+
     def get_nb_places_disponibles(self) -> int:
         return self._nb_places - self._places_reservees
-    
+
     def get_tarif(self) -> float:
         return self._tarif
-    
+
     def get_places_reservees(self) -> int:
         return self._places_reservees
-    
-    def heure_arrivee(self) -> datetime:
-        ...
-        
+
+    def heure_arrivee(self) -> datetime: ...
+
     def places_restantes(self) -> int:
         return self._nb_places - self._places_reservees
-    
+
     def est_complet(self) -> bool:
         return self._places_reservees >= self._nb_places
-    
-    
