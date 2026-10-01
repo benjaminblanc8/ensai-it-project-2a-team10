@@ -1,15 +1,13 @@
 import os
 
 import psycopg2
-from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
-
+from psycopg2.extras import RealDictCursor
 
 load_dotenv()
 
 
 class DBConnection:
-
     def __init__(self):
         self.__connection = psycopg2.connect(
             host=os.environ["POSTGRES_HOST"],
