@@ -1,5 +1,12 @@
+from business_object.niveau_habilitation import NiveauHabilitation
 from pydantic import BaseModel
 
 
 class UtilisateurModel(BaseModel):
-    """Sert de contrat sur les données entre le backend et le frontend"""
+    pseudo: str
+    mdp: str
+
+
+class ModificationRoleModel(BaseModel):
+    id_utilisateur: int
+    nouvelle_habilitation: NiveauHabilitation

@@ -14,5 +14,5 @@ def get_utilisateur_service():
 
 
 @router.post("/", tags=["Login"])
-def connexion(informations: UtilisateurModel, service=Depends(get_utilisateur_service)):
+def connexion(informations: UtilisateurModel, service=Depends(get_utilisateur_service)): # noqa: B008
     """à compléter"""
