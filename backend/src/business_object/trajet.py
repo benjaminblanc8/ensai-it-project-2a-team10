@@ -54,3 +54,6 @@ class Trajet:
 
     def est_complet(self) -> bool:
         return self._places_reservees >= self._nb_places
+
+    def depart_arrivee(self) -> tuple:
+        return (self.ligne.gare_depart.nom, self.ligne.gare_arrivee.nom)
