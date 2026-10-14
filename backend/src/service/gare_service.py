@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from utils.log_utils import log
 
 
+
 class GareService:
     """Service qui gère les gares (ajout, recherche, suppression)."""
 
