@@ -4,12 +4,12 @@ from backend.src.business_object.niveau_habilitation import NiveauHabilitation
 class Utilisateur:
     def __init__(self, id_utilisateur: int,
                  __pseudo: str,
-                 mdp: str,
-                 __niveau: NiveauHabilitation):
+                 __mdp: str,
+                 niveau: NiveauHabilitation):
         self.id_utilisateur = id_utilisateur
         self.__pseudo = __pseudo
-        self.mdp = mdp
-        self.__niveau = __niveau
+        self.__mdp = __mdp
+        self.niveau = niveau
 
     def __repr__(self):
         return f"Utilisateur(id_utilisateur={self.__id_utilisateur}, "
