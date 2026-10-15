@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from gare import Gare
 
 
 class Ligne:
-    def __init__(self, id_ligne, gare_depart: Gare, gare_arrivee: Gare, date_creation):
+    def __init__(
+        self, id_ligne, gare_depart: Gare, gare_arrivee: Gare, date_creation: datetime
+    ):
         self.id_ligne = id_ligne
         self.gare_depart = gare_depart
         self.gare_arrivee = gare_arrivee

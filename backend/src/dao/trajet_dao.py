@@ -4,8 +4,7 @@ from src.dao.ligne_dao import LigneDao
 
 
 class TrajetDao:
-
-    def create_trajet(self, trajet: Trajet) -> bool:
+    def creer_trajet(self, trajet: Trajet) -> bool:
         """Ajoute un trajet dans la base de données."""
 
         requete = """
@@ -31,8 +30,8 @@ class TrajetDao:
                         trajet.ligne.id_ligne,
                         trajet._nb_places,
                         trajet.get_tarif(),
-                        trajet.get_places_reservees()
-                    )
+                        trajet.get_places_reservees(),
+                    ),
                 )
 
                 resultat = cursor.fetchone()
@@ -68,9 +67,7 @@ class TrajetDao:
         if resultat is None:
             return None
 
-        ligne = LigneDao().recherche_ligne(
-            resultat["id_ligne"]
-        )
+        ligne = LigneDao().recherche_ligne(resultat["id_ligne"])
 
         return Trajet(
             resultat["id_trajet"],
@@ -79,10 +76,10 @@ class TrajetDao:
             ligne,
             resultat["nb_places"],
             float(resultat["tarif"]),
-            resultat["places_reservees"]
+            resultat["places_reservees"],
         )
 
-    def supprimer_trajet(self, trajet: Trajet) -> bool:
+    def supprimer_trajet(self, id_trajet: int) -> bool:
         """Supprime un trajet."""
 
         requete = """
@@ -92,10 +89,7 @@ class TrajetDao:
 
         try:
             with DBConnection().connection.cursor() as cursor:
-                cursor.execute(
-                    requete,
-                    (trajet.id_trajet,)
-                )
+                cursor.execute(requete, (id_trajet,))
 
                 suppression_effectuee = cursor.rowcount > 0
 
@@ -107,7 +101,7 @@ class TrajetDao:
             raise
 
     def modifier_trajet(self, trajet: Trajet) -> bool:
-        """Modifie les informations d'un trajet."""
+        """Modifie les informations d'un trajet dans la base de données."""
 
         requete = """
             UPDATE Trajet
@@ -120,8 +114,11 @@ class TrajetDao:
             WHERE id_trajet = %s;
         """
 
+        # On récupère la connexion une seule fois.
+        connexion = DBConnection().connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connexion.cursor() as cursor:
                 cursor.execute(
                     requete,
                     (
@@ -131,15 +128,18 @@ class TrajetDao:
                         trajet._nb_places,
                         trajet.get_tarif(),
                         trajet.get_places_reservees(),
-                        trajet.id_trajet
-                    )
+                        trajet.id_trajet,
+                    ),
                 )
 
                 modification_effectuee = cursor.rowcount > 0
 
-            DBConnection().connection.commit()
+            # On valide la transaction sur la même connexion.
+            connexion.commit()
+
             return modification_effectuee
 
         except Exception:
-            DBConnection().connection.rollback()
+            # On annule la transaction sur la même connexion.
+            connexion.rollback()
             raise
