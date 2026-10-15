@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from gare import Gare
+from business_object.gare import Gare
 
 
 class Ligne:

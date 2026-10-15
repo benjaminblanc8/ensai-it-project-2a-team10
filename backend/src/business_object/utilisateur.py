@@ -1,7 +1,7 @@
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError, VerificationError
 
-from backend.src.business_object.niveau_habilitation import NiveauHabilitation
+from business_object.niveau_habilitation import NiveauHabilitation
 
 
 class Utilisateur:

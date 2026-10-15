@@ -1,6 +1,6 @@
-from src.business_object.ligne import Ligne
-from src.dao.db_connection import DBConnection
-from src.dao.gare_dao import GareDao
+from business_object.ligne import Ligne
+from dao.db_connection import DBConnection
+from dao.gare_dao import GareDao
 
 
 class LigneDao:

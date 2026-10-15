@@ -1,5 +1,5 @@
-from backend.src.business_object.gare import Gare
-from backend.src.dao.db_connection import DBConnection
+from business_object.gare import Gare
+from dao.db_connection import DBConnection
 
 
 class GareDao:

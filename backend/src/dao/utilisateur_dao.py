@@ -1,9 +1,9 @@
 
 from argon2 import PasswordHasher
 
-from backend.src.business_object.utilisateur import Utilisateur
-from backend.src.business_object.niveau_habilitation import NiveauHabilitation
-from backend.src.dao.db_connection import DBConnection
+from business_object.utilisateur import Utilisateur
+from business_object.niveau_habilitation import NiveauHabilitation
+from dao.db_connection import DBConnection
 
 
 class UtilisateurDao:
