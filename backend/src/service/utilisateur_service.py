@@ -1,6 +1,6 @@
 
-from business_object.utilisateur import Utilisateur
 from business_object.niveau_habilitation import NiveauHabilitation
+from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
 
 
