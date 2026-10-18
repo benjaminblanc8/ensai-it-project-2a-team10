@@ -3,15 +3,15 @@ from backend.src.business_object.utilisateur import Utilisateur
 
 
 def test_utilisateur_creation_et_getters():
-    utilisateur = Utilisateur(1, "jeremy", "mdp", NiveauHabilitation.CLIENT)
+    utilisateur = Utilisateur(1, "jeremie", "mdp", NiveauHabilitation.CLIENT)
 
     assert utilisateur.get_id_utilisateur() == 1
-    assert utilisateur.get_pseudo() == "jeremy"
+    assert utilisateur.get_pseudo() == "jeremie"
     assert utilisateur.get_niveau() == NiveauHabilitation.CLIENT
 
 
 def test_verifier_role_client():
-    utilisateur = Utilisateur(1, "jeremy", "mdp123", NiveauHabilitation.CLIENT)
+    utilisateur = Utilisateur(1, "jeremie", "mdp123", NiveauHabilitation.CLIENT)
 
     assert utilisateur.verifier_role(NiveauHabilitation.CLIENT) is True
     assert utilisateur.verifier_role(NiveauHabilitation.COLLAB) is False
