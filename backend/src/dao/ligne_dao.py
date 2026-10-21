@@ -10,12 +10,11 @@ class LigneDao:
 
         requete = """
             INSERT INTO Ligne (
-                libelle,
                 id_gare_depart,
                 id_gare_arrivee,
                 date_creation
             )
-            VALUES (%s, %s, %s, %s)
+            VALUES (%s, %s, %s)
             RETURNING id_ligne;
         """
 
@@ -24,7 +23,6 @@ class LigneDao:
                 cursor.execute(
                     requete,
                     (
-                        ligne.libelle,
                         ligne.gare_depart.id_gare,
                         ligne.gare_arrivee.id_gare,
                         ligne.date_creation
@@ -46,8 +44,7 @@ class LigneDao:
 
         requete = """
             UPDATE Ligne
-            SET libelle = %s,
-                id_gare_depart = %s,
+            SET id_gare_depart = %s,
                 id_gare_arrivee = %s,
                 date_creation = %s
             WHERE id_ligne = %s;
@@ -58,7 +55,6 @@ class LigneDao:
                 cursor.execute(
                     requete,
                     (
-                        ligne.libelle,
                         ligne.gare_depart.id_gare,
                         ligne.gare_arrivee.id_gare,
                         ligne.date_creation,
@@ -105,7 +101,6 @@ class LigneDao:
         requete = """
             SELECT
                 id_ligne,
-                libelle,
                 id_gare_depart,
                 id_gare_arrivee,
                 date_creation
@@ -132,7 +127,6 @@ class LigneDao:
 
         return Ligne(
             resultat["id_ligne"],
-            resultat["libelle"],
             gare_depart,
             gare_arrivee,
             resultat["date_creation"]
