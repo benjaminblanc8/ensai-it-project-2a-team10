@@ -1,0 +1,505 @@
+<mxfile host="app.diagrams.net" pages="4">
+  <diagram name="1 - Couche Objet" id="page_1_-_couche_objet">
+    <mxGraphModel dx="1213" dy="851" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Objet" vertex="1">
+          <mxGeometry height="710" width="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="k3" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;NiveauHabilitation&lt;/b&gt;" vertex="1">
+          <mxGeometry height="116" width="230" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="CLIENT" vertex="1">
+          <mxGeometry height="22" width="230" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="COLLABORATEUR" vertex="1">
+          <mxGeometry height="22" width="230" y="66" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ADMIN" vertex="1">
+          <mxGeometry height="22" width="230" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="k7" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=26;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="Utilisateur" vertex="1">
+          <mxGeometry height="194" width="290" x="30" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- id_utilisateur : int" vertex="1">
+          <mxGeometry height="22" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- pseudo : str {unique}" vertex="1">
+          <mxGeometry height="22" width="290" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- mdp_hash : str" vertex="1">
+          <mxGeometry height="22" width="290" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- niveau : NiveauHabilitation" vertex="1">
+          <mxGeometry height="22" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ verifier_mdp(mdp : str) : bool" vertex="1">
+          <mxGeometry height="22" width="290" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="t13" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ est_collaborateur() : bool" vertex="1">
+          <mxGeometry height="22" width="290" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="t14" parent="k7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ est_admin() : bool" vertex="1">
+          <mxGeometry height="22" width="290" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="s15" parent="k7" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="k16" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=26;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="Ligne" vertex="1">
+          <mxGeometry height="150" width="260" x="460" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t17" parent="k16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ id_ligne : int" vertex="1">
+          <mxGeometry height="22" width="260" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t19" parent="k16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ gare_depart : Gare" vertex="1">
+          <mxGeometry height="22" width="260" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="t20" parent="k16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ gare_arrivee : Gare" vertex="1">
+          <mxGeometry height="22" width="260" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" parent="k16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ date_creation : date" vertex="1">
+          <mxGeometry height="22" width="260" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="s22" parent="k16" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="34" width="260" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="k23" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=26;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="Gare" vertex="1">
+          <mxGeometry height="150" width="220" x="920" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t24" parent="k23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ id_gare : str" vertex="1">
+          <mxGeometry height="22" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t25" parent="k23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ nom : str" vertex="1">
+          <mxGeometry height="22" width="220" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t26" parent="k23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ ville : str" vertex="1">
+          <mxGeometry height="22" width="220" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s29" parent="k23" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="45" width="220" y="99" as="geometry" />
+        </mxCell>
+        <mxCell id="k30" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=26;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="Trajet" vertex="1">
+          <mxGeometry height="260" width="320" x="430" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="t31" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ id_trajet : int" vertex="1">
+          <mxGeometry height="22" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t32" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ ligne : Ligne" vertex="1">
+          <mxGeometry height="22" width="320" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t33" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ date_heure_depart : datetime" vertex="1">
+          <mxGeometry height="22" width="320" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t34" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ duree_minutes : int" vertex="1">
+          <mxGeometry height="22" width="320" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="t35" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- nb_places : int" vertex="1">
+          <mxGeometry height="22" width="320" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="t36" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- places_reservees : int = 0" vertex="1">
+          <mxGeometry height="22" width="320" y="136" as="geometry" />
+        </mxCell>
+        <mxCell id="t37" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- tarif : float" vertex="1">
+          <mxGeometry height="22" width="320" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="t38" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ depart_arrivee() : tuple&amp;lt;str, str&amp;gt;" vertex="1">
+          <mxGeometry height="22" width="320" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="t39" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ places_restantes() : int" vertex="1">
+          <mxGeometry height="22" width="320" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="t40" parent="k30" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ est_complet() : bool" vertex="1">
+          <mxGeometry height="22" width="320" y="232" as="geometry" />
+        </mxCell>
+        <mxCell id="s41" parent="k30" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="e42" edge="1" parent="1" source="k7" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;endArrow=open;endFill=0;" target="k3" value="niveau">
+          <mxGeometry relative="1" x="-0.1462" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="330" />
+              <mxPoint x="180" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e43" edge="1" parent="1" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;endArrow=open;endFill=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" value="Utilise">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="719.9999999999998" y="181" as="sourcePoint" />
+            <mxPoint x="920" y="181" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e45" edge="1" parent="1" source="k16" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;startArrow=diamondThin;startFill=1;endArrow=none;startSize=14;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k30" value="planifie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l46" connectable="0" parent="e45" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.85" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l47" connectable="0" parent="e45" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="0..*" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="10" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="2 - Couche DAO" id="page_2_-_couche_dao">
+    <mxGraphModel dx="1930" dy="1355" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche DAO" vertex="1">
+          <mxGeometry height="516" width="1670" as="geometry" />
+        </mxCell>
+        <mxCell id="k3" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;UtilisateurDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="158" width="340" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer(utilisateur : Utilisateur) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ trouver_par_id(id_utilisateur : int) -&amp;gt; Utilisateur" vertex="1">
+          <mxGeometry height="37" width="340" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ trouver_par_pseudo(pseudo : str) -&amp;gt; Utilisateur" vertex="1">
+          <mxGeometry height="22" width="340" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_niveau(utilisateur : Utilisateur) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" parent="k3" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k9" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GareDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="102" width="340" x="450" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" parent="k9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_si_absent(gare : Gare) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" parent="k9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ trouver_par_id(id_gare : str) -&amp;gt; Gare" vertex="1">
+          <mxGeometry height="22" width="340" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="s12" parent="k9" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k13" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="146" width="340" x="860" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t14" parent="k13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_ligne(ligne : Ligne) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" parent="k13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ trouver_par_id(id_ligne : int) -&amp;gt; Ligne" vertex="1">
+          <mxGeometry height="22" width="340" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="t16" parent="k13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier(ligne : Ligne) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="t17" parent="k13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer(ligne : Ligne) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="s18" parent="k13" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k19" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="183" width="340" x="1270" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t20" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(trajet : Trajet) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ trouver_par_id(id_trajet : int) -&amp;gt; Trajet" vertex="1">
+          <mxGeometry height="22" width="340" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="t22" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher(id_gare_depart : str, id_gare_arrivee : str, date : date) -&amp;gt; list[Trajet]" vertex="1">
+          <mxGeometry height="37" width="340" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="t23" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier(trajet : Trajet) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="t24" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer(trajet : Trajet) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="340" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="s25" parent="k19" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Utilisateur&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="100" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="k3" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k26" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="k28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Gare&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="510" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" source="k9" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k28" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="k30" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Ligne&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="920" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" source="k13" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k30" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="k32" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Trajet&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="1330" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e33" edge="1" parent="1" source="k19" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k32" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="3 - Couche Service" id="page_3_-_couche_service">
+    <mxGraphModel dx="611" dy="429" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Service" vertex="1">
+          <mxGeometry height="526" width="1710" as="geometry" />
+        </mxCell>
+        <mxCell id="k3" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;UtilisateurService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="184" width="350" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_compte(pseudo : str, mdp : str) -&amp;gt; Utilisateur" vertex="1">
+          <mxGeometry height="37" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ se_connecter(pseudo : str, mdp : str) -&amp;gt; Utilisateur" vertex="1">
+          <mxGeometry height="37" width="350" y="89" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_role(utilisateur : Utilisateur, nouveau_niveau : NiveauHabilitation) -&amp;gt; Utilisateur" vertex="1">
+          <mxGeometry height="52" width="350" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="k3" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="161" width="350" x="460" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_ligne(gare_depart : Gare, gare_arrivee : Gare) -&amp;gt; Ligne" vertex="1">
+          <mxGeometry height="37" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_ligne(id_ligne : int) -&amp;gt; Ligne" vertex="1">
+          <mxGeometry height="22" width="350" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_ligne(ligne : Ligne) -&amp;gt; Ligne" vertex="1">
+          <mxGeometry height="22" width="350" y="107" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer_ligne(ligne : Ligne) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="350" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="s13" parent="k8" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k14" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GareService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="139" width="350" x="880" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" parent="k14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ recherche_gare(id_gare : str) -&amp;gt; Gare" vertex="1">
+          <mxGeometry height="22" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t16" parent="k14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ ajout_gare(nom : str, ville : str) -&amp;gt; Gare" vertex="1">
+          <mxGeometry height="22" width="350" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="t17" parent="k14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ calculer_duree_minutes(gare_depart : Gare, gare_arrivee : Gare, date_heure : datetime) -&amp;gt; int" vertex="1">
+          <mxGeometry height="37" width="350" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="s18" parent="k14" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k19" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="176" width="350" x="1300" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t20" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(ligne : Ligne, date_heure_depart : datetime, nb_places : int, tarif : float) -&amp;gt; Trajet" vertex="1">
+          <mxGeometry height="37" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_trajets(gare_depart : Gare, gare_arrivee : Gare, date : date) -&amp;gt; list[Trajet]" vertex="1">
+          <mxGeometry height="37" width="350" y="89" as="geometry" />
+        </mxCell>
+        <mxCell id="t22" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_trajet(trajet : Trajet) -&amp;gt; Trajet" vertex="1">
+          <mxGeometry height="22" width="350" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="t23" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer_trajet(trajet : Trajet) -&amp;gt; bool" vertex="1">
+          <mxGeometry height="22" width="350" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="s24" parent="k19" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k25" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;UtilisateurDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="100" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="k26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="180" x="430" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="k27" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GareDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="180" x="640" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="k28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;API externe&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;API SNCF (Navitia)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="230" x="940" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="k29" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetDao&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="1360" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="k3" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k25" value="utilise">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="284" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" source="k8" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k26" value="utilise">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="261" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="1" source="k8" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k27" value="enregistre les gares">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="730" y="261" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e33" edge="1" parent="1" source="k19" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k29" value="utilise">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1470" y="276" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="k14" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k28" value="appelle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="4 - Couche Controller" id="page_4_-_couche_controller">
+    <mxGraphModel grid="1" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Controller (routeurs FastAPI)" vertex="1">
+          <mxGeometry height="516" width="1710" as="geometry" />
+        </mxCell>
+        <mxCell id="k3" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Controller&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;UtilisateurController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="190" width="360" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ connexion(pseudo : str, mdp : str)" vertex="1">
+          <mxGeometry height="22" width="350" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_role(id_utilisateur : int, nouveau_niveau : NiveauHabilitation)" vertex="1">
+          <mxGeometry height="37" width="350" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="k3" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-6" parent="k3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_utilisateur_service()" vertex="1">
+          <mxGeometry height="37" width="350" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="k8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Controller&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GareController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="360" x="460" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_gare_service()&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="22" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s10" parent="k8" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-1" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ ajouter_gare()&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="22" width="350" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-3" parent="k8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer_gare(id_gare : str)&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="22" width="350" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="k11" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Controller&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="220" width="380" x="880" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_ligne(id_gare_depart : str, id_gare_arrivee : str)" vertex="1">
+          <mxGeometry height="37" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t13" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_ligne_service(id_ligne : int)" vertex="1">
+          <mxGeometry height="22" width="350" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="t14" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_ligne(id_ligne : int, ...)" vertex="1">
+          <mxGeometry height="22" width="350" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer_ligne(id_ligne : int)" vertex="1">
+          <mxGeometry height="22" width="350" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="s16" parent="k11" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="SdhGaK7bYO_sBb-Fku_H-1" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_gare_service(id_ligne : int)" vertex="1">
+          <mxGeometry height="22" width="370" y="111" as="geometry" />
+        </mxCell>
+        <mxCell id="SdhGaK7bYO_sBb-Fku_H-2" parent="k11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_ligne(id_ligne : int, ...)" vertex="1">
+          <mxGeometry height="22" width="350" y="187" as="geometry" />
+        </mxCell>
+        <mxCell id="k17" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Controller&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="220" width="350" x="1300" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t18" parent="k17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(id_ligne : int, date_heure_depart : datetime, nb_places : int, tarif : float)" vertex="1">
+          <mxGeometry height="37" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t19" parent="k17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_trajet(id_gare_depart : str, id_gare_arrivee : str, date : date)" vertex="1">
+          <mxGeometry height="37" width="350" y="89" as="geometry" />
+        </mxCell>
+        <mxCell id="t20" parent="k17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ modifier_trajet(id_trajet : int, ...)" vertex="1">
+          <mxGeometry height="22" width="350" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" parent="k17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ supprimer_trajet(id_trajet : int)" vertex="1">
+          <mxGeometry height="22" width="350" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="s22" parent="k17" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="350" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="k23" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;UtilisateurService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="105" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="k24" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;NavitiaService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="525" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="k25" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="945" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="k26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="46" width="220" x="1365" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="k3" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k23" value="utilise">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="215" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="k8" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k24" value="utilise">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" source="k11" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k25" value="utilise">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1055" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="k17" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k26" value="utilise">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-2" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_gare(id_gare : str)&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="22" width="350" x="460" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-4" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_trajet_service()" vertex="1">
+          <mxGeometry height="22" width="350" x="1300" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-5" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_ligne_service()" vertex="1">
+          <mxGeometry height="22" width="350" x="1300" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-8" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_utilisateur_service()" vertex="1">
+          <mxGeometry height="37" width="350" x="40" y="253" as="geometry" />
+        </mxCell>
+        <mxCell id="w-2scaKYPgH5iNSKUqrs-9" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_compte(pseudo : str, mdp : str)" vertex="1">
+          <mxGeometry height="22" width="350" x="40" y="152" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
