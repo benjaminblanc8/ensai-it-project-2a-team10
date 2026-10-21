@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src.business_object.ligne import Ligne
+from business_object.ligne import Ligne
 
 
 class Trajet:

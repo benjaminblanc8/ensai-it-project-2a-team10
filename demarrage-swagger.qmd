@@ -1,0 +1,70 @@
+---
+title: "Démarrage du Swagger"
+format: html
+execute:
+  echo: false
+---
+
+# Démarrage du Swagger (FastAPI)
+
+## Prérequis
+
+- Les dépendances du projet installées
+- Le fichier `.env` configuré à la racine du projet
+
+## Étapes
+
+### 1. Installer les dépendances
+
+```{python}
+# ! pip install -r requirements.txt
+```
+
+Depuis la racine du projet :
+
+```bash
+cd /home/onyxia/work/ensai-it-project-2a-team10
+pip install -r requirements.txt
+```
+
+### 2. Lancer le serveur
+
+```bash
+cd /home/onyxia/work/ensai-it-project-2a-team10/backend
+python src/main.py
+```
+
+Le serveur démarre sur `http://127.0.0.1:5000`.
+
+### 3. Tester avec curl
+
+Dans un autre terminal :
+
+```bash
+curl http://localhost:5000/hello/Chewbacca
+```
+
+Réponse attendue :
+
+```json
+{"message":"Hello Chewbacca"}
+```
+
+### 4. Ouvrir le Swagger sur Onyxia
+
+Une fois le serveur démarré, dans le service **VS Code** (Onyxia) :
+
+1. Dans la barre latérale droite (icône **Ports** / **Ports Forwarded**), localiser le **port 5000**.
+2. Cliquer sur le **lien** associé au port 5000.
+3. Le navigateur s'ouvre directement sur la documentation Swagger (`/docs`).
+
+> 💡 Le lien est généralement de la forme : `https://<votre-servicer-onyxia>.xxx.onyxia.org/proxy/5000/docs`
+
+## Résumé rapide
+
+| Étape | Commande / Action |
+|-------|-------------------|
+| Installer les dépendances | `pip install -r requirements.txt` |
+| Lancer le serveur | `cd backend && python src/main.py` |
+| Tester | `curl http://localhost:5000/hello/Chewbacca` |
+| Ouvrir Swagger | Cliquer sur le lien du port 5000 dans le service VS Code (Onyxia) |

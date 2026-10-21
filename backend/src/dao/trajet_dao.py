@@ -1,6 +1,6 @@
-from src.business_object.trajet import Trajet
-from src.dao.db_connection import DBConnection
-from src.dao.ligne_dao import LigneDao
+from business_object.trajet import Trajet
+from dao.db_connection import DBConnection
+from dao.ligne_dao import LigneDao
 
 
 class TrajetDao:
