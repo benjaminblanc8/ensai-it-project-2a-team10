@@ -1,0 +1,40 @@
+# Point Hebdomadaire - Projet
+
+Date : Jeudi 22 Octobre
+Semaine n°8
+
+## Tâches réalisées cette semaine
+
+
+### YU Alexandre
+h
+
+### BLANC Benjamin
+h
+
+
+### DUQUESNE Manon
+2h
+
+
+
+
+### L'HOSTIS Jérémie
+1h30
+- Nettoyage de quelques fichiers sur les imports
+- Finalisation de trajet_controller
+- Vérification du fonctionnement du swagger
+
+### LHOMMEAU Hugo
+h
+- 
+
+
+
+## Backlog
+
+
+
+### Prioritaires
+
+> Pour la rentrée du 2 : finir la fonctionnalité de comptes utilisateurs (connexion, changement d'habilitation)

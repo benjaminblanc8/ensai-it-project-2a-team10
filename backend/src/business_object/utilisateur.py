@@ -1,6 +1,5 @@
 from argon2 import PasswordHasher
-from argon2.exceptions import VerifyMismatchError, VerificationError
-
+from argon2.exceptions import VerificationError, VerifyMismatchError
 from business_object.niveau_habilitation import NiveauHabilitation
 
 
