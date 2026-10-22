@@ -10,7 +10,8 @@ Semaine n°8
 h
 
 ### BLANC Benjamin
-h
+30 minutes
+- Vérification du swagger
 
 
 ### DUQUESNE Manon
