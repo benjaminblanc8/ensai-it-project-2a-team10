@@ -22,43 +22,25 @@ def get_gare_service():
 @router.post("/", response_model=LigneReadModel, tags=["Lignes"])
 def creer_ligne(
     informations: LigneModel,
-    ligne_service=Depends(get_ligne_service), # noqa: B008
-    gare_service=Depends(get_gare_service) # noqa: B008
+    ligne_service=Depends(get_ligne_service),  # noqa: B008
 ):
     """Crée une ligne entre deux gares."""
 
     logger.info("Création d'une ligne")
 
-    gare_depart = gare_service.recherche_gare(
-        informations.id_gare_depart
-    )
+    gare_depart = ligne_service.gare_service.recherche_gare(informations.id_gare_depart)
 
-    gare_arrivee = gare_service.recherche_gare(
+    gare_arrivee = ligne_service.gare_service.recherche_gare(
         informations.id_gare_arrivee
     )
 
-    ligne = ligne_service.creer(
-        gare_depart,
-        gare_arrivee
-    )
-
-    if not ligne:
-        raise HTTPException(
-            status_code=400,
-            detail="Échec de la création de la ligne"
-        )
-
-    return ligne
+    return ligne_service.creer(gare_depart, gare_arrivee)
 
 
-@router.get(
-    "/{id_ligne}",
-    response_model=LigneReadModel,
-    tags=["Lignes"]
-)
+@router.get("/{id_ligne}", response_model=LigneReadModel, tags=["Lignes"])
 def rechercher_ligne(
     id_ligne: int,
-    service=Depends(get_ligne_service) # noqa: B008
+    service=Depends(get_ligne_service),  # noqa: B008
 ):
     """Recherche une ligne par son identifiant."""
 
@@ -67,22 +49,15 @@ def rechercher_ligne(
     ligne = service.rechercher_ligne(id_ligne)
 
     if not ligne:
-        raise HTTPException(
-            status_code=404,
-            detail="Ligne introuvable"
-        )
+        raise HTTPException(status_code=404, detail="Ligne introuvable")
 
     return ligne
 
 
-@router.delete(
-    "/{id_ligne}",
-    response_model=LigneReadModel,
-    tags=["Lignes"]
-)
+@router.delete("/{id_ligne}", response_model=LigneReadModel, tags=["Lignes"])
 def supprimer_ligne(
     id_ligne: int,
-    service=Depends(get_ligne_service) # noqa: B008
+    service=Depends(get_ligne_service),  # noqa: B008
 ):
     """Supprime une ligne."""
 
@@ -91,10 +66,7 @@ def supprimer_ligne(
     ligne = service.rechercher_ligne(id_ligne)
 
     if not ligne:
-        raise HTTPException(
-            status_code=404,
-            detail="Ligne introuvable"
-        )
+        raise HTTPException(status_code=404, detail="Ligne introuvable")
 
     service.supprimer_ligne(id_ligne)
 
