@@ -1,6 +1,6 @@
 from business_object.gare import Gare
 from fastapi import APIRouter, Depends
-from schema.gare_model import GareListModel, GareModel, GareReadModel
+from schema.gare_model import GareModel, GareReadModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
@@ -52,7 +52,7 @@ def rechercher_gare_par_id(
     return service.recherche_gare(id_gare)
 
 
-@router.get("/nom_gare/{nom_gare}", response_model=GareListModel, tags=["Gares"])
+@router.get("/nom_gare/{nom_gare}", response_model=list[GareReadModel], tags=["Gares"])
 def rechercher_gare_par_nom(
     nom_gare: str,
     service=Depends(get_api_sncf_service),  # noqa: B008
