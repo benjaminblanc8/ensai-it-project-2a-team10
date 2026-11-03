@@ -7,19 +7,17 @@ from service.gare_service import GareService
 
 gare = Gare(id_gare=1,
             nom="gare de Rennes",
-            ville="Rennes",
-            latitude="48,1033° N",
-            longitude="-1,6725° O")
+            ville="Rennes")
  
 
 
 def test_ajout_gare_ok():
 
     #GIVEN
-    id_gare, nom, ville, latitude, longitude = 1, "gare de Rennes", "Rennes", "48,1033° N", "-1,6725° O"
+    id_gare, nom, ville, "1", "gare de Rennes", "Rennes"
     GareDao().create_gare = MagicMock(return_value=True)
     #WHEN
-    gare = GareService().ajout_gare(id_gare, nom, ville, latitude, longitude)
+    gare = GareService().ajout_gare(id_gare, nom, ville)
     #THEN
     assert isinstance(gare, Gare)
     assert gare.nom == nom
@@ -28,10 +26,10 @@ def test_ajout_gare_ok():
 def test_ajout_gare_fail():
 
     # GIVEN
-    id_gare, nom, ville, latitude, longitude = 1, "gare de Rennes", "Rennes", "48,1033° N", "-1,6725° O"
+    id_gare, nom, ville, "1", "gare de Rennes", "Rennes"
     GareDao().create_gare = MagicMock(return_value=False)
     # WHEN
-    gare = GareService().ajout_gare(id_gare, nom, ville, latitude, longitude)
+    gare = GareService().ajout_gare(id_gare, nom, ville)
     # THEN
     assert gare is None
 
@@ -46,11 +44,3 @@ def test_recherche_gare():
     assert isinstance(resultat, Gare)
     assert resultat.nom == "gare de Rennes"
 
-
-def test_supprimer_gare():
-
-    # GIVEN
-
-    # WHEN
-
-    # THEN

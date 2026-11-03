@@ -13,7 +13,7 @@ class TrajetService:
         Returns:
             Le trajet correspondant, ou None s'il n'existe pas.
         """
-        return TrajetDao().rechercher(id_trajet)
+        return TrajetDao().recherche_trajet(id_trajet)
 
     def creer_trajet(
         self,

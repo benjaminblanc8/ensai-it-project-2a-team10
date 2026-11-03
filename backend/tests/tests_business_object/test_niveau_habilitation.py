@@ -1,5 +1,5 @@
-from backend.src.business_object.niveau_habilitation import NiveauHabilitation
-from backend.src.business_object.utilisateur import Utilisateur
+from business_object.niveau_habilitation import NiveauHabilitation
+from business_object.utilisateur import Utilisateur
 
 
 def test_utilisateur_creation_et_getters():
