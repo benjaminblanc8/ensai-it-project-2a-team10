@@ -127,14 +127,7 @@ class ApiSncfService:
         if len(name) < 2:
             return []
 
-        data = self._get(
-            "places",
-            {
-                "q": name,
-                "type[]": "stop_area",
-                "count": limite
-            }
-        )
+        data = self._get("places", {"q": name, "type[]": "stop_area", "count": limite})
 
         gares = []
 
