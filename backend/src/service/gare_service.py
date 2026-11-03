@@ -26,7 +26,7 @@ class GareService:
             HTTPException: 400 si la création échoue.
         """
         # Vérification de l'existence des gares auprès de SNCF
-        if not self.api_sncf_service.recherche_gare_par_nom(gare.nom):
+        if not self.api_sncf_service.obtenir_arrets_par_nom(gare.nom):
             raise HTTPException(status_code=404, detail="Cette gare n'existe pas.")
 
         creer_gare = self.dao.create_gare(gare)
