@@ -27,8 +27,8 @@ RAS
 - Vérification du fonctionnement du swagger
 
 ### LHOMMEAU Hugo
-h
-- 
+2h
+- Mise à jour du diagramme de classes
 
 
 
