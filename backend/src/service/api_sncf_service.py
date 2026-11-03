@@ -135,14 +135,24 @@ class ApiSncfService:
         for place in (data or {}).get("places", []):
             if place.get("embedded_type") != "stop_area":
                 continue
+
             infos = place.get("stop_area", {})
             gare = self._formater_gare({
                 "id": place["id"],
                 "name": place.get("name"),
                 "coord": infos.get("coord"),
             })
+
             self._cache_gares[gare["id"]] = gare
-            gares.append(gare)
+
+            gares.append({
+                "id": gare["id"],
+                "nom": gare["nom"],
+                "ville": gare.get("ville"),
+                "latitude": gare["latitude"],
+                "longitude": gare["longitude"],
+            })
+
         return gares
 
     def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
