@@ -13,7 +13,7 @@ class GareDao:
 
         requete = """
             INSERT INTO Gare (nom, ville)
-            VALUES (%s, %s, %s, %s)
+            VALUES (%s, %s)
             RETURNING id_gare;
         """
 
