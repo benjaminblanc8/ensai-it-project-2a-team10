@@ -8,5 +8,6 @@ class UtilisateurModel(BaseModel):
 
 
 class ModificationRoleModel(BaseModel):
+    id_administrateur: int
     id_utilisateur: int
     nouvelle_habilitation: NiveauHabilitation
