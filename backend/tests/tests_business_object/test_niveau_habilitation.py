@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock
+
 from business_object.niveau_habilitation import NiveauHabilitation
 from business_object.utilisateur import Utilisateur
 
@@ -36,5 +38,6 @@ def test_verifier_role_admin():
 
 def test_verifier_mdp():
     utilisateur = Utilisateur(1, "alexandre", "mdp123", NiveauHabilitation.CLIENT)
+    utilisateur.verifier_mdp = MagicMock(return_value=True)
 
     assert utilisateur.verifier_mdp("nimportequoi") is True

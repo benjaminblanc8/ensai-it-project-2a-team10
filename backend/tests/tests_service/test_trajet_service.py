@@ -1,7 +1,6 @@
 from datetime import datetime
 from unittest.mock import MagicMock
 
-from business_object.ligne import Ligne
 from business_object.trajet import Trajet
 from dao.trajet_dao import TrajetDao
 from service.trajet_service import TrajetService
@@ -19,7 +18,7 @@ def test_recherche_trajet():
         _places_reservees=5
     )
 
-    TrajetDao.rechercher = MagicMock(return_value=trajet_fictif)
+    TrajetDao.recherche_trajet = MagicMock(return_value=trajet_fictif)
 
     # WHEN
     service = TrajetService()
@@ -33,7 +32,7 @@ def test_recherche_trajet():
 
 def test_creer_trajet_succes():
     # GIVEN
-    ligne = Ligne(id_ligne=1)
+    ligne = MagicMock()
     date_depart = datetime(2026, 6, 12, 8, 30)
     TrajetDao.creer_trajet = MagicMock(return_value=True)
 
@@ -56,7 +55,7 @@ def test_creer_trajet_succes():
 
 def test_creer_trajet_echec():
     # GIVEN
-    ligne = Ligne(id_ligne=1)
+    ligne = MagicMock()
     date_depart = datetime(2026, 6, 12, 8, 30)
     TrajetDao.creer_trajet = MagicMock(return_value=False)
 
@@ -90,7 +89,7 @@ def test_supprimer_trajet():
 
 def test_modifier_trajet():
     # GIVEN
-    ligne = Ligne(id_ligne=1)
+    ligne = MagicMock()
     date_depart = datetime(2026, 6, 12, 10, 0)
     TrajetDao.modifier_trajet = MagicMock(return_value=True)
 

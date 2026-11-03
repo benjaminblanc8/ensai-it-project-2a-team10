@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from business_object.ligne import Ligne
 
@@ -47,7 +47,10 @@ class Trajet:
     def get_places_reservees(self) -> int:
         return self._places_reservees
 
-    def heure_arrivee(self) -> datetime: ...
+    def heure_arrivee(self):
+        if self.date_heure_depart and self.duree_minutes:
+            return self.date_heure_depart + timedelta(minutes=self.duree_minutes)
+        return None
 
     def places_restantes(self) -> int:
         return self._nb_places - self._places_reservees
