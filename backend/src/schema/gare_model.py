@@ -14,3 +14,7 @@ class GareReadModel(BaseModel):
     ville: str
     latitude: float
     longitude: float
+
+
+class GareListModel(BaseModel):
+    gares: list[GareReadModel]
