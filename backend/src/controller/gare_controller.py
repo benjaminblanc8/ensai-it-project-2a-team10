@@ -33,8 +33,6 @@ def ajouter_gare(
         id_gare=None,
         nom=informations.nom,
         ville=informations.ville,
-        latitude=informations.latitude,
-        longitude=informations.longitude,
         id_gare_sncf=informations.id_gare_sncf,
     )
 
