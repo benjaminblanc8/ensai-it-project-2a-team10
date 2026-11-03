@@ -1,3 +1,4 @@
+from business_object.gare import Gare
 from dao.gare_dao import GareDao
 from fastapi import HTTPException
 from service.api_sncf_service import ApiSncfService
@@ -9,9 +10,10 @@ class GareService:
 
     def __init__(self):
         self.api_sncf_service = ApiSncfService()
+        self.dao = GareDao()
 
     @log
-    def ajout_gare(self, gare) -> object:
+    def ajout_gare(self, gare: Gare) -> bool:
         """Ajoute une gare en base de données.
 
         Arg:
@@ -23,12 +25,18 @@ class GareService:
         Raises:
             HTTPException: 400 si la création échoue.
         """
-        if not GareDao().create_gare(gare):
+        # Vérification de l'existence des gares auprès de SNCF
+        if not self.api_sncf_service.recherche_gare_par_nom(gare.nom):
+            raise HTTPException(status_code=404, detail="Cette gare n'existe pas.")
+
+        creer_gare = self.dao.create_gare(gare)
+
+        if not creer_gare:
             raise HTTPException(
                 status_code=400, detail="Échec de la création de la gare"
             )
 
-        return gare
+        return creer_gare
 
     @log
     def recherche_gare(self, id: int):
@@ -43,7 +51,7 @@ class GareService:
         Raises:
             HTTPException: 404 si aucune gare ne correspond à cet id.
         """
-        gare = GareDao().find_by_id(id)
+        gare = self.dao.find_by_id(id)
 
         if not gare:
             raise HTTPException(status_code=404, detail="Gare introuvable")
@@ -63,11 +71,11 @@ class GareService:
         Raises:
             HTTPException: 404 si la gare n'existe pas.
         """
-        gare = GareDao().find_by_id(id_gare)
+        gare = self.dao.find_by_id(id_gare)
 
         if not gare:
             raise HTTPException(status_code=404, detail="Gare introuvable")
 
-        GareDao().supprimer_gare(id_gare)
+        self.dao.supprimer_gare(id_gare)
 
         return gare

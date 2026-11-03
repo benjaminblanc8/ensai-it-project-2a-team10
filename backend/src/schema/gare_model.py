@@ -7,6 +7,6 @@ class GareModel(BaseModel):
 
 
 class GareReadModel(BaseModel):
-    id: str
+    id_gare: int
     nom: str
     ville: str
