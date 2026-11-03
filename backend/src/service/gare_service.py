@@ -71,8 +71,3 @@ class GareService:
         GareDao().supprimer_gare(id_gare)
 
         return gare
-
-    def verifier_gare(self, gare_id: str):
-        """Vérifie qu'une gare existe sur le réseau SNCF."""
-
-        return self.api_sncf_service.obtenir_gare_par_id(gare_id)

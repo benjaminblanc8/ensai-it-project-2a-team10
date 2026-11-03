@@ -4,6 +4,7 @@ from schema.gare_model import GareModel, GareReadModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
+
 router = APIRouter()
 
 logger = get_logger(__name__)
@@ -34,6 +35,7 @@ def ajouter_gare(
         ville=informations.ville,
         latitude=informations.latitude,
         longitude=informations.longitude,
+        id_gare_sncf=informations.id_gare_sncf,
     )
 
     return service.ajout_gare(gare)

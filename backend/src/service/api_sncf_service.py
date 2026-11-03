@@ -171,8 +171,11 @@ class ApiSncfService:
         self._cache_gares[gare["id"]] = gare
         return gare
 
-    def gare_existe(self, gare_id: str) -> bool:
+    def gare_existe_par_id(self, gare_id: str) -> bool:
         return self.obtenir_gare_par_id(gare_id) is not None
+
+    def gare_existe_par_nom(self, nom_gare: str) -> bool:
+        return len(self.obtenir_arrets_par_nom(nom_gare, limite=1)) > 0
 
     # ------------------------------------------------------------------ #
     # Faisabilité et durée d'un trajet
