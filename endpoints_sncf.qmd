@@ -1,0 +1,6 @@
+https://api.sncf.com/v1/coverage/sncf/places?type[]=stop_area&q=<search>
+https://api.sncf.com/v1/coverage/sncf/places?type[]=stop_area&q=Montparnasse
+
+
+https://api.sncf.com/v1/coverage/sncf/journeys?from=<id>&to=<id>
+https://api.sncf.com/v1/coverage/sncf/journeys?from=stop_area:SNCF:87391003&to=stop_area:SNCF:87387001
