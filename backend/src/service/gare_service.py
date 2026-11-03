@@ -52,7 +52,7 @@ class GareService:
         Raises:
             HTTPException: 404 si aucune gare ne correspond à cet id.
         """
-        gare = self.dao.find_by_id(id)
+        gare = self.dao.recherche_gare(id)
 
         if not gare:
             raise HTTPException(status_code=404, detail="Gare introuvable")
