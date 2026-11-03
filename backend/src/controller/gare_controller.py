@@ -4,8 +4,6 @@ from schema.gare_model import GareListModel, GareModel, GareReadModel
 from service.gare_service import GareService
 from utils.log_utils import get_logger
 
-from backend.src.service.api_sncf_service import ApiSncfService
-
 router = APIRouter()
 
 logger = get_logger(__name__)

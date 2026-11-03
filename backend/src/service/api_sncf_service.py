@@ -1,5 +1,5 @@
 import os
-from collections.abc import Iterator, Optional  # au lieu de from typing import Iterator
+from collections.abc import Iterator  # au lieu de from typing import Iterator
 from datetime import datetime, timedelta
 
 import requests
@@ -43,7 +43,7 @@ class ApiSncfError(Exception):
 
 
 class ApiSncfService:
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: str | None = None):
         self.api_key = api_key or os.getenv("SNCF_API_KEY")
         if not self.api_key:
             raise RuntimeError("SNCF_API_KEY is missing. Add it to your .env file.")
@@ -55,7 +55,7 @@ class ApiSncfService:
     # ------------------------------------------------------------------ #
     # Outils internes
     # ------------------------------------------------------------------ #
-    def _get(self, endpoint: str, params: Optional[dict] = None) -> Optional[dict]:
+    def _get(self, endpoint: str, params: dict | None = None) -> dict | None:
         """
         GET JSON. Retourne None si l'API répond 404 (introuvable / pas de solution).
         Lève ApiSncfError si l'API est injoignable ou si la réponse est invalide.
@@ -145,7 +145,7 @@ class ApiSncfService:
             gares.append(gare)
         return gares
 
-    def obtenir_gare_par_id(self, gare_id: str) -> Optional[dict]:
+    def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
         """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas."""
         if not gare_id:
             return None
@@ -169,7 +169,7 @@ class ApiSncfService:
     # ------------------------------------------------------------------ #
     def calculer_duree_trajet(
         self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
-    ) -> Optional[timedelta]:
+    ) -> timedelta | None:
         """Vérifie qu'un trajet en train est possible et retourne sa durée.
 
         - Retourne un timedelta si un trajet en train existe.
