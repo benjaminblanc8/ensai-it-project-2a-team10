@@ -14,7 +14,7 @@ gare = Gare(id_gare=1,
 def test_ajout_gare_ok():
 
     #GIVEN
-    id_gare, nom, ville, "1", "gare de Rennes", "Rennes"
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
     GareDao().create_gare = MagicMock(return_value=True)
     #WHEN
     gare = GareService().ajout_gare(id_gare, nom, ville)
@@ -26,7 +26,7 @@ def test_ajout_gare_ok():
 def test_ajout_gare_fail():
 
     # GIVEN
-    id_gare, nom, ville, "1", "gare de Rennes", "Rennes"
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
     GareDao().create_gare = MagicMock(return_value=False)
     # WHEN
     gare = GareService().ajout_gare(id_gare, nom, ville)
