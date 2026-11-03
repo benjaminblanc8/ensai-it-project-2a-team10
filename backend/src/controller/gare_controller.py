@@ -59,7 +59,7 @@ def rechercher_gare_par_nom(
 ):
     """Recherche une gare par son nom."""
 
-    logger.info("Recherche d'une gare")
+    logger.info("Recherche de gares : %s", nom_gare)
 
     return service.obtenir_arrets_par_nom(nom_gare)
 
