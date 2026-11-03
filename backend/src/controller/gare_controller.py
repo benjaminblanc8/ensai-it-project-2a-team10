@@ -32,8 +32,7 @@ def ajouter_gare(
     gare = Gare(
         id_gare=None,
         nom=informations.nom,
-        ville=informations.ville,
-    )
+        ville=informations.ville)
 
     return service.ajout_gare(gare)
 
