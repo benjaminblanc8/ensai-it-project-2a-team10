@@ -1,6 +1,6 @@
 import os
+from collections.abc import Iterator, Optional  # au lieu de from typing import Iterator
 from datetime import datetime, timedelta
-from typing import Iterator, Optional
 
 import requests
 from dotenv import load_dotenv
@@ -99,7 +99,7 @@ class ApiSncfService:
     # ------------------------------------------------------------------ #
     # Gares
     # ------------------------------------------------------------------ #
-    def obtenir_tout_les_arrets(
+    def obtenir_tous_les_arrets(
         self, max_pages: int = 5, par_page: int = 100
     ) -> Iterator[dict]:
         """À titre d'exemple : parcourt les gares page par page.
