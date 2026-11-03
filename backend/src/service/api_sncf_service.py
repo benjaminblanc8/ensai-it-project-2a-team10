@@ -120,40 +120,50 @@ class ApiSncfService:
                 return
 
     def obtenir_arrets_par_nom(self, name: str, limite: int = 10) -> list[dict]:
-        """Autocomplétion : retourne les gares dont le nom correspond à la saisie.
+        """Autocomplétion : retourne les gares correspondant à la saisie."""
 
-        Exemple : obtenir_arrets_par_nom("Rennes")
-        -> [{"id": "stop_area:SNCF:87471003", "nom": "Rennes", "latitude": ..., "longitude": ...}]
-        """
         name = (name or "").strip()
-        if len(name) < 2:  # évite un appel API à chaque première lettre
+
+        if len(name) < 2:
             return []
 
-        data = self._get("places", {"q": name, "type[]": "stop_area", "count": limite})
+        data = self._get(
+            "places",
+            {
+                "q": name,
+                "type[]": "stop_area",
+                "count": limite
+            }
+        )
 
         gares = []
+
         for place in (data or {}).get("places", []):
             if place.get("embedded_type") != "stop_area":
                 continue
 
             infos = place.get("stop_area", {})
+
             gare = self._formater_gare({
                 "id": place["id"],
                 "name": place.get("name"),
                 "coord": infos.get("coord"),
             })
 
+            # On conserve la gare dans le cache SNCF
             self._cache_gares[gare["id"]] = gare
 
+            # On harmonise les noms des attributs
             gares.append({
-                "id": gare["id"],
+                "id_gare_sncf": gare["id"],
                 "nom": gare["nom"],
                 "ville": gare.get("ville"),
-                "latitude": gare["latitude"],
-                "longitude": gare["longitude"],
+                "latitude": gare.get("latitude"),
+                "longitude": gare.get("longitude"),
             })
 
         return gares
+
 
     def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
         """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas."""
@@ -175,7 +185,20 @@ class ApiSncfService:
         return self.obtenir_gare_par_id(gare_id) is not None
 
     def gare_existe_par_nom(self, nom_gare: str) -> bool:
-        return len(self.obtenir_arrets_par_nom(nom_gare, limite=1)) > 0
+        """
+        Vérifie si une gare correspondant au nom existe.
+        
+        """
+
+        if not nom_gare or not nom_gare.strip():
+            return False
+
+        gares = self.obtenir_arrets_par_nom(nom_gare, limite=10)
+
+        return any(
+            gare.get("nom", "").strip().casefold() == nom_gare.strip().casefold()
+            for gare in gares
+        )
 
     # ------------------------------------------------------------------ #
     # Faisabilité et durée d'un trajet
