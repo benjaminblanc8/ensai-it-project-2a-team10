@@ -3,7 +3,6 @@ from dao.db_connection import DBConnection
 
 
 class GareDao:
-
     def __init__(self):
         """Initialise la connexion à la base de données."""
         self.db = DBConnection()
