@@ -197,15 +197,13 @@ class ApiSncfService:
     # Faisabilité et durée d'un trajet
     # ------------------------------------------------------------------ #
     def calculer_duree_trajet(
-        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
-    ) -> timedelta | None:
-        """Vérifie qu'un trajet en train est possible et retourne sa durée.
+        self,
+        gare_depart_id: str,
+        gare_arrivee_id: str,
+        date_depart: datetime
+    ) -> dict | None:
+        """Vérifie qu'un trajet est possible et retourne ses horaires et sa durée."""
 
-        - Retourne un timedelta si un trajet en train existe.
-        - Retourne None si aucun trajet en train n'est possible.
-        - Lève ApiSncfError si l'API est indisponible (faisabilité invérifiable :
-          le trajet ne doit alors pas être planifié).
-        """
         params = {
             "from": gare_depart_id,
             "to": gare_arrivee_id,
@@ -222,37 +220,94 @@ class ApiSncfService:
                 return None
             raise
 
-        # On garde les itinéraires qui contiennent au moins un tronçon de transport public
         itineraires = [
             j
             for j in (data or {}).get("journeys", [])
-            if any(s.get("type") == "public_transport" for s in j.get("sections", []))
+            if any(
+                s.get("type") == "public_transport"
+                for s in j.get("sections", [])
+            )
         ]
+
         if not itineraires:
             return None
 
-        return timedelta(seconds=min(j["duration"] for j in itineraires))
+        # Sélection du trajet le plus court
+        meilleur_trajet = min(
+            itineraires,
+            key=lambda j: j["duration"]
+        )
+
+        return {
+            "date_depart": datetime.strptime(
+                meilleur_trajet["departure_date_time"],
+                "%Y%m%dT%H%M%S"
+            ),
+            "date_arrivee": datetime.strptime(
+                meilleur_trajet["arrival_date_time"],
+                "%Y%m%dT%H%M%S"
+            ),
+            "duree": timedelta(
+                seconds=meilleur_trajet["duration"]
+            )
+        }
 
     def trajet_possible(
-        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
+        self,
+        gare_depart_id: str,
+        gare_arrivee_id: str,
+        date_depart: datetime
     ) -> bool:
+        """Indique si un trajet en train est possible."""
+
         return (
-            self.calculer_duree_trajet(gare_depart_id, gare_arrivee_id, date_depart)
-            is not None
+            self.calculer_duree_trajet(
+                gare_depart_id,
+                gare_arrivee_id,
+                date_depart
+            ) is not None
         )
 
 
 # Test rapide
 if __name__ == "__main__":
     api = ApiSncfService()
+
     rennes = api.obtenir_arrets_par_nom("Rennes")[0]
     paris = api.obtenir_arrets_par_nom("Paris Montparnasse")[0]
-    print(rennes, paris)
+
+    print("Gare de départ :", rennes)
+    print("Gare d'arrivée :", paris)
 
     demain_8h = (datetime.now() + timedelta(days=1)).replace(
-        hour=8, minute=0, second=0, microsecond=0
+        hour=8,
+        minute=0,
+        second=0,
+        microsecond=0
     )
-    print("Durée :", api.calculer_duree_trajet(rennes["id"], paris["id"], demain_8h))
+
+    resultat = api.calculer_duree_trajet(
+        rennes["id_gare_sncf"],
+        paris["id_gare_sncf"],
+        demain_8h
+    )
+
+    if resultat is not None:
+        print("\n--- Trajet trouvé ---")
+        print("Départ demandé :", demain_8h)
+        print("Départ réel :", resultat["date_depart"])
+        print("Arrivée :", resultat["date_arrivee"])
+        print("Durée :", resultat["duree"])
+    else:
+        print("Aucun trajet disponible.")
+
+    possible = api.trajet_possible(
+        rennes["id_gare_sncf"],
+        paris["id_gare_sncf"],
+        demain_8h
+    )
+
+    print("\nTrajet possible :", possible)
 
 
 # Pour obtenir une gare avec un nom précis, on peut utiliser l'endpoint "places" avec le paramètre de requête "q" pour spécifier le nom de la gare. Par exemple, pour obtenir des informations sur la gare d'Abancourt, on peut faire une requête GET à l'URL suivante :
