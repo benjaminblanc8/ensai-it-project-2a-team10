@@ -1,10 +1,9 @@
 from business_object.gare import Gare
 from fastapi import APIRouter, Depends
 from schema.gare_model import GareModel, GareReadModel
+from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
-
-from backend.src.service.api_sncf_service import ApiSncfService
 
 router = APIRouter()
 
