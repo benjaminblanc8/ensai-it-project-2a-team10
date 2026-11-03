@@ -17,4 +17,4 @@ class GareReadModel(BaseModel):
 
 
 class GareListModel(BaseModel):
-    gares: dict[GareReadModel]
+    gares: list[GareReadModel]
