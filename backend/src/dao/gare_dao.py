@@ -3,7 +3,6 @@ from dao.db_connection import DBConnection
 
 
 class GareDao:
-
     def __init__(self):
         """Initialise la connexion à la base de données."""
         self.db = DBConnection()
@@ -21,13 +20,7 @@ class GareDao:
         try:
             with self.connection.cursor() as cursor:
                 cursor.execute(
-                    requete,
-                    (
-                        gare.nom,
-                        gare.ville,
-                        gare.latitude,
-                        gare.longitude
-                    )
+                    requete, (gare.nom, gare.ville, gare.latitude, gare.longitude)
                 )
 
                 resultat = cursor.fetchone()
@@ -63,7 +56,7 @@ class GareDao:
             resultat["nom"],
             resultat["ville"],
             resultat["latitude"],
-            resultat["longitude"]
+            resultat["longitude"],
         )
 
     def supprimer_gare(self, id_gare: int) -> bool:
