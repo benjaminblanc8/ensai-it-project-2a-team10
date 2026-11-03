@@ -1,0 +1,12 @@
+22/10/2026 07:54:23 root                      INFO    - GET / - START
+22/10/2026 07:54:23 root                      INFO    - GET / - END [Status: 307]
+22/10/2026 07:54:23 root                      INFO    - GET /docs - START
+22/10/2026 07:54:23 root                      INFO    - GET /docs - END [Status: 200]
+22/10/2026 07:54:24 root                      INFO    - GET /openapi.json - START
+22/10/2026 07:54:24 root                      INFO    - GET /openapi.json - END [Status: 200]
+22/10/2026 12:28:25 root                      INFO    - GET / - START
+22/10/2026 12:28:25 root                      INFO    - GET / - END [Status: 307]
+22/10/2026 12:28:25 root                      INFO    - GET /docs - START
+22/10/2026 12:28:25 root                      INFO    - GET /docs - END [Status: 200]
+22/10/2026 12:28:26 root                      INFO    - GET /openapi.json - START
+22/10/2026 12:28:26 root                      INFO    - GET /openapi.json - END [Status: 200]
