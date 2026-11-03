@@ -119,7 +119,7 @@ class ApiSncfService:
             if (page + 1) * par_page >= total:
                 return
 
-    def obtenir_arrets_par_nom(self, name: str, limite: int = 20) -> list[dict]:
+    def obtenir_arrets_par_nom(self, name: str, limite: int = 10) -> list[dict]:
         """Autocomplétion : retourne les gares dont le nom correspond à la saisie.
 
         Exemple : obtenir_arrets_par_nom("Rennes")
