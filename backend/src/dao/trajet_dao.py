@@ -1,6 +1,8 @@
 from business_object.trajet import Trajet
 from dao.db_connection import DBConnection
 from dao.ligne_dao import LigneDao
+from contextlib import closing
+from business_object.ligne import Ligne
 
 
 class TrajetDao:
@@ -147,3 +149,32 @@ class TrajetDao:
             # On annule la transaction sur la même connexion.
             connexion.rollback()
             raise
+
+    def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
+        requete = """
+            SELECT id_trajet, date_heure_depart, duree_minutes,
+                nb_places, tarif, places_reservees
+            FROM Trajet
+            WHERE id_ligne = %s
+            ORDER BY date_heure_depart, id_trajet
+        """
+            
+        with (
+            closing(DBConnection().connection) as connexion,
+            connexion.cursor() as cursor,
+        ):
+            cursor.execute(requete, (ligne.id_ligne,))
+            resultats = cursor.fetchall()
+
+        return [
+            Trajet(
+                resultat["id_trajet"],
+                resultat["date_heure_depart"],
+                resultat["duree_minutes"],
+                ligne,
+                resultat["nb_places"],
+                float(resultat["tarif"]),
+                resultat["places_reservees"],
+            )
+            for resultat in resultats
+        ]
