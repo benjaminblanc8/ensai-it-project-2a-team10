@@ -1,7 +1,7 @@
 from business_object.niveau_habilitation import NiveauHabilitation
 from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
-
+from utils.security import create_access_token
 
 class UtilisateurService:
     def __init__(self):
@@ -46,7 +46,16 @@ class UtilisateurService:
         if not utilisateur.verifier_mdp(mdp):
             return None
 
-        return utilisateur
+        token = create_access_token(utilisateur.id)
+
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+            "utilisateur": {
+                "id": utilisateur.id,
+                "pseudo": utilisateur.pseudo,
+            },
+        }
 
     def rechercher_utilisateur(self, id_utilisateur: int) -> Utilisateur | None:
         """Recherche un utilisateur par son identifiant."""
