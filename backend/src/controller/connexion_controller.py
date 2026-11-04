@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-
 from service.utilisateur_service import UtilisateurService
 from utils.log_utils import get_logger
 
@@ -16,8 +15,8 @@ def get_utilisateur_service():
 
 @router.post("/", tags=["Connexion"])
 def connexion(
-    informations: OAuth2PasswordRequestForm = Depends(),
-    service: UtilisateurService = Depends(get_utilisateur_service),
+    informations: OAuth2PasswordRequestForm = Depends(),  # ruff: ignore[fast-api-non-annotated-dependency, function-call-in-default-argument]
+    service: UtilisateurService = Depends(get_utilisateur_service),  # ruff: ignore[fast-api-non-annotated-dependency, function-call-in-default-argument]
 ):
     """Connecte un utilisateur et retourne son token JWT."""
 
