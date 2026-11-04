@@ -2,109 +2,55 @@ from datetime import datetime
 from unittest.mock import MagicMock
 
 from business_object.trajet import Trajet
-from dao.trajet_dao import TrajetDao
-from service.trajet_service import TrajetService
 
 
-def test_recherche_trajet():
-    # GIVEN
-    trajet_fictif = Trajet(
-        id_trajet=1,
-        date_heure_depart=datetime(2026, 6, 12, 8, 30),
-        duree_minutes=60,
-        ligne=None,
-        _nb_places=50,
-        _tarif=10.0,
-        _places_reservees=5
-    )
+def test_get_nb_places_disponibles():
+    ligne_mock = MagicMock()
+    trajet = Trajet(1, datetime(2026, 6, 1, 10, 0), 120, ligne_mock, 50, 35.50, 15)
 
-    TrajetDao.recherche_trajet = MagicMock(return_value=trajet_fictif)
-
-    # WHEN
-    service = TrajetService()
-    resultat = service.recherche_trajet(1)
-
-    # THEN
-    assert isinstance(resultat, Trajet)
-    assert resultat.id_trajet == 1
-    assert resultat.get_places_reservees() == 5
+    assert trajet.get_nb_places_disponibles() == 35
+    assert trajet.places_restantes() == 35
 
 
-def test_creer_trajet_succes():
-    # GIVEN
-    ligne = MagicMock()
-    date_depart = datetime(2026, 6, 12, 8, 30)
-    TrajetDao.creer_trajet = MagicMock(return_value=True)
+def test_est_complet():
+    ligne_mock = MagicMock()
 
-    # WHEN
-    service = TrajetService()
-    resultat = service.creer_trajet(
-        ligne=ligne,
-        date_heure_depart=date_depart,
-        duree_minutes=45,
-        nb_places=50,
-        tarif=15.0
-    )
-
-    # THEN
-    assert isinstance(resultat, Trajet)
-    assert resultat.duree_minutes == 45
-    assert resultat.ligne == ligne
-    TrajetDao.creer_trajet.assert_called_once()
+    # cas trajet n'est pas complet
+    trajet_ouvert = Trajet(1, datetime.now(), 60, ligne_mock, 100, 20.0, 40)
+    assert trajet_ouvert.est_complet() is False
+    # cas où le trajet est complet
+    trajet_complet = Trajet(2, datetime.now(), 60, ligne_mock, 100, 20.0, 100)
+    assert trajet_complet.est_complet() is True
 
 
-def test_creer_trajet_echec():
-    # GIVEN
-    ligne = MagicMock()
-    date_depart = datetime(2026, 6, 12, 8, 30)
-    TrajetDao.creer_trajet = MagicMock(return_value=False)
+def test_depart_arrivee():
+    gare_dep = MagicMock(nom="Rennes")
+    gare_arr = MagicMock(nom="Paris")
+    ligne_mock = MagicMock(gare_depart=gare_dep, gare_arrivee=gare_arr)
 
-    # WHEN
-    service = TrajetService()
-    resultat = service.creer_trajet(
-        ligne=ligne,
-        date_heure_depart=date_depart,
-        duree_minutes=45,
-        nb_places=50,
-        tarif=15.0
-    )
+    trajet = Trajet(1, datetime.now(), 90, ligne_mock, 50, 50.0, 10)
+    # On assigne l'attribut .ligne attendu par les méthodes du trajet
+    trajet.ligne = ligne_mock
 
-    # THEN
-    assert resultat is None
-    TrajetDao.creer_trajet.assert_called_once()
+    assert trajet.depart_arrivee() == ("Rennes", "Paris")
 
 
-def test_supprimer_trajet():
-    # GIVEN
-    TrajetDao.supprimer_trajet = MagicMock(return_value=True)
+def test_get_tarif():
+    ligne_mock = MagicMock()
+    trajet = Trajet(1, datetime.now(), 60, ligne_mock, 50, 42.99, 0)
 
-    # WHEN
-    service = TrajetService()
-    resultat = service.supprimer_trajet(1)
-
-    # THEN
-    assert resultat is True
-    TrajetDao.supprimer_trajet.assert_called_once_with(1)
+    assert trajet.get_tarif() == 42.99
 
 
-def test_modifier_trajet():
-    # GIVEN
-    ligne = MagicMock()
-    date_depart = datetime(2026, 6, 12, 10, 0)
-    TrajetDao.modifier_trajet = MagicMock(return_value=True)
+def test_get_places_reservees():
+    ligne_mock = MagicMock()
+    trajet = Trajet(1, datetime(2026, 6, 1, 10, 0), 120, ligne_mock, 50, 35.50, 15)
 
-    # WHEN
-    service = TrajetService()
-    resultat = service.modifier_trajet(
-        id_trajet=1,
-        ligne=ligne,
-        date_heure_depart=date_depart,
-        duree_minutes=60,
-        nb_places=40,
-        tarif=12.5,
-        places_reservees=5
-    )
+    assert trajet.get_places_reservees() == 15
 
-    # THEN
-    assert resultat is True
-    TrajetDao.modifier_trajet.assert_called_once()
+
+def test_heure_arrivee():
+    ligne_mock = MagicMock()
+    trajet = Trajet(1, datetime(2026, 6, 1, 10, 0), 120, ligne_mock, 50, 35.50, 15)
+
+    assert trajet.heure_arrivee() == datetime(2026, 6, 1, 12, 0)

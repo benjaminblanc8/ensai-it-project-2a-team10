@@ -9,7 +9,7 @@ class Trajet:
         id_trajet,
         date_heure_depart: datetime,
         duree_minutes: int,
-        id_ligne: id_ligne,
+        ligne: Ligne,
         _nb_places: int,
         _tarif: float,
         _places_reservees: int = 0,

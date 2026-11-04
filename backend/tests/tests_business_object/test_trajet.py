@@ -29,6 +29,7 @@ def test_depart_arrivee():
     ligne_mock = MagicMock(gare_depart=gare_dep, gare_arrivee=gare_arr)
 
     trajet = Trajet(1, datetime.now(), 90, ligne_mock, 50, 50.0, 10)
+    trajet.ligne = ligne_mock  # Ajout de cette ligne
 
     assert trajet.depart_arrivee() == ("Rennes", "Paris")
 

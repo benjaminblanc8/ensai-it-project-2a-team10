@@ -12,23 +12,20 @@ dao.db_connection.DBConnection = MagicMock()
 
 
 def test_creer_compte_succes():
-    # GIVEN
     pseudo = "john_doe"
     mdp = "password123"
     utilisateur_cree = Utilisateur(1, pseudo, mdp, NiveauHabilitation.CLIENT)
-    # Le pseudo n'existe pas encore
-    UtilisateurDao.recherche_par_pseudo = MagicMock(return_value=None)
-    UtilisateurDao.create = MagicMock(return_value=True)
-    # On recharge l'utilisateur après insertion
-    UtilisateurDao.recherche_utilisateur = MagicMock(return_value=utilisateur_cree)
-
-    # WHEN
+    
     service = UtilisateurService()
+    service.utilisateur_dao = MagicMock()
+    service.utilisateur_dao.recherche_par_pseudo.return_value = None
+    service.utilisateur_dao.creer.return_value = True
+    service.utilisateur_dao.recherche_utilisateur.return_value = utilisateur_cree
+
     resultat = service.creer_compte(pseudo, mdp)
 
-    # THEN
     assert resultat == utilisateur_cree
-    UtilisateurDao.create.assert_called_once()
+    service.utilisateur_dao.creer.assert_called_once()
 
 
 def test_creer_compte_pseudo_vide():
