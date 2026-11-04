@@ -26,12 +26,12 @@ def test_ajout_gare_succes():
 =======
 def test_ajout_gare_ok():
 
-    #GIVEN
+    # GIVEN
     id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
-    GareDao().create_gare = MagicMock(return_value=True)
-    #WHEN
+    GareDao().creer_gare = MagicMock(return_value=True)
+    # WHEN
     gare = GareService().ajout_gare(id_gare, nom, ville)
-    #THEN
+    # THEN
     assert isinstance(gare, Gare)
     assert gare.nom == nom
 
@@ -40,12 +40,18 @@ def test_ajout_gare_fail():
 
     # GIVEN
     id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
+<<<<<<< HEAD
     GareDao().create_gare = MagicMock(return_value=False)
 >>>>>>> 3dc196c55a97a0fefedaf66fc3261fb7b634a0ee
     # WHEN
     service = GareService()
     resultat = service.ajout_gare(gare)
 
+=======
+    GareDao().creer_gare = MagicMock(return_value=False)
+    # WHEN
+    gare = GareService().ajout_gare(gare_test)
+>>>>>>> e78b6bedda30a81996735042bbf1948cdc090c62
     # THEN
     assert resultat == gare
     GareDao.create_gare.assert_called_once_with(gare)
@@ -53,6 +59,7 @@ def test_ajout_gare_fail():
 
 def test_ajout_gare_introuvable_sncf():
     # GIVEN
+<<<<<<< HEAD
     gare = Gare(id_gare=1, nom="Gare Inconnue", ville="Inconnue")
     ApiSncfService.recherche_gare_par_nom = MagicMock(return_value=False)
 
@@ -130,3 +137,11 @@ def test_supprimer_gare_introuvable():
     assert exc_info.value.status_code == 404
     assert exc_info.value.detail == "Gare introuvable"
     
+=======
+    GareDao.recherche_gare = MagicMock(return_value=gare)
+    # WHEN
+    resultat = GareService().recherche_gare(id=9999)
+    # THEN
+    assert isinstance(resultat, Gare)
+    assert resultat.nom == "gare de Rennes"
+>>>>>>> e78b6bedda30a81996735042bbf1948cdc090c62
