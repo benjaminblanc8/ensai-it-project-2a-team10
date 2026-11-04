@@ -59,7 +59,7 @@ class LigneService:
         return self.dao.recherche_ligne(id_ligne)
 
     def supprimer_ligne(self, id_ligne: int):
-        return self.dao.delete(id_ligne)
+        return self.dao.supprimer_ligne(id_ligne)
 
     def rechercher_ligne_par_gares(self, nom_depart: str, nom_arrivee: str) -> Ligne | None:
         ids_lignes = self.dao.rechercher_ids_par_gares(nom_depart, nom_arrivee)
