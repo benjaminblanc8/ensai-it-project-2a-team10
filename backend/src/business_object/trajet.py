@@ -9,7 +9,7 @@ class Trajet:
         id_trajet,
         date_heure_depart: datetime,
         duree_minutes: int,
-        id_ligne: id_ligne,
+        id_ligne,
         _nb_places: int,
         _tarif: float,
         _places_reservees: int = 0,
@@ -26,7 +26,7 @@ class Trajet:
         return (
             f"Trajet("
             f"date_heure_depart={self.date_heure_depart}, duree_minutes={self.duree_minutes}, "
-            f"ligne={self.ligne}, nb_places={self._nb_places}, tarif={self._tarif}, "
+            f"ligne={self.id_ligne}, nb_places={self._nb_places}, tarif={self._tarif}, "
             f"places_reservees={self._places_reservees})"
         )
 
