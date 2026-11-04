@@ -100,6 +100,36 @@ Expected response:
 
 ## Using the API
 
+### Endpoint Summary
+
+| Method | Endpoint | Use Case | Auth Required |
+|--------|----------|----------|---------------|
+| `POST` | `/utilisateur/` | Create a user account | None |
+| `POST` | `/connexion/` | Log in, obtain JWT token | None |
+| `PUT` | `/utilisateur/role` | Change a user's permission level | `ADMIN` (level 3) |
+| `POST` | `/gare/` | Add a station | `COLLAB` (level 2) |
+| `GET` | `/gare/id/{id_gare}` | Search station by ID | `CLIENT` (level 1) |
+| `GET` | `/gare/nom_gare/{nom_gare}` | Search stations by name (SNCF) | `CLIENT` (level 1) |
+| `DELETE` | `/gare/{id_gare}` | Delete a station | `COLLAB` (level 2) |
+| `POST` | `/ligne/` | Create a line between two stations | `COLLAB` (level 2) |
+| `GET` | `/ligne/{id_ligne}` | Search line by ID | `CLIENT` (level 1) |
+| `DELETE` | `/ligne/{id_ligne}` | Delete a line | `COLLAB` (level 2) |
+| `POST` | `/trajet/` | Create a journey (duration from SNCF) | `COLLAB` (level 2) |
+| `GET` | `/trajet/` | Search journeys between two stations | `CLIENT` (level 1) |
+| `GET` | `/trajet/{id_trajet}` | Search journey by ID | `CLIENT` (level 1) |
+| `PUT` | `/trajet/{id_trajet}` | Modify a journey | `COLLAB` (level 2) |
+| `DELETE` | `/trajet/{id_trajet}` | Delete a journey | None |
+
+### Permission Levels
+
+| Level | Name | Capabilities |
+|-------|------|--------------|
+| 1 | `CLIENT` | Read-only access (search stations, lines, journeys) |
+| 2 | `COLLAB` | All `CLIENT` operations, **plus** write access (create/modify/delete stations, lines, journeys) |
+| 3 | `ADMIN` | All `CLIENT` + `COLLAB` operations, **plus** role management (`PUT /utilisateur/role`) |
+
+> ⚠️ All endpoints require at least `CLIENT` (level 1). Write operations (`POST`, `PUT`, `DELETE`) on gares, lignes, and trajets require at least `COLLAB` (level 2).
+
 ### Creating an Account
 
 To create a new user account, use the **`POST /utilisateur/`** endpoint.
@@ -163,6 +193,204 @@ curl http://localhost:5000/<protected-endpoint> \
 ```
 
 If the token is missing, invalid, or expired, a `401` error is returned.
+
+### Managing Stations (Gares)
+
+#### Add a Station
+
+**`POST /gare/`**
+
+| Field | Type   | Description  |
+|-------|--------|--------------|
+| `nom` | string | Station name |
+| `ville`| string | City         |
+
+```bash
+curl -X POST http://localhost:5000/gare/ \
+  -H "Content-Type: application/json" \
+  -d '{"nom": "Paris Gare de Lyon", "ville": "Paris"}'
+```
+
+#### Search Stations by Name (SNCF API)
+
+**`GET /gare/nom_gare/{nom_gare}`** — searches the **SNCF API** (not the local DB).
+
+```bash
+curl http://localhost:5000/gare/nom_gare/Paris
+```
+
+Returns a list of matching stations.
+
+#### Search a Station by ID
+
+**`GET /gare/id/{id_gare}`**
+
+```bash
+curl http://localhost:5000/gare/id/42
+```
+
+#### Delete a Station
+
+**`DELETE /gare/{id_gare}`**
+
+```bash
+curl -X DELETE http://localhost:5000/gare/42
+```
+
+---
+
+### Managing Lines (Lignes)
+
+#### Create a Line
+
+**`POST /ligne/`** — creates a line between two existing stations.
+
+| Field            | Type | Description        |
+|------------------|------|--------------------|
+| `id_gare_depart` | int  | ID of departure station |
+| `id_gare_arrivee`| int  | ID of arrival station   |
+
+```bash
+curl -X POST http://localhost:5000/ligne/ \
+  -H "Content-Type: application/json" \
+  -d '{"id_gare_depart": 1, "id_gare_arrivee": 5}'
+```
+
+**Response (`LigneReadModel`):**
+
+```json
+{
+  "id_ligne": 10,
+  "gare_depart": { "id_gare": 1, "nom": "Paris Gare de Lyon", "ville": "Paris" },
+  "gare_arrivee": { "id_gare": 5, "nom": "Lyon Part-Dieu", "ville": "Lyon" },
+  "date_creation": "2025-01-15"
+}
+```
+
+#### Search a Line by ID
+
+**`GET /ligne/{id_ligne}`**
+
+```bash
+curl http://localhost:5000/ligne/10
+```
+
+#### Delete a Line
+
+**`DELETE /ligne/{id_ligne}`**
+
+```bash
+curl -X DELETE http://localhost:5000/ligne/10
+```
+
+---
+
+### Managing Journeys (Trajets)
+
+#### Create a Journey
+
+**`POST /trajet/`** — creates a journey on an existing line. The **duration is automatically estimated** via the SNCF API based on the departure time.
+
+| Field              | Type     | Description                              |
+|--------------------|----------|------------------------------------------|
+| `nom_gare_depart`  | string   | Name of the departure station            |
+| `nom_gare_arrivee` | string   | Name of the arrival station              |
+| `date_heure_depart`| datetime | Departure date and time (ISO 8601)       |
+| `nb_places`        | int      | Total number of seats                    |
+| `tarif`            | float    | Price per seat (€)                       |
+
+```bash
+curl -X POST http://localhost:5000/trajet/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nom_gare_depart": "Paris Gare de Lyon",
+    "nom_gare_arrivee": "Lyon Part-Dieu",
+    "date_heure_depart": "2025-07-20T09:00:00",
+    "nb_places": 20,
+    "tarif": 39.50
+  }'
+```
+
+> ⚡ The server calls the SNCF API to compute the duration. If no route is found, a `422` is returned.
+
+**Response (`TrajetReadModel`):**
+
+```json
+{
+  "id_trajet": 100,
+  "id_ligne": 10,
+  "date_heure_depart": "2025-07-20T09:00:00",
+  "duree_minutes": 155,
+  "nb_places": 20,
+  "tarif": 39.50,
+  "places_reservees": 0
+}
+```
+
+#### Search Journeys Between Two Stations
+
+**`GET /trajet/`** — returns all journeys on the line connecting the two given stations.
+
+| Query param         | Type   | Description           |
+|---------------------|--------|-----------------------|
+| `nom_gare_depart`   | string | Departure station name|
+| `nom_gare_arrivee`  | string | Arrival station name  |
+
+```bash
+curl "http://localhost:5000/trajet/?nom_gare_depart=Paris%20Gare%20de%20Lyon&nom_gare_arrivee=Lyon%20Part-Dieu"
+```
+
+Returns an empty array `[]` if no line exists between the two stations.
+
+#### Search a Journey by ID
+
+**`GET /trajet/{id_trajet}`**
+
+```bash
+curl http://localhost:5000/trajet/100
+```
+
+#### Modify a Journey
+
+**`PUT /trajet/{id_trajet}`**
+
+| Field              | Type     | Description           |
+|--------------------|----------|-----------------------|
+| `id_ligne`         | int      | Line ID               |
+| `date_heure_depart`| datetime | New departure datetime|
+| `duree_minutes`    | int      | New duration (minutes)|
+| `nb_places`        | int      | Total seats           |
+| `tarif`            | float    | New price (€)         |
+
+```bash
+curl -X PUT http://localhost:5000/trajet/100 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id_ligne": 10,
+    "date_heure_depart": "2025-07-20T10:30:00",
+    "duree_minutes": 155,
+    "nb_places": 25,
+    "tarif": 42.00
+  }'
+```
+
+> ⚠️ Modifying a journey does **not** re-calculate the duration from SNCF. You must pass the correct `duree_minutes` yourself.
+
+#### Delete a Journey
+
+**`DELETE /trajet/{id_trajet}`**
+
+```bash
+curl -X DELETE http://localhost:5000/trajet/100
+```
+
+**Response:**
+
+```json
+{"message": "Trajet supprimé avec succès"}
+```
+
+---
 
 ### Changing a User's Permission Level (Admin Only)
 
