@@ -10,6 +10,7 @@ class TrajetModel(BaseModel):
     nb_places: int
     tarif: float
 
+
 class TrajetReadModel(BaseModel):
     id_trajet: int
     id_ligne: int
@@ -18,3 +19,11 @@ class TrajetReadModel(BaseModel):
     nb_places: int
     tarif: float
     places_reservees: int
+
+
+class TrajetCreationModel(BaseModel):
+    nom_gare_depart: str
+    nom_gare_arrivee: str
+    date_heure_depart: datetime
+    nb_places: int
+    tarif: float

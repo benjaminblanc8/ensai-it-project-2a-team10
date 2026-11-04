@@ -1,6 +1,9 @@
+from math import ceil
 
 from fastapi import APIRouter, Depends, HTTPException
-from schema.trajet_model import TrajetModel, TrajetReadModel
+
+from schema.trajet_model import TrajetCreationModel, TrajetModel, TrajetReadModel
+from service.api_sncf_service import ApiSncfError, ApiSncfService
 from service.ligne_service import LigneService
 from service.trajet_service import TrajetService
 from utils.log_utils import get_logger
@@ -48,20 +51,58 @@ def recherche_trajet(
 
 @router.post("/", response_model=TrajetReadModel, tags=["Trajets"])
 def creer_trajet(
-    informations: TrajetModel,
+    informations: TrajetCreationModel,
     service: TrajetService = Depends(get_trajet_service),  # noqa: B008
     ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
 ):
-    """Crée un trajet sur une ligne existante."""
-    ligne = ligne_service.rechercher_ligne(informations.id_ligne)
+    """Crée un trajet et estime sa durée à partir d'un itinéraire SNCF."""
+    ligne = ligne_service.rechercher_ligne_par_gares(
+        informations.nom_gare_depart,
+        informations.nom_gare_arrivee,
+    )
 
     if ligne is None:
-        raise HTTPException(status_code=404, detail="Ligne introuvable")
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"Aucune ligne de « {informations.nom_gare_depart} » "
+                f"vers « {informations.nom_gare_arrivee} »."
+            ),
+        )
+
+    id_depart = ligne.gare_depart.id_gare_sncf
+    id_arrivee = ligne.gare_arrivee.id_gare_sncf
+
+    if not id_depart or not id_arrivee:
+        raise HTTPException(
+            status_code=422,
+            detail="Une des gares n'a pas d'identifiant SNCF.",
+        )
+
+    try:
+        itineraire = ApiSncfService().calculer_duree_trajet(
+            id_depart,
+            id_arrivee,
+            informations.date_heure_depart,
+        )
+    except ApiSncfError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Impossible de récupérer la durée auprès de l'API SNCF.",
+        ) from exc
+
+    if itineraire is None:
+        raise HTTPException(
+            status_code=422,
+            detail="Aucun itinéraire SNCF trouvé pour ces gares à la date demandée.",
+        )
+
+    duree_minutes = ceil(itineraire["duree"].total_seconds() / 60)
 
     trajet = service.creer_trajet(
         ligne=ligne,
         date_heure_depart=informations.date_heure_depart,
-        duree_minutes=informations.duree_minutes,
+        duree_minutes=duree_minutes,
         nb_places=informations.nb_places,
         tarif=informations.tarif,
     )

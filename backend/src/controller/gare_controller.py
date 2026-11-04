@@ -26,14 +26,12 @@ def ajouter_gare(
     service=Depends(get_gare_service),  # noqa: B008
 ):
     """Ajoute une gare."""
-
     logger.info("Ajout d'une gare")
 
     gare = Gare(
         id_gare=None,
         nom=informations.nom,
         ville=informations.ville,
-        id_gare_sncf=informations.id_gare_sncf,
     )
 
     return service.ajout_gare(gare)
