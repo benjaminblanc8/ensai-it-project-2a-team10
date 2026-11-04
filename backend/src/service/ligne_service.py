@@ -52,8 +52,8 @@ class LigneService:
 
         return nouvelle_ligne
 
-    def modifier_ligne(self, ligne: Ligne, gare_depart: Gare, gare_arrivee: Gare):
-        return self.dao.modifier(ligne)
+    def modifier_ligne(self, id_ligne: int, gare_depart: Gare, gare_arrivee: Gare):
+        return self.dao.modifier_ligne(id_ligne, gare_depart, gare_arrivee)
 
     def rechercher_ligne(self, id_ligne: int):
         return self.dao.recherche_ligne(id_ligne)
