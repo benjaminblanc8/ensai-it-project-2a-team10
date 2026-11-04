@@ -13,7 +13,7 @@ def get_utilisateur_service():
     return UtilisateurService()
 
 
-@router.post("/", tags=["Login"])
+@router.post("/", tags=["Connexion"])
 def connexion(
     informations: UtilisateurModel,
     service=Depends(get_utilisateur_service),  # noqa: B008

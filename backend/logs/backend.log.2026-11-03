@@ -1,220 +1,127 @@
-03/11/2026 09:07:33 root                      INFO    - --------------------------------------------------
-03/11/2026 09:07:33 root                      INFO    - Starting Webservice                           
-03/11/2026 09:07:33 root                      INFO    - --------------------------------------------------
-03/11/2026 09:07:33 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 09:07:33 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 09:07:33 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 09:07:33 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 09:07:33 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 09:07:33 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 09:07:43 root                      INFO    - GET / - START
-03/11/2026 09:07:43 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 09:07:43 root                      INFO    - GET /docs - START
-03/11/2026 09:07:43 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 09:07:43 root                      INFO    - GET /openapi.json - START
-03/11/2026 09:07:43 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 10:15:29 __main__                  INFO    - Webservice stopped
-03/11/2026 11:09:33 root                      INFO    - --------------------------------------------------
-03/11/2026 11:09:33 root                      INFO    - Starting Webservice                           
-03/11/2026 11:09:33 root                      INFO    - --------------------------------------------------
-03/11/2026 11:09:33 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 11:09:33 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 11:09:33 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 11:09:33 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 11:09:33 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 11:09:33 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 11:09:33 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 11:09:41 root                      INFO    - GET / - START
-03/11/2026 11:09:41 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 11:09:41 root                      INFO    - GET /docs - START
-03/11/2026 11:09:41 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 11:09:42 root                      INFO    - GET /openapi.json - START
-03/11/2026 11:09:42 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 11:10:17 root                      INFO    - POST /gare/ - START
-03/11/2026 11:10:17 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 11:10:17 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'GareModel' object has no attribute 'latitude'
-03/11/2026 11:10:22 root                      INFO    - POST /gare/ - START
-03/11/2026 11:10:22 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 11:10:22 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'GareModel' object has no attribute 'latitude'
-03/11/2026 11:14:33 __main__                  INFO    - Webservice stopped
-03/11/2026 11:31:21 root                      INFO    - --------------------------------------------------
-03/11/2026 11:31:21 root                      INFO    - Starting Webservice                           
-03/11/2026 11:31:21 root                      INFO    - --------------------------------------------------
-03/11/2026 11:31:21 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 11:31:21 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 11:31:21 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 11:31:21 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 11:31:21 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 11:31:21 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 11:31:21 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 11:31:25 root                      INFO    - GET / - START
-03/11/2026 11:31:25 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 11:31:25 root                      INFO    - GET /docs - START
-03/11/2026 11:31:25 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 11:31:25 root                      INFO    - GET /openapi.json - START
-03/11/2026 11:31:25 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 11:32:19 root                      INFO    - POST /gare/ - START
-03/11/2026 11:32:19 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 11:32:19 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f3310295940>',) - START
-03/11/2026 11:32:19 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f3310295940>',) - END
-03/11/2026 11:32:19 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f3310295940>
-03/11/2026 11:32:19 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 1 validation errors:
-  {'type': 'missing', 'loc': ('response', 'id'), 'msg': 'Field required', 'input': <business_object.gare.Gare object at 0x7f3310295940>}
+03/11/2026 08:25:31 root                      INFO    - --------------------------------------------------
+03/11/2026 08:25:31 root                      INFO    - Starting Webservice                           
+03/11/2026 08:25:31 root                      INFO    - --------------------------------------------------
+03/11/2026 08:25:31 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-yirm
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_USER=user-yirm
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 08:25:31 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 08:25:31 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 08:25:31 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 08:25:31 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 08:25:31 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 08:25:39 root                      INFO    - GET / - START
+03/11/2026 08:25:39 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 08:25:39 root                      INFO    - GET /docs - START
+03/11/2026 08:25:39 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 08:26:02 root                      INFO    - GET /hello/jamy - START
+03/11/2026 08:26:02 __main__                  INFO    - Display Hello
+03/11/2026 08:26:02 root                      INFO    - GET /hello/jamy - END [Status: 200]
+03/11/2026 08:26:22 root                      INFO    - GET / - START
+03/11/2026 08:26:22 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 08:26:22 root                      INFO    - GET /docs - START
+03/11/2026 08:26:22 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 08:26:22 root                      INFO    - GET /openapi.json - START
+03/11/2026 08:26:22 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 09:04:01 root                      INFO    - PUT /utilisateur/role - START
+03/11/2026 09:04:01 root                      ERROR   - PUT /utilisateur/role - FAILED [Status: 500] Error: could not translate host name "postgresql-cnpg-738928-rw.user-yirm" to address: Name or service not known
 
-03/11/2026 13:15:32 __main__                  INFO    - Webservice stopped
-03/11/2026 13:16:08 root                      INFO    - --------------------------------------------------
-03/11/2026 13:16:08 root                      INFO    - Starting Webservice                           
-03/11/2026 13:16:08 root                      INFO    - --------------------------------------------------
-03/11/2026 13:16:08 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 13:16:08 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 13:16:08 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 13:16:08 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 13:16:08 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 13:16:08 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 13:16:08 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 13:16:15 root                      INFO    - GET / - START
-03/11/2026 13:16:15 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 13:16:15 root                      INFO    - GET /docs - START
-03/11/2026 13:16:15 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 13:16:15 root                      INFO    - GET /openapi.json - START
-03/11/2026 13:16:15 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 13:16:43 root                      INFO    - POST /gare/ - START
-03/11/2026 13:16:43 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 13:16:43 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7fe65bd8dd30>',) - START
-03/11/2026 13:16:43 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'ApiSncfService' object has no attribute 'recherche_gare_par_nom'
-03/11/2026 13:16:44 root                      INFO    - POST /gare/ - START
-03/11/2026 13:16:44 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 13:16:44 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7fe65b360b90>',) - START
-03/11/2026 13:16:44 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'ApiSncfService' object has no attribute 'recherche_gare_par_nom'
-03/11/2026 13:19:55 __main__                  INFO    - Webservice stopped
-03/11/2026 13:25:16 root                      INFO    - --------------------------------------------------
-03/11/2026 13:25:16 root                      INFO    - Starting Webservice                           
-03/11/2026 13:25:16 root                      INFO    - --------------------------------------------------
-03/11/2026 13:25:16 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 13:25:16 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 13:25:16 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 13:25:16 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 13:25:16 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 13:25:16 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 13:25:16 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 13:25:20 root                      INFO    - GET / - START
-03/11/2026 13:25:20 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 13:25:20 root                      INFO    - GET /docs - START
-03/11/2026 13:25:20 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 13:25:20 root                      INFO    - GET /openapi.json - START
-03/11/2026 13:25:20 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 13:25:43 root                      INFO    - POST /gare/ - START
-03/11/2026 13:25:43 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 13:25:43 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f6d454a5d30>',) - START
-03/11/2026 13:25:43 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'ApiSncfService' object has no attribute 'recherche_gare_par_nom'
-03/11/2026 13:30:46 root                      INFO    - POST /gare/ - START
-03/11/2026 13:30:46 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 13:30:46 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7f6d44a74f50>',) - START
-03/11/2026 13:30:46 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'ApiSncfService' object has no attribute 'recherche_gare_par_nom'
-03/11/2026 13:30:51 root                      INFO    - GET / - START
-03/11/2026 13:30:51 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 13:30:51 root                      INFO    - GET /docs - START
-03/11/2026 13:30:51 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 13:30:52 root                      INFO    - GET /openapi.json - START
-03/11/2026 13:30:52 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 13:31:12 root                      INFO    - POST /gare/ - START
-03/11/2026 13:31:12 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 13:31:12 service.gare_service      INFO    -       ajout_gare('<business_object.gare.Gare object at 0x7f6d44a75d10>',) - START
-03/11/2026 13:31:12 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 'ApiSncfService' object has no attribute 'recherche_gare_par_nom'
-03/11/2026 13:54:13 __main__                  INFO    - Webservice stopped
-03/11/2026 13:56:39 root                      INFO    - --------------------------------------------------
-03/11/2026 13:56:39 root                      INFO    - Starting Webservice                           
-03/11/2026 13:56:39 root                      INFO    - --------------------------------------------------
-03/11/2026 13:56:39 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 13:56:39 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 13:56:39 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 13:56:39 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 13:56:39 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 13:56:39 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 13:56:39 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 13:56:58 root                      INFO    - GET / - START
-03/11/2026 13:56:58 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 13:56:58 root                      INFO    - GET /docs - START
-03/11/2026 13:56:58 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 13:56:58 root                      INFO    - GET /openapi.json - START
-03/11/2026 13:56:58 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 14:09:52 root                      INFO    - GET / - START
-03/11/2026 14:09:52 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 14:09:52 root                      INFO    - GET /docs - START
-03/11/2026 14:09:52 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 14:09:53 root                      INFO    - GET /openapi.json - START
-03/11/2026 14:09:53 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 15:14:28 __main__                  INFO    - Webservice stopped
-03/11/2026 15:14:35 root                      INFO    - --------------------------------------------------
-03/11/2026 15:14:35 root                      INFO    - Starting Webservice                           
-03/11/2026 15:14:35 root                      INFO    - --------------------------------------------------
-03/11/2026 15:14:35 root                      INFO    - Load environment variables: SUCCES
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_PORT=5432
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_DATABASE=defaultdb
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_USER=user-benjaminblanc
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_PASSWORD=*******
-03/11/2026 15:14:35 root                      INFO    - POSTGRES_SCHEMA=public
-03/11/2026 15:14:35 root                      INFO    - UVICORN_HOST=0.0.0.0
-03/11/2026 15:14:35 root                      INFO    - UVICORN_PORT=5000
-03/11/2026 15:14:35 root                      INFO    - BACKEND_URL=http://localhost:5000/
-03/11/2026 15:14:35 root                      INFO    - BACKEND_TIMEOUT=5
-03/11/2026 15:14:35 root                      INFO    - SNCF_API_KEY=*******
-03/11/2026 15:14:41 root                      INFO    - GET / - START
-03/11/2026 15:14:41 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 15:14:41 root                      INFO    - GET /docs - START
-03/11/2026 15:14:41 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 15:14:55 root                      INFO    - GET / - START
-03/11/2026 15:14:55 root                      INFO    - GET / - END [Status: 307]
-03/11/2026 15:14:55 root                      INFO    - GET /docs - START
-03/11/2026 15:14:55 root                      INFO    - GET /docs - END [Status: 200]
-03/11/2026 15:14:55 root                      INFO    - GET /openapi.json - START
-03/11/2026 15:14:55 root                      INFO    - GET /openapi.json - END [Status: 200]
-03/11/2026 15:15:17 root                      INFO    - POST /gare/ - START
-03/11/2026 15:15:17 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 15:15:17 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f7dff4a9e80>',) - START
-03/11/2026 15:15:17 root                      INFO    - POST /gare/ - END [Status: 404]
-03/11/2026 15:16:08 root                      INFO    - POST /gare/ - START
-03/11/2026 15:16:08 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 15:16:08 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7f7dff477b10>',) - START
-03/11/2026 15:16:08 root                      INFO    - POST /gare/ - END [Status: 404]
-03/11/2026 15:16:56 root                      INFO    - GET /gare/nom_gare/matabi - START
-03/11/2026 15:16:56 c.gare_controller         INFO    - Recherche de gares : matabi
-03/11/2026 15:16:56 root                      INFO    - GET /gare/nom_gare/matabi - END [Status: 200]
-03/11/2026 15:17:16 root                      INFO    - POST /gare/ - START
-03/11/2026 15:17:16 c.gare_controller         INFO    - Ajout d'une gare
-03/11/2026 15:17:16 service.gare_service      INFO    -       ajout_gare('<business_object.gare.Gare object at 0x7f7dff35c410>',) - START
-03/11/2026 15:17:17 service.gare_service      INFO    -       ajout_gare('<business_object.gare.Gare object at 0x7f7dff35c410>',) - END
-03/11/2026 15:17:17 service.gare_service      INFO    -         └─> Output: <business_object.gare.Gare object at 0x7f7dff35c410>
-03/11/2026 15:17:17 root                      INFO    - POST /gare/ - END [Status: 200]
-03/11/2026 15:38:04 __main__                  INFO    - Webservice stopped
+03/11/2026 10:08:50 root                      INFO    - --------------------------------------------------
+03/11/2026 10:08:50 root                      INFO    - Starting Webservice                           
+03/11/2026 10:08:50 root                      INFO    - --------------------------------------------------
+03/11/2026 10:08:50 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-yirm
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_USER=user-yirm
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 10:08:50 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 10:08:50 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 10:08:50 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 10:08:50 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 10:08:50 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 10:08:57 root                      INFO    - GET / - START
+03/11/2026 10:08:57 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 10:08:57 root                      INFO    - GET /docs - START
+03/11/2026 10:08:57 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 10:09:34 root                      INFO    - GET /hello/Jamy - START
+03/11/2026 10:09:34 __main__                  INFO    - Display Hello
+03/11/2026 10:09:34 root                      INFO    - GET /hello/Jamy - END [Status: 200]
+03/11/2026 10:09:45 root                      INFO    - GET / - START
+03/11/2026 10:09:45 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 10:09:45 root                      INFO    - GET /docs - START
+03/11/2026 10:09:45 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 10:09:46 root                      INFO    - GET /openapi.json - START
+03/11/2026 10:09:46 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 10:10:14 root                      INFO    - POST /utilisateur/ - START
+03/11/2026 10:10:14 root                      ERROR   - POST /utilisateur/ - FAILED [Status: 500] Error: could not translate host name "postgresql-cnpg-738928-rw.user-yirm" to address: Name or service not known
+
+03/11/2026 12:59:05 root                      INFO    - --------------------------------------------------
+03/11/2026 12:59:05 root                      INFO    - Starting Webservice                           
+03/11/2026 12:59:05 root                      INFO    - --------------------------------------------------
+03/11/2026 12:59:05 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-yirm
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_USER=user-yirm
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 12:59:05 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 12:59:05 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 12:59:05 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 12:59:05 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 12:59:05 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 12:59:23 root                      INFO    - GET /hello/jamy - START
+03/11/2026 12:59:23 __main__                  INFO    - Display Hello
+03/11/2026 12:59:23 root                      INFO    - GET /hello/jamy - END [Status: 200]
+03/11/2026 12:59:35 root                      INFO    - GET / - START
+03/11/2026 12:59:35 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 12:59:35 root                      INFO    - GET /docs - START
+03/11/2026 12:59:35 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 12:59:35 root                      INFO    - GET /openapi.json - START
+03/11/2026 12:59:35 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 12:59:47 root                      INFO    - POST /utilisateur/ - START
+03/11/2026 12:59:47 root                      ERROR   - POST /utilisateur/ - FAILED [Status: 500] Error: could not translate host name "postgresql-cnpg-738928-rw.user-yirm" to address: Name or service not known
+
+03/11/2026 13:13:59 root                      INFO    - GET /hello/jamy - START
+03/11/2026 13:13:59 __main__                  INFO    - Display Hello
+03/11/2026 13:13:59 root                      INFO    - GET /hello/jamy - END [Status: 200]
+03/11/2026 13:25:28 root                      INFO    - --------------------------------------------------
+03/11/2026 13:25:28 root                      INFO    - Starting Webservice                           
+03/11/2026 13:25:28 root                      INFO    - --------------------------------------------------
+03/11/2026 13:25:28 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 13:25:28 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 13:25:28 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 13:25:28 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 13:25:28 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 13:25:28 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 13:25:48 root                      INFO    - GET /hello/truc - START
+03/11/2026 13:25:48 __main__                  INFO    - Display Hello
+03/11/2026 13:25:48 root                      INFO    - GET /hello/truc - END [Status: 200]
+03/11/2026 13:25:59 root                      INFO    - GET / - START
+03/11/2026 13:25:59 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 13:25:59 root                      INFO    - GET /docs - START
+03/11/2026 13:25:59 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 13:25:59 root                      INFO    - GET /openapi.json - START
+03/11/2026 13:25:59 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 13:26:09 root                      INFO    - POST /utilisateur/ - START
+03/11/2026 13:26:09 c.utilisateur_controller  INFO    - Création d'un compte
+03/11/2026 13:26:09 root                      INFO    - POST /utilisateur/ - END [Status: 400]
+03/11/2026 13:26:30 root                      INFO    - POST /utilisateur/ - START
+03/11/2026 13:26:30 c.utilisateur_controller  INFO    - Création d'un compte
+03/11/2026 13:26:30 root                      INFO    - POST /utilisateur/ - END [Status: 200]
+03/11/2026 13:41:37 root                      INFO    - PUT /utilisateur/role - START
+03/11/2026 13:41:37 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 3
+03/11/2026 13:41:37 root                      INFO    - PUT /utilisateur/role - END [Status: 200]
+03/11/2026 13:42:45 root                      INFO    - POST /utilisateur/ - START
+03/11/2026 13:42:45 c.utilisateur_controller  INFO    - Création d'un compte
+03/11/2026 13:42:45 root                      INFO    - POST /utilisateur/ - END [Status: 200]
+03/11/2026 13:43:12 root                      INFO    - PUT /utilisateur/role - START
+03/11/2026 13:43:12 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 6
+03/11/2026 13:43:12 root                      INFO    - PUT /utilisateur/role - END [Status: 200]
