@@ -60,11 +60,11 @@ def modifier_role(
             informations.nouvelle_habilitation,
         )
 
-    except PermissionError:
+    except PermissionError as e:
         raise HTTPException(
             status_code=403,
-            detail="Seul un administrateur peut modifier les habilitations.",
-        )
+            detail=str(e),
+        ) from e
 
     if not succes:
         raise HTTPException(
