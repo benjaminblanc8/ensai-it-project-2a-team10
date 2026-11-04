@@ -44,7 +44,9 @@ Jeudi 5 :
   - Check et étude du code des autres membres de l'équipe
   - Création du squelette global du rapport final
 - Mercredi 4 :
-  - 
+  - Vérification de la cohérence globale du code + nettoyages divers (toute la journée) 
+  - Suivi des tâches attribuées dans le groupe
+  - Recherches sur l'identification par token JWT + assistance dans le codage
 Jeudi 5 :
   -
 
