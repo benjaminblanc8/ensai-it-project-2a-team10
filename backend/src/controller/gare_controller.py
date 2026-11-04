@@ -1,11 +1,11 @@
 from business_object.gare import Gare
+from business_object.niveau_habilitation import NiveauHabilitation
 from fastapi import APIRouter, Depends
 from schema.gare_model import GareModel, GareReadModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
 from utils.verification_habilitation import require_niveau
-from business_object.niveau_habilitation import NiveauHabilitation 
 
 router = APIRouter()
 
@@ -25,7 +25,7 @@ def get_api_sncf_service():
 @router.post("/", response_model=GareReadModel, tags=["Gares"])
 def ajouter_gare(
     informations: GareModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_gare_service),  # noqa: B008
 ):
     """Ajoute une gare."""
@@ -67,7 +67,7 @@ def rechercher_gare_par_nom(
 @router.delete("/{id_gare}", response_model=GareReadModel, tags=["Gares"])
 def supprimer_gare(
     id_gare: int,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_gare_service),  # noqa: B008
 ):
     """Supprime une gare."""

@@ -31,6 +31,13 @@ From the repository root:
 pip install -r requirements.txt
 ```
 
+Alternatively, you can install from `backend/pyproject.toml`:
+
+```bash
+cd backend
+pip install -e \".[dev]\"
+```
+
 ### Step 2: Configure the environment
 
 Create a `.env` file in the **repository root** with the following content:
@@ -118,7 +125,7 @@ Expected response:
 | `GET` | `/trajet/` | Search journeys between two stations | `CLIENT` (level 1) |
 | `GET` | `/trajet/{id_trajet}` | Search journey by ID | `CLIENT` (level 1) |
 | `PUT` | `/trajet/{id_trajet}` | Modify a journey | `COLLAB` (level 2) |
-| `DELETE` | `/trajet/{id_trajet}` | Delete a journey | None |
+| `DELETE` | `/trajet/{id_trajet}` | Delete a journey | `COLLAB` (level 2) |
 
 ### Permission Levels
 
