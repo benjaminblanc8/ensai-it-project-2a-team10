@@ -75,11 +75,11 @@ def modifier_ligne(
     return service.modifier_ligne(informations.id_ligne, gare_depart, gare_arrivee)
 
 
-@router.delete("/{id_ligne}", response_model=LigneReadModel, tags=["Lignes"])
+@router.delete("/{id_ligne}", tags=["Lignes"])
 def supprimer_ligne(
     id_ligne: int,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
-    service=Depends(get_ligne_service),  # noqa: B008
+    service=Depends(get_ligne_service),
 ):
     """Supprime une ligne."""
 
@@ -90,6 +90,19 @@ def supprimer_ligne(
     if not ligne:
         raise HTTPException(status_code=404, detail="Ligne introuvable")
 
-    service.supprimer_ligne(id_ligne)
+    try:
+        suppression_effectuee = service.supprimer_ligne(id_ligne)
 
-    return ligne
+        if not suppression_effectuee:
+            raise HTTPException(
+                status_code=500,
+                detail="La suppression de la ligne a échoué.",
+            )
+
+        return {"message": "La ligne a été supprimée avec succès."}
+
+    except PermissionError as erreur:
+        raise HTTPException(
+            status_code=409,
+            detail=str(erreur),
+        ) from erreur
