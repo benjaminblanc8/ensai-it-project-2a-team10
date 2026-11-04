@@ -1,14 +1,13 @@
+from dependencies.authentication import (
+    get_current_user,
+    get_utilisateur_service,
+)
 from fastapi import APIRouter, Depends, HTTPException
-
 from schema.utilisateur_model import (
     ModificationRoleModel,
     UtilisateurModel,
 )
 from service.utilisateur_service import UtilisateurService
-from dependencies.authentication import (
-    get_utilisateur_service,
-    get_current_user,
-)
 from utils.log_utils import get_logger
 
 router = APIRouter()

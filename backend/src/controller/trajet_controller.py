@@ -35,7 +35,7 @@ def convertir_trajet(trajet) -> TrajetReadModel:
 @router.get("/{id_trajet}", response_model=TrajetReadModel, tags=["Trajets"])
 def recherche_trajet(
     id_trajet: int,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Recherche un trajet par son identifiant."""
     trajet = service.recherche_trajet(id_trajet)
@@ -49,8 +49,8 @@ def recherche_trajet(
 @router.post("/", response_model=TrajetReadModel, tags=["Trajets"])
 def creer_trajet(
     informations: TrajetModel,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Crée un trajet sur une ligne existante."""
     ligne = ligne_service.rechercher_ligne(informations.id_ligne)
@@ -80,8 +80,8 @@ def creer_trajet(
 def modifier_trajet(
     id_trajet: int,
     informations: TrajetModel,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Modifie un trajet existant."""
     trajet_existant = service.recherche_trajet(id_trajet)
@@ -118,7 +118,7 @@ def modifier_trajet(
 @router.delete("/{id_trajet}", tags=["Trajets"])
 def supprimer_trajet(
     id_trajet: int,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Supprime un trajet existant."""
     trajet = service.recherche_trajet(id_trajet)
