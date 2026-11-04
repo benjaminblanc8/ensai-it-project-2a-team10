@@ -1,31 +1,41 @@
+from utils.authentication import (
+    get_current_user,
+    get_utilisateur_service,
+)
+from utils.verification_habilitation import require_niveau
 from fastapi import APIRouter, Depends, HTTPException
-from schema.utilisateur_model import ModificationRoleModel, UtilisateurModel
+from schema.utilisateur_model import (
+    ModificationRoleModel,
+    UtilisateurModel,
+)
 from service.utilisateur_service import UtilisateurService
+from business_object.niveau_habilitation import NiveauHabilitation
+
 from utils.log_utils import get_logger
 
 router = APIRouter()
-
 logger = get_logger(__name__)
-
-
-def get_utilisateur_service():
-    """Injecte la dépendance au service utilisateur."""
-    return UtilisateurService()
 
 
 @router.post("/", tags=["Utilisateurs"])
 def creer_compte(
     informations: UtilisateurModel,
-    service=Depends(get_utilisateur_service),  # noqa: B008
+    service: UtilisateurService = Depends(get_utilisateur_service),
 ):
     """Crée un compte utilisateur."""
 
     logger.info("Création d'un compte")
 
     try:
-        utilisateur = service.creer_compte(informations.pseudo, informations.mdp)
+        utilisateur = service.creer_compte(
+            informations.pseudo,
+            informations.mdp,
+        )
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(
+            status_code=400,
+            detail=str(e),
+        )
 
     return utilisateur
 
@@ -33,24 +43,25 @@ def creer_compte(
 @router.put("/role", tags=["Utilisateurs"])
 def modifier_role(
     informations: ModificationRoleModel,
-    service=Depends(get_utilisateur_service),  # noqa: B008
+    administrateur=Depends(
+        require_niveau(NiveauHabilitation.ADMIN)
+    ),
+    service=Depends(get_utilisateur_service),
 ):
     """Modifie le niveau d'habilitation d'un utilisateur."""
 
-    logger.info(f"Modification du rôle de l'utilisateur {informations.id_utilisateur}")
-
-    # Récupérer l'administrateur qui fait la demande
-    administrateur = service.rechercher_utilisateur(informations.id_administrateur)
-
-    if administrateur is None:
-        raise HTTPException(status_code=401, detail="Administrateur non reconnu")
+    logger.info(
+        f"Modification du rôle de l'utilisateur "
+        f"{informations.id_utilisateur}"
+    )
 
     try:
         succes = service.modifier_habilitation(
-            administrateur,
+            utilisateur,
             informations.id_utilisateur,
             informations.nouvelle_habilitation,
         )
+
     except PermissionError:
         raise HTTPException(
             status_code=403,
@@ -59,7 +70,10 @@ def modifier_role(
 
     if not succes:
         raise HTTPException(
-            status_code=404, detail="Utilisateur introuvable ou échec de la mise à jour"
+            status_code=404,
+            detail="Utilisateur introuvable ou échec de la mise à jour",
         )
 
-    return {"detail": "Habilitation modifiée avec succès"}
+    return {
+        "detail": "Habilitation modifiée avec succès"
+    }
