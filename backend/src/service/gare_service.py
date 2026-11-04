@@ -1,7 +1,7 @@
 from business_object.gare import Gare
 from dao.gare_dao import GareDao
 from fastapi import HTTPException
-from service.api_sncf_service import ApiSncfService
+from service.api_sncf_service import ApiSncfService, ApiSncfError
 from utils.log_utils import log
 
 
@@ -13,32 +13,47 @@ class GareService:
         self.dao = GareDao()
 
     @log
-    def ajout_gare(self, gare: Gare) -> bool:
-        """Ajoute une gare en base de données.
+    def ajout_gare(self, gare: Gare) -> Gare:
+        """Trouve l'identifiant SNCF de la gare et l'enregistre en base."""
+        nom_normalise = gare.nom.strip().casefold()
 
-        Arg:
-            gare (Gare): La gare à créer.
-
-        Returns:
-            Gare: La gare qui vient d'être créée.
-
-        Raises:
-            HTTPException: 400 si la création échoue.
-        """
-        # Vérification de l'existence des gares auprès de SNCF
-        if not self.api_sncf_service.gare_existe_par_nom(gare.nom):
-            raise HTTPException(status_code=404, detail="Cette gare n'existe pas.")
-            return None
-
-        creer_gare = self.dao.creer_gare(gare)
-
-        if not creer_gare:
+        try:
+            resultats = self.api_sncf_service.obtenir_arrets_par_nom(gare.nom)
+        except ApiSncfError as exc:
             raise HTTPException(
-                status_code=400, detail="Échec de la création de la gare"
+                status_code=502,
+                detail="La recherche de gare auprès de la SNCF a échoué.",
+            ) from exc
+
+        ids_sncf = {
+            resultat["id_gare_sncf"]
+            for resultat in resultats
+            if (resultat.get("nom") or "").strip().casefold() == nom_normalise
+            and resultat.get("id_gare_sncf")
+        }
+
+        if not ids_sncf:
+            raise HTTPException(
+                status_code=404,
+                detail="Aucune gare SNCF ne correspond à ce nom.",
+            )
+
+        if len(ids_sncf) > 1:
+            raise HTTPException(
+                status_code=409,
+                detail="Plusieurs gares SNCF portent ce nom.",
+            )
+
+        gare.id_gare_sncf = ids_sncf.pop()
+
+        if not self.dao.creer_gare(gare):
+            raise HTTPException(
+                status_code=400,
+                detail="Échec de la création de la gare.",
             )
 
         return gare
-
+    
     @log
     def recherche_gare(self, id: int):
         """Recherche une gare à partir de son id.

@@ -10,6 +10,7 @@ oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/connexion/"
 )
 
+
 def get_utilisateur_service():
     """Injecte la dépendance au service utilisateur."""
     return UtilisateurService()
@@ -33,7 +34,6 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    utilisateur = service.get_by_id(utilisateur_id)
-
+    utilisateur = service.rechercher_utilisateur(utilisateur_id)
 
     return utilisateur

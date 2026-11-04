@@ -3,6 +3,7 @@ from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
 from utils.security import create_access_token
 
+
 class UtilisateurService:
     def __init__(self):
         """Initialise le DAO utilisé par le service."""
@@ -46,14 +47,14 @@ class UtilisateurService:
         if not utilisateur.verifier_mdp(mdp):
             return None
 
-        token = create_access_token(utilisateur.id)
+        token = create_access_token(utilisateur.id_utilisateur)
 
         return {
             "access_token": token,
             "token_type": "bearer",
             "utilisateur": {
-                "id": utilisateur.id,
-                "pseudo": utilisateur.pseudo,
+                "id": utilisateur.id_utilisateur,
+                "pseudo": utilisateur.get_pseudo,
             },
         }
 

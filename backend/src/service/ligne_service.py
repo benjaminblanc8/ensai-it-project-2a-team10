@@ -60,3 +60,17 @@ class LigneService:
 
     def supprimer_ligne(self, id_ligne: int):
         return self.dao.delete(id_ligne)
+
+    def rechercher_ligne_par_gares(self, nom_depart: str, nom_arrivee: str) -> Ligne | None:
+        ids_lignes = self.dao.rechercher_ids_par_gares(nom_depart, nom_arrivee)
+
+        if not ids_lignes:
+            return None
+
+        if len(ids_lignes) > 1:
+            raise HTTPException(
+                status_code=409,
+                detail="Plusieurs lignes correspondent à ces noms de gares.",
+            )
+
+        return self.rechercher_ligne(ids_lignes[0])

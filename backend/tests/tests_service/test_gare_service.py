@@ -1,12 +1,13 @@
-from unittest.mock import MagicMock
 import os
-import pytest
-from fastapi import HTTPException
+from unittest.mock import MagicMock
 
 # Neutralisation totale de la base de données et de l'API SNCF
 import dao.db_connection
+import pytest
+from fastapi import HTTPException
+
 dao.db_connection.DBConnection = MagicMock()
-os.environ["SNCF_API_KEY"] = "fake_key"
+os.environ["SNCF_API_KEY"] = "fake_key"   #  Pour empêcher l'application d'essayer de se connecter à la vraie base de données PostgreSQL ou de réclamer une vraie clé d'API SNCF secrète
 
 from business_object.gare import Gare
 from service.api_sncf_service import ApiSncfService

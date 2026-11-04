@@ -3,7 +3,7 @@ from business_object.niveau_habilitation import NiveauHabilitation
 from business_object.utilisateur import Utilisateur
 
 
-def test_utilisateur_creation_et_getters():
+def test_utilisateur_creation_et_attributs():
     utilisateur = Utilisateur(1, "jeremie", "mdp", NiveauHabilitation.CLIENT)
 
     assert utilisateur.get_id_utilisateur() == 1
