@@ -22,7 +22,13 @@ class LigneCreateModel(BaseModel):
     id_gare_arrivee: int
 
 
+class LigneReadUpdateModel(BaseModel):
+    id_ligne: int
+    gare_depart: GareReadModel
+    gare_arrivee: GareReadModel
+
+
 class LigneUpdateModel(BaseModel):
-    libelle: str = Field(min_length=2, max_length=100)
+    id_ligne: int
     id_gare_depart: int
     id_gare_arrivee: int

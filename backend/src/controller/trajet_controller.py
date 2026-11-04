@@ -6,6 +6,8 @@ from service.api_sncf_service import ApiSncfError, ApiSncfService
 from service.ligne_service import LigneService
 from service.trajet_service import TrajetService
 from utils.log_utils import get_logger
+from utils.verification_habilitation import require_niveau
+from business_object.niveau_habilitation import NiveauHabilitation
 
 router = APIRouter()
 logger = get_logger(__name__)
@@ -71,6 +73,7 @@ def recherche_trajet(
 @router.post("/", response_model=TrajetReadModel, tags=["Trajets"])
 def creer_trajet(
     informations: TrajetCreationModel,
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
     service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
     ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
@@ -140,6 +143,7 @@ def creer_trajet(
 def modifier_trajet(
     id_trajet: int,
     informations: TrajetModel,
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
     service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
     ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
@@ -178,6 +182,7 @@ def modifier_trajet(
 @router.delete("/{id_trajet}", tags=["Trajets"])
 def supprimer_trajet(
     id_trajet: int,
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
     service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Supprime un trajet existant."""
