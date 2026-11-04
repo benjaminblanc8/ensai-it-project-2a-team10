@@ -55,7 +55,7 @@ def rechercher_trajets_par_gares(
     trajets = service.rechercher_trajets_par_ligne(ligne)
     return [convertir_trajet(trajet) for trajet in trajets]
 
-    
+
 @router.get("/{id_trajet}", response_model=TrajetReadModel, tags=["Trajets"])
 def recherche_trajet(
     id_trajet: int,
@@ -108,6 +108,7 @@ def creer_trajet(
             informations.date_heure_depart,
         )
     except ApiSncfError as exc:
+        logger.error("Erreur API SNCF : %s", exc)
         raise HTTPException(
             status_code=502,
             detail="Impossible de récupérer la durée auprès de l'API SNCF.",

@@ -1,6 +1,6 @@
 from business_object.gare import Gare
 from business_object.niveau_habilitation import NiveauHabilitation
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from schema.gare_model import GareModel, GareReadModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
@@ -49,7 +49,12 @@ def rechercher_gare_par_id(
 
     logger.info("Recherche d'une gare")
 
-    return service.recherche_gare(id_gare)
+    gare = service.recherche_gare(id_gare)
+
+    if gare is None:
+        raise HTTPException(status_code=404, detail="Gare introuvable")
+
+    return gare
 
 
 @router.get("/nom_gare/{nom_gare}", response_model=list[GareReadModel], tags=["Gares"])
