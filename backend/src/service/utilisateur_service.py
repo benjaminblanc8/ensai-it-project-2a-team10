@@ -1,11 +1,9 @@
-
 from business_object.niveau_habilitation import NiveauHabilitation
 from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
 
 
 class UtilisateurService:
-
     def __init__(self):
         """Initialise le DAO utilisé par le service."""
         self.utilisateur_dao = UtilisateurDao()
@@ -17,43 +15,30 @@ class UtilisateurService:
             raise ValueError("Le pseudo ne peut pas être vide.")
 
         if not mdp or len(mdp) < 8:
-            raise ValueError(
-                "Le mot de passe doit contenir au moins 8 caractères."
-            )
+            raise ValueError("Le mot de passe doit contenir au moins 8 caractères.")
 
         pseudo = pseudo.strip()
 
         # Vérifier que le pseudo n'existe pas déjà
-        utilisateur_existant = (
-            self.utilisateur_dao.recherche_par_pseudo(pseudo)
-        )
+        utilisateur_existant = self.utilisateur_dao.recherche_par_pseudo(pseudo)
 
         if utilisateur_existant is not None:
             raise ValueError("Ce pseudo est déjà utilisé.")
 
         # Tout nouvel utilisateur est CLIENT
-        utilisateur = Utilisateur(
-            None,
-            pseudo,
-            mdp,
-            NiveauHabilitation.CLIENT
-        )
+        utilisateur = Utilisateur(None, pseudo, mdp, NiveauHabilitation.CLIENT)
 
         # Le DAO hashe le mot de passe avant l'INSERT
-        self.utilisateur_dao.create(utilisateur)
+        self.utilisateur_dao.creer(utilisateur)
 
         # On recharge l'utilisateur depuis la base
         # pour récupérer son mot de passe hashé
-        return self.utilisateur_dao.recherche_utilisateur(
-            utilisateur.id_utilisateur
-        )
+        return self.utilisateur_dao.recherche_utilisateur(utilisateur.id_utilisateur)
 
     def connexion(self, pseudo: str, mdp: str) -> Utilisateur | None:
         """Vérifie les identifiants de connexion."""
 
-        utilisateur = self.utilisateur_dao.recherche_par_pseudo(
-            pseudo
-        )
+        utilisateur = self.utilisateur_dao.recherche_par_pseudo(pseudo)
 
         if utilisateur is None:
             return None
@@ -63,20 +48,16 @@ class UtilisateurService:
 
         return utilisateur
 
-    def rechercher_utilisateur(
-        self, id_utilisateur: int
-    ) -> Utilisateur | None:
+    def rechercher_utilisateur(self, id_utilisateur: int) -> Utilisateur | None:
         """Recherche un utilisateur par son identifiant."""
 
-        return self.utilisateur_dao.recherche_utilisateur(
-            id_utilisateur
-        )
+        return self.utilisateur_dao.recherche_utilisateur(id_utilisateur)
 
     def modifier_habilitation(
         self,
         administrateur: Utilisateur,
         id_utilisateur: int,
-        nouveau_niveau: NiveauHabilitation
+        nouveau_niveau: NiveauHabilitation,
     ) -> bool:
         """Modifie le rôle d'un utilisateur si le demandeur est ADMIN."""
 
@@ -86,16 +67,10 @@ class UtilisateurService:
             administrateur.id_utilisateur
         )
 
-        if (
-            admin_bdd is None
-            or admin_bdd.niveau != NiveauHabilitation.ADMIN
-        ):
+        if admin_bdd is None or admin_bdd.niveau != NiveauHabilitation.ADMIN:
             raise PermissionError(
                 "Seul un administrateur peut modifier les habilitations."
             )
 
         # Modifier le rôle
-        return self.utilisateur_dao.update(
-            id_utilisateur,
-            nouveau_niveau
-        )
+        return self.utilisateur_dao.update(id_utilisateur, nouveau_niveau)

@@ -4,8 +4,7 @@ from dao.gare_dao import GareDao
 
 
 class LigneDao:
-
-    def create_ligne(self, ligne: Ligne) -> bool:
+    def creer_ligne(self, ligne: Ligne) -> bool:
         """Ajoute une ligne dans la base de données."""
 
         requete = """
@@ -28,14 +27,14 @@ class LigneDao:
                     (
                         ligne.gare_depart.id_gare,
                         ligne.gare_arrivee.id_gare,
-                        ligne.date_creation
-                    )
+                        ligne.date_creation,
+                    ),
                 )
 
                 resultat = cursor.fetchone()
 
                 if resultat is None:
-                    raise Exception("Aucun identifiant retourné après l'insertion.")
+                    raise Exception("Aucun identifiant retourné après l'insertion.")  # ruff: ignore[raise-vanilla-class]
 
                 ligne.id_ligne = resultat["id_ligne"]
 
@@ -65,8 +64,8 @@ class LigneDao:
                         ligne.gare_depart.id_gare,
                         ligne.gare_arrivee.id_gare,
                         ligne.date_creation,
-                        ligne.id_ligne
-                    )
+                        ligne.id_ligne,
+                    ),
                 )
 
                 modification_effectuee = cursor.rowcount > 0
@@ -88,10 +87,7 @@ class LigneDao:
 
         try:
             with DBConnection().connection.cursor() as cursor:
-                cursor.execute(
-                    requete,
-                    (ligne.id_ligne,)
-                )
+                cursor.execute(requete, (ligne.id_ligne,))
 
                 suppression_effectuee = cursor.rowcount > 0
 
@@ -124,17 +120,10 @@ class LigneDao:
 
         gare_dao = GareDao()
 
-        gare_depart = gare_dao.recherche_gare(
-            resultat["id_gare_depart"]
-        )
+        gare_depart = gare_dao.recherche_gare(resultat["id_gare_depart"])
 
-        gare_arrivee = gare_dao.recherche_gare(
-            resultat["id_gare_arrivee"]
-        )
+        gare_arrivee = gare_dao.recherche_gare(resultat["id_gare_arrivee"])
 
         return Ligne(
-            resultat["id_ligne"],
-            gare_depart,
-            gare_arrivee,
-            resultat["date_creation"]
+            resultat["id_ligne"], gare_depart, gare_arrivee, resultat["date_creation"]
         )

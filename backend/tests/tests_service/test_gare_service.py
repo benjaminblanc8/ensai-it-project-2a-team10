@@ -4,21 +4,17 @@ from business_object.gare import Gare
 from dao.gare_dao import GareDao
 from service.gare_service import GareService
 
-
-gare = Gare(id_gare=9999,
-            nom="gare de Rennes",
-            ville="Rennes")
- 
+gare = Gare(id_gare=1, nom="gare de Rennes", ville="Rennes")
 
 
 def test_ajout_gare_ok():
 
-    #GIVEN
-    gare_test = Gare(id_gare=None, nom="gare de Rennes", ville="Rennes")
-    GareDao.create_gare = MagicMock(return_value=True)
-    #WHEN
-    gare = GareService().ajout_gare(gare_test)
-    #THEN
+    # GIVEN
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
+    GareDao().creer_gare = MagicMock(return_value=True)
+    # WHEN
+    gare = GareService().ajout_gare(id_gare, nom, ville)
+    # THEN
     assert isinstance(gare, Gare)
     assert gare.nom == nom
 
@@ -26,12 +22,12 @@ def test_ajout_gare_ok():
 def test_ajout_gare_fail():
 
     # GIVEN
-    gare_test = Gare(id_gare=None, nom="gare de Rennes", ville="Rennes")
-    GareDao.create_gare = MagicMock(return_value=False)
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
+    GareDao().creer_gare = MagicMock(return_value=False)
     # WHEN
     gare = GareService().ajout_gare(gare_test)
     # THEN
-    assert gare is None ----
+    assert gare is None
 
 
 def test_recherche_gare():
@@ -43,19 +39,3 @@ def test_recherche_gare():
     # THEN
     assert isinstance(resultat, Gare)
     assert resultat.nom == "gare de Rennes"
-
-
-def test_supprimer_gare_fail():
-
-    #GIVEN
-    
-
-def test_supprimer_gare_ok():
-
-    #GIVEN
-    GareDao().recherche_gare = MagicMock(return_value=gare)
-    #WHEN
-    resultat = GareService().supprimer_gare(id=9999)
-
-
-    #THEN
