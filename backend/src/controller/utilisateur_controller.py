@@ -5,7 +5,7 @@ from schema.utilisateur_model import (
     UtilisateurModel,
 )
 from service.utilisateur_service import UtilisateurService
-from dependencies.authentication import (
+from utils.authentication import (
     get_utilisateur_service,
     get_current_user,
 )
