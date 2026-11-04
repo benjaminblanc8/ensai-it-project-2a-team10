@@ -34,6 +34,26 @@ def convertir_trajet(trajet) -> TrajetReadModel:
     )
 
 
+@router.get("/", response_model=list[TrajetReadModel], tags=["Trajets"])
+def rechercher_trajets_par_gares(
+    nom_gare_depart: str,
+    nom_gare_arrivee: str,
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+):
+    """Liste les trajets entre deux gares, dans le sens demandé."""
+    ligne = ligne_service.rechercher_ligne_par_gares(
+        nom_gare_depart,
+        nom_gare_arrivee,
+    )
+
+    if ligne is None:
+        return []
+
+    trajets = service.rechercher_trajets_par_ligne(ligne)
+    return [convertir_trajet(trajet) for trajet in trajets]
+
+    
 @router.get("/{id_trajet}", response_model=TrajetReadModel, tags=["Trajets"])
 def recherche_trajet(
     id_trajet: int,

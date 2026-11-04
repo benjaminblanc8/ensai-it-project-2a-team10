@@ -77,3 +77,6 @@ class TrajetService:
         )
 
         return TrajetDao().modifier_trajet(trajet)
+
+    def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
+        return TrajetDao().rechercher_trajets_par_ligne(ligne)
