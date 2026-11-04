@@ -1,7 +1,7 @@
 import os
-from dotenv import load_dotenv
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
+from dotenv import load_dotenv
 from jose import jwt
 
 load_dotenv()
@@ -11,7 +11,7 @@ TOKEN_EXPIRE_DAYS = 7
 
 
 def create_access_token(utilisateur_id: int) -> str:
-    expiration = datetime.now(timezone.utc) + timedelta(days=TOKEN_EXPIRE_DAYS)
+    expiration = datetime.now(UTC) + timedelta(days=TOKEN_EXPIRE_DAYS)
 
     payload = {
         "sub": str(utilisateur_id),

@@ -1,7 +1,6 @@
 from math import ceil
 
 from fastapi import APIRouter, Depends, HTTPException
-
 from schema.trajet_model import TrajetCreationModel, TrajetModel, TrajetReadModel
 from service.api_sncf_service import ApiSncfError, ApiSncfService
 from service.ligne_service import LigneService
@@ -52,8 +51,8 @@ def recherche_trajet(
 @router.post("/", response_model=TrajetReadModel, tags=["Trajets"])
 def creer_trajet(
     informations: TrajetCreationModel,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Crée un trajet et estime sa durée à partir d'un itinéraire SNCF."""
     ligne = ligne_service.rechercher_ligne_par_gares(
