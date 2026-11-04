@@ -9,3 +9,4 @@ PyYAML
 sqlalchemy
 python-jose[cryptography]
 passlib[bcrypt]
+python-multipart

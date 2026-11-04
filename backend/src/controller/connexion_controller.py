@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schema.utilisateur_model import UtilisateurModel
+from fastapi.security import OAuth2PasswordRequestForm
+
 from service.utilisateur_service import UtilisateurService
 from utils.log_utils import get_logger
 
@@ -15,16 +16,23 @@ def get_utilisateur_service():
 
 @router.post("/", tags=["Connexion"])
 def connexion(
-    informations: UtilisateurModel,
-    service=Depends(get_utilisateur_service),  # noqa: B008
+    informations: OAuth2PasswordRequestForm = Depends(),
+    service: UtilisateurService = Depends(get_utilisateur_service),
 ):
-    """Connecte un utilisateur et retourne ses informations."""
+    """Connecte un utilisateur et retourne son token JWT."""
 
     logger.info("Connexion d'un utilisateur")
 
-    utilisateur = service.connexion(informations.pseudo, informations.mdp)
+    utilisateur = service.connexion(
+        informations.username,
+        informations.password,
+    )
 
     if not utilisateur:
-        raise HTTPException(status_code=401, detail="Identifiants invalides")
+        raise HTTPException(
+            status_code=401,
+            detail="Identifiants invalides",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     return utilisateur
