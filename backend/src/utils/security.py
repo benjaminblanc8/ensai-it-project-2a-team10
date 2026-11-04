@@ -3,10 +3,6 @@ from datetime import datetime, timedelta, timezone
 
 from jose import jwt
 
-SECRET_KEY = os.environ["JWT_SECRET_KEY"]
-ALGORITHM = "HS256"
-TOKEN_EXPIRE_DAYS = 7
-
 
 def create_access_token(utilisateur_id: int) -> str:
     """Crée un JWT pour un utilisateur."""

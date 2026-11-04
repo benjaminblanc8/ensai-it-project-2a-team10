@@ -1,17 +1,16 @@
-from dependencies.authentication import (
+from utils.authentication import (
     get_current_user,
     get_utilisateur_service,
 )
+from utils.verification_habilitation import require_niveau
 from fastapi import APIRouter, Depends, HTTPException
 from schema.utilisateur_model import (
     ModificationRoleModel,
     UtilisateurModel,
 )
 from service.utilisateur_service import UtilisateurService
-from utils.authentication import (
-    get_utilisateur_service,
-    get_current_user,
-)
+from business_object.niveau_habilitation import NiveauHabilitation
+
 from utils.log_utils import get_logger
 
 router = APIRouter()
@@ -44,8 +43,10 @@ def creer_compte(
 @router.put("/role", tags=["Utilisateurs"])
 def modifier_role(
     informations: ModificationRoleModel,
-    utilisateur=Depends(get_current_user),
-    service: UtilisateurService = Depends(get_utilisateur_service),
+    administrateur=Depends(
+        require_niveau(NiveauHabilitation.ADMIN)
+    ),
+    service=Depends(get_utilisateur_service),
 ):
     """Modifie le niveau d'habilitation d'un utilisateur."""
 
