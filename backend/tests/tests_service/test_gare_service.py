@@ -25,7 +25,7 @@ def test_ajout_gare_fail():
     id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
     GareDao().creer_gare = MagicMock(return_value=False)
     # WHEN
-    gare = GareService().ajout_gare(id_gare, nom, ville)
+    gare = GareService().ajout_gare(gare_test)
     # THEN
     assert gare is None
 
@@ -35,7 +35,7 @@ def test_recherche_gare():
     # GIVEN
     GareDao.recherche_gare = MagicMock(return_value=gare)
     # WHEN
-    resultat = GareService().recherche_gare(id=1)
+    resultat = GareService().recherche_gare(id=9999)
     # THEN
     assert isinstance(resultat, Gare)
     assert resultat.nom == "gare de Rennes"
