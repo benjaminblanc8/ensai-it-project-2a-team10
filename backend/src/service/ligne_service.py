@@ -45,7 +45,7 @@ class LigneService:
             date_creation=datetime.date.today(),
         )
 
-        if not self.dao.create_ligne(nouvelle_ligne):
+        if not self.dao.creer_ligne(nouvelle_ligne):
             raise HTTPException(
                 status_code=500, detail="Échec de la création de la ligne."
             )

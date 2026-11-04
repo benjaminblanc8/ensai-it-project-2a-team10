@@ -8,7 +8,7 @@ class GareDao:
         self.db = DBConnection()
         self.connection = self.db.connection
 
-    def create_gare(self, gare: Gare) -> bool:
+    def creer_gare(self, gare: Gare) -> bool:
         """Ajoute une gare dans la base de données."""
 
         requete = """
@@ -19,14 +19,7 @@ class GareDao:
 
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(
-                    requete,
-                    (
-                        gare.nom,
-                        gare.ville,
-                        gare.id_gare_sncf
-                    )
-                )
+                cursor.execute(requete, (gare.nom, gare.ville, gare.id_gare_sncf))
 
                 resultat = cursor.fetchone()
 
@@ -60,7 +53,7 @@ class GareDao:
             resultat["id_gare"],
             resultat["nom"],
             resultat["ville"],
-            resultat["id_gare_sncf"]
+            resultat["id_gare_sncf"],
         )
 
     def supprimer_gare(self, id_gare: int) -> bool:

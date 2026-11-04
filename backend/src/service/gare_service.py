@@ -30,7 +30,7 @@ class GareService:
             raise HTTPException(status_code=404, detail="Cette gare n'existe pas.")
             return None
 
-        creer_gare = self.dao.create_gare(gare)
+        creer_gare = self.dao.creer_gare(gare)
 
         if not creer_gare:
             raise HTTPException(
