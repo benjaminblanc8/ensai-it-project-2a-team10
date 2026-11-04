@@ -46,9 +46,10 @@ UVICORN_HOST=0.0.0.0
 UVICORN_PORT=5000
 BACKEND_URL=http://localhost:5000/
 BACKEND_TIMEOUT=5
+JWT_SECRET_KEY=***
 ```
 
-> 🔑 Replace `***` with the actual database password. Ask the team if you don't have it.
+> 🔑 Replace `POSTGRES_PASSWORD` and `JWT_SECRET_KEY` with actual values. Ask the team if you don't have them.
 
 ### Step 3: Start the server
 
@@ -120,36 +121,69 @@ curl -X POST http://localhost:5000/utilisateur/ \
 
 A newly created account is assigned the default `CLIENT` (level 1) permission.
 
-### Logging In
+### Logging In (Obtaining a Token)
 
-Use **`POST /connexion/`** with the same body format:
+Use **`POST /connexion/`** with **form data** (not JSON):
+
+| Field      | Type   | Description |
+|------------|--------|-------------|
+| `username` | string | Username    |
+| `password` | string | Password    |
+
+**Example:**
 
 ```bash
 curl -X POST http://localhost:5000/connexion/ \
-  -H "Content-Type: application/json" \
-  -d '{"pseudo": "john_doe", "mdp": "securepassword123"}'
+  -d "username=john_doe&password=securepassword123"
 ```
 
-Returns the user's profile if credentials are valid; otherwise a `401` error.
+**Successful response:**
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "token_type": "bearer",
+  "utilisateur": {
+    "id": 1,
+    "pseudo": "john_doe",
+    "habilitation": "CLIENT"
+  }
+}
+```
+
+> ⏳ Tokens expire after **7 days**.
+
+### Using the Token (Authenticated Requests)
+
+Protected endpoints require a **Bearer token** in the `Authorization` header:
+
+```bash
+curl http://localhost:5000/<protected-endpoint> \
+  -H "Authorization: Bearer <your_access_token>"
+```
+
+If the token is missing, invalid, or expired, a `401` error is returned.
 
 ### Changing a User's Permission Level (Admin Only)
 
 An **admin** user can change another user's permission level using **`PUT /utilisateur/role`**.
 
-**Request body:**
+The admin's identity is extracted from the Bearer token — no need to pass it in the body.
 
-| Field                   | Type | Description                                         |
-|-------------------------|------|-----------------------------------------------------|
-| `id_administrateur`     | int  | ID of the admin performing the change               |
-| `id_utilisateur`        | int  | ID of the target user whose level will be changed   |
-| `nouvelle_habilitation` | int  | New level: `1` (CLIENT), `2` (COLLAB), `3` (ADMIN)  |
+**Request body (JSON):**
+
+| Field                   | Type | Description                                    |
+|-------------------------|------|------------------------------------------------|
+| `id_utilisateur`        | int  | ID of the target user whose level will be changed |
+| `nouvelle_habilitation` | int  | New level: `1` (CLIENT), `2` (COLLAB), `3` (ADMIN) |
 
 **Example:**
 
 ```bash
 curl -X PUT http://localhost:5000/utilisateur/role \
   -H "Content-Type: application/json" \
-  -d '{"id_administrateur": 1, "id_utilisateur": 5, "nouvelle_habilitation": 3}'
+  -H "Authorization: Bearer <admin_access_token>" \
+  -d '{"id_utilisateur": 5, "nouvelle_habilitation": 3}'
 ```
 
 > 🔒 This endpoint is restricted: only a user with `ADMIN` level can perform a role change. Otherwise a `403` error is returned.

@@ -38,8 +38,8 @@ def convertir_trajet(trajet) -> TrajetReadModel:
 def rechercher_trajets_par_gares(
     nom_gare_depart: str,
     nom_gare_arrivee: str,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Liste les trajets entre deux gares, dans le sens demandé."""
     ligne = ligne_service.rechercher_ligne_par_gares(
