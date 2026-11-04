@@ -41,7 +41,7 @@ def creer_compte(
 @router.put("/role", tags=["Utilisateurs"])
 def modifier_role(
     informations: ModificationRoleModel,
-    administrateur=Depends(get_current_user),
+    utilisateur=Depends(get_current_user),
     service: UtilisateurService = Depends(get_utilisateur_service),
 ):
     """Modifie le niveau d'habilitation d'un utilisateur."""
@@ -53,7 +53,7 @@ def modifier_role(
 
     try:
         succes = service.modifier_habilitation(
-            administrateur,
+            utilisateur,
             informations.id_utilisateur,
             informations.nouvelle_habilitation,
         )
