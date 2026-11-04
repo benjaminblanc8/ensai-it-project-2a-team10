@@ -9,10 +9,13 @@ Semaine n°10
 
 ### YU Alexandre
 18h (6h,3j)
-- Mardi 3 :
-  - 
+- Mardi 3 : 
+  - api_sncf_service : ajout de la fonctionnalité de recherche des gares et de calcul du temps de trajets
+  - correction du code dans son ensemble 
 - Mercredi 4 :
-  - 
+  - ajout de la vérification du niveau d'habilitation
+  - correction de la modification et suppression des lignes
+  - correction du code dans son ensemble
 Jeudi 5 :
   -
 
