@@ -3,6 +3,7 @@ from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
 from utils.security import create_access_token
 
+
 class UtilisateurService:
     def __init__(self):
         """Initialise le DAO utilisé par le service."""

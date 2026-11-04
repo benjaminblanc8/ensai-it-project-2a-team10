@@ -10,7 +10,6 @@ from schema.utilisateur_model import (
 )
 from service.utilisateur_service import UtilisateurService
 from business_object.niveau_habilitation import NiveauHabilitation
-
 from utils.log_utils import get_logger
 
 router = APIRouter()
