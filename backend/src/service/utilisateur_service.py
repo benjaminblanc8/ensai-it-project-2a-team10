@@ -46,14 +46,14 @@ class UtilisateurService:
         if not utilisateur.verifier_mdp(mdp):
             return None
 
-        token = create_access_token(utilisateur.id)
+        token = create_access_token(utilisateur.id_utilisateur)
 
         return {
             "access_token": token,
             "token_type": "bearer",
             "utilisateur": {
-                "id": utilisateur.id,
-                "pseudo": utilisateur.pseudo,
+                "id": utilisateur.id_utilisateur,
+                "pseudo": utilisateur.get_pseudo,
             },
         }
 
