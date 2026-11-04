@@ -1,5 +1,8 @@
+from dependencies.authentication import (
+    get_current_user,
+    get_utilisateur_service,
+)
 from fastapi import APIRouter, Depends, HTTPException
-
 from schema.utilisateur_model import (
     ModificationRoleModel,
     UtilisateurModel,
