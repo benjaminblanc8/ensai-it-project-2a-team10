@@ -56,7 +56,7 @@ def modifier_role(
 
     try:
         succes = service.modifier_habilitation(
-            utilisateur,
+            administrateur,
             informations.id_utilisateur,
             informations.nouvelle_habilitation,
         )
