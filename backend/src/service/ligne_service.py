@@ -45,7 +45,7 @@ class LigneService:
             date_creation=datetime.date.today(),
         )
 
-        if not self.dao.creer(nouvelle_ligne):
+        if not self.dao.create_ligne(nouvelle_ligne):
             raise HTTPException(
                 status_code=500, detail="Échec de la création de la ligne."
             )
@@ -56,7 +56,7 @@ class LigneService:
         return self.dao.modifier(ligne)
 
     def rechercher_ligne(self, id_ligne: int):
-        return self.dao.rechercher(id_ligne)
+        return self.dao.recherche_ligne(id_ligne)
 
     def supprimer_ligne(self, id_ligne: int):
         return self.dao.delete(id_ligne)

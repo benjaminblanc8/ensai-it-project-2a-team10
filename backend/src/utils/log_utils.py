@@ -10,9 +10,9 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 
 def initialize_logs(name: str):
-    """Initialize logging from a configuration file"""
+    """Initialise la journalisation à partir d'un fichier de configuration."""
 
-    # Create the logs folder at project root if it doesn't exist
+    # Crée le dossier logs à la racine du projet s'il n'existe pas
     logs_dir = Path(__file__).resolve().parents[2] / "logs"
     logs_dir.mkdir(exist_ok=True)
 
@@ -22,15 +22,15 @@ def initialize_logs(name: str):
         config = yaml.safe_load(stream)
         logging.config.dictConfig(config)
 
-        logging.info("-" * 50)
-        logging.info(f"Starting {name}                           ")
-        logging.info("-" * 50)
+        logging.info("-" * 50)  # ruff: ignore[root-logger-call]
+        logging.info(f"Démarrage de {name}                       ")  # ruff: ignore[root-logger-call]
+        logging.info("-" * 50)  # ruff: ignore[root-logger-call]
 
 
 def get_logger(module_name: str, max_size: int = 25):
     """
-    Returns a logger with a shortened name based on the module path.
-    If the path exceeds max_size, it uses initials for the prefix parts.
+    Renvoie un logger avec un nom raccourci basé sur le chemin du module.
+    Si le chemin dépasse max_size, utilise les initiales pour les parties préfixes.
     """
     if len(module_name) <= max_size:
         return logging.getLogger(module_name)
@@ -43,33 +43,34 @@ def get_logger(module_name: str, max_size: int = 25):
 
 
 class LogIndentation:
-    """For indenting logs when entering a new method"""
+    """Gère l'indentation des logs lors de l'entrée dans une nouvelle méthode."""
 
     current_indentation = 0
     indentation_size = 2
 
     @classmethod
     def increase_indentation(cls):
-        """Increase indentation"""
+        """Augmente l'indentation."""
         cls.current_indentation += 1
 
     @classmethod
     def decrease_indentation(cls):
-        """Decrease indentation"""
+        """Diminue l'indentation."""
         cls.current_indentation -= 1
 
     @classmethod
     def get_indentation(cls):
-        """Get the current indentation"""
+        """Renvoie l'indentation actuelle."""
         return " " * cls.indentation_size * cls.current_indentation
 
 
 def log(func):
-    """Decorator to log method calls and their outputs.
+    """Décorateur pour journaliser les appels de méthodes et leurs sorties.
 
-    When applied to a method, it logs:
-    - the method call with parameter values
-    - the return value of the method
+    Appliqué à une méthode, il journalise :
+    - l'appel de la méthode avec les valeurs des paramètres
+
+    - la valeur de retour de la méthode
     """
 
     SENSITIVE_KEYWORDS = {
@@ -92,7 +93,7 @@ def log(func):
         LogIndentation.increase_indentation()
         indentation = LogIndentation.get_indentation()
 
-        # Retrieve method parameters
+        # Récupère les paramètres de la méthode
         method_name = func.__name__
         param_names = func.__code__.co_varnames[1 : func.__code__.co_argcount]
         args_list = []
@@ -116,12 +117,12 @@ def log(func):
 
         args_tuple = tuple(args_list)
 
-        # Log method entry
+        # Journalise l'entrée dans la méthode
         logger.info(f"{indentation}{method_name}{args_tuple} - START")
         result = func(*args, **kwargs)
         logger.info(f"{indentation}{method_name}{args_tuple} - END")
 
-        # Shorten long output for readability
+        # Raccourcit les sorties longues pour la lisibilité
         if isinstance(result, list):
             result_str = str([str(item) for item in result[:3]])
             result_str += f" ... ({len(result)} elements)"
@@ -144,21 +145,19 @@ def log(func):
 
 class LogMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        """
-        Middleware to log HTTP requests and responses.
-        It captures the method, path, status code, and error details.
-        """
+        """Middleware pour journaliser les requêtes et réponses HTTP.
+        Capture la méthode, le chemin, le code de statut et les détails d'erreur."""
 
         method = request.method
         path = str(request.url.path)
 
-        logging.info(f"{method} {path} - START")
+        logging.info(f"{method} {path} - START")  # ruff: ignore[root-logger-call]
 
         try:
             response = await call_next(request)
-            logging.info(f"{method} {path} - END [Status: {response.status_code}]")
+            logging.info(f"{method} {path} - END [Status: {response.status_code}]")  # ruff: ignore[root-logger-call]
             return response
 
         except Exception as e:
-            logging.error(f"{method} {path} - FAILED [Status: 500] Error: {str(e)}")
-            raise e
+            logging.error(f"{method} {path} - FAILED [Status: 500] Error: {e!s}")  # ruff: ignore[root-logger-call]
+            raise

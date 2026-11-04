@@ -12,8 +12,8 @@ class GareDao:
         """Ajoute une gare dans la base de données."""
 
         requete = """
-            INSERT INTO Gare (nom, ville)
-            VALUES (%s, %s)
+            INSERT INTO Gare (nom, ville, id_gare_sncf)
+            VALUES (%s, %s, %s)
             RETURNING id_gare;
         """
 
@@ -23,7 +23,8 @@ class GareDao:
                     requete,
                     (
                         gare.nom,
-                        gare.ville
+                        gare.ville,
+                        gare.id_gare_sncf
                     )
                 )
 
@@ -43,7 +44,7 @@ class GareDao:
         """Recherche une gare à partir de son identifiant."""
 
         requete = """
-            SELECT id_gare, nom, ville
+            SELECT id_gare, nom, ville, id_gare_sncf
             FROM Gare
             WHERE id_gare = %s;
         """
@@ -58,7 +59,8 @@ class GareDao:
         return Gare(
             resultat["id_gare"],
             resultat["nom"],
-            resultat["ville"]
+            resultat["ville"],
+            resultat["id_gare_sncf"]
         )
 
     def supprimer_gare(self, id_gare: int) -> bool:

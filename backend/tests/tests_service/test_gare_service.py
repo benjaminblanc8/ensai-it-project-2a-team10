@@ -16,12 +16,32 @@ dao.db_connection.DBConnection = MagicMock()
 os.environ["SNCF_API_KEY"] = "fake_key"
 
 
+<<<<<<< HEAD
 def test_ajout_gare_succes():
     # GIVEN
     gare = Gare(id_gare=1, nom="Rennes", ville="Rennes")
     ApiSncfService.recherche_gare_par_nom = MagicMock(return_value=True)
     GareDao.create_gare = MagicMock(return_value=gare)
 
+=======
+def test_ajout_gare_ok():
+
+    #GIVEN
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
+    GareDao().create_gare = MagicMock(return_value=True)
+    #WHEN
+    gare = GareService().ajout_gare(id_gare, nom, ville)
+    #THEN
+    assert isinstance(gare, Gare)
+    assert gare.nom == nom
+
+
+def test_ajout_gare_fail():
+
+    # GIVEN
+    id_gare, nom, ville = "1", "gare de Rennes", "Rennes"
+    GareDao().create_gare = MagicMock(return_value=False)
+>>>>>>> 3dc196c55a97a0fefedaf66fc3261fb7b634a0ee
     # WHEN
     service = GareService()
     resultat = service.ajout_gare(gare)

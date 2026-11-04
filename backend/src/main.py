@@ -1,8 +1,8 @@
 """
-Main entry point for the FastAPI web service.
+Point d'entrée du service web FastAPI pour le projet Trajecto.
 
-Initializes logging, loads environment variables, and sets up API routers
-for players, login, and games.
+Initialise la journalisation, charge les variables d'environnement
+et configure les routeurs de l'API (utilisateurs, gares, lignes, trajets, connexion).
 """
 
 from controller import (

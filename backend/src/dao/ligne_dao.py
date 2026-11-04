@@ -18,8 +18,11 @@ class LigneDao:
             RETURNING id_ligne;
         """
 
+        db = DBConnection()
+        connection = db.connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connection.cursor() as cursor:
                 cursor.execute(
                     requete,
                     (
@@ -30,13 +33,17 @@ class LigneDao:
                 )
 
                 resultat = cursor.fetchone()
+
+                if resultat is None:
+                    raise Exception("Aucun identifiant retourné après l'insertion.")
+
                 ligne.id_ligne = resultat["id_ligne"]
 
-            DBConnection().connection.commit()
+            connection.commit()
             return True
 
         except Exception:
-            DBConnection().connection.rollback()
+            connection.rollback()
             raise
 
     def modifier_ligne(self, ligne: Ligne) -> bool:

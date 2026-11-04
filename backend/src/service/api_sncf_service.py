@@ -120,40 +120,43 @@ class ApiSncfService:
                 return
 
     def obtenir_arrets_par_nom(self, name: str, limite: int = 10) -> list[dict]:
-        """Autocomplétion : retourne les gares dont le nom correspond à la saisie.
+        """Autocomplétion : retourne les gares correspondant à la saisie."""
 
-        Exemple : obtenir_arrets_par_nom("Rennes")
-        -> [{"id": "stop_area:SNCF:87471003", "nom": "Rennes", "latitude": ..., "longitude": ...}]
-        """
         name = (name or "").strip()
-        if len(name) < 2:  # évite un appel API à chaque première lettre
+
+        if len(name) < 2:
             return []
 
         data = self._get("places", {"q": name, "type[]": "stop_area", "count": limite})
 
         gares = []
+
         for place in (data or {}).get("places", []):
             if place.get("embedded_type") != "stop_area":
                 continue
 
             infos = place.get("stop_area", {})
+
             gare = self._formater_gare({
                 "id": place["id"],
                 "name": place.get("name"),
                 "coord": infos.get("coord"),
             })
 
+            # On conserve la gare dans le cache SNCF
             self._cache_gares[gare["id"]] = gare
 
+            # On harmonise les noms des attributs
             gares.append({
-                "id": gare["id"],
+                "id_gare_sncf": gare["id"],
                 "nom": gare["nom"],
                 "ville": gare.get("ville"),
-                "latitude": gare["latitude"],
-                "longitude": gare["longitude"],
+                "latitude": gare.get("latitude"),
+                "longitude": gare.get("longitude"),
             })
 
         return gares
+
 
     def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
         """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas."""
@@ -175,21 +178,32 @@ class ApiSncfService:
         return self.obtenir_gare_par_id(gare_id) is not None
 
     def gare_existe_par_nom(self, nom_gare: str) -> bool:
-        return len(self.obtenir_arrets_par_nom(nom_gare, limite=1)) > 0
+        """
+        Vérifie si une gare correspondant au nom existe.
+        
+        """
+
+        if not nom_gare or not nom_gare.strip():
+            return False
+
+        gares = self.obtenir_arrets_par_nom(nom_gare, limite=10)
+
+        return any(
+            gare.get("nom", "").strip().casefold() == nom_gare.strip().casefold()
+            for gare in gares
+        )
 
     # ------------------------------------------------------------------ #
     # Faisabilité et durée d'un trajet
     # ------------------------------------------------------------------ #
     def calculer_duree_trajet(
-        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
-    ) -> timedelta | None:
-        """Vérifie qu'un trajet en train est possible et retourne sa durée.
+        self,
+        gare_depart_id: str,
+        gare_arrivee_id: str,
+        date_depart: datetime
+    ) -> dict | None:
+        """Vérifie qu'un trajet est possible et retourne ses horaires et sa durée."""
 
-        - Retourne un timedelta si un trajet en train existe.
-        - Retourne None si aucun trajet en train n'est possible.
-        - Lève ApiSncfError si l'API est indisponible (faisabilité invérifiable :
-          le trajet ne doit alors pas être planifié).
-        """
         params = {
             "from": gare_depart_id,
             "to": gare_arrivee_id,
@@ -206,37 +220,94 @@ class ApiSncfService:
                 return None
             raise
 
-        # On garde les itinéraires qui contiennent au moins un tronçon de transport public
         itineraires = [
             j
             for j in (data or {}).get("journeys", [])
-            if any(s.get("type") == "public_transport" for s in j.get("sections", []))
+            if any(
+                s.get("type") == "public_transport"
+                for s in j.get("sections", [])
+            )
         ]
+
         if not itineraires:
             return None
 
-        return timedelta(seconds=min(j["duration"] for j in itineraires))
+        # Sélection du trajet le plus court
+        meilleur_trajet = min(
+            itineraires,
+            key=lambda j: j["duration"]
+        )
+
+        return {
+            "date_depart": datetime.strptime(
+                meilleur_trajet["departure_date_time"],
+                "%Y%m%dT%H%M%S"
+            ),
+            "date_arrivee": datetime.strptime(
+                meilleur_trajet["arrival_date_time"],
+                "%Y%m%dT%H%M%S"
+            ),
+            "duree": timedelta(
+                seconds=meilleur_trajet["duration"]
+            )
+        }
 
     def trajet_possible(
-        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
+        self,
+        gare_depart_id: str,
+        gare_arrivee_id: str,
+        date_depart: datetime
     ) -> bool:
+        """Indique si un trajet en train est possible."""
+
         return (
-            self.calculer_duree_trajet(gare_depart_id, gare_arrivee_id, date_depart)
-            is not None
+            self.calculer_duree_trajet(
+                gare_depart_id,
+                gare_arrivee_id,
+                date_depart
+            ) is not None
         )
 
 
 # Test rapide
 if __name__ == "__main__":
     api = ApiSncfService()
+
     rennes = api.obtenir_arrets_par_nom("Rennes")[0]
     paris = api.obtenir_arrets_par_nom("Paris Montparnasse")[0]
-    print(rennes, paris)
+
+    print("Gare de départ :", rennes)
+    print("Gare d'arrivée :", paris)
 
     demain_8h = (datetime.now() + timedelta(days=1)).replace(
-        hour=8, minute=0, second=0, microsecond=0
+        hour=8,
+        minute=0,
+        second=0,
+        microsecond=0
     )
-    print("Durée :", api.calculer_duree_trajet(rennes["id"], paris["id"], demain_8h))
+
+    resultat = api.calculer_duree_trajet(
+        rennes["id_gare_sncf"],
+        paris["id_gare_sncf"],
+        demain_8h
+    )
+
+    if resultat is not None:
+        print("\n--- Trajet trouvé ---")
+        print("Départ demandé :", demain_8h)
+        print("Départ réel :", resultat["date_depart"])
+        print("Arrivée :", resultat["date_arrivee"])
+        print("Durée :", resultat["duree"])
+    else:
+        print("Aucun trajet disponible.")
+
+    possible = api.trajet_possible(
+        rennes["id_gare_sncf"],
+        paris["id_gare_sncf"],
+        demain_8h
+    )
+
+    print("\nTrajet possible :", possible)
 
 
 # Pour obtenir une gare avec un nom précis, on peut utiliser l'endpoint "places" avec le paramètre de requête "q" pour spécifier le nom de la gare. Par exemple, pour obtenir des informations sur la gare d'Abancourt, on peut faire une requête GET à l'URL suivante :

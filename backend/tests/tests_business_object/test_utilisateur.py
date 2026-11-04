@@ -1,5 +1,4 @@
-from unittest.mock import MagicMock
-
+from argon2 import PasswordHasher
 from business_object.niveau_habilitation import NiveauHabilitation
 from business_object.utilisateur import Utilisateur
 
@@ -37,7 +36,11 @@ def test_verifier_role_admin():
 
 
 def test_verifier_mdp():
-    utilisateur = Utilisateur(1, "alexandre", "mdp123", NiveauHabilitation.CLIENT)
-    utilisateur.verifier_mdp = MagicMock(return_value=True)
+    ph = PasswordHasher()
+    hash_reel = ph.hash("mot_de_passe_secret")
+    # On passe le vrai hash à l'utilisateur
+    utilisateur = Utilisateur(1, "alexandre", hash_reel, NiveauHabilitation.CLIENT)
 
-    assert utilisateur.verifier_mdp("nimportequoi") is True
+    # On vérifie que le bon mot de passe passe, et le mauvais échoue
+    assert utilisateur.verifier_mdp("mot_de_passe_secret") is True
+    assert utilisateur.verifier_mdp("mauvais_mot_de_passe") is False
