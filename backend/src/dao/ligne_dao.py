@@ -127,3 +127,17 @@ class LigneDao:
         return Ligne(
             resultat["id_ligne"], gare_depart, gare_arrivee, resultat["date_creation"]
         )
+
+    def rechercher_ids_par_gares(self, nom_depart: str, nom_arrivee: str) -> list[int]:
+        requete = """
+        SELECT l.id_ligne
+        FROM Ligne AS l
+        JOIN Gare AS depart ON depart.id_gare = l.id_gare_depart
+        JOIN Gare AS arrivee ON arrivee.id_gare = l.id_gare_arrivee
+        WHERE LOWER(depart.nom) = LOWER(%s)
+          AND LOWER(arrivee.nom) = LOWER(%s)
+        LIMIT 2
+    """
+        with DBConnection().connection.cursor() as cursor:
+            cursor.execute(requete, (nom_depart.strip(), nom_arrivee.strip()))
+            return [ligne["id_ligne"] for ligne in cursor.fetchall()]

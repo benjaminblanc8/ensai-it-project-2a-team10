@@ -20,8 +20,10 @@ class TrajetDao:
             RETURNING id_trajet;
         """
 
+        connexion = DBConnection().connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connexion.cursor() as cursor:
                 cursor.execute(
                     requete,
                     (
@@ -33,16 +35,18 @@ class TrajetDao:
                         trajet.get_places_reservees(),
                     ),
                 )
-
                 resultat = cursor.fetchone()
-                trajet.id_trajet = resultat["id_trajet"]
 
-            DBConnection().connection.commit()
+            connexion.commit()
+            trajet.id_trajet = resultat["id_trajet"]
             return True
 
         except Exception:
-            DBConnection().connection.rollback()
+            connexion.rollback()
             raise
+
+        finally:
+            connexion.close()
 
     def recherche_trajet(self, id_trajet: int) -> Trajet | None:
         """Recherche un trajet à partir de son identifiant."""

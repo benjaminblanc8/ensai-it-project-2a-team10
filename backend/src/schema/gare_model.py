@@ -4,7 +4,6 @@ from pydantic import BaseModel
 class GareModel(BaseModel):
     nom: str
     ville: str
-    id_gare_sncf: str
 
 
 class GareReadModel(BaseModel):
