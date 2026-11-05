@@ -218,6 +218,7 @@ def modifier_trajet(
     logger.info("Trajet modifié : %s", id_trajet)
     return convertir_trajet(trajet)
 
+
 @router.delete("/{id_trajet}", tags=["Trajets"])
 def supprimer_trajet(
     id_trajet: int,
