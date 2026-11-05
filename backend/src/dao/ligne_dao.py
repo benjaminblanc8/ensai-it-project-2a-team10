@@ -1,7 +1,8 @@
 from business_object.ligne import Ligne
+from business_object.gare import Gare
 from dao.db_connection import DBConnection
 from dao.gare_dao import GareDao
-
+import psycopg2
 
 class LigneDao:
     def creer_ligne(self, ligne: Ligne) -> bool:
@@ -45,57 +46,73 @@ class LigneDao:
             connection.rollback()
             raise
 
-    def modifier_ligne(self, ligne: Ligne) -> bool:
-        """Modifie une ligne existante."""
+    def modifier_ligne(
+        self,
+        id_ligne: int,
+        gare_depart: Gare,
+        gare_arrivee: Gare,
+    ) -> Ligne | None:
+        """Modifie une ligne existante et retourne la ligne modifiée."""
 
         requete = """
             UPDATE Ligne
             SET id_gare_depart = %s,
-                id_gare_arrivee = %s,
-                date_creation = %s
+                id_gare_arrivee = %s
             WHERE id_ligne = %s;
         """
 
+        connexion = DBConnection().connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connexion.cursor() as cursor:
                 cursor.execute(
                     requete,
                     (
-                        ligne.gare_depart.id_gare,
-                        ligne.gare_arrivee.id_gare,
-                        ligne.date_creation,
-                        ligne.id_ligne,
+                        gare_depart.id_gare,
+                        gare_arrivee.id_gare,
+                        id_ligne,
                     ),
                 )
 
                 modification_effectuee = cursor.rowcount > 0
 
-            DBConnection().connection.commit()
-            return modification_effectuee
+            connexion.commit()
+
+            if not modification_effectuee:
+                return None
+
+            return self.recherche_ligne(id_ligne)
 
         except Exception:
-            DBConnection().connection.rollback()
+            connexion.rollback()
             raise
 
-    def supprimer_ligne(self, ligne: Ligne) -> bool:
-        """Supprime une ligne."""
+    def supprimer_ligne(self, id_ligne: int) -> bool:
+        """Supprime une ligne si aucun trajet ne l'utilise."""
 
         requete = """
             DELETE FROM Ligne
             WHERE id_ligne = %s;
         """
 
-        try:
-            with DBConnection().connection.cursor() as cursor:
-                cursor.execute(requete, (ligne.id_ligne,))
+        connexion = DBConnection().connection
 
+        try:
+            with connexion.cursor() as cursor:
+                cursor.execute(requete, (id_ligne,))
                 suppression_effectuee = cursor.rowcount > 0
 
-            DBConnection().connection.commit()
+            connexion.commit()
             return suppression_effectuee
 
+        except psycopg2.errors.ForeignKeyViolation:
+            connexion.rollback()
+            raise PermissionError(
+                "Impossible de supprimer cette ligne : elle est utilisée par un ou plusieurs trajets."
+            )
+
         except Exception:
-            DBConnection().connection.rollback()
+            connexion.rollback()
             raise
 
     def recherche_ligne(self, id_ligne: int) -> Ligne | None:

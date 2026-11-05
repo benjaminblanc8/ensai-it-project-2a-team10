@@ -75,6 +75,16 @@ class GareService:
         return gare
 
     @log
+    def recherche_gare_par_nom(self, nom_gare: int):
+        """ recherche les gares par leurs noms"""
+        list_gare = self.dao.recherche_gare_par_nom(nom_gare)
+
+        if len(list_gare)==0:
+            raise HTTPException(status_code=404, detail="Gares introuvables")
+        
+        return list_gare
+
+    @log
     def supprimer_gare(self, id_gare: int):
         """Supprime une gare à partir de son identifiant.
 
