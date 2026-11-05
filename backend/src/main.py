@@ -11,7 +11,8 @@ from controller import (
     gare_controller,
     ligne_controller,
     trajet_controller,
-    utilisateur_controller
+    utilisateur_controller,
+    reservation_controller
 )
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
@@ -96,6 +97,12 @@ app.include_router(
     api_sncf_controller.router,
     prefix="/api_sncf",
     tags=["API SNCF"],
+)
+
+app.include_router(
+    reservation_controller.router,
+    prefix="/reservation",
+    tags=["Réservations"],
 )
 
 
