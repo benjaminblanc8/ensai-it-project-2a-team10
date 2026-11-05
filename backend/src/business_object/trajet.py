@@ -39,6 +39,10 @@ class Trajet:
         )
 
     @property
+    def get_nb_places(self) -> int:
+        return self._nb_places
+
+    @property
     def get_nb_places_disponibles(self) -> int:
         return self._nb_places - self._places_reservees
 

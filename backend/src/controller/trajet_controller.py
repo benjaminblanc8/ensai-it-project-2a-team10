@@ -23,15 +23,15 @@ def get_ligne_service():
 
 def convertir_trajet(trajet) -> TrajetReadModel:
     """Convertit un objet Trajet en modèle de réponse."""
-    places_reservees = trajet.get_places_reservees()
+    places_reservees = trajet.get_places_reservees
 
     return TrajetReadModel(
         id_trajet=trajet.id_trajet,
         id_ligne=trajet.ligne.id_ligne,
         date_heure_depart=trajet.date_heure_depart,
         duree_minutes=trajet.duree_minutes,
-        nb_places=trajet.get_nb_places_disponibles() + places_reservees,
-        tarif=trajet.get_tarif(),
+        nb_places=trajet.get_nb_places_disponibles + places_reservees,
+        tarif=trajet.get_tarif,
         places_reservees=places_reservees,
     )
 
@@ -180,6 +180,7 @@ def modifier_trajet(
                 id_arrivee,
                 informations.date_heure_depart,
             )
+
         except ApiSncfError as exc:
             logger.error("Erreur API SNCF : %s", exc)
             raise HTTPException(
@@ -198,15 +199,22 @@ def modifier_trajet(
 
         duree_minutes = ceil(itineraire["duree"].total_seconds() / 60)
 
-    succes = service.modifier_trajet(
-        id_trajet=id_trajet,
-        ligne=ligne,
-        date_heure_depart=informations.date_heure_depart,
-        duree_minutes=duree_minutes,
-        nb_places=informations.nb_places,
-        tarif=informations.tarif,
-        places_reservees=trajet_existant.get_places_reservees(),
-    )
+    try:
+        succes = service.modifier_trajet(
+            id_trajet=id_trajet,
+            ligne=ligne,
+            date_heure_depart=informations.date_heure_depart,
+            duree_minutes=duree_minutes,
+            nb_places=informations.nb_places,
+            tarif=informations.tarif,
+            places_reservees=trajet_existant.get_places_reservees,
+        )
+
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=409,
+            detail=str(exc),
+        ) from exc
 
     if not succes:
         raise HTTPException(

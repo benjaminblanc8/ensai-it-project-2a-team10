@@ -4,6 +4,7 @@ from business_object.ligne import Ligne
 from business_object.trajet import Trajet
 from dao.db_connection import DBConnection
 from dao.ligne_dao import LigneDao
+import psycopg2
 
 
 class TrajetDao:
@@ -33,9 +34,9 @@ class TrajetDao:
                         trajet.date_heure_depart,
                         trajet.duree_minutes,
                         trajet.ligne.id_ligne,
-                        trajet._nb_places,
-                        trajet.get_tarif(),
-                        trajet.get_places_reservees(),
+                        trajet.get_nb_places,
+                        trajet.get_tarif,
+                        trajet.get_places_reservees,
                     ),
                 )
                 resultat = cursor.fetchone()
@@ -134,9 +135,9 @@ class TrajetDao:
                         trajet.date_heure_depart,
                         trajet.duree_minutes,
                         trajet.ligne.id_ligne,
-                        trajet._nb_places,
-                        trajet.get_tarif(),
-                        trajet.get_places_reservees(),
+                        trajet.get_nb_places,
+                        trajet.get_tarif,
+                        trajet.get_places_reservees,
                         trajet.id_trajet,
                     ),
                 )
@@ -147,6 +148,12 @@ class TrajetDao:
             connexion.commit()
 
             return modification_effectuee
+
+        except psycopg2.errors.CheckViolation as e:
+            connexion.rollback()
+            raise ValueError(
+                "Le nombre de places doit respecter les limites autorisées."
+            ) from e
 
         except Exception:
             # On annule la transaction sur la même connexion.
