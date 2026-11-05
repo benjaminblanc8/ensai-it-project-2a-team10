@@ -1,5 +1,5 @@
 from business_object.niveau_habilitation import NiveauHabilitation
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class UtilisateurModel(BaseModel):
@@ -7,6 +7,14 @@ class UtilisateurModel(BaseModel):
 
     pseudo: str = Field(min_length=3, max_length=50)
     mdp: str = Field(min_length=8, max_length=128)
+
+
+class UtilisateurReadModel(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id_utilisateur: int
+    pseudo: str
+    niveau: NiveauHabilitation
 
 
 class ModificationRoleModel(BaseModel):

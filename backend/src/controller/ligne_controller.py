@@ -29,22 +29,51 @@ def get_gare_service():
 @router.post("/", response_model=LigneReadModel, tags=["Lignes"])
 def creer_ligne(
     informations: LigneModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # noqa: B008
     ligne_service=Depends(get_ligne_service),  # noqa: B008
 ):
-    """Crée une ligne entre deux gares."""
+    """Crée une ligne à partir des noms des deux gares."""
+    gares = []
 
-    logger.info("Création d'une ligne")
+    for nom in (
+        informations.nom_gare_depart,
+        informations.nom_gare_arrivee,
+    ):
+        nom_normalise = nom.strip().casefold()
 
-    gare_depart = ligne_service.gare_service.recherche_gare(informations.id_gare_depart)
+        if not nom_normalise:
+            raise HTTPException(
+                status_code=422,
+                detail="Le nom de gare est vide.",
+            )
 
-    gare_arrivee = ligne_service.gare_service.recherche_gare(
-        informations.id_gare_arrivee
-    )
+        resultats = ligne_service.gare_service.recherche_gare_par_nom(
+            nom.strip()
+        )
 
-    return ligne_service.creer(gare_depart, gare_arrivee)
+        correspondances = [
+            gare
+            for gare in resultats
+            if gare.nom.strip().casefold() == nom_normalise
+        ]
 
+        if not correspondances:
+            raise HTTPException(
+                status_code=404,
+                detail=f"La gare « {nom} » est introuvable en base.",
+            )
 
+        if len(correspondances) > 1:
+            raise HTTPException(
+                status_code=409,
+                detail=f"Plusieurs gares portent le nom « {nom} ».",
+            )
+
+        gares.append(correspondances[0])
+
+    return ligne_service.creer(gares[0], gares[1])
+
+    
 @router.get("/{id_ligne}", response_model=LigneReadModel, tags=["Lignes"])
 def rechercher_ligne(
     id_ligne: int,

@@ -74,13 +74,13 @@ class TrajetDao:
         if resultat is None:
             return None
 
-        ligne = LigneDao().recherche_ligne(resultat["id_ligne"])
+        #ligne = LigneDao().recherche_ligne(resultat["id_ligne"])
 
         return Trajet(
             resultat["id_trajet"],
             resultat["date_heure_depart"],
             resultat["duree_minutes"],
-            ligne,
+            resultat["id_ligne"],
             resultat["nb_places"],
             float(resultat["tarif"]),
             resultat["places_reservees"],
