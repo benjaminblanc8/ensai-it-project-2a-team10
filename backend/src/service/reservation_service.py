@@ -45,6 +45,8 @@ class ReservationService:
         if not reservation_creee:
             raise RuntimeError("La création de la réservation a échoué.")
 
+        self.trajet_dao.incrementer_places_reservees(id_trajet)
+
         return reservation
 
     def rechercher_reservations(
@@ -81,5 +83,9 @@ class ReservationService:
 
         if not suppression_effectuee:
             raise RuntimeError("L'annulation de la réservation a échoué.")
+
+        self.trajet_dao.decrementer_places_reservees(
+            reservation.trajet.id_trajet
+        )
 
         return True

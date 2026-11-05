@@ -1,10 +1,10 @@
 from contextlib import closing
 
+import psycopg2
 from business_object.ligne import Ligne
 from business_object.trajet import Trajet
 from dao.db_connection import DBConnection
 from dao.ligne_dao import LigneDao
-import psycopg2
 
 
 class TrajetDao:
@@ -86,6 +86,55 @@ class TrajetDao:
             float(resultat["tarif"]),
             resultat["places_reservees"],
         )
+
+    def incrementer_places_reservees(self, id_trajet: int) -> bool:
+        """Incrémente le nombre de places réservées d'un trajet de 1."""
+
+        requete = """
+            UPDATE Trajet
+            SET places_reservees = places_reservees + 1
+            WHERE id_trajet = %s;
+        """
+
+        connexion = DBConnection().connection
+
+        try:
+            with connexion.cursor() as cursor:
+                cursor.execute(requete, (id_trajet,))
+
+                increment_effectue = cursor.rowcount > 0
+
+            connexion.commit()
+            return increment_effectue
+
+        except Exception:
+            connexion.rollback()
+            raise
+
+    def decrementer_places_reservees(self, id_trajet: int) -> bool:
+        """Décrémente le nombre de places réservées d'un trajet de 1."""
+
+        requete = """
+            UPDATE Trajet
+            SET places_reservees = places_reservees - 1
+            WHERE id_trajet = %s
+              AND places_reservees > 0;
+        """
+
+        connexion = DBConnection().connection
+
+        try:
+            with connexion.cursor() as cursor:
+                cursor.execute(requete, (id_trajet,))
+
+                decrement_effectue = cursor.rowcount > 0
+
+            connexion.commit()
+            return decrement_effectue
+
+        except Exception:
+            connexion.rollback()
+            raise
 
     def supprimer_trajet(self, id_trajet: int) -> bool:
         """Supprime un trajet."""

@@ -152,13 +152,13 @@ class LigneDao:
         FROM Ligne AS l
         JOIN Gare AS depart ON depart.id_gare = l.id_gare_depart
         JOIN Gare AS arrivee ON arrivee.id_gare = l.id_gare_arrivee
-        WHERE depart.nom ILIKE %s
-          AND arrivee.nom ILIKE %s
+        WHERE LOWER(depart.nom) = LOWER(%s)
+          AND LOWER(arrivee.nom) = LOWER(%s)
         LIMIT 2
     """
         with DBConnection().connection.cursor() as cursor:
             cursor.execute(
                 requete,
-                (f"%{nom_depart.strip()}%", f"%{nom_arrivee.strip()}%"),
+                (nom_depart.strip(), nom_arrivee.strip()),
             )
             return [ligne["id_ligne"] for ligne in cursor.fetchall()]

@@ -18,6 +18,7 @@ class TrajetReadModel(BaseModel):
     nb_places: int
     tarif: float
     places_reservees: int
+    places_disponibles: int
 
 
 class TrajetCreationModel(BaseModel):

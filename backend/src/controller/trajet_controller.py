@@ -33,6 +33,7 @@ def convertir_trajet(trajet) -> TrajetReadModel:
         nb_places=trajet.get_nb_places_disponibles + places_reservees,
         tarif=trajet.get_tarif,
         places_reservees=places_reservees,
+        places_disponibles=trajet.get_nb_places_disponibles,
     )
 
 

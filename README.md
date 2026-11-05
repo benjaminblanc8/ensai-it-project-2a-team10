@@ -6,6 +6,7 @@
 
 - **Search and manage train stations** and **lines**
 - **Create, modify, and delete journeys** with departure time, duration, pricing, and seat availability
+- **Reserve seats** on a journey and **cancel** reservations
 - **Manage user accounts** with a tiered permission system:
   - `CLIENT` (level 1) – basic access
   - `COLLAB` (level 2) – extended access
@@ -110,29 +111,49 @@ Expected response:
 
 ### Endpoint Summary
 
-| Method | Endpoint | Use Case | Auth Required |
-|--------|----------|----------|---------------|
-| `POST` | `/utilisateur/` | Create a user account | None |
-| `POST` | `/connexion/` | Log in, obtain JWT token | None |
-| `PUT` | `/utilisateur/role` | Change a user's permission level | `ADMIN` (level 3) |
-| `POST` | `/gare/` | Add a station | `COLLAB` (level 2) |
-| `GET` | `/gare/id/{id_gare}` | Search station by ID | `CLIENT` (level 1) |
-| `GET` | `/gare/nom_gare/{nom_gare}` | Search stations by name (SNCF) | `CLIENT` (level 1) |
-| `DELETE` | `/gare/{id_gare}` | Delete a station | `COLLAB` (level 2) |
-| `POST` | `/ligne/` | Create a line between two stations | `COLLAB` (level 2) |
-| `GET` | `/ligne/{id_ligne}` | Search line by ID | `CLIENT` (level 1) |
-| `DELETE` | `/ligne/{id_ligne}` | Delete a line | `COLLAB` (level 2) |
-| `POST` | `/trajet/` | Create a journey (duration from SNCF) | `COLLAB` (level 2) |
-| `GET` | `/trajet/` | Search journeys between two stations | `CLIENT` (level 1) |
-| `GET` | `/trajet/{id_trajet}` | Search journey by ID | `CLIENT` (level 1) |
-| `PUT` | `/trajet/{id_trajet}` | Modify a journey | `COLLAB` (level 2) |
-| `DELETE` | `/trajet/{id_trajet}` | Delete a journey | `COLLAB` (level 2) |
+#### No authentication required
+
+| Method | Endpoint | Use Case |
+|--------|----------|----------|
+| `POST` | `/utilisateur/` | Create a user account |
+| `POST` | `/connexion/` | Log in, obtain JWT token |
+
+#### `CLIENT` (level 1)
+
+| Method | Endpoint | Use Case |
+|--------|----------|----------|
+| `GET` | `/gare/id/{id_gare}` | Search station by ID |
+| `GET` | `/gare/nom_gare/{nom_gare}` | Search stations by name (SNCF) |
+| `GET` | `/ligne/{id_ligne}` | Search line by ID |
+| `GET` | `/trajet/` | Search journeys between two stations |
+| `GET` | `/trajet/{id_trajet}` | Search journey by ID |
+| `POST` | `/reservation/` | Reserve a seat on a journey |
+| `GET` | `/reservation/mes-reservations` | List my reservations |
+| `DELETE` | `/reservation/{id_reservation}` | Cancel a reservation |
+
+#### `COLLAB` (level 2) — includes all `CLIENT` endpoints
+
+| Method | Endpoint | Use Case |
+|--------|----------|----------|
+| `POST` | `/gare/` | Add a station |
+| `DELETE` | `/gare/{id_gare}` | Delete a station |
+| `POST` | `/ligne/` | Create a line between two stations |
+| `DELETE` | `/ligne/{id_ligne}` | Delete a line |
+| `POST` | `/trajet/` | Create a journey (duration from SNCF) |
+| `PUT` | `/trajet/{id_trajet}` | Modify a journey |
+| `DELETE` | `/trajet/{id_trajet}` | Delete a journey |
+
+#### `ADMIN` (level 3) — includes all `CLIENT` + `COLLAB` endpoints
+
+| Method | Endpoint | Use Case |
+|--------|----------|----------|
+| `PUT` | `/utilisateur/role` | Change a user's permission level |"
 
 ### Permission Levels
 
 | Level | Name | Capabilities |
 |-------|------|--------------|
-| 1 | `CLIENT` | Read-only access (search stations, lines, journeys) |
+| 1 | `CLIENT` | Read access to stations, lines, journeys + manage own reservations |
 | 2 | `COLLAB` | All `CLIENT` operations, **plus** write access (create/modify/delete stations, lines, journeys) |
 | 3 | `ADMIN` | All `CLIENT` + `COLLAB` operations, **plus** role management (`PUT /utilisateur/role`) |
 
@@ -333,7 +354,8 @@ curl -X POST http://localhost:5000/trajet/ \
   "duree_minutes": 155,
   "nb_places": 20,
   "tarif": 39.50,
-  "places_reservees": 0
+  "places_reservees": 0,
+  "places_disponibles": 20
 }
 ```
 
@@ -399,6 +421,106 @@ curl -X DELETE http://localhost:5000/trajet/100
 ```json
 {"message": "Trajet supprimé avec succès"}
 ```
+
+---
+
+### Managing Reservations
+
+Any `CLIENT` user can reserve a seat on a journey, view their reservations, and cancel them. The system automatically tracks seat availability.
+
+#### Reserve a Seat
+
+**`POST /reservation/`** — reserves one seat on a journey for the connected user.
+
+> ⚠️ The journey must exist and have at least one available seat (`places_disponibles > 0`). If the journey is full, a `409` error is returned.
+
+| Field      | Type | Description         |
+|------------|------|---------------------|
+| `id_trajet`| int  | ID of the journey to book |
+
+```bash
+curl -X POST http://localhost:5000/reservation/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <client_access_token>" \
+  -d '{"id_trajet": 100}'
+```
+
+**Successful response:**
+
+```json
+{
+  "message": "Réservation effectuée avec succès.",
+  "id_reservation": 5
+}
+```
+
+**Error responses:**
+
+| Status | Cause |
+|--------|-------|
+| `401`  | Missing or invalid token |
+| `404`  | Journey not found |
+| `409`  | No seats available on this journey |
+
+#### List My Reservations
+
+**`GET /reservation/mes-reservations`** — returns all reservations made by the connected user, with journey details.
+
+```bash
+curl http://localhost:5000/reservation/mes-reservations \
+  -H "Authorization: Bearer <client_access_token>"
+```
+
+**Successful response:**
+
+```json
+[
+  {
+    "id_reservation": 5,
+    "utilisateur": {
+      "id_utilisateur": 1,
+      "pseudo": "john_doe",
+      "niveau": "CLIENT"
+    },
+    "trajet": {
+      "id_trajet": 100,
+      "date_heure_depart": "2025-07-20T09:00:00",
+      "duree_minutes": 155,
+      "nb_places": 20,
+      "tarif": 39.50,
+      "places_reservees": 3
+    }
+  }
+]
+```
+
+#### Cancel a Reservation
+
+**`DELETE /reservation/{id_reservation}`** — cancels a reservation belonging to the connected user and frees the seat.
+
+```bash
+curl -X DELETE http://localhost:5000/reservation/5 \
+  -H "Authorization: Bearer <client_access_token>"
+```
+
+**Successful response:**
+
+```json
+{
+  "message": "Réservation annulée avec succès.",
+  "id_reservation": 5
+}
+```
+
+**Error responses:**
+
+| Status | Cause |
+|--------|-------|
+| `401`  | Missing or invalid token |
+| `403`  | The reservation belongs to another user |
+| `404`  | Reservation not found |
+
+> 💡 When a seat is reserved, `places_reservees` on the journey increases by 1. When a reservation is cancelled, it decreases by 1. The `places_disponibles` field (visible on all journey responses) always reflects `nb_places - places_reservees`.
 
 ---
 
