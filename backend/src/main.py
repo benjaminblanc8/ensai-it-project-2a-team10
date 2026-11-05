@@ -6,11 +6,12 @@ et configure les routeurs de l'API (utilisateurs, gares, lignes, trajets, connex
 """
 
 from controller import (
+    api_sncf_controller,
     connexion_controller,
     gare_controller,
     ligne_controller,
     trajet_controller,
-    utilisateur_controller,
+    utilisateur_controller
 )
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
@@ -89,6 +90,12 @@ app.include_router(
     ligne_controller.router,
     prefix="/ligne",
     tags=["Lignes"],
+)
+
+app.include_router(
+    api_sncf_controller.router,
+    prefix="/api_sncf",
+    tags=["API SNCF"],
 )
 
 

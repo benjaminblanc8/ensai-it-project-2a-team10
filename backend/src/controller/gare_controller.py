@@ -56,12 +56,12 @@ def rechercher_gare_par_id(
 
     return gare
 
-@router.get("/nom_gare/{nom_gare}", response_model=GareReadModel, tags=["Gares"])
+@router.get("/nom_gare/{nom_gare}", response_model=list[GareReadModel], tags=["Gares"])
 def rechercher_gare_par_nom(
-    nom_gare: int,
+    nom_gare: str,
     service=Depends(get_gare_service),  # noqa: B008
 ):
-    """Recherche une gare par son identifiant."""
+    """Recherche une gare par son nom."""
 
     logger.info("Recherche d'une gare")
 
