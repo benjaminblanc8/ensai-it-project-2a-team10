@@ -38,12 +38,18 @@ class LigneService:
                 detail="Les gares de départ et d'arrivée doivent être différentes.",
             )
 
-        nouvelle_ligne = Ligne(
-            id_ligne=None,
-            gare_depart=gare_depart,
-            gare_arrivee=gare_arrivee,
-            date_creation=datetime.date.today(),
-        )
+        if self.dao.rechercher_ids_par_gares(gare_depart.nom, gare_arrivee.nom):
+            raise HTTPException(
+                status_code=409,
+                detail="Une ligne existe déjà entre ces deux gares.",
+            )
+
+            nouvelle_ligne = Ligne(
+                id_ligne=None,
+                gare_depart=gare_depart,
+                gare_arrivee=gare_arrivee,
+                date_creation=datetime.date.today(),
+            )
 
         if not self.dao.creer_ligne(nouvelle_ligne):
             raise HTTPException(
@@ -56,7 +62,7 @@ class LigneService:
         if gare_depart.id_gare == gare_arrivee.id_gare:
             raise HTTPException(
                 status_code=400,
-                detail="Les gares de départ et d'arrivée doivent être différentes." 
+                detail="Les gares de départ et d'arrivée doivent être différentes.",
             )
         if not self.dao.recherche_ligne(id_ligne):
             raise HTTPException(
@@ -68,8 +74,16 @@ class LigneService:
 
         if not gare_depart or not gare_arrivee:
             raise HTTPException(
-                status_code=404, 
-                detail="Une des gares sélectionnées n'existe pas."
+                status_code=404, detail="Une des gares sélectionnées n'existe pas."
+            )
+
+        ids_existants = self.dao.rechercher_ids_par_gares(
+            gare_depart.nom, gare_arrivee.nom
+        )
+        if any(id != id_ligne for id in ids_existants):
+            raise HTTPException(
+                status_code=409,
+                detail="Une ligne existe déjà entre ces deux gares.",
             )
 
         return self.dao.modifier_ligne(id_ligne, gare_depart, gare_arrivee)
@@ -80,7 +94,9 @@ class LigneService:
     def supprimer_ligne(self, id_ligne: int):
         return self.dao.supprimer_ligne(id_ligne)
 
-    def rechercher_ligne_par_gares(self, nom_depart: str, nom_arrivee: str) -> Ligne | None:
+    def rechercher_ligne_par_gares(
+        self, nom_depart: str, nom_arrivee: str
+    ) -> Ligne | None:
         ids_lignes = self.dao.rechercher_ids_par_gares(nom_depart, nom_arrivee)
 
         if not ids_lignes:
