@@ -145,8 +145,8 @@ def modifier_trajet(
     id_trajet: int,
     informations: TrajetModel,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # noqa: B008
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
 ):
     """Modifie un trajet et recalcule sa durée si nécessaire."""
     trajet_existant = service.recherche_trajet(id_trajet)
