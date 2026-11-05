@@ -1,20 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException
-
-from business_object.utilisateur import Utilisateur
 from dao.reservation_dao import ReservationDao
 from dao.trajet_dao import TrajetDao
-from utils.authentication import get_current_user
-from utils.verification_habilitation import require_niveau
-from schema.utilisateur_model import NiveauHabilitation
+from fastapi import APIRouter, Depends, HTTPException
 from schema.reservation_model import (
-    ReservationUtilisateurReadModel,
-    ReservationTrajetReadModel,
-    ReservationResponseModel,
     ReservationCreateModel,
-    ReservationReadModel
+    ReservationReadModel,
+    ReservationResponseModel,
+    ReservationTrajetReadModel,
+    ReservationUtilisateurReadModel,
 )
+from schema.utilisateur_model import NiveauHabilitation
 from service.reservation_service import ReservationService
 from utils.log_utils import get_logger
+from utils.verification_habilitation import require_niveau
 
 router = APIRouter()
 logger = get_logger(__name__)
@@ -32,8 +29,8 @@ def get_reservation_service():
 @router.post("/", response_model=ReservationResponseModel, tags=["Réservations"])
 def creer_reservation(
     informations: ReservationCreateModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),
-    service=Depends(get_reservation_service),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
+    service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     try:
         reservation = service.creer_reservation(
@@ -59,8 +56,8 @@ def creer_reservation(
     tags=["Réservations"],
 )
 def rechercher_mes_reservations(
-    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),
-    service=Depends(get_reservation_service),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
+    service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     logger.info(
     "Utilisateur connecté : %s", utilisateur.id_utilisateur,
@@ -96,8 +93,8 @@ def rechercher_mes_reservations(
 )
 def annuler_reservation(
     id_reservation: int,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),
-    service=Depends(get_reservation_service),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
+    service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     try:
         service.annuler_reservation(utilisateur, id_reservation)
