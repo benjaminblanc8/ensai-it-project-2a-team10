@@ -17,7 +17,8 @@ Semaine n°10
   - correction de la modification et suppression des lignes
   - correction du code dans son ensemble
 Jeudi 5 :
-  -
+  - ajout de la fonctionnalité de réservation
+  - correction du code dans son ensemble
 
 ### DUQUESNE Manon
 18h (6h,3j)
