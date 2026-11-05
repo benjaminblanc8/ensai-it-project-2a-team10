@@ -27,7 +27,7 @@ class ReservationService:
         if trajet is None:
             raise LookupError("Trajet introuvable.")
 
-        places_disponibles = trajet.get_nb_places_disponibles()
+        places_disponibles = trajet.get_nb_places_disponibles
 
         if places_disponibles <= 0:
             raise ValueError(
