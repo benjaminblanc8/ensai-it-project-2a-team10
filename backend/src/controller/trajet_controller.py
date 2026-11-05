@@ -7,6 +7,7 @@ from service.api_sncf_service import ApiSncfError, ApiSncfService
 from service.ligne_service import LigneService
 from service.trajet_service import TrajetService
 from utils.log_utils import get_logger
+from business_object.niveau_habilitation import NiveauHabilitation
 from utils.verification_habilitation import require_niveau
 
 router = APIRouter()
@@ -144,11 +145,11 @@ def creer_trajet(
 def modifier_trajet(
     id_trajet: int,
     informations: TrajetModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # noqa: B008
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008
 ):
-    """Modifie un trajet existant."""
+    """Modifie un trajet et recalcule sa durée si nécessaire."""
     trajet_existant = service.recherche_trajet(id_trajet)
 
     if trajet_existant is None:
@@ -159,11 +160,50 @@ def modifier_trajet(
     if ligne is None:
         raise HTTPException(status_code=404, detail="Ligne introuvable")
 
+    duree_minutes = trajet_existant.duree_minutes
+
+    if (
+        informations.date_heure_depart != trajet_existant.date_heure_depart
+        or ligne.id_ligne != trajet_existant.ligne.id_ligne
+    ):
+        id_depart = ligne.gare_depart.id_gare_sncf
+        id_arrivee = ligne.gare_arrivee.id_gare_sncf
+
+        if not id_depart or not id_arrivee:
+            raise HTTPException(
+                status_code=422,
+                detail="Une des gares n'a pas d'identifiant SNCF.",
+            )
+
+        try:
+            itineraire = ApiSncfService().calculer_duree_trajet(
+                id_depart,
+                id_arrivee,
+                informations.date_heure_depart,
+            )
+        except ApiSncfError as exc:
+            logger.error("Erreur API SNCF : %s", exc)
+            raise HTTPException(
+                status_code=502,
+                detail="Impossible de récupérer la durée auprès de l'API SNCF.",
+            ) from exc
+
+        if itineraire is None:
+            raise HTTPException(
+                status_code=422,
+                detail=(
+                    "Aucun itinéraire SNCF trouvé pour ces gares "
+                    "à la date demandée."
+                ),
+            )
+
+        duree_minutes = ceil(itineraire["duree"].total_seconds() / 60)
+
     succes = service.modifier_trajet(
         id_trajet=id_trajet,
         ligne=ligne,
         date_heure_depart=informations.date_heure_depart,
-        duree_minutes=informations.duree_minutes,
+        duree_minutes=duree_minutes,
         nb_places=informations.nb_places,
         tarif=informations.tarif,
         places_reservees=trajet_existant.get_places_reservees(),
@@ -178,7 +218,6 @@ def modifier_trajet(
     trajet = service.recherche_trajet(id_trajet)
     logger.info("Trajet modifié : %s", id_trajet)
     return convertir_trajet(trajet)
-
 
 @router.delete("/{id_trajet}", tags=["Trajets"])
 def supprimer_trajet(
