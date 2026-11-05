@@ -17,7 +17,6 @@ class LigneReadModel(BaseModel):
 
 
 class LigneCreateModel(BaseModel):
-    libelle: str = Field(min_length=2, max_length=100)
     id_gare_depart: int
     id_gare_arrivee: int
 
