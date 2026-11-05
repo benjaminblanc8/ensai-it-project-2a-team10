@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" pages="4">
   <diagram name="1 - Couche Objet" id="page_1_-_couche_objet">
-    <mxGraphModel dx="691" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -149,7 +149,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="2 - Couche DAO" id="page_2_-_couche_dao">
-    <mxGraphModel dx="1440" dy="2021" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -205,7 +205,7 @@
           <mxGeometry height="8" width="280" y="44" as="geometry" />
         </mxCell>
         <mxCell id="k19" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetDao&lt;/b&gt;" vertex="1">
-          <mxGeometry height="170" width="280" x="1010" y="69" as="geometry" />
+          <mxGeometry height="170" width="280" x="440" y="341" as="geometry" />
         </mxCell>
         <mxCell id="t20" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(trajet : Trajet) : bool" vertex="1">
           <mxGeometry height="22" width="340" y="52" as="geometry" />
@@ -223,31 +223,31 @@
           <mxGeometry height="8" width="280" y="44" as="geometry" />
         </mxCell>
         <mxCell id="k26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Utilisateur&lt;/b&gt;" vertex="1">
-          <mxGeometry height="46" width="220" x="90" y="330" as="geometry" />
+          <mxGeometry height="46" width="220" x="90" y="280" as="geometry" />
         </mxCell>
         <mxCell id="e27" edge="1" parent="1" source="k3" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k26" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Gare&lt;/b&gt;" vertex="1">
-          <mxGeometry height="46" width="220" x="440" y="330" as="geometry" />
+          <mxGeometry height="46" width="220" x="440" y="265" as="geometry" />
         </mxCell>
         <mxCell id="e29" edge="1" parent="1" source="k9" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k28" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k30" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Ligne&lt;/b&gt;" vertex="1">
-          <mxGeometry height="46" width="220" x="740" y="320" as="geometry" />
+          <mxGeometry height="46" width="220" x="740" y="280" as="geometry" />
         </mxCell>
         <mxCell id="e31" edge="1" parent="1" source="k13" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k30" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k32" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Objet&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Trajet&lt;/b&gt;" vertex="1">
-          <mxGeometry height="46" width="220" x="1040" y="320" as="geometry" />
+          <mxGeometry height="46" width="220" x="470" y="550" as="geometry" />
         </mxCell>
         <mxCell id="e33" edge="1" parent="1" source="k19" style="html=1;rounded=0;endSize=10;startSize=10;fontSize=12;edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k32" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="rLclz3-r7et9KM9KD880-2" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;DBConnection" vertex="1">
-          <mxGeometry height="146" width="340" x="1360" y="69" as="geometry" />
+          <mxGeometry height="158" width="340" x="40" y="373" as="geometry" />
         </mxCell>
         <mxCell id="rLclz3-r7et9KM9KD880-7" parent="rLclz3-r7et9KM9KD880-2" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="340" y="81" as="geometry" />
@@ -262,18 +262,18 @@
           <mxGeometry height="22" width="340" y="111" as="geometry" />
         </mxCell>
         <mxCell id="t9AMLXdelbGnR6nBgdia-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Dao" vertex="1">
-          <mxGeometry height="730" width="1760" y="-100" as="geometry" />
+          <mxGeometry height="730" width="1050" x="-30" y="-50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="3 - Couche Service" id="page_3_-_couche_service">
-    <mxGraphModel grid="1" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2438" dy="1343" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Service" vertex="1">
-          <mxGeometry height="870" width="1710" as="geometry" />
+          <mxGeometry height="870" width="1270" as="geometry" />
         </mxCell>
         <mxCell id="3nJx1IR-7QS_N9zJ-PSS-2" edge="1" parent="1" source="k3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;dashed=1;endArrow=open;endFill=0;" target="k25">
           <mxGeometry relative="1" as="geometry" />
@@ -335,7 +335,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k19" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetService&lt;/b&gt;" vertex="1">
-          <mxGeometry height="220" width="350" x="1300" y="100" as="geometry" />
+          <mxGeometry height="220" width="350" x="450" y="514.5" as="geometry" />
         </mxCell>
         <mxCell id="t20" parent="k19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(ligne : Ligne, date_heure_depart : datetime.datetime, duree_minutes : int, nb_places : int, tarif : float) : Trajet" vertex="1">
           <mxGeometry height="58" width="350" y="52" as="geometry" />
@@ -367,10 +367,10 @@
           <mxGeometry height="46" width="180" x="640" y="430" as="geometry" />
         </mxCell>
         <mxCell id="k28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;API externe&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;API SNCF (Navitia)&lt;/b&gt;" vertex="1">
-          <mxGeometry height="37" width="150" x="890" y="380" as="geometry" />
+          <mxGeometry height="37" width="150" x="890" y="290" as="geometry" />
         </mxCell>
         <mxCell id="k29" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetDao&lt;/b&gt;" vertex="1">
-          <mxGeometry height="46" width="220" x="1365" y="430" as="geometry" />
+          <mxGeometry height="46" width="220" x="515" y="778" as="geometry" />
         </mxCell>
         <mxCell id="f_rkFC8higykdMLGXXAQ-3" edge="1" parent="1" source="k8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.46;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;dashed=1;endArrow=open;endFill=0;" target="k27">
           <mxGeometry relative="1" as="geometry" />
@@ -382,7 +382,7 @@
           <mxGeometry height="22" width="350" x="880" y="152" as="geometry" />
         </mxCell>
         <mxCell id="f_rkFC8higykdMLGXXAQ-10" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;DAO&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GareDao&amp;nbsp;&lt;/b&gt;" vertex="1">
-          <mxGeometry height="37" width="150" x="1050" y="380" as="geometry" />
+          <mxGeometry height="37" width="150" x="1050" y="290" as="geometry" />
         </mxCell>
         <mxCell id="f_rkFC8higykdMLGXXAQ-12" edge="1" parent="1" source="k28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.242;entryY=0.997;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;startArrow=open;startFill=0;endArrow=none;endFill=0;dashed=1;" target="t17">
           <mxGeometry relative="1" as="geometry" />
@@ -436,12 +436,12 @@
     </mxGraphModel>
   </diagram>
   <diagram name="4 - Couche Controller" id="page_4_-_couche_controller">
-    <mxGraphModel dx="2049" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2946" dy="1623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="layer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=24;spacingTop=14;fontSize=25;fillColor=none;arcSize=6;" value="Couche Controller (routeurs FastAPI)" vertex="1">
-          <mxGeometry height="700" width="1710" as="geometry" />
+          <mxGeometry height="910" width="1300" as="geometry" />
         </mxCell>
         <mxCell id="Ia-__d4T4aBeP6275UnL-53" edge="1" parent="1" source="k3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;dashed=1;endArrow=open;endFill=0;" target="k23">
           <mxGeometry relative="1" as="geometry" />
@@ -509,7 +509,7 @@
           <mxGeometry height="22" width="350" y="130" as="geometry" />
         </mxCell>
         <mxCell id="k17" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=44;horizontal=1;html=1;collapsible=0;marginBottom=0;whiteSpace=wrap;" value="&lt;i&gt;&amp;lt;&amp;lt;Controller&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetController&lt;/b&gt;" vertex="1">
-          <mxGeometry height="247" width="360" x="1300" y="100" as="geometry" />
+          <mxGeometry height="247" width="360" x="470" y="500" as="geometry" />
         </mxCell>
         <mxCell id="t18" parent="k17" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ creer_trajet(informations : TrajetCreationModel)" vertex="1">
           <mxGeometry height="37" width="350" y="74" as="geometry" />
@@ -545,7 +545,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TrajetService&lt;/b&gt;" vertex="1">
-          <mxGeometry height="37" width="170" x="1300" y="406.5" as="geometry" />
+          <mxGeometry height="37" width="170" x="430" y="810" as="geometry" />
         </mxCell>
         <mxCell id="w-2scaKYPgH5iNSKUqrs-2" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rechercher_gare_par_id(id_gare : int)&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="22" width="350" x="460" y="196" as="geometry" />
@@ -576,13 +576,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Ia-__d4T4aBeP6275UnL-39" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ convertir_trajet(trajet : Trajet) : TrajetReadModel" vertex="1">
-          <mxGeometry height="37" width="350" x="1300" y="310" as="geometry" />
+          <mxGeometry height="37" width="350" x="470" y="710" as="geometry" />
         </mxCell>
         <mxCell id="Ia-__d4T4aBeP6275UnL-40" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;startSize=46;horizontal=1;html=1;collapsible=0;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" value="&lt;i&gt;&amp;lt;&amp;lt;Service&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LigneService&lt;/b&gt;" vertex="1">
-          <mxGeometry height="37" width="170" x="1500" y="406.5" as="geometry" />
-        </mxCell>
-        <mxCell id="Ia-__d4T4aBeP6275UnL-51" edge="1" parent="1" source="Ia-__d4T4aBeP6275UnL-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.649;entryY=1.009;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;dashed=1;endArrow=none;endFill=0;startArrow=open;startFill=0;" target="Ia-__d4T4aBeP6275UnL-39">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry height="37" width="170" x="680" y="810" as="geometry" />
         </mxCell>
         <mxCell id="pPZtlx7ytaL2bzKUErtG-6" edge="1" parent="1" source="pPZtlx7ytaL2bzKUErtG-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;dashed=1;endArrow=open;endFill=0;" target="k23">
           <mxGeometry relative="1" as="geometry" />
@@ -598,6 +595,9 @@
         </mxCell>
         <mxCell id="pPZtlx7ytaL2bzKUErtG-5" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ get_utilisateur_service()" vertex="1">
           <mxGeometry height="22" width="350" x="40" y="582" as="geometry" />
+        </mxCell>
+        <mxCell id="4SDbomyK82E8XtDlL2e7-1" edge="1" parent="1" source="Ia-__d4T4aBeP6275UnL-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.577;entryY=0.973;entryDx=0;entryDy=0;entryPerimeter=0;defaultLabelBackgroundColor=page;endArrow=none;endFill=0;startArrow=open;startFill=0;dashed=1;" target="Ia-__d4T4aBeP6275UnL-39">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

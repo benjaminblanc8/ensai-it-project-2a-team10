@@ -93,17 +93,19 @@ class TrajetDao:
             WHERE id_trajet = %s;
         """
 
+        connexion = DBConnection().connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connexion.cursor() as cursor:
                 cursor.execute(requete, (id_trajet,))
 
                 suppression_effectuee = cursor.rowcount > 0
 
-            DBConnection().connection.commit()
+            connexion.commit()
             return suppression_effectuee
 
         except Exception:
-            DBConnection().connection.rollback()
+            connexion.rollback()
             raise
 
     def modifier_trajet(self, trajet: Trajet) -> bool:

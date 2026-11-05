@@ -1,10 +1,15 @@
+from business_object.niveau_habilitation import NiveauHabilitation
 from fastapi import APIRouter, Depends, HTTPException
-from schema.ligne_model import LigneModel, LigneReadModel, LigneUpdateModel, LigneReadUpdateModel
+from schema.ligne_model import (
+    LigneModel,
+    LigneReadModel,
+    LigneReadUpdateModel,
+    LigneUpdateModel,
+)
 from service.gare_service import GareService
 from service.ligne_service import LigneService
 from utils.log_utils import get_logger
 from utils.verification_habilitation import require_niveau
-from business_object.niveau_habilitation import NiveauHabilitation 
 
 router = APIRouter()
 
@@ -24,7 +29,7 @@ def get_gare_service():
 @router.post("/", response_model=LigneReadModel, tags=["Lignes"])
 def creer_ligne(
     informations: LigneModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
     ligne_service=Depends(get_ligne_service),  # noqa: B008
 ):
     """Crée une ligne entre deux gares."""
@@ -59,8 +64,8 @@ def rechercher_ligne(
 @router.put("/{id_ligne}", response_model=LigneReadUpdateModel, tags=["Lignes"])
 def modifier_ligne(
     informations: LigneUpdateModel,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
-    service=Depends(get_ligne_service),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
+    service=Depends(get_ligne_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     """ Modifie une ligne """
 
@@ -78,8 +83,8 @@ def modifier_ligne(
 @router.delete("/{id_ligne}", tags=["Lignes"])
 def supprimer_ligne(
     id_ligne: int,
-    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),
-    service=Depends(get_ligne_service),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
+    service=Depends(get_ligne_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     """Supprime une ligne."""
 
