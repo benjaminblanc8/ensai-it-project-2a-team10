@@ -53,6 +53,25 @@ class LigneService:
         return nouvelle_ligne
 
     def modifier_ligne(self, id_ligne: int, gare_depart: Gare, gare_arrivee: Gare):
+        if gare_depart.id_gare == gare_arrivee.id_gare:
+            raise HTTPException(
+                status_code=400,
+                detail="Les gares de départ et d'arrivée doivent être différentes." 
+            )
+        if not self.dao.recherche_ligne(id_ligne):
+            raise HTTPException(
+                status_code=404,
+                detail=f"La ligne avec l'identifiant {id_ligne} n'existe pas.",
+            )
+        gare_depart = self.gare_service.recherche_gare(gare_depart.id_gare)
+        gare_arrivee = self.gare_service.recherche_gare(gare_arrivee.id_gare)
+
+        if not gare_depart or not gare_arrivee:
+            raise HTTPException(
+                status_code=404, 
+                detail="Une des gares sélectionnées n'existe pas."
+            )
+
         return self.dao.modifier_ligne(id_ligne, gare_depart, gare_arrivee)
 
     def rechercher_ligne(self, id_ligne: int):

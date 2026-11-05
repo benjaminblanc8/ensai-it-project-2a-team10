@@ -1,8 +1,9 @@
-from business_object.ligne import Ligne
+import psycopg2
 from business_object.gare import Gare
+from business_object.ligne import Ligne
 from dao.db_connection import DBConnection
 from dao.gare_dao import GareDao
-import psycopg2
+
 
 class LigneDao:
     def creer_ligne(self, ligne: Ligne) -> bool:
