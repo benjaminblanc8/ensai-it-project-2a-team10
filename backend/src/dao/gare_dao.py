@@ -56,6 +56,29 @@ class GareDao:
             resultat["id_gare_sncf"],
         )
 
+    def recherche_gare_par_nom(self, nom: str) -> list[Gare]:
+        """Recherche toutes les gares dont le nom contient la chaîne fournie."""
+
+        requete = """
+            SELECT id_gare, nom, ville, id_gare_sncf
+            FROM Gare
+            WHERE nom ILIKE %s;
+        """
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(requete, (f"%{nom}%",))
+            resultats = cursor.fetchall()
+
+        return [
+            Gare(
+                resultat["id_gare"],
+                resultat["nom"],
+                resultat["ville"],
+                resultat["id_gare_sncf"],
+            )
+            for resultat in resultats
+        ]
+
     def supprimer_gare(self, id_gare: int) -> bool:
         """Supprime une gare à partir de son identifiant."""
 

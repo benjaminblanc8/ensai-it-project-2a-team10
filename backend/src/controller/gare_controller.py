@@ -56,17 +56,21 @@ def rechercher_gare_par_id(
 
     return gare
 
-
-@router.get("/nom_gare/{nom_gare}", response_model=list[GareReadModel], tags=["Gares"])
+@router.get("/nom_gare/{nom_gare}", response_model=GareReadModel, tags=["Gares"])
 def rechercher_gare_par_nom(
-    nom_gare: str,
-    service=Depends(get_api_sncf_service),  # noqa: B008
+    nom_gare: int,
+    service=Depends(get_gare_service),  # noqa: B008
 ):
-    """Recherche de gares par leur nom."""
+    """Recherche une gare par son identifiant."""
 
-    logger.info("Recherche de gares : %s", nom_gare)
+    logger.info("Recherche d'une gare")
 
-    return service.obtenir_arrets_par_nom(nom_gare)
+    list_gare = service.recherche_gare_par_nom(nom_gare)
+
+    if len(list_gare)==0:
+        raise HTTPException(status_code=404, detail="Gares introuvables")
+
+    return list_gare
 
 
 @router.delete("/{id_gare}", response_model=GareReadModel, tags=["Gares"])
