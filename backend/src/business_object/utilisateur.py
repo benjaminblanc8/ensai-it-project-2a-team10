@@ -32,6 +32,7 @@ class Utilisateur:
     def get_id_utilisateur(self) -> int:
         return self.id_utilisateur
 
+    @property
     def get_pseudo(self) -> str:
         return self.__pseudo
 

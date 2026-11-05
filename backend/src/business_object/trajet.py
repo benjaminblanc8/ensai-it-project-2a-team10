@@ -38,12 +38,15 @@ class Trajet:
             f"places disponibles: {self._nb_places - self._places_reservees}, tarif: {self._tarif}€"
         )
 
+    @property
     def get_nb_places_disponibles(self) -> int:
         return self._nb_places - self._places_reservees
 
+    @property
     def get_tarif(self) -> float:
         return self._tarif
 
+    @property
     def get_places_reservees(self) -> int:
         return self._places_reservees
 

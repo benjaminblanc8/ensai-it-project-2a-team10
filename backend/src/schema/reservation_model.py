@@ -1,7 +1,5 @@
-
-from pydantic import BaseModel, ConfigDict
-
 from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, AliasChoices
 
 
 class ReservationCreateModel(BaseModel):
@@ -14,18 +12,28 @@ class ReservationUtilisateurReadModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id_utilisateur: int
-    pseudo: str
+    pseudo: str = Field(
+        validation_alias=AliasChoices("pseudo", "_Utilisateur__pseudo")
+    )
     niveau: str
 
 
 class ReservationTrajetReadModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+    id_trajet: int
     date_heure_depart: datetime
     duree_minutes: int
-    nb_places: int
-    tarif: float
-    places_reservees: int
+
+    nb_places: int = Field(
+        validation_alias=AliasChoices("nb_places", "_nb_places")
+    )
+    tarif: float = Field(
+        validation_alias=AliasChoices("tarif", "_tarif")
+    )
+    places_reservees: int = Field(
+        validation_alias=AliasChoices("places_reservees", "_places_reservees")
+    )
 
 
 class ReservationReadModel(BaseModel):

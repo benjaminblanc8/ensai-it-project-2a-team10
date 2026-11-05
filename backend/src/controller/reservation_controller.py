@@ -6,7 +6,13 @@ from dao.trajet_dao import TrajetDao
 from utils.authentication import get_current_user
 from utils.verification_habilitation import require_niveau
 from schema.utilisateur_model import NiveauHabilitation
-from schema.reservation_model import ReservationResponseModel, ReservationCreateModel, ReservationReadModel
+from schema.reservation_model import (
+    ReservationUtilisateurReadModel,
+    ReservationTrajetReadModel,
+    ReservationResponseModel,
+    ReservationCreateModel,
+    ReservationReadModel
+)
 from service.reservation_service import ReservationService
 from utils.log_utils import get_logger
 
@@ -59,7 +65,28 @@ def rechercher_mes_reservations(
     logger.info(
     "Utilisateur connecté : %s", utilisateur.id_utilisateur,
     )
-    return service.rechercher_reservations(utilisateur)
+
+    reservations = service.rechercher_reservations(utilisateur)
+
+    for reservation in reservations:
+        print("Utilisateur :", vars(reservation.utilisateur))
+        print("Trajet :", vars(reservation.trajet))
+
+        print(
+            "Utilisateur converti :",
+            ReservationUtilisateurReadModel.model_validate(
+                reservation.utilisateur
+            )
+        )
+
+        print(
+            "Trajet converti :",
+            ReservationTrajetReadModel.model_validate(
+                reservation.trajet
+            )
+        )
+
+    return reservations
 
 
 @router.delete(
