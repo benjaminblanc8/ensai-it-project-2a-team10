@@ -7,7 +7,6 @@ from service.api_sncf_service import ApiSncfError, ApiSncfService
 from service.ligne_service import LigneService
 from service.trajet_service import TrajetService
 from utils.log_utils import get_logger
-from business_object.niveau_habilitation import NiveauHabilitation
 from utils.verification_habilitation import require_niveau
 
 router = APIRouter()
@@ -35,40 +34,6 @@ def convertir_trajet(trajet) -> TrajetReadModel:
         tarif=trajet.get_tarif(),
         places_reservees=places_reservees,
     )
-
-
-@router.get("/", response_model=list[TrajetReadModel], tags=["Trajets"])
-def rechercher_trajets_par_gares(
-    nom_gare_depart: str,
-    nom_gare_arrivee: str,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
-    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
-):
-    """Liste les trajets entre deux gares, dans le sens demandé."""
-    ligne = ligne_service.rechercher_ligne_par_gares(
-        nom_gare_depart,
-        nom_gare_arrivee,
-    )
-
-    if ligne is None:
-        return []
-
-    trajets = service.rechercher_trajets_par_ligne(ligne)
-    return [convertir_trajet(trajet) for trajet in trajets]
-
-
-@router.get("/{id_trajet}", response_model=TrajetReadModel, tags=["Trajets"])
-def recherche_trajet(
-    id_trajet: int,
-    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
-):
-    """Recherche un trajet par son identifiant."""
-    trajet = service.recherche_trajet(id_trajet)
-
-    if trajet is None:
-        raise HTTPException(status_code=404, detail="Trajet introuvable")
-
-    return convertir_trajet(trajet)
 
 
 @router.post("/", response_model=TrajetReadModel, tags=["Trajets"])
@@ -138,6 +103,40 @@ def creer_trajet(
         )
 
     logger.info("Trajet créé : %s", trajet.id_trajet)
+    return convertir_trajet(trajet)
+
+
+@router.get("/", response_model=list[TrajetReadModel], tags=["Trajets"])
+def rechercher_trajets_par_gares(
+    nom_gare_depart: str,
+    nom_gare_arrivee: str,
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+    ligne_service: LigneService = Depends(get_ligne_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+):
+    """Liste les trajets entre deux gares, dans le sens demandé."""
+    ligne = ligne_service.rechercher_ligne_par_gares(
+        nom_gare_depart,
+        nom_gare_arrivee,
+    )
+
+    if ligne is None:
+        return []
+
+    trajets = service.rechercher_trajets_par_ligne(ligne)
+    return [convertir_trajet(trajet) for trajet in trajets]
+
+
+@router.get("/{id_trajet}", response_model=TrajetReadModel, tags=["Trajets"])
+def recherche_trajet(
+    id_trajet: int,
+    service: TrajetService = Depends(get_trajet_service),  # noqa: B008  # ruff: ignore[fast-api-non-annotated-dependency]
+):
+    """Recherche un trajet par son identifiant."""
+    trajet = service.recherche_trajet(id_trajet)
+
+    if trajet is None:
+        raise HTTPException(status_code=404, detail="Trajet introuvable")
+
     return convertir_trajet(trajet)
 
 
@@ -218,6 +217,7 @@ def modifier_trajet(
     trajet = service.recherche_trajet(id_trajet)
     logger.info("Trajet modifié : %s", id_trajet)
     return convertir_trajet(trajet)
+
 
 @router.delete("/{id_trajet}", tags=["Trajets"])
 def supprimer_trajet(
