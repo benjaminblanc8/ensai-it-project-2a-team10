@@ -57,6 +57,7 @@ JWT_SECRET_KEY=***
 ```
 
 > 🔑 Replace `POSTGRES_PASSWORD` and `JWT_SECRET_KEY` with actual values. Ask the team if you don't have them.
+> 🔑 You might need the `SNCF_API_KEY` value if you update the database with Navitia data. Ask the team in that case.
 
 ### Step 3: Start the server
 
@@ -160,7 +161,9 @@ A newly created account is assigned the default `CLIENT` (level 1) permission.
 
 ### Logging In (Obtaining a Token)
 
-Use **`POST /connexion/`** with **form data** (not JSON):
+> 💡 **In Swagger:** the easiest way is to click the **"Authorize"** button (top-right corner). Enter your `username` and `password`, and the token is automatically attached to all subsequent requests.
+
+Alternatively, use **`POST /connexion/`** with **form data** (not JSON):
 
 | Field      | Type   | Description |
 |------------|--------|-------------|
