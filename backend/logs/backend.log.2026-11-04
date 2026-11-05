@@ -1,0 +1,1293 @@
+03/11/2026 13:52:09 root                      INFO    - --------------------------------------------------
+03/11/2026 13:52:09 root                      INFO    - Starting Webservice                           
+03/11/2026 13:52:09 root                      INFO    - --------------------------------------------------
+03/11/2026 13:52:09 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 13:52:09 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 13:52:09 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 13:52:09 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 13:52:09 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 13:52:09 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 13:52:09 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 13:52:17 root                      INFO    - GET / - START
+03/11/2026 13:52:17 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 13:52:18 root                      INFO    - GET /docs - START
+03/11/2026 13:52:18 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 13:52:18 root                      INFO    - GET /openapi.json - START
+03/11/2026 13:52:18 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 13:52:28 root                      INFO    - GET /gare/nom_gare/ren - START
+03/11/2026 13:52:28 c.gare_controller         INFO    - Recherche de gares : ren
+03/11/2026 13:52:28 root                      INFO    - GET /gare/nom_gare/ren - END [Status: 200]
+03/11/2026 13:52:50 root                      INFO    - POST /gare/ - START
+03/11/2026 13:52:50 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 13:52:50 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f51bca35d30>',) - START
+03/11/2026 13:52:50 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f51bca35d30>',) - END
+03/11/2026 13:52:50 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f51bca35d30>
+03/11/2026 13:52:50 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+
+03/11/2026 13:52:58 root                      INFO    - POST /gare/ - START
+03/11/2026 13:52:58 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 13:52:58 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f51bc910f50>',) - START
+03/11/2026 13:52:58 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f51bc910f50>',) - END
+03/11/2026 13:52:58 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f51bc910f50>
+03/11/2026 13:52:58 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+
+03/11/2026 13:56:13 __main__                  INFO    - Webservice stopped
+03/11/2026 13:56:14 root                      INFO    - --------------------------------------------------
+03/11/2026 13:56:14 root                      INFO    - Starting Webservice                           
+03/11/2026 13:56:14 root                      INFO    - --------------------------------------------------
+03/11/2026 13:56:14 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 13:56:14 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 13:56:14 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 13:56:14 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 13:56:14 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 13:56:14 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 13:56:14 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 13:56:17 root                      INFO    - GET / - START
+03/11/2026 13:56:17 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 13:56:17 root                      INFO    - GET /docs - START
+03/11/2026 13:56:17 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 13:56:17 root                      INFO    - GET /openapi.json - START
+03/11/2026 13:56:17 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 13:56:37 root                      INFO    - POST /gare/ - START
+03/11/2026 13:56:37 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 13:56:37 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: Gare.__init__() missing 1 required positional argument: 'id_gare_sncf'
+03/11/2026 13:58:09 __main__                  INFO    - Webservice stopped
+03/11/2026 13:58:11 root                      INFO    - --------------------------------------------------
+03/11/2026 13:58:11 root                      INFO    - Starting Webservice                           
+03/11/2026 13:58:11 root                      INFO    - --------------------------------------------------
+03/11/2026 13:58:11 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 13:58:11 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 13:58:11 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 13:58:11 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 13:58:11 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 13:58:11 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 13:58:11 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 13:58:15 root                      INFO    - GET / - START
+03/11/2026 13:58:15 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 13:58:15 root                      INFO    - GET /docs - START
+03/11/2026 13:58:15 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 13:58:15 root                      INFO    - GET /openapi.json - START
+03/11/2026 13:58:15 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 13:58:40 root                      INFO    - POST /gare/ - START
+03/11/2026 13:58:40 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 13:58:40 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f413e495e80>',) - START
+03/11/2026 13:58:40 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f413e495e80>',) - END
+03/11/2026 13:58:40 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f413e495e80>
+03/11/2026 13:58:40 root                      INFO    - POST /gare/ - END [Status: 200]
+03/11/2026 14:25:42 __main__                  INFO    - Webservice stopped
+03/11/2026 14:25:44 root                      INFO    - --------------------------------------------------
+03/11/2026 14:25:44 root                      INFO    - Starting Webservice                           
+03/11/2026 14:25:44 root                      INFO    - --------------------------------------------------
+03/11/2026 14:25:44 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 14:25:44 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 14:25:44 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 14:25:44 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 14:25:44 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 14:25:44 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 14:25:44 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 14:25:52 root                      INFO    - GET / - START
+03/11/2026 14:25:52 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 14:25:52 root                      INFO    - GET /docs - START
+03/11/2026 14:25:52 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 14:25:52 root                      INFO    - GET /openapi.json - START
+03/11/2026 14:25:52 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 14:26:05 root                      INFO    - POST /gare/ - START
+03/11/2026 14:26:05 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 14:26:05 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7fcca5ea1e80>',) - START
+03/11/2026 14:26:05 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7fcca5ea1e80>',) - END
+03/11/2026 14:26:05 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fcca5ea1e80>
+03/11/2026 14:26:05 root                      INFO    - POST /gare/ - END [Status: 200]
+03/11/2026 14:26:53 __main__                  INFO    - Webservice stopped
+03/11/2026 14:26:55 root                      INFO    - --------------------------------------------------
+03/11/2026 14:26:55 root                      INFO    - Starting Webservice                           
+03/11/2026 14:26:55 root                      INFO    - --------------------------------------------------
+03/11/2026 14:26:55 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 14:26:55 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 14:26:55 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 14:26:55 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 14:26:55 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 14:26:55 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 14:26:55 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 14:26:59 root                      INFO    - GET / - START
+03/11/2026 14:26:59 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 14:26:59 root                      INFO    - GET /docs - START
+03/11/2026 14:26:59 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 14:26:59 root                      INFO    - GET /openapi.json - START
+03/11/2026 14:26:59 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 14:27:12 root                      INFO    - POST /gare/ - START
+03/11/2026 14:27:13 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 14:27:13 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7f1ba41a5e80>',) - START
+03/11/2026 14:27:13 root                      INFO    - POST /gare/ - END [Status: 404]
+03/11/2026 14:27:23 root                      INFO    - POST /gare/ - START
+03/11/2026 14:27:23 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 14:27:23 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7f1ba4050cd0>',) - START
+03/11/2026 14:27:23 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7f1ba4050cd0>',) - END
+03/11/2026 14:27:23 service.gare_service      INFO    -       └─> Output: <business_object.gare.Gare object at 0x7f1ba4050cd0>
+03/11/2026 14:27:23 root                      INFO    - POST /gare/ - END [Status: 200]
+03/11/2026 14:27:39 root                      INFO    - GET /gare/nom_gare/ren - START
+03/11/2026 14:27:39 c.gare_controller         INFO    - Recherche de gares : ren
+03/11/2026 14:27:39 root                      INFO    - GET /gare/nom_gare/ren - END [Status: 200]
+03/11/2026 14:29:52 root                      INFO    - POST /ligne/ - START
+03/11/2026 14:29:52 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 14:29:52 service.gare_service      INFO    -     recherche_gare(4,) - START
+03/11/2026 14:29:52 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 'GareDao' object has no attribute 'find_by_id'
+03/11/2026 14:53:17 __main__                  INFO    - Webservice stopped
+03/11/2026 14:53:19 root                      INFO    - --------------------------------------------------
+03/11/2026 14:53:19 root                      INFO    - Starting Webservice                           
+03/11/2026 14:53:19 root                      INFO    - --------------------------------------------------
+03/11/2026 14:53:19 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 14:53:19 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 14:53:19 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 14:53:19 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 14:53:19 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 14:53:19 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 14:53:19 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 14:53:24 root                      INFO    - GET / - START
+03/11/2026 14:53:24 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 14:53:25 root                      INFO    - GET /docs - START
+03/11/2026 14:53:25 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 14:53:25 root                      INFO    - GET /openapi.json - START
+03/11/2026 14:53:25 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 14:54:04 root                      INFO    - POST /ligne/ - START
+03/11/2026 14:54:04 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 14:54:04 service.gare_service      INFO    -   recherche_gare(5,) - START
+03/11/2026 14:54:04 root                      INFO    - POST /ligne/ - END [Status: 404]
+03/11/2026 14:55:31 root                      INFO    - POST /ligne/ - START
+03/11/2026 14:55:31 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 14:55:31 service.gare_service      INFO    -     recherche_gare(7,) - START
+03/11/2026 14:55:31 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: Gare.__init__() missing 1 required positional argument: 'id_gare_sncf'
+03/11/2026 14:56:21 __main__                  INFO    - Webservice stopped
+03/11/2026 14:56:22 root                      INFO    - --------------------------------------------------
+03/11/2026 14:56:22 root                      INFO    - Starting Webservice                           
+03/11/2026 14:56:22 root                      INFO    - --------------------------------------------------
+03/11/2026 14:56:22 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 14:56:22 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 14:56:22 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 14:56:22 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 14:56:22 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 14:56:22 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 14:56:22 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 14:56:27 root                      INFO    - GET / - START
+03/11/2026 14:56:27 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 14:56:27 root                      INFO    - GET /docs - START
+03/11/2026 14:56:27 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 14:56:27 root                      INFO    - GET /openapi.json - START
+03/11/2026 14:56:27 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 14:56:48 root                      INFO    - POST /ligne/ - START
+03/11/2026 14:56:48 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 14:56:48 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f3f67496120>
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 14:56:48 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f3f67462710>
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 14:56:48 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f3f67463ed0>
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 14:56:48 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 14:56:48 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f3f6744f820>
+03/11/2026 14:56:48 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'creer'
+03/11/2026 14:58:16 __main__                  INFO    - Webservice stopped
+03/11/2026 14:58:18 root                      INFO    - --------------------------------------------------
+03/11/2026 14:58:18 root                      INFO    - Starting Webservice                           
+03/11/2026 14:58:18 root                      INFO    - --------------------------------------------------
+03/11/2026 14:58:18 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 14:58:18 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 14:58:18 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 14:58:18 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 14:58:18 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 14:58:18 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 14:58:18 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 14:58:23 root                      INFO    - GET / - START
+03/11/2026 14:58:23 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 14:58:23 root                      INFO    - GET /docs - START
+03/11/2026 14:58:23 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 14:58:23 root                      INFO    - GET /openapi.json - START
+03/11/2026 14:58:23 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 14:58:40 root                      INFO    - POST /ligne/ - START
+03/11/2026 14:58:40 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 14:58:40 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fe29e7a2120>
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 14:58:40 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fe29e76e710>
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 14:58:40 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fe29e76fed0>
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 14:58:40 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 14:58:40 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fe29e75b820>
+03/11/2026 14:58:40 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 3 validation errors:
+  {'type': 'missing', 'loc': ('response', 'libelle'), 'msg': 'Field required', 'input': Ligne(6, <business_object.gare.Gare object at 0x7fe29e76fed0>, <business_object.gare.Gare object at 0x7fe29e75b820>, }
+  {'type': 'string_type', 'loc': ('response', 'gare_depart', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'gare_arrivee', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+
+03/11/2026 15:00:51 __main__                  INFO    - Webservice stopped
+03/11/2026 15:00:53 root                      INFO    - --------------------------------------------------
+03/11/2026 15:00:53 root                      INFO    - Starting Webservice                           
+03/11/2026 15:00:53 root                      INFO    - --------------------------------------------------
+03/11/2026 15:00:53 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:00:53 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:00:53 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:00:53 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:00:53 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:00:53 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:00:53 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:00:55 root                      INFO    - GET / - START
+03/11/2026 15:00:55 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:00:55 root                      INFO    - GET /docs - START
+03/11/2026 15:00:55 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:00:56 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:00:56 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:01:09 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:01:09 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 15:01:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f8a04fa6120>
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(9,) - START
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(9,) - END
+03/11/2026 15:01:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f8a04f72710>
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 15:01:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f8a04f73ed0>
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(9,) - START
+03/11/2026 15:01:09 service.gare_service      INFO    -   recherche_gare(9,) - END
+03/11/2026 15:01:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f8a04f5f820>
+03/11/2026 15:01:09 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 2 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'gare_depart', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'gare_arrivee', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+
+03/11/2026 15:03:02 __main__                  INFO    - Webservice stopped
+03/11/2026 15:03:04 root                      INFO    - --------------------------------------------------
+03/11/2026 15:03:04 root                      INFO    - Starting Webservice                           
+03/11/2026 15:03:04 root                      INFO    - --------------------------------------------------
+03/11/2026 15:03:04 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:03:04 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:03:04 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:03:04 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:03:04 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:03:04 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:03:04 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:03:08 root                      INFO    - GET / - START
+03/11/2026 15:03:08 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:03:08 root                      INFO    - GET /docs - START
+03/11/2026 15:03:08 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:03:08 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:03:08 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:03:23 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:03:23 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 15:03:23 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fcc756aa120>
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 15:03:23 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fcc75676710>
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(7,) - END
+03/11/2026 15:03:23 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fcc75677ed0>
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(8,) - START
+03/11/2026 15:03:23 service.gare_service      INFO    -   recherche_gare(8,) - END
+03/11/2026 15:03:23 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fcc7565f820>
+03/11/2026 15:03:23 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 2 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'gare_depart', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'gare_arrivee', 'id_gare_sncf'), 'msg': 'Input should be a valid string', 'input': None}
+
+03/11/2026 15:04:59 __main__                  INFO    - Webservice stopped
+03/11/2026 15:05:01 root                      INFO    - --------------------------------------------------
+03/11/2026 15:05:01 root                      INFO    - Starting Webservice                           
+03/11/2026 15:05:01 root                      INFO    - --------------------------------------------------
+03/11/2026 15:05:01 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:05:01 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:05:01 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:05:01 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:05:01 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:05:01 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:05:01 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:05:09 root                      INFO    - GET / - START
+03/11/2026 15:05:09 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:05:09 root                      INFO    - GET /docs - START
+03/11/2026 15:05:09 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:05:09 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:05:09 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:06:10 __main__                  INFO    - Webservice stopped
+03/11/2026 15:06:12 root                      INFO    - --------------------------------------------------
+03/11/2026 15:06:12 root                      INFO    - Starting Webservice                           
+03/11/2026 15:06:12 root                      INFO    - --------------------------------------------------
+03/11/2026 15:06:12 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:06:12 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:06:12 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:06:12 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:06:12 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:06:12 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:06:12 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:06:17 root                      INFO    - GET / - START
+03/11/2026 15:06:17 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:06:17 root                      INFO    - GET /docs - START
+03/11/2026 15:06:17 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:06:17 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:06:17 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:06:34 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:06:34 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:06:34 service.gare_service      INFO    -   recherche_gare(7,) - START
+03/11/2026 15:06:34 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 'id_gare_sncf'
+03/11/2026 15:07:11 root                      INFO    - GET /gare/nom_gare/paris - START
+03/11/2026 15:07:11 c.gare_controller         INFO    - Recherche de gares : paris
+03/11/2026 15:07:11 root                      INFO    - GET /gare/nom_gare/paris - END [Status: 200]
+03/11/2026 15:07:29 root                      INFO    - POST /gare/ - START
+03/11/2026 15:07:29 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 15:07:29 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7fa8f83c5a90>',) - START
+03/11/2026 15:07:29 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: not all arguments converted during string formatting
+03/11/2026 15:08:51 __main__                  INFO    - Webservice stopped
+03/11/2026 15:08:52 root                      INFO    - --------------------------------------------------
+03/11/2026 15:08:52 root                      INFO    - Starting Webservice                           
+03/11/2026 15:08:52 root                      INFO    - --------------------------------------------------
+03/11/2026 15:08:52 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:08:52 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:08:52 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:08:52 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:08:52 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:08:52 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:08:52 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:08:56 root                      INFO    - GET / - START
+03/11/2026 15:08:56 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:08:56 root                      INFO    - GET /docs - START
+03/11/2026 15:08:56 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:08:56 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:08:56 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:09:08 root                      INFO    - POST /gare/ - START
+03/11/2026 15:09:08 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 15:09:08 service.gare_service      INFO    -   ajout_gare('<business_object.gare.Gare object at 0x7fbd16691e80>',) - START
+03/11/2026 15:09:08 root                      ERROR   - POST /gare/ - FAILED [Status: 500] Error: column "id_gare_sncf" of relation "gare" does not exist
+LINE 2:             INSERT INTO Gare (nom, ville, id_gare_sncf)
+                                                  ^
+
+03/11/2026 15:13:20 root                      INFO    - POST /gare/ - START
+03/11/2026 15:13:20 c.gare_controller         INFO    - Ajout d'une gare
+03/11/2026 15:13:20 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7fbd15c7cb90>',) - START
+03/11/2026 15:13:21 service.gare_service      INFO    -     ajout_gare('<business_object.gare.Gare object at 0x7fbd15c7cb90>',) - END
+03/11/2026 15:13:21 service.gare_service      INFO    -       └─> Output: <business_object.gare.Gare object at 0x7fbd15c7cb90>
+03/11/2026 15:13:21 root                      INFO    - POST /gare/ - END [Status: 200]
+03/11/2026 15:14:13 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:14:13 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:14:13 service.gare_service      INFO    -     recherche_gare(31,) - START
+03/11/2026 15:14:13 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 'id_gare_sncf'
+03/11/2026 15:14:31 __main__                  INFO    - Webservice stopped
+03/11/2026 15:14:33 root                      INFO    - --------------------------------------------------
+03/11/2026 15:14:33 root                      INFO    - Starting Webservice                           
+03/11/2026 15:14:33 root                      INFO    - --------------------------------------------------
+03/11/2026 15:14:33 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:14:33 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:14:33 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:14:33 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:14:33 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:14:33 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:14:33 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:14:36 root                      INFO    - GET / - START
+03/11/2026 15:14:36 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:14:36 root                      INFO    - GET /docs - START
+03/11/2026 15:14:36 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:14:36 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:14:36 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:14:52 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:14:52 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:14:52 service.gare_service      INFO    -   recherche_gare(17,) - START
+03/11/2026 15:14:52 root                      ERROR   - POST /ligne/ - FAILED [Status: 500] Error: 'id_gare_sncf'
+03/11/2026 15:15:34 __main__                  INFO    - Webservice stopped
+03/11/2026 15:15:36 root                      INFO    - --------------------------------------------------
+03/11/2026 15:15:36 root                      INFO    - Starting Webservice                           
+03/11/2026 15:15:36 root                      INFO    - --------------------------------------------------
+03/11/2026 15:15:36 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:15:36 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:15:36 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:15:36 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:15:36 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:15:36 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:15:36 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:15:38 root                      INFO    - GET / - START
+03/11/2026 15:15:38 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:15:38 root                      INFO    - GET /docs - START
+03/11/2026 15:15:38 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:15:38 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:15:38 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:16:56 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:16:56 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(31,) - START
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(31,) - END
+03/11/2026 15:16:56 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7ff7b5fa6120>
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(17,) - START
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(17,) - END
+03/11/2026 15:16:56 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7ff7b5f72710>
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(31,) - START
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(31,) - END
+03/11/2026 15:16:56 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7ff7b5f73ed0>
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(17,) - START
+03/11/2026 15:16:56 service.gare_service      INFO    -   recherche_gare(17,) - END
+03/11/2026 15:16:56 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7ff7b5f5b820>
+03/11/2026 15:16:56 root                      INFO    - POST /ligne/ - END [Status: 200]
+03/11/2026 15:21:51 root                      INFO    - GET /ligne/5 - START
+03/11/2026 15:21:51 c.ligne_controller        INFO    - Recherche d'une ligne
+03/11/2026 15:21:51 root                      ERROR   - GET /ligne/5 - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'rechercher'
+03/11/2026 15:21:58 root                      INFO    - GET /ligne/9 - START
+03/11/2026 15:21:58 c.ligne_controller        INFO    - Recherche d'une ligne
+03/11/2026 15:21:58 root                      ERROR   - GET /ligne/9 - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'rechercher'
+03/11/2026 15:22:03 root                      INFO    - GET /ligne/9 - START
+03/11/2026 15:22:03 c.ligne_controller        INFO    - Recherche d'une ligne
+03/11/2026 15:22:03 root                      ERROR   - GET /ligne/9 - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'rechercher'
+03/11/2026 15:24:00 __main__                  INFO    - Webservice stopped
+03/11/2026 15:24:02 root                      INFO    - --------------------------------------------------
+03/11/2026 15:24:02 root                      INFO    - Starting Webservice                           
+03/11/2026 15:24:02 root                      INFO    - --------------------------------------------------
+03/11/2026 15:24:02 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:24:02 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:24:02 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:24:02 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:24:02 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:24:02 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:24:02 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:24:06 root                      INFO    - GET / - START
+03/11/2026 15:24:06 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:24:06 root                      INFO    - GET /docs - START
+03/11/2026 15:24:06 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:24:07 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:24:07 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:24:21 root                      INFO    - POST /ligne/ - START
+03/11/2026 15:24:21 c.ligne_controller        INFO    - Création d'une ligne
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(31,) - START
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(31,) - END
+03/11/2026 15:24:21 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fafe76a6120>
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(17,) - START
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(17,) - END
+03/11/2026 15:24:21 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fafe7676710>
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(31,) - START
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(31,) - END
+03/11/2026 15:24:21 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fafe7677ed0>
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(17,) - START
+03/11/2026 15:24:21 service.gare_service      INFO    -   recherche_gare(17,) - END
+03/11/2026 15:24:21 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fafe765f820>
+03/11/2026 15:24:21 root                      INFO    - POST /ligne/ - END [Status: 200]
+03/11/2026 15:24:30 root                      INFO    - GET /ligne/10 - START
+03/11/2026 15:24:30 c.ligne_controller        INFO    - Recherche d'une ligne
+03/11/2026 15:24:30 root                      ERROR   - GET /ligne/10 - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'rechercher_ligne'
+03/11/2026 15:25:31 __main__                  INFO    - Webservice stopped
+03/11/2026 15:25:32 root                      INFO    - --------------------------------------------------
+03/11/2026 15:25:32 root                      INFO    - Starting Webservice                           
+03/11/2026 15:25:32 root                      INFO    - --------------------------------------------------
+03/11/2026 15:25:32 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:25:32 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:25:32 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:25:32 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:25:32 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:25:32 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:25:32 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:26:04 root                      INFO    - GET / - START
+03/11/2026 15:26:04 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:26:04 root                      INFO    - GET /docs - START
+03/11/2026 15:26:04 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:26:04 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:26:04 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:26:13 root                      INFO    - GET /ligne/10 - START
+03/11/2026 15:26:13 c.ligne_controller        INFO    - Recherche d'une ligne
+03/11/2026 15:26:13 root                      INFO    - GET /ligne/10 - END [Status: 200]
+03/11/2026 15:26:42 __main__                  INFO    - Webservice stopped
+03/11/2026 15:26:43 root                      INFO    - --------------------------------------------------
+03/11/2026 15:26:43 root                      INFO    - Démarrage de Webservice                       
+03/11/2026 15:26:43 root                      INFO    - --------------------------------------------------
+03/11/2026 15:26:43 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:26:43 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:26:43 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:26:43 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:26:43 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:26:43 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:26:43 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:26:46 __main__                  INFO    - Webservice stopped
+03/11/2026 15:28:02 root                      INFO    - --------------------------------------------------
+03/11/2026 15:28:02 root                      INFO    - Démarrage de Webservice                       
+03/11/2026 15:28:02 root                      INFO    - --------------------------------------------------
+03/11/2026 15:28:02 root                      INFO    - Load environment variables: SUCCES
+03/11/2026 15:28:02 root                      INFO    - SNCF_API_KEY=*******
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_PORT=5432
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_DATABASE=defaultdb
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_PASSWORD=*******
+03/11/2026 15:28:02 root                      INFO    - POSTGRES_SCHEMA=public
+03/11/2026 15:28:02 root                      INFO    - UVICORN_HOST=0.0.0.0
+03/11/2026 15:28:02 root                      INFO    - UVICORN_PORT=5000
+03/11/2026 15:28:02 root                      INFO    - BACKEND_URL=http://localhost:5000/
+03/11/2026 15:28:02 root                      INFO    - BACKEND_TIMEOUT=5
+03/11/2026 15:28:07 root                      INFO    - GET / - START
+03/11/2026 15:28:07 root                      INFO    - GET / - END [Status: 307]
+03/11/2026 15:28:07 root                      INFO    - GET /docs - START
+03/11/2026 15:28:07 root                      INFO    - GET /docs - END [Status: 200]
+03/11/2026 15:28:07 root                      INFO    - GET /openapi.json - START
+03/11/2026 15:28:07 root                      INFO    - GET /openapi.json - END [Status: 200]
+03/11/2026 15:28:49 root                      INFO    - POST /trajet/ - START
+03/11/2026 15:28:49 root                      ERROR   - POST /trajet/ - FAILED [Status: 500] Error: new row for relation "trajet" violates check constraint "trajet_duree_minutes_check"
+DETAIL:  Failing row contains (1, 2026-11-03 15:28:18.429, 0, 10, 0, 0.00, 0).
+
+04/11/2026 09:00:07 __main__                  INFO    - Webservice stopped
+04/11/2026 09:01:00 root                      INFO    - --------------------------------------------------
+04/11/2026 09:01:00 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 09:01:00 root                      INFO    - --------------------------------------------------
+04/11/2026 09:01:00 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 09:01:00 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 09:01:00 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 09:01:00 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 09:01:00 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 09:01:00 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 09:01:00 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 09:01:06 root                      INFO    - GET / - START
+04/11/2026 09:01:06 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 09:01:06 root                      INFO    - GET /docs - START
+04/11/2026 09:01:06 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 09:01:06 root                      INFO    - GET /openapi.json - START
+04/11/2026 09:01:06 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 09:01:41 root                      INFO    - POST /utilisateur/ - START
+04/11/2026 09:01:41 c.utilisateur_controller  INFO    - Création d'un compte
+04/11/2026 09:01:42 root                      INFO    - POST /utilisateur/ - END [Status: 200]
+04/11/2026 09:01:43 root                      INFO    - POST /utilisateur/ - START
+04/11/2026 09:01:43 c.utilisateur_controller  INFO    - Création d'un compte
+04/11/2026 09:01:43 root                      INFO    - POST /utilisateur/ - END [Status: 400]
+04/11/2026 09:02:49 root                      INFO    - POST /utilisateur/ - START
+04/11/2026 09:02:50 c.utilisateur_controller  INFO    - Création d'un compte
+04/11/2026 09:02:50 root                      INFO    - POST /utilisateur/ - END [Status: 200]
+04/11/2026 09:03:17 root                      INFO    - POST /connexion/ - START
+04/11/2026 09:03:17 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 09:03:17 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 09:24:30 __main__                  INFO    - Webservice stopped
+04/11/2026 11:15:27 root                      INFO    - --------------------------------------------------
+04/11/2026 11:15:27 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:15:27 root                      INFO    - --------------------------------------------------
+04/11/2026 11:15:27 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:15:27 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:15:27 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:15:27 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:15:27 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:15:27 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:15:27 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:15:27 root                      INFO    - SECRET_KEY=*******
+04/11/2026 11:15:27 root                      INFO    - ALGORITHM=HS256
+04/11/2026 11:15:27 root                      INFO    - TOKEN_EXPIRE_DAYS=*******
+04/11/2026 11:15:34 root                      INFO    - GET / - START
+04/11/2026 11:15:34 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:15:34 root                      INFO    - GET /docs - START
+04/11/2026 11:15:34 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:15:34 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:15:34 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:24:25 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:24:25 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:24:25 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: 'Utilisateur' object has no attribute 'id'
+04/11/2026 11:25:15 __main__                  INFO    - Webservice stopped
+04/11/2026 11:25:16 root                      INFO    - --------------------------------------------------
+04/11/2026 11:25:16 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:25:16 root                      INFO    - --------------------------------------------------
+04/11/2026 11:25:16 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:25:16 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:25:16 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:25:16 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:25:16 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:25:16 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:25:16 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:25:16 root                      INFO    - SECRET_KEY=*******
+04/11/2026 11:25:16 root                      INFO    - ALGORITHM=HS256
+04/11/2026 11:25:16 root                      INFO    - TOKEN_EXPIRE_DAYS=*******
+04/11/2026 11:25:21 root                      INFO    - GET / - START
+04/11/2026 11:25:21 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:25:21 root                      INFO    - GET /docs - START
+04/11/2026 11:25:21 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:25:21 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:25:21 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:25:36 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:25:36 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:25:36 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: name 'TOKEN_EXPIRE_DAYS' is not defined
+04/11/2026 11:26:24 __main__                  INFO    - Webservice stopped
+04/11/2026 11:28:37 root                      INFO    - --------------------------------------------------
+04/11/2026 11:28:37 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:28:37 root                      INFO    - --------------------------------------------------
+04/11/2026 11:28:37 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:28:37 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:28:37 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:28:37 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:28:37 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:28:37 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:28:37 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:28:37 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 11:28:44 root                      INFO    - GET / - START
+04/11/2026 11:28:44 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:28:44 root                      INFO    - GET /docs - START
+04/11/2026 11:28:44 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:28:44 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:28:44 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:29:03 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:29:03 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:29:03 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: 'Utilisateur' object has no attribute 'id'
+04/11/2026 11:29:29 __main__                  INFO    - Webservice stopped
+04/11/2026 11:29:30 root                      INFO    - --------------------------------------------------
+04/11/2026 11:29:30 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:29:30 root                      INFO    - --------------------------------------------------
+04/11/2026 11:29:30 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:29:30 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:29:30 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:29:30 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:29:30 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:29:30 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:29:30 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:29:30 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 11:29:35 root                      INFO    - GET / - START
+04/11/2026 11:29:35 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:29:35 root                      INFO    - GET /docs - START
+04/11/2026 11:29:35 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:29:35 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:29:35 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:30:08 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:30:08 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:30:08 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: 'Utilisateur' object has no attribute 'pseudo'
+04/11/2026 11:30:20 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:30:20 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:30:20 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: 'Utilisateur' object has no attribute 'pseudo'
+04/11/2026 11:31:29 __main__                  INFO    - Webservice stopped
+04/11/2026 11:31:31 root                      INFO    - --------------------------------------------------
+04/11/2026 11:31:31 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:31:31 root                      INFO    - --------------------------------------------------
+04/11/2026 11:31:31 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:31:31 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:31:31 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:31:31 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:31:31 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:31:31 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:31:31 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:31:31 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 11:31:38 root                      INFO    - GET / - START
+04/11/2026 11:31:38 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:31:38 root                      INFO    - GET /docs - START
+04/11/2026 11:31:38 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:31:38 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:31:38 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:31:51 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:31:51 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:31:51 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 11:37:38 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 11:37:38 root                      INFO    - PUT /utilisateur/role - END [Status: 401]
+04/11/2026 11:38:04 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:38:04 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 11:38:04 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: Object of type bytes is not JSON serializable
+04/11/2026 11:39:59 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 11:39:59 root                      INFO    - PUT /utilisateur/role - END [Status: 401]
+04/11/2026 11:41:38 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:41:38 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 11:41:38 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: Object of type bytes is not JSON serializable
+04/11/2026 11:41:40 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:41:40 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 11:41:40 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: Object of type bytes is not JSON serializable
+04/11/2026 11:46:28 __main__                  INFO    - Webservice stopped
+04/11/2026 11:46:29 root                      INFO    - --------------------------------------------------
+04/11/2026 11:46:29 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 11:46:29 root                      INFO    - --------------------------------------------------
+04/11/2026 11:46:29 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 11:46:29 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 11:46:29 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 11:46:29 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 11:46:29 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 11:46:29 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 11:46:29 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 11:46:29 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 11:46:34 root                      INFO    - GET / - START
+04/11/2026 11:46:34 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 11:46:34 root                      INFO    - GET /docs - START
+04/11/2026 11:46:34 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 11:46:34 root                      INFO    - GET /openapi.json - START
+04/11/2026 11:46:34 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 11:46:52 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:46:52 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 11:46:52 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 11:47:16 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:47:16 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 11:47:16 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: Object of type bytes is not JSON serializable
+04/11/2026 11:47:54 root                      INFO    - POST /connexion/ - START
+04/11/2026 11:47:54 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 11:47:54 root                      ERROR   - POST /connexion/ - FAILED [Status: 500] Error: Object of type bytes is not JSON serializable
+04/11/2026 13:00:30 __main__                  INFO    - Webservice stopped
+04/11/2026 13:00:31 root                      INFO    - --------------------------------------------------
+04/11/2026 13:00:31 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:00:31 root                      INFO    - --------------------------------------------------
+04/11/2026 13:00:31 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:00:31 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:00:31 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:00:31 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:00:31 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:00:31 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:00:31 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:00:31 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:00:35 root                      INFO    - GET / - START
+04/11/2026 13:00:35 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:00:35 root                      INFO    - GET /docs - START
+04/11/2026 13:00:35 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:00:36 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:00:36 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:00:53 root                      INFO    - POST /connexion/ - START
+04/11/2026 13:00:53 __main__                  ERROR   - Validation Error
+Errors: [{'type': 'model_attributes_type', 'loc': ['body'], 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': 'grant_type=password&username=TRAJECTOLORD&password=admin1234'}]
+Body: grant_type=password&username=TRAJECTOLORD&password=admin1234
+04/11/2026 13:00:53 root                      INFO    - POST /connexion/ - END [Status: 422]
+04/11/2026 13:05:05 __main__                  INFO    - Webservice stopped
+04/11/2026 13:06:32 root                      INFO    - --------------------------------------------------
+04/11/2026 13:06:32 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:06:32 root                      INFO    - --------------------------------------------------
+04/11/2026 13:06:32 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:06:32 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:06:32 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:06:32 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:06:32 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:06:32 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:06:32 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:06:32 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:06:41 root                      INFO    - GET / - START
+04/11/2026 13:06:41 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:06:41 root                      INFO    - GET /docs - START
+04/11/2026 13:06:41 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:06:41 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:06:41 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:07:32 root                      INFO    - POST /connexion/ - START
+04/11/2026 13:07:33 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 13:07:33 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 13:09:03 root                      INFO    - POST /connexion/ - START
+04/11/2026 13:09:03 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 13:09:04 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 13:12:23 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:12:23 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:12:23 root                      INFO    - PUT /utilisateur/role - END [Status: 200]
+04/11/2026 13:13:13 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:13:13 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:13:13 root                      INFO    - PUT /utilisateur/role - END [Status: 200]
+04/11/2026 13:25:36 __main__                  INFO    - Webservice stopped
+04/11/2026 13:25:39 root                      INFO    - --------------------------------------------------
+04/11/2026 13:25:39 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:25:39 root                      INFO    - --------------------------------------------------
+04/11/2026 13:25:39 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:25:39 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:25:39 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:25:39 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:25:39 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:25:39 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:25:39 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:25:39 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:25:44 root                      INFO    - GET / - START
+04/11/2026 13:25:44 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:25:44 root                      INFO    - GET /docs - START
+04/11/2026 13:25:44 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:25:44 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:25:44 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:26:49 root                      INFO    - POST /connexion/ - START
+04/11/2026 13:26:49 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 13:26:49 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 13:27:08 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:27:08 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:27:08 root                      INFO    - PUT /utilisateur/role - END [Status: 200]
+04/11/2026 13:27:20 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:27:20 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:27:20 root                      INFO    - PUT /utilisateur/role - END [Status: 403]
+04/11/2026 13:36:57 __main__                  INFO    - Webservice stopped
+04/11/2026 13:37:12 root                      INFO    - --------------------------------------------------
+04/11/2026 13:37:12 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:37:12 root                      INFO    - --------------------------------------------------
+04/11/2026 13:37:12 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:37:12 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:37:12 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:37:12 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:37:12 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:37:12 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:37:12 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:37:12 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:37:16 root                      INFO    - GET / - START
+04/11/2026 13:37:16 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:37:16 root                      INFO    - GET /docs - START
+04/11/2026 13:37:16 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:37:16 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:37:16 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:37:28 root                      INFO    - POST /connexion/ - START
+04/11/2026 13:37:28 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 13:37:28 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 13:37:54 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:37:54 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:37:54 root                      INFO    - PUT /utilisateur/role - END [Status: 403]
+04/11/2026 13:38:44 root                      INFO    - PUT /utilisateur/role - START
+04/11/2026 13:38:44 c.utilisateur_controller  INFO    - Modification du rôle de l'utilisateur 2
+04/11/2026 13:38:44 root                      INFO    - PUT /utilisateur/role - END [Status: 403]
+04/11/2026 13:38:59 __main__                  INFO    - Webservice stopped
+04/11/2026 13:50:00 root                      INFO    - --------------------------------------------------
+04/11/2026 13:50:00 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:50:00 root                      INFO    - --------------------------------------------------
+04/11/2026 13:50:00 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:50:00 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:50:00 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:50:00 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:50:00 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:50:00 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:50:00 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:50:00 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:50:05 root                      INFO    - GET / - START
+04/11/2026 13:50:05 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:50:05 root                      INFO    - GET /docs - START
+04/11/2026 13:50:05 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:50:05 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:50:05 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:55:52 __main__                  INFO    - Webservice stopped
+04/11/2026 13:55:53 root                      INFO    - --------------------------------------------------
+04/11/2026 13:55:53 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 13:55:53 root                      INFO    - --------------------------------------------------
+04/11/2026 13:55:53 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 13:55:53 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 13:55:53 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 13:55:53 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 13:55:53 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 13:55:53 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 13:55:53 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 13:55:53 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 13:55:59 root                      INFO    - GET / - START
+04/11/2026 13:55:59 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 13:55:59 root                      INFO    - GET /docs - START
+04/11/2026 13:55:59 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 13:55:59 root                      INFO    - GET /openapi.json - START
+04/11/2026 13:55:59 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 13:56:52 __main__                  INFO    - Webservice stopped
+04/11/2026 14:20:26 root                      INFO    - --------------------------------------------------
+04/11/2026 14:20:26 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:20:26 root                      INFO    - --------------------------------------------------
+04/11/2026 14:20:26 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:20:26 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:20:26 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:20:26 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:20:26 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:20:26 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:20:26 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:20:26 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:20:31 root                      INFO    - GET / - START
+04/11/2026 14:20:31 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:20:31 root                      INFO    - GET /docs - START
+04/11/2026 14:20:31 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:20:31 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:20:31 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:20:46 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:20:46 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:20:46 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:24:18 __main__                  INFO    - Webservice stopped
+04/11/2026 14:24:19 root                      INFO    - --------------------------------------------------
+04/11/2026 14:24:19 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:24:19 root                      INFO    - --------------------------------------------------
+04/11/2026 14:24:19 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:24:19 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:24:19 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:24:19 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:24:19 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:24:19 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:24:19 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:24:19 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:24:23 root                      INFO    - GET / - START
+04/11/2026 14:24:23 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:24:23 root                      INFO    - GET /docs - START
+04/11/2026 14:24:23 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:24:23 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:24:23 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:24:34 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:24:34 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:24:35 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:25:10 root                      INFO    - PUT /ligne/{id_ligne} - START
+04/11/2026 14:25:10 c.ligne_controller        INFO    - Modification d'une ligne
+04/11/2026 14:25:10 service.gare_service      INFO    -   recherche_gare(33,) - START
+04/11/2026 14:25:10 service.gare_service      INFO    -   recherche_gare(33,) - END
+04/11/2026 14:25:10 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f097de80590>
+04/11/2026 14:25:10 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 14:25:10 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 14:25:10 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f097e02e210>
+04/11/2026 14:25:10 root                      ERROR   - PUT /ligne/{id_ligne} - FAILED [Status: 500] Error: 1 validation errors:
+  {'type': 'model_attributes_type', 'loc': ('response',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': True}
+
+04/11/2026 14:30:02 __main__                  INFO    - Webservice stopped
+04/11/2026 14:30:04 root                      INFO    - --------------------------------------------------
+04/11/2026 14:30:04 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:30:04 root                      INFO    - --------------------------------------------------
+04/11/2026 14:30:04 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:30:04 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:30:04 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:30:04 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:30:04 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:30:04 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:30:04 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:30:04 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:30:07 root                      INFO    - GET / - START
+04/11/2026 14:30:07 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:30:07 root                      INFO    - GET /docs - START
+04/11/2026 14:30:07 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:30:07 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:30:07 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:30:16 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:30:16 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:30:17 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:30:37 root                      INFO    - PUT /ligne/{id_ligne} - START
+04/11/2026 14:30:37 c.ligne_controller        INFO    - Modification d'une ligne
+04/11/2026 14:30:37 service.gare_service      INFO    -   recherche_gare(33,) - START
+04/11/2026 14:30:37 service.gare_service      INFO    -   recherche_gare(33,) - END
+04/11/2026 14:30:37 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f1a9df9c590>
+04/11/2026 14:30:37 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 14:30:37 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 14:30:37 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f1a9e132210>
+04/11/2026 14:30:37 root                      ERROR   - PUT /ligne/{id_ligne} - FAILED [Status: 500] Error: 'int' object has no attribute 'id_ligne'
+04/11/2026 14:35:34 __main__                  INFO    - Webservice stopped
+04/11/2026 14:35:36 root                      INFO    - --------------------------------------------------
+04/11/2026 14:35:36 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:35:36 root                      INFO    - --------------------------------------------------
+04/11/2026 14:35:36 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:35:36 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:35:36 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:35:36 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:35:36 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:35:36 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:35:36 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:35:36 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:35:39 root                      INFO    - GET / - START
+04/11/2026 14:35:39 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:35:39 root                      INFO    - GET /docs - START
+04/11/2026 14:35:39 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:35:39 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:35:39 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:35:55 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:35:55 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:35:55 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:36:16 root                      INFO    - PUT /ligne/{id_ligne} - START
+04/11/2026 14:36:16 c.ligne_controller        INFO    - Modification d'une ligne
+04/11/2026 14:36:16 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 14:36:16 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 14:36:16 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f211c098590>
+04/11/2026 14:36:16 service.gare_service      INFO    -   recherche_gare(33,) - START
+04/11/2026 14:36:16 service.gare_service      INFO    -   recherche_gare(33,) - END
+04/11/2026 14:36:16 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7f211c22e210>
+04/11/2026 14:36:16 root                      INFO    - PUT /ligne/{id_ligne} - END [Status: 200]
+04/11/2026 14:40:15 __main__                  INFO    - Webservice stopped
+04/11/2026 14:40:17 root                      INFO    - --------------------------------------------------
+04/11/2026 14:40:17 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:40:17 root                      INFO    - --------------------------------------------------
+04/11/2026 14:40:17 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:40:17 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:40:17 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:40:17 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:40:17 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:40:17 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:40:17 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:40:17 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:40:26 root                      INFO    - GET / - START
+04/11/2026 14:40:26 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:40:26 root                      INFO    - GET /docs - START
+04/11/2026 14:40:26 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:40:26 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:40:26 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:40:33 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:40:33 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:40:33 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:40:44 root                      INFO    - PUT /ligne/{id_ligne} - START
+04/11/2026 14:40:44 c.ligne_controller        INFO    - Modification d'une ligne
+04/11/2026 14:40:44 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 14:40:44 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 14:40:44 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fc766b98590>
+04/11/2026 14:40:44 service.gare_service      INFO    -   recherche_gare(33,) - START
+04/11/2026 14:40:44 service.gare_service      INFO    -   recherche_gare(33,) - END
+04/11/2026 14:40:44 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fc766d2e210>
+04/11/2026 14:40:45 root                      INFO    - PUT /ligne/{id_ligne} - END [Status: 200]
+04/11/2026 14:41:54 root                      INFO    - GET / - START
+04/11/2026 14:41:54 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:41:54 root                      INFO    - GET /docs - START
+04/11/2026 14:41:54 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:41:54 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:41:54 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:42:15 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:42:15 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:42:15 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:42:22 root                      INFO    - DELETE /ligne/10 - START
+04/11/2026 14:42:22 c.ligne_controller        INFO    - Suppression d'une ligne
+04/11/2026 14:42:22 root                      ERROR   - DELETE /ligne/10 - FAILED [Status: 500] Error: 'LigneDao' object has no attribute 'delete'
+04/11/2026 14:43:18 __main__                  INFO    - Webservice stopped
+04/11/2026 14:43:19 root                      INFO    - --------------------------------------------------
+04/11/2026 14:43:19 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:43:19 root                      INFO    - --------------------------------------------------
+04/11/2026 14:43:19 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:43:19 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:43:19 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:43:19 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:43:19 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:43:19 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:43:19 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:43:19 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:43:25 root                      INFO    - GET / - START
+04/11/2026 14:43:25 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:43:25 root                      INFO    - GET /docs - START
+04/11/2026 14:43:25 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:43:25 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:43:25 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:43:35 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:43:35 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:43:35 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:43:49 root                      INFO    - DELETE /ligne/10 - START
+04/11/2026 14:43:49 c.ligne_controller        INFO    - Suppression d'une ligne
+04/11/2026 14:43:49 root                      ERROR   - DELETE /ligne/10 - FAILED [Status: 500] Error: 'int' object has no attribute 'id_ligne'
+04/11/2026 14:47:34 __main__                  INFO    - Webservice stopped
+04/11/2026 14:47:36 root                      INFO    - --------------------------------------------------
+04/11/2026 14:47:36 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:47:36 root                      INFO    - --------------------------------------------------
+04/11/2026 14:47:36 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:47:36 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:47:36 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:47:36 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:47:36 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:47:36 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:47:36 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:47:36 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:47:38 root                      INFO    - GET / - START
+04/11/2026 14:47:38 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:47:38 root                      INFO    - GET /docs - START
+04/11/2026 14:47:38 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:47:39 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:47:39 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:47:47 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:47:47 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:47:47 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:47:56 root                      INFO    - DELETE /ligne/10 - START
+04/11/2026 14:47:56 c.ligne_controller        INFO    - Suppression d'une ligne
+04/11/2026 14:47:56 root                      ERROR   - DELETE /ligne/10 - FAILED [Status: 500] Error: update or delete on table "ligne" violates foreign key constraint "trajet_id_ligne_fkey" on table "trajet"
+DETAIL:  Key (id_ligne)=(10) is still referenced from table "trajet".
+
+04/11/2026 14:52:47 __main__                  INFO    - Webservice stopped
+04/11/2026 14:52:49 root                      INFO    - --------------------------------------------------
+04/11/2026 14:52:49 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 14:52:49 root                      INFO    - --------------------------------------------------
+04/11/2026 14:52:49 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 14:52:49 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 14:52:49 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 14:52:49 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 14:52:49 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 14:52:49 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 14:52:49 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 14:52:49 root                      INFO    - JWT_SECRET_KEY=*******
+04/11/2026 14:52:54 root                      INFO    - GET / - START
+04/11/2026 14:52:54 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 14:52:55 root                      INFO    - GET /docs - START
+04/11/2026 14:52:55 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 14:52:55 root                      INFO    - GET /openapi.json - START
+04/11/2026 14:52:55 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 14:53:03 root                      INFO    - POST /connexion/ - START
+04/11/2026 14:53:03 c.connexion_controller    INFO    - Connexion d'un utilisateur
+04/11/2026 14:53:03 root                      INFO    - POST /connexion/ - END [Status: 200]
+04/11/2026 14:53:14 root                      INFO    - DELETE /ligne/10 - START
+04/11/2026 14:53:14 c.ligne_controller        INFO    - Suppression d'une ligne
+04/11/2026 14:53:14 root                      INFO    - DELETE /ligne/10 - END [Status: 409]
+04/11/2026 14:53:38 root                      INFO    - DELETE /ligne/12 - START
+04/11/2026 14:53:38 c.ligne_controller        INFO    - Suppression d'une ligne
+04/11/2026 14:53:38 root                      INFO    - DELETE /ligne/12 - END [Status: 200]
+04/11/2026 14:53:49 __main__                  INFO    - Webservice stopped
