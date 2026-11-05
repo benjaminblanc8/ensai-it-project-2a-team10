@@ -16,12 +16,13 @@
 // =====================================================================
 // Cover page
 // =====================================================================
-#let cover_page(title:[], team:[], authors:[], tutor: [], project: [], logo_path: "img/ensai_logo.png") = {
+#let cover_page(title:[], subtitle: none, team:[], authors:[], tutor: [], project: [], logo_path: "img/ensai_logo.png") = {
   align(horizon + center)[
     #image(logo_path, width: 65%)
     #v(3em)
     #line(start: (0cm, 0cm), end: (17cm, 0%), stroke: (thickness: 2pt))
     #text(size: 24pt, weight: "bold", title)\
+    #if subtitle != none { text(size: 16pt, weight: "light", subtitle) } \
     #line(start: (0cm, 0cm), end: (17cm, 0%), stroke: (thickness: 2pt))
     #v(1em)
     #text(size: 14pt, team)
@@ -51,7 +52,7 @@
 // Template
 // =====================================================================
 #let project_template(
-  title: [], team: [], authors: [], tutor: [], project: [], 
+  title: [], subtitle: none, team: [], authors: [], tutor: [], project: [], 
   logo_path: "img/ensai_logo.png",
   body 
 ) = {
@@ -60,7 +61,7 @@
   set page(footer: none)
 
   cover_page(
-    title: title, team: team, authors: authors, 
+    title: title, subtitle: subtitle, team: team, authors: authors, 
     tutor: tutor, project: project, logo_path: logo_path
   )
 

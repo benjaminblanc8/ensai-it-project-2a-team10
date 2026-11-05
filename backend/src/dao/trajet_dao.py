@@ -1,8 +1,9 @@
+from contextlib import closing
+
+from business_object.ligne import Ligne
 from business_object.trajet import Trajet
 from dao.db_connection import DBConnection
 from dao.ligne_dao import LigneDao
-from contextlib import closing
-from business_object.ligne import Ligne
 
 
 class TrajetDao:
