@@ -30,13 +30,20 @@ Jeudi 5 :
   -
 
 ### BLANC Benjamin
-18h (6h,3j)
+18h (6h, 3j)
 - Mardi 3 :
-  - 
+  - Intégration de la recherche de gares via l’API SNCF.
+  - Adaptation de la création des gares et récupération automatique de leur identifiant SNCF.
+  - Tests des endpoints dans Swagger et correction des erreurs rencontrées.
 - Mercredi 4 :
-  - 
-Jeudi 5 :
-  -
+  - Création et recherche des trajets à partir des noms des gares.
+  - Calcul automatique de la durée des trajets via l’API SNCF.
+  - Correction de l’enregistrement des trajets en base
+- Jeudi 5 :
+  - Recalcul automatique de la durée lors d’une modification du départ ou de la ligne d’un trajet.
+  - Adaptation de la création des lignes pour utiliser les noms des gares.
+  - Vérification de la cohérence des modèles Pydantic et identification des validations à renforcer.
+  - Rédaction de la documentation développeur du backend.
 
 
 
