@@ -22,12 +22,8 @@ Jeudi 5 :
 
 ### DUQUESNE Manon
 18h (6h,3j)
-- Mardi 3 :
-  - 
-- Mercredi 4 :
-  - 
-Jeudi 5 :
-  -
+- Check et étude du code des autres membres de l'équipe
+- Travail sur les tests unitaires des différentes méthodes
 
 ### BLANC Benjamin
 18h (6h, 3j)
