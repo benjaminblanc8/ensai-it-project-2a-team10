@@ -51,7 +51,9 @@ Jeudi 5 :
   - Suivi des tâches attribuées dans le groupe
   - Recherches sur l'identification par token JWT + assistance dans le codage
 Jeudi 5 :
-  -
+  - Mise au point + répartition du travail restant
+  - Diverses améliorations / corrections de problèmes de code dans la réservation, la recherche etc.
+  - Readme utilisateur + quelques améliorations du readme développeur
 
 ### LHOMMEAU Hugo
 18h (6h,3j)
