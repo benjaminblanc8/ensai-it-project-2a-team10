@@ -1,5 +1,6 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, AliasChoices
+
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
 
 class ReservationCreateModel(BaseModel):
