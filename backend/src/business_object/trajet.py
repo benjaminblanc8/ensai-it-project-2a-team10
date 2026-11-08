@@ -17,7 +17,7 @@ class Trajet:
         self.id_trajet = id_trajet
         self.date_heure_depart = date_heure_depart
         self.duree_minutes = duree_minutes
-        self.ligne = Ligne
+        self.ligne = ligne
         self._nb_places = _nb_places
         self._tarif = _tarif
         self._places_reservees = _places_reservees
@@ -38,12 +38,19 @@ class Trajet:
             f"places disponibles: {self._nb_places - self._places_reservees}, tarif: {self._tarif}€"
         )
 
+    @property
+    def get_nb_places(self) -> int:
+        return self._nb_places
+
+    @property
     def get_nb_places_disponibles(self) -> int:
         return self._nb_places - self._places_reservees
 
+    @property
     def get_tarif(self) -> float:
         return self._tarif
 
+    @property
     def get_places_reservees(self) -> int:
         return self._places_reservees
 

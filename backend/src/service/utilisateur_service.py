@@ -71,10 +71,12 @@ class UtilisateurService:
     ) -> bool:
         """Modifie le rôle d'un utilisateur si le demandeur est ADMIN."""
 
-        # Vérifier les droits en base, pas seulement
-        # ceux déclarés dans l'objet Python fourni
         admin_bdd = self.utilisateur_dao.recherche_utilisateur(
             administrateur.id_utilisateur
+        )
+
+        utilisateur_bdd = self.utilisateur_dao.recherche_utilisateur(
+            id_utilisateur
         )
 
         if admin_bdd is None or admin_bdd.niveau != NiveauHabilitation.ADMIN:
@@ -82,5 +84,9 @@ class UtilisateurService:
                 "Seul un administrateur peut modifier les habilitations."
             )
 
-        # Modifier le rôle
+        if utilisateur_bdd is None or utilisateur_bdd.niveau == NiveauHabilitation.ADMIN:
+            raise PermissionError(
+                "Le niveau d'habilitation ADMIN ne peut pas être modifié."
+            )
+
         return self.utilisateur_dao.update(id_utilisateur, nouveau_niveau)

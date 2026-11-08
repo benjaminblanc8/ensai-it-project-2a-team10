@@ -1,7 +1,7 @@
 from business_object.gare import Gare
 from dao.gare_dao import GareDao
 from fastapi import HTTPException
-from service.api_sncf_service import ApiSncfService, ApiSncfError
+from service.api_sncf_service import ApiSncfError, ApiSncfService
 from utils.log_utils import log
 
 
@@ -73,6 +73,16 @@ class GareService:
             raise HTTPException(status_code=404, detail="Gare introuvable")
 
         return gare
+
+    @log
+    def recherche_gare_par_nom(self, nom_gare: int):
+        """ recherche les gares par leurs noms"""
+        list_gare = self.dao.recherche_gare_par_nom(nom_gare)
+
+        if len(list_gare) == 0:
+            raise HTTPException(status_code=404, detail="Gares introuvables")
+   
+        return list_gare
 
     @log
     def supprimer_gare(self, id_gare: int):

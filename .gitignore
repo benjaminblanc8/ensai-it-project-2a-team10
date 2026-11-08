@@ -222,3 +222,5 @@ __marimo__/
 .html
 .pdf
 .css
+.Rproj.user
+backend/logs

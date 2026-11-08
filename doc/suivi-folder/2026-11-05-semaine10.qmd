@@ -9,30 +9,37 @@ Semaine n°10
 
 ### YU Alexandre
 18h (6h,3j)
-- Mardi 3 :
-  - 
+- Mardi 3 : 
+  - api_sncf_service : ajout de la fonctionnalité de recherche des gares et de calcul du temps de trajets
+  - correction du code dans son ensemble 
 - Mercredi 4 :
-  - 
+  - ajout de la vérification du niveau d'habilitation
+  - correction de la modification et suppression des lignes
+  - correction du code dans son ensemble
 Jeudi 5 :
-  -
+  - ajout de la fonctionnalité de réservation
+  - correction du code dans son ensemble
 
 ### DUQUESNE Manon
 18h (6h,3j)
-- Mardi 3 :
-  - 
-- Mercredi 4 :
-  - 
-Jeudi 5 :
-  -
+- Check et étude du code des autres membres de l'équipe
+- Travail sur les tests unitaires des différentes méthodes
 
 ### BLANC Benjamin
-18h (6h,3j)
+18h (6h, 3j)
 - Mardi 3 :
-  - 
+  - Intégration de la recherche de gares via l’API SNCF.
+  - Adaptation de la création des gares et récupération automatique de leur identifiant SNCF.
+  - Tests des endpoints dans Swagger et correction des erreurs rencontrées.
 - Mercredi 4 :
-  - 
-Jeudi 5 :
-  -
+  - Création et recherche des trajets à partir des noms des gares.
+  - Calcul automatique de la durée des trajets via l’API SNCF.
+  - Correction de l’enregistrement des trajets en base
+- Jeudi 5 :
+  - Recalcul automatique de la durée lors d’une modification du départ ou de la ligne d’un trajet.
+  - Adaptation de la création des lignes pour utiliser les noms des gares.
+  - Vérification de la cohérence des modèles Pydantic et identification des validations à renforcer.
+  - Rédaction de la documentation développeur du backend.
 
 
 
@@ -44,9 +51,13 @@ Jeudi 5 :
   - Check et étude du code des autres membres de l'équipe
   - Création du squelette global du rapport final
 - Mercredi 4 :
-  - 
+  - Vérification de la cohérence globale du code + nettoyages divers (toute la journée) 
+  - Suivi des tâches attribuées dans le groupe
+  - Recherches sur l'identification par token JWT + assistance dans le codage
 Jeudi 5 :
-  -
+  - Mise au point + répartition du travail restant
+  - Diverses améliorations / corrections de problèmes de code dans la réservation, la recherche etc.
+  - Readme utilisateur + quelques améliorations du readme développeur
 
 ### LHOMMEAU Hugo
 18h (6h,3j)

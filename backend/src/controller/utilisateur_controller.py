@@ -1,16 +1,15 @@
-from utils.authentication import (
-    get_current_user,
-    get_utilisateur_service,
-)
-from utils.verification_habilitation import require_niveau
+from business_object.niveau_habilitation import NiveauHabilitation
 from fastapi import APIRouter, Depends, HTTPException
 from schema.utilisateur_model import (
     ModificationRoleModel,
     UtilisateurModel,
 )
 from service.utilisateur_service import UtilisateurService
-from business_object.niveau_habilitation import NiveauHabilitation
+from utils.authentication import (
+    get_utilisateur_service,
+)
 from utils.log_utils import get_logger
+from utils.verification_habilitation import require_niveau
 
 router = APIRouter()
 logger = get_logger(__name__)
@@ -19,7 +18,7 @@ logger = get_logger(__name__)
 @router.post("/", tags=["Utilisateurs"])
 def creer_compte(
     informations: UtilisateurModel,
-    service: UtilisateurService = Depends(get_utilisateur_service),
+    service: UtilisateurService = Depends(get_utilisateur_service),  # ruff: ignore[fast-api-non-annotated-dependency, function-call-in-default-argument]
 ):
     """Crée un compte utilisateur."""
 
@@ -42,10 +41,10 @@ def creer_compte(
 @router.put("/role", tags=["Utilisateurs"])
 def modifier_role(
     informations: ModificationRoleModel,
-    administrateur=Depends(
-        require_niveau(NiveauHabilitation.ADMIN)
+    administrateur=Depends(  # ruff: ignore[function-call-in-default-argument]
+        require_niveau(NiveauHabilitation.ADMIN)  # ruff: ignore[function-call-in-default-argument]
     ),
-    service=Depends(get_utilisateur_service),
+    service=Depends(get_utilisateur_service),  # ruff: ignore[function-call-in-default-argument]
 ):
     """Modifie le niveau d'habilitation d'un utilisateur."""
 
@@ -61,11 +60,11 @@ def modifier_role(
             informations.nouvelle_habilitation,
         )
 
-    except PermissionError:
+    except PermissionError as e:
         raise HTTPException(
             status_code=403,
-            detail="Seul un administrateur peut modifier les habilitations.",
-        )
+            detail=str(e),
+        ) from e
 
     if not succes:
         raise HTTPException(

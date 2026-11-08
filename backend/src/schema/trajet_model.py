@@ -6,7 +6,6 @@ from pydantic import BaseModel
 class TrajetModel(BaseModel):
     id_ligne: int
     date_heure_depart: datetime
-    duree_minutes: int
     nb_places: int
     tarif: float
 
@@ -19,6 +18,7 @@ class TrajetReadModel(BaseModel):
     nb_places: int
     tarif: float
     places_reservees: int
+    places_disponibles: int
 
 
 class TrajetCreationModel(BaseModel):

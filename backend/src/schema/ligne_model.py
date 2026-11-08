@@ -5,8 +5,8 @@ from schema.gare_model import GareReadModel
 
 
 class LigneModel(BaseModel):
-    id_gare_depart: int
-    id_gare_arrivee: int
+    nom_gare_depart: str = Field(min_length=1)
+    nom_gare_arrivee: str = Field(min_length=1)
 
 
 class LigneReadModel(BaseModel):
@@ -17,12 +17,17 @@ class LigneReadModel(BaseModel):
 
 
 class LigneCreateModel(BaseModel):
-    libelle: str = Field(min_length=2, max_length=100)
     id_gare_depart: int
     id_gare_arrivee: int
 
 
+class LigneReadUpdateModel(BaseModel):
+    id_ligne: int
+    gare_depart: GareReadModel
+    gare_arrivee: GareReadModel
+
+
 class LigneUpdateModel(BaseModel):
-    libelle: str = Field(min_length=2, max_length=100)
+    id_ligne: int
     id_gare_depart: int
     id_gare_arrivee: int

@@ -1,3 +1,7 @@
+from contextlib import closing
+
+import psycopg2
+from business_object.ligne import Ligne
 from business_object.trajet import Trajet
 from dao.db_connection import DBConnection
 from dao.ligne_dao import LigneDao
@@ -30,9 +34,9 @@ class TrajetDao:
                         trajet.date_heure_depart,
                         trajet.duree_minutes,
                         trajet.ligne.id_ligne,
-                        trajet._nb_places,
-                        trajet.get_tarif(),
-                        trajet.get_places_reservees(),
+                        trajet.get_nb_places,
+                        trajet.get_tarif,
+                        trajet.get_places_reservees,
                     ),
                 )
                 resultat = cursor.fetchone()
@@ -83,6 +87,55 @@ class TrajetDao:
             resultat["places_reservees"],
         )
 
+    def incrementer_places_reservees(self, id_trajet: int) -> bool:
+        """Incrémente le nombre de places réservées d'un trajet de 1."""
+
+        requete = """
+            UPDATE Trajet
+            SET places_reservees = places_reservees + 1
+            WHERE id_trajet = %s;
+        """
+
+        connexion = DBConnection().connection
+
+        try:
+            with connexion.cursor() as cursor:
+                cursor.execute(requete, (id_trajet,))
+
+                increment_effectue = cursor.rowcount > 0
+
+            connexion.commit()
+            return increment_effectue
+
+        except Exception:
+            connexion.rollback()
+            raise
+
+    def decrementer_places_reservees(self, id_trajet: int) -> bool:
+        """Décrémente le nombre de places réservées d'un trajet de 1."""
+
+        requete = """
+            UPDATE Trajet
+            SET places_reservees = places_reservees - 1
+            WHERE id_trajet = %s
+              AND places_reservees > 0;
+        """
+
+        connexion = DBConnection().connection
+
+        try:
+            with connexion.cursor() as cursor:
+                cursor.execute(requete, (id_trajet,))
+
+                decrement_effectue = cursor.rowcount > 0
+
+            connexion.commit()
+            return decrement_effectue
+
+        except Exception:
+            connexion.rollback()
+            raise
+
     def supprimer_trajet(self, id_trajet: int) -> bool:
         """Supprime un trajet."""
 
@@ -91,17 +144,19 @@ class TrajetDao:
             WHERE id_trajet = %s;
         """
 
+        connexion = DBConnection().connection
+
         try:
-            with DBConnection().connection.cursor() as cursor:
+            with connexion.cursor() as cursor:
                 cursor.execute(requete, (id_trajet,))
 
                 suppression_effectuee = cursor.rowcount > 0
 
-            DBConnection().connection.commit()
+            connexion.commit()
             return suppression_effectuee
 
         except Exception:
-            DBConnection().connection.rollback()
+            connexion.rollback()
             raise
 
     def modifier_trajet(self, trajet: Trajet) -> bool:
@@ -129,9 +184,9 @@ class TrajetDao:
                         trajet.date_heure_depart,
                         trajet.duree_minutes,
                         trajet.ligne.id_ligne,
-                        trajet._nb_places,
-                        trajet.get_tarif(),
-                        trajet.get_places_reservees(),
+                        trajet.get_nb_places,
+                        trajet.get_tarif,
+                        trajet.get_places_reservees,
                         trajet.id_trajet,
                     ),
                 )
@@ -143,7 +198,42 @@ class TrajetDao:
 
             return modification_effectuee
 
+        except psycopg2.errors.CheckViolation as e:
+            connexion.rollback()
+            raise ValueError(
+                "Le nombre de places doit respecter les limites autorisées."
+            ) from e
+
         except Exception:
             # On annule la transaction sur la même connexion.
             connexion.rollback()
             raise
+
+    def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
+        requete = """
+            SELECT id_trajet, date_heure_depart, duree_minutes,
+                nb_places, tarif, places_reservees
+            FROM Trajet
+            WHERE id_ligne = %s
+            ORDER BY date_heure_depart, id_trajet
+        """
+            
+        with (
+            closing(DBConnection().connection) as connexion,
+            connexion.cursor() as cursor,
+        ):
+            cursor.execute(requete, (ligne.id_ligne,))
+            resultats = cursor.fetchall()
+
+        return [
+            Trajet(
+                resultat["id_trajet"],
+                resultat["date_heure_depart"],
+                resultat["duree_minutes"],
+                ligne,
+                resultat["nb_places"],
+                float(resultat["tarif"]),
+                resultat["places_reservees"],
+            )
+            for resultat in resultats
+        ]

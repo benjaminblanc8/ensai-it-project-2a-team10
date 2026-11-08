@@ -1,0 +1,72 @@
+04/11/2026 08:52:08 root                      INFO    - GET / - START
+04/11/2026 08:52:08 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 08:52:08 root                      INFO    - GET /docs - START
+04/11/2026 08:52:08 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 08:52:08 root                      INFO    - GET /openapi.json - START
+04/11/2026 08:52:08 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 09:48:15 root                      INFO    - --------------------------------------------------
+04/11/2026 09:48:15 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 09:48:15 root                      INFO    - --------------------------------------------------
+04/11/2026 09:48:15 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 09:48:15 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 09:48:15 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 09:48:15 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 09:48:15 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 09:48:15 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 09:48:15 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 09:48:32 root                      INFO    - --------------------------------------------------
+04/11/2026 09:48:32 root                      INFO    - Démarrage de Webservice                       
+04/11/2026 09:48:32 root                      INFO    - --------------------------------------------------
+04/11/2026 09:48:32 root                      INFO    - Load environment variables: SUCCES
+04/11/2026 09:48:32 root                      INFO    - SNCF_API_KEY=*******
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_PORT=5432
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_DATABASE=defaultdb
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_USER=user-benjaminblanc
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_PASSWORD=*******
+04/11/2026 09:48:32 root                      INFO    - POSTGRES_SCHEMA=public
+04/11/2026 09:48:32 root                      INFO    - UVICORN_HOST=0.0.0.0
+04/11/2026 09:48:32 root                      INFO    - UVICORN_PORT=5000
+04/11/2026 09:48:32 root                      INFO    - BACKEND_URL=http://localhost:5000/
+04/11/2026 09:48:32 root                      INFO    - BACKEND_TIMEOUT=5
+04/11/2026 09:48:41 root                      INFO    - GET / - START
+04/11/2026 09:48:41 root                      INFO    - GET / - END [Status: 307]
+04/11/2026 09:48:41 root                      INFO    - GET /docs - START
+04/11/2026 09:48:41 root                      INFO    - GET /docs - END [Status: 200]
+04/11/2026 09:48:42 root                      INFO    - GET /openapi.json - START
+04/11/2026 09:48:42 root                      INFO    - GET /openapi.json - END [Status: 200]
+04/11/2026 09:50:06 root                      INFO    - POST /ligne/ - START
+04/11/2026 09:50:06 c.ligne_controller        INFO    - Création d'une ligne
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(10,) - START
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(10,) - END
+04/11/2026 09:50:06 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a96270>
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 09:50:06 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a725d0>
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(10,) - START
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(10,) - END
+04/11/2026 09:50:06 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a73d90>
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 09:50:06 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 09:50:06 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a5b6f0>
+04/11/2026 09:50:06 root                      INFO    - POST /ligne/ - END [Status: 200]
+04/11/2026 09:50:09 root                      INFO    - POST /ligne/ - START
+04/11/2026 09:50:09 c.ligne_controller        INFO    - Création d'une ligne
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(10,) - START
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(10,) - END
+04/11/2026 09:50:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a5b5c0>
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 09:50:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8aaae70>
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(10,) - START
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(10,) - END
+04/11/2026 09:50:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a5ef10>
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(32,) - START
+04/11/2026 09:50:09 service.gare_service      INFO    -   recherche_gare(32,) - END
+04/11/2026 09:50:09 service.gare_service      INFO    -     └─> Output: <business_object.gare.Gare object at 0x7fbda8a5f020>
+04/11/2026 09:50:09 root                      INFO    - POST /ligne/ - END [Status: 200]
