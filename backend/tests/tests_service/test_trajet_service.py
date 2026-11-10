@@ -17,16 +17,24 @@ def test_recherche_trajet_succes():
 
 
 def test_creer_trajet_succes(monkeypatch):
-    ligne = Ligne(id_ligne=1, gare_depart=MagicMock(), gare_arrivee=MagicMock(), date_creation=datetime.now())
+    ligne = Ligne(
+        id_ligne=1,
+        gare_depart=MagicMock(),
+        gare_arrivee=MagicMock(),
+        date_creation=datetime.now(),
+    )
 
     service = TrajetService()
-    monkeypatch.setattr("service.trajet_service.TrajetDao.creer_trajet", MagicMock(return_value=True))
+    monkeypatch.setattr(
+        "service.trajet_service.TrajetDao.creer_trajet",
+        MagicMock(return_value=True),
+    )
 
     resultat = service.creer_trajet(ligne, datetime(2026, 7, 1, 8, 0), 90, 100, 45.0)
 
     assert resultat is not None
     assert resultat.duree_minutes == 90
-    assert resultat.get_tarif == 45.0
+    assert resultat.get_tarif == 45.0  # ruff: ignore[float-equality-comparison]
 
 
 def test_get_nb_places_disponibles():
@@ -40,7 +48,7 @@ def test_get_tarif():
     ligne_mock = MagicMock()
     trajet = Trajet(1, datetime.now(), 60, ligne_mock, 50, 42.99, 0)
 
-    assert trajet.get_tarif == 42.99
+    assert trajet.get_tarif == 42.99  # ruff: ignore[float-equality-comparison]
 
 
 def test_get_places_reservees():

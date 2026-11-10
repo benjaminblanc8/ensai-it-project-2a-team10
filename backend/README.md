@@ -306,13 +306,49 @@ The `@log` decorator is also available to trace decorated method calls.
 
 ## 🧪 Tests
 
-Tests are located in:
+### What is tested and why
+
+Tests cover the **service layer** and selected **business object** properties. Rationale:
+
+| Layer tested | Why |
+| --- | --- |
+| Services (`GareService`, `LigneService`, `TrajetService`, `UtilisateurService`) | They contain the business rules: uniqueness constraints, permission checks, validation logic, and external API coordination. Refactoring without tests would risk silent regressions. |
+| Business objects (`Trajet`, `Utilisateur`) | Computed properties such as `get_nb_places_disponibles` or `verifier_mdp` embed domain logic worth protecting independently. |
+
+DAOs and controllers are **not** unit-tested: DAOs are thin SQL wrappers (integration concerns) and controllers delegate to services (covered indirectly).
+
+### Test files
 
 ```text
 backend/tests/
+├── conftest.py                          # Global mocks: DBConnection, env vars
+├── tests_service/
+│   ├── test_gare_service.py             # Station CRUD, SNCF lookup, deletion guards
+│   ├── test_ligne_service.py            # Uniquity constraint, 404/400/409/500, par_gares lookup
+│   ├── test_trajet_service.py           # Journey creation, computed properties
+│   └── test_utilisateur_service.py      # Account validation, login, role management
+└── tests_business_object/
+    ├── test_trajet.py                   # Trajet computed properties
+    └── test_utilisateur.py              # Utilisateur password verification
 ```
 
-From the backend directory:
+### Running tests
+
+```bash
+uv run pytest -v                                          # full suite
+uv run pytest tests/tests_service/test_ligne_service.py -v   # single file
+uv run pytest tests/ -k "test_creer" -v                    # filter by keyword
+```
+
+The `pyproject.toml` sets `pythonpath = ["src"]` so imports resolve without installation.
+
+### Writing new tests
+
+1. **Mock at the DAO level.** Replace `service.dao` with a `MagicMock` to isolate business logic from the database.
+2. **Mock external deps via `monkeypatch`.** Use `monkeypatch.setattr(ClassName, "method", ...)` on the class — it auto-restores after each test. Avoid manual patching (`Foo.attr = MagicMock()`) which leaks state.
+3. **One behaviour per test.** Name: `test_<method>_<scenario>`.
+4. **Assert status code + detail** for error paths; assert return type and key fields for success paths.
+5. **No database, no network.** `conftest.py` neutralises `DBConnection` globally.
 
 ```bash
 uv run pytest -v
