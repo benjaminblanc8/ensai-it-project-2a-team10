@@ -7,7 +7,7 @@ def test_utilisateur_creation_et_attributs():
     utilisateur = Utilisateur(1, "jeremie", "mdp", NiveauHabilitation.CLIENT)
 
     assert utilisateur.get_id_utilisateur() == 1
-    assert utilisateur.get_pseudo() == "jeremie"
+    assert utilisateur.get_pseudo == "jeremie"
     assert utilisateur.get_niveau() == NiveauHabilitation.CLIENT
 
 
@@ -38,9 +38,7 @@ def test_verifier_role_admin():
 def test_verifier_mdp():
     ph = PasswordHasher()
     hash_reel = ph.hash("mot_de_passe_secret")
-    # On passe le vrai hash à l'utilisateur
     utilisateur = Utilisateur(1, "alexandre", hash_reel, NiveauHabilitation.CLIENT)
 
-    # On vérifie que le bon mot de passe passe, et le mauvais échoue
     assert utilisateur.verifier_mdp("mot_de_passe_secret") is True
     assert utilisateur.verifier_mdp("mauvais_mot_de_passe") is False

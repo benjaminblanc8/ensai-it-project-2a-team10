@@ -44,12 +44,12 @@ class LigneService:
                 detail="Une ligne existe déjà entre ces deux gares.",
             )
 
-            nouvelle_ligne = Ligne(
-                id_ligne=None,
-                gare_depart=gare_depart,
-                gare_arrivee=gare_arrivee,
-                date_creation=datetime.date.today(),
-            )
+        nouvelle_ligne = Ligne(
+            id_ligne=None,
+            gare_depart=gare_depart,
+            gare_arrivee=gare_arrivee,
+            date_creation=datetime.date.today(),
+        )
 
         if not self.dao.creer_ligne(nouvelle_ligne):
             raise HTTPException(
