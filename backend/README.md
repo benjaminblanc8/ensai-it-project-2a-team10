@@ -312,7 +312,7 @@ Tests cover the **service layer** and selected **business object** properties. R
 
 | Layer tested | Why |
 | --- | --- |
-| Services (`GareService`, `LigneService`, `TrajetService`, `UtilisateurService`) | They contain the business rules: uniqueness constraints, permission checks, validation logic, and external API coordination. Refactoring without tests would risk silent regressions. |
+| Services (`GareService`, `LigneService`, `TrajetService`, `UtilisateurService`, `ReservationService`) | They contain the business rules: uniqueness constraints, permission checks, validation logic, and external API coordination. Refactoring without tests would risk silent regressions. |
 | Business objects (`Trajet`, `Utilisateur`) | Computed properties such as `get_nb_places_disponibles` or `verifier_mdp` embed domain logic worth protecting independently. |
 
 DAOs and controllers are **not** unit-tested: DAOs are thin SQL wrappers (integration concerns) and controllers delegate to services (covered indirectly).
