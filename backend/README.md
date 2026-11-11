@@ -145,6 +145,20 @@ When changing a schema, check the corresponding controller, service, and respons
 
 ## 🗄️ Database access
 
+### Database initialization
+
+The repository includes `data/init_db.sql` (at the root level), which creates all tables and seeds them with demo data.
+
+Run it against your PostgreSQL instance before starting the application:
+
+```bash
+psql -h localhost -U postgres -d trajecto -f data/init_db.sql
+```
+
+The script is idempotent — safe to re-run at any time.
+
+---
+
 Database connections are managed through `DBConnection` in:
 
 ```text

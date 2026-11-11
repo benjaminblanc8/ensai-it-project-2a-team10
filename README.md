@@ -21,7 +21,7 @@ The application integrates with the **SNCF API** to fetch real-time station and 
 ### Prerequisites
 
 - Python 3.11+
-- A running PostgreSQL database
+- A running PostgreSQL database (version 14+)
 - Access to the SNCF API
 
 ### Step 1: Install dependencies
@@ -44,23 +44,43 @@ pip install -e \".[dev]\"
 Create a `.env` file in the **repository root** with the following content:
 
 ```env
-POSTGRES_HOST=postgresql-cnpg-738928-rw.user-benjaminblanc
+POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
-POSTGRES_DATABASE=defaultdb
-POSTGRES_USER=user-benjaminblanc
-POSTGRES_PASSWORD=***
+POSTGRES_DATABASE=trajecto
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your_p
 POSTGRES_SCHEMA=public
+SNCF_API_KEY=your_sn
 UVICORN_HOST=0.0.0.0
 UVICORN_PORT=5000
 BACKEND_URL=http://localhost:5000/
 BACKEND_TIMEOUT=5
-JWT_SECRET_KEY=***
+JWT_SECRET_KEY=your_j
 ```
 
-> 🔑 Replace `POSTGRES_PASSWORD` and `JWT_SECRET_KEY` with actual values. Ask the team if you don't have them.
-> 🔑 You might need the `SNCF_API_KEY` value if you update the database with Navitia data. Ask the team in that case.
+> 🔑 Replace `POSTGRES_PASSWORD`, `JWT_SECRET_KEY`, and `SNCF_API_KEY` with your actual values.
 
-### Step 3: Start the server
+### Step 3: Initialize the database
+
+The repository includes `data/init_db.sql`, which creates all tables and seeds them with demo data (stations, lines, journeys, users, and reservations).
+
+Run it once against your PostgreSQL instance:
+
+```bash
+psql -h localhost -U postgres -d trajecto -f data/init_db.sql
+```
+
+> ℹ️ The script is idempotent: it uses `IF NOT EXISTS` and `ON CONFLICT DO NOTHING`, so it is safe to re-run.
+
+**Demo accounts created by the script:**
+
+| Pseudo | Password    | Level  |
+|--------|-------------|--------|
+| `admin`  | `admin123`  | ADMIN  |
+| `collab` | `collab123` | COLLAB |
+| `client` | `client123` | CLIENT |
+
+### Step 4: Start the server
 
 ```bash
 cd backend
@@ -69,7 +89,7 @@ python src/main.py
 
 The server starts on `http://127.0.0.1:5000`.
 
-### Step 4: Access the interactive documentation (Swagger)
+### Step 5: Access the interactive documentation (Swagger)
 
 Once the server is running, open your browser to:
 
@@ -78,18 +98,6 @@ http://127.0.0.1:5000/docs
 ```
 
 > The root URL (`http://127.0.0.1:5000/`) automatically redirects to `/docs`.
-
-**On Onyxia (remote environment):**
-
-1. In the VS Code service, open the **Ports** panel (right sidebar).
-2. Find the entry for **port 5000**.
-3. Click the associated link to open Swagger in your browser.
-
-The URL will look like:
-
-```
-https://<your-onyxia-service>.xxx.onyxia.org/proxy/5000/docs
-```
 
 ### Quick test
 
