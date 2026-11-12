@@ -82,13 +82,144 @@ format:
 
 #### Description {.unlisted}
 
+La fonctionnalité de gestion des comptes utilisateur permet à chaque utilisateur de créer son propre compte et d'accéder à l'application à l'aide de ses identifiants de connexion. Elle assure également la gestion des droits d'accès en fonction du niveau d'habilitation attribué à chaque compte.
+
+Lors de la création d'un compte, l'utilisateur doit renseigner un nom d'utilisateur ainsi qu'un mot de passe. Une fois ces informations validées, un compte est automatiquement créé avec le niveau d'habilitation CLIENT. Chaque compte dispose d'un identifiant unique permettant de le distinguer des autres utilisateurs et de le retrouver dans la base de données.
+
+Pour garantir la sécurité des informations personnelles, les mots de passe sont stockés sous forme de données hachées et ne sont jamais enregistrés en clair dans la base de données.
+
+L'application propose trois niveaux d'habilitation :
+- CLIENT : correspond au niveau d'accès attribué par défaut lors de la création d'un compte. Il permet d'utiliser les fonctionnalités accessibles aux utilisateurs classiques.
+- COLLABORATEUR : permet d'accéder aux fonctionnalités de gestion des lignes d'exploitation, notamment leur création, leur modification et leur suppression.
+- ADMIN : dispose de droits d'administration permettant notamment de consulter les comptes utilisateurs et de modifier leur niveau d'habilitation.
+
+La gestion des habilitations est réservée aux comptes ADMIN. Depuis leur espace d'administration, ces derniers peuvent consulter la liste des utilisateurs enregistrés et modifier leur niveau d'accès. Une règle de sécurité empêche toutefois un administrateur de modifier le niveau d'habilitation d'un autre compte ADMIN. Cette restriction permet de protéger les comptes disposant des droits les plus élevés.
+
+Les utilisateurs disposant des niveaux CLIENT ou COLLABORATEUR ne peuvent pas accéder à la gestion des habilitations ni modifier les droits des autres comptes.
+
+
 #### Guide d'usage {.unlisted}
+
+Création d'un compte
+
+Pour créer un compte, l'utilisateur accède à la page d'inscription de l'application. Il renseigne les informations demandées, à savoir son nom d'utilisateur et son mot de passe, puis valide le formulaire.
+
+Après vérification des informations saisies, l'application enregistre le nouveau compte dans la base de données et lui attribue automatiquement le rôle CLIENT. Un message confirme la création du compte ou indique une erreur si l'opération n'a pas pu aboutir.
+
+Connexion à l'application
+
+Une fois son compte créé, l'utilisateur peut accéder à la page de connexion. Il saisit son nom d'utilisateur et son mot de passe, puis valide le formulaire.
+
+L'application vérifie les informations transmises en les comparant aux données enregistrées. Si les identifiants sont corrects, l'utilisateur est authentifié et peut accéder aux fonctionnalités correspondant à son niveau d'habilitation. Dans le cas contraire, un message d'erreur lui indique que les informations de connexion sont incorrectes.
+
+Lorsqu'un utilisateur se connecte à l'application, ses identifiants sont vérifiés afin de confirmer son identité. Si les informations fournies sont correctes, le serveur génère un token d'authentification (par exemple, un JWT).
+
+Ce token est ensuite transmis au client et permet d'authentifier les requêtes effectuées auprès du serveur sans avoir à saisir de nouveau les identifiants à chaque opération.
+
+Le token contient notamment des informations permettant d'identifier l'utilisateur et, selon l'implémentation retenue, son niveau d'habilitation. Il est signé par le serveur afin de garantir son intégrité et de prévenir toute modification frauduleuse de son contenu.
+
+Lorsqu'un utilisateur souhaite accéder à une fonctionnalité protégée, son token est transmis avec la requête. Le serveur vérifie sa validité avant d'autoriser l'accès à la ressource demandée.
+
+Cette vérification permet également de contrôler les droits associés au compte :
+- Un CLIENT ne peut pas accéder aux fonctionnalités réservées aux collaborateurs.
+- Un COLLABORATEUR peut gérer les lignes d'exploitation.
+- Un ADMIN peut accéder aux fonctionnalités d'administration et aux fonctionnalités autorisées aux collaborateurs.
+En cas de token invalide, expiré ou absent, l'accès à la ressource protégée est refusé et une erreur d'authentification est retournée.
+
+Gestion des habilitations par un administrateur
+
+Un utilisateur disposant du rôle ADMIN peut accéder à l'interface de gestion des comptes. Celle-ci lui permet de consulter les utilisateurs enregistrés dans l'application ainsi que leur niveau d'habilitation actuel.
+
+Pour modifier les droits d'un utilisateur, l'administrateur sélectionne le compte concerné à partir de son identifiant ou de la liste des utilisateurs. Il peut ensuite choisir un nouveau niveau d'habilitation parmi les rôles disponibles.
+
+Après validation, l'application vérifie que l'opération est autorisée. Si le compte sélectionné ne possède pas le rôle ADMIN, la modification est enregistrée et un message de confirmation est affiché. En revanche, si le compte ciblé est déjà administrateur, l'opération est refusée et un message d'erreur informe l'administrateur qu'il ne peut pas modifier les droits d'un autre ADMIN.
+
+Exemple d'utilisation
+
+Un nouvel utilisateur souhaite accéder à l'application. Il se rend sur la page d'inscription et crée un compte en renseignant le nom d'utilisateur « alice » ainsi qu'un mot de passe.
+
+Une fois le formulaire validé, son compte est enregistré dans la base de données avec le rôle CLIENT. Alice peut alors se connecter à l'application et utiliser les fonctionnalités associées à ce niveau d'accès.
+
+Par la suite, un administrateur décide de lui attribuer des droits supplémentaires afin qu'elle puisse gérer les lignes d'exploitation. Il accède à la liste des comptes, sélectionne celui d'Alice et modifie son habilitation en COLLABORATEUR.
+
+À partir de cette modification, Alice bénéficie des autorisations associées à son nouveau rôle. En revanche, si l'administrateur tente de modifier le rôle d'un autre utilisateur disposant déjà du niveau ADMIN, l'application bloque cette opération.
 
 ### Gestion des lignes d'exploitation
 
 #### Description {.unlisted}
 
+La fonctionnalité de gestion des lignes d'exploitation permet aux utilisateurs disposant du niveau d'habilitation COLLABORATEUR de créer, consulter, modifier et supprimer des lignes reliant deux gares ferroviaires : une gare de départ et une gare de terminus.
+
+Afin de garantir la cohérence des informations enregistrées, l'application s'appuie sur l'API SNCF pour rechercher et récupérer les gares existantes. Cette intégration permet de proposer des résultats fiables lors de la saisie des gares et d'éviter l'enregistrement de noms de gares inexistants ou incorrects.
+
+Lorsqu'un collaborateur souhaite créer ou modifier une ligne, il dispose de champs de recherche permettant de sélectionner les deux gares. ( Une fonctionnalité d'autocomplétion facilite cette opération : dès que l'utilisateur commence à saisir le nom d'une gare, l'application interroge l'API SNCF et affiche une liste de résultats correspondants. )
+
+Le collaborateur sélectionne alors une gare de départ et une gare de terminus parmi les propositions disponibles. Une fois les deux gares renseignées, il peut valider le formulaire afin d'enregistrer la ligne d'exploitation.
+
+Plusieurs contrôles sont effectués avant l'enregistrement :
+- La gare de départ doit correspondre à une gare existante fournie par l'API SNCF.
+- La gare de terminus doit également correspondre à une gare existante.
+- Les deux gares doivent être différentes.
+- L'utilisateur doit disposer du niveau d'habilitation COLLABORATEUR ou ADMIN si les droits d'administration incluent cette gestion.
+Ces vérifications permettent de préserver la cohérence des lignes enregistrées dans l'application.
+
+La fonctionnalité permet également de modifier une ligne existante. Le collaborateur peut alors remplacer la gare de départ, la gare de terminus ou les deux, en sélectionnant de nouvelles gares à partir des résultats proposés par l'API SNCF.
+
+Enfin, la suppression d'une ligne est possible lorsque celle-ci ne présente pas de dépendances empêchant sa suppression. En particulier, si des trajets sont déjà planifiés sur une ligne, l'application peut refuser sa suppression afin de préserver l'intégrité des données et d'éviter de rendre ces trajets incohérents.
+
+Les utilisateurs possédant uniquement le rôle CLIENT ne disposent pas des autorisations nécessaires pour effectuer ces opérations.
+
 #### Guide d'usage {.unlisted}
+
+Consultation des lignes d'exploitation
+
+Pour accéder à la gestion des lignes d'exploitation, l'utilisateur doit être connecté avec un compte disposant des droits nécessaires.
+
+Depuis l'interface dédiée, il peut consulter les lignes déjà enregistrées dans l'application. Chaque ligne est caractérisée par une gare de départ et une gare de terminus, permettant d'identifier facilement le trajet ferroviaire correspondant.
+
+Création d'une ligne d'exploitation
+
+Pour ajouter une nouvelle ligne, le collaborateur accède au formulaire de création.
+
+Il commence par renseigner le nom de la gare de départ dans le champ correspondant. Au fur et à mesure de sa saisie, l'application sollicite l'API SNCF afin de récupérer les gares correspondant à sa recherche. Les résultats sont ensuite affichés sous forme de propositions.
+
+Le collaborateur sélectionne la gare souhaitée, puis effectue la même opération pour la gare de terminus.
+
+Une fois les deux gares sélectionnées, il valide le formulaire. L'application vérifie alors la validité des informations et s'assure notamment que les deux gares sont différentes.
+
+Si toutes les conditions sont respectées, la nouvelle ligne est enregistrée dans la base de données et un message confirme sa création. Dans le cas contraire, l'application affiche un message d'erreur précisant que l'opération n'a pas pu être effectuée.
+
+Modification d'une ligne existante
+
+Pour modifier une ligne, le collaborateur sélectionne la ligne concernée depuis la liste des lignes d'exploitation.
+
+Un formulaire lui permet alors de retrouver les informations actuelles et de modifier les gares associées. Comme lors de la création, les champs de recherche utilisent l'autocomplétion de l'API SNCF afin de proposer uniquement des gares issues des données disponibles.
+
+Après validation, l'application effectue les mêmes contrôles que lors de la création. Si les nouvelles informations sont valides, les modifications sont enregistrées et un message de confirmation est affiché.
+
+Suppression d'une ligne
+
+Pour supprimer une ligne, le collaborateur sélectionne la ligne concernée et déclenche l'action de suppression.
+
+L'application vérifie alors si la ligne peut être supprimée sans compromettre les données associées. Si aucun trajet planifié ne dépend de cette ligne, sa suppression peut être effectuée.
+
+En revanche, si des trajets sont déjà associés à cette ligne, l'application peut bloquer l'opération et afficher un message expliquant pourquoi la suppression est impossible.
+
+Cette vérification permet d'éviter la suppression accidentelle d'une ligne encore utilisée dans l'application.
+
+Exemple d'utilisation
+
+Un collaborateur souhaite créer une nouvelle ligne d'exploitation reliant Rennes à Paris.
+
+Il accède à l'interface de gestion des lignes et ouvre le formulaire de création. Dans le champ correspondant à la gare de départ, il saisit « Rennes ». L'application interroge alors l'API SNCF et affiche les résultats correspondant à cette recherche.
+
+Le collaborateur sélectionne la gare de Rennes parmi les propositions, puis saisit « Paris » dans le champ de la gare de terminus. Il sélectionne également la gare souhaitée parmi les résultats retournés par l'API.
+
+Après avoir vérifié les informations saisies, il valide la création de la ligne.
+
+L'application vérifie que les deux gares existent et qu'elles sont différentes. Les conditions étant respectées, la ligne Rennes → Paris est enregistrée dans la base de données et apparaît dans la liste des lignes d'exploitation disponibles.
+
+Par la suite, le collaborateur peut modifier cette ligne pour changer sa gare de terminus ou la supprimer si elle n'est plus utilisée par des trajets planifiés.
 
 ### Gestion des trajets proposés
 
