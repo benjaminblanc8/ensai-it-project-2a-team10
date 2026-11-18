@@ -35,14 +35,8 @@ def ajouter_gare(
         id_gare=None,
         nom=informations.nom,
         ville=informations.ville,
-<<<<<<< HEAD
-<<<<<<< HEAD
         # id_gare_sncf=informations.id_gare_sncf,
-=======
         id_gare_sncf=informations.id_gare_sncf,
->>>>>>> 3dc196c55a97a0fefedaf66fc3261fb7b634a0ee
-=======
->>>>>>> cec5de455a471dd683e6959242a26f3f46f09806
     )
 
     return service.ajout_gare(gare)
