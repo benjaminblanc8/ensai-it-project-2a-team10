@@ -225,13 +225,116 @@ Par la suite, le collaborateur peut modifier cette ligne pour changer sa gare de
 
 #### Description {.unlisted}
 
+La fonctionnalité de gestion des trajets proposés permet aux utilisateurs disposant du niveau d'habilitation COLLABORATEUR ou ADMIN de créer, consulter, modifier et supprimer des trajets associés à une ligne d'exploitation préalablement enregistrée dans l'application.
+
+Lors de la création d'un trajet, le collaborateur doit sélectionner une ligne d'exploitation existante, puis renseigner les informations nécessaires : la date et l'heure de départ, le nombre de places disponibles ainsi que le tarif proposé.
+
+Afin de garantir la faisabilité du trajet, l'application s'appuie sur l'API SNCF pour vérifier qu'un trajet en train est possible entre la gare de départ et la gare de terminus de la ligne sélectionnée. Cette intégration permet également de récupérer les informations nécessaires au calcul automatique du temps de trajet.
+
+La durée du trajet est ainsi déterminée par l'application et ne nécessite aucune saisie manuelle de la part du collaborateur.
+
+Plusieurs contrôles sont effectués avant l'enregistrement :
+
+La ligne d'exploitation sélectionnée doit exister dans l'application.
+
+La date et l'heure de départ doivent être valides.
+
+Le nombre de places disponibles doit être strictement supérieur à zéro.
+
+Le tarif doit être positif ou nul, conformément aux règles commerciales retenues.
+
+L'API SNCF doit confirmer la faisabilité du trajet et fournir les informations nécessaires au calcul de sa durée.
+
+Si l'API SNCF ne permet pas de vérifier la faisabilité du trajet, sa création est refusée.
+
+Une fois le trajet enregistré, le collaborateur peut consulter les trajets proposés et effectuer les modifications ou suppressions nécessaires. Les utilisateurs disposant uniquement du rôle CLIENT ne disposent pas des autorisations nécessaires pour gérer les trajets proposés.
+
+
 #### Guide d'usage {.unlisted}
+
+Création d'un trajet
+
+Pour créer un nouveau trajet, le collaborateur accède à l'interface de gestion des trajets proposés et ouvre le formulaire de création.
+
+Il commence par sélectionner une ligne d'exploitation parmi celles déjà enregistrées dans l'application. Les gares de départ et de terminus sont alors associées à la ligne sélectionnée.
+
+Le collaborateur renseigne ensuite la date et l'heure de départ souhaitées, le nombre de places disponibles ainsi que le tarif du trajet.
+
+Une fois les informations saisies, il valide le formulaire. L'application vérifie la validité des données renseignées, puis interroge l'API SNCF afin de contrôler qu'un trajet en train est réalisable sur la liaison sélectionnée.
+
+Si la faisabilité est confirmée, l'application récupère les informations nécessaires au calcul de la durée du trajet. Cette durée est automatiquement déterminée, puis enregistrée avec les autres informations du trajet.
+
+Si toutes les conditions sont respectées, le trajet est enregistré dans la base de données et un message confirme sa création. Dans le cas contraire, un message d'erreur indique que l'opération n'a pas pu aboutir.
+
+Modification d'un trajet existant
+
+Pour modifier un trajet, le collaborateur sélectionne le trajet concerné depuis la liste des trajets proposés.
+
+Il peut alors modifier les informations souhaitées à partir du formulaire correspondant. Après validation, l'application vérifie les nouvelles données et, lorsque cela est nécessaire, sollicite l'API SNCF afin de vérifier la faisabilité du trajet et de recalculer sa durée.
+
+Si les conditions sont respectées, les modifications sont enregistrées et un message de confirmation est affiché.
+
+Suppression d'un trajet
+
+Pour supprimer un trajet, le collaborateur sélectionne le trajet concerné dans la liste des trajets proposés, puis déclenche l'action de suppression.
+
+L'application effectue alors la suppression du trajet et informe l'utilisateur du résultat de l'opération à l'aide d'un message de confirmation ou d'erreur.
 
 ### Recherche d'un trajet
 
 #### Description {.unlisted}
+La fonctionnalité de recherche d'un trajet permet aux utilisateurs disposant du niveau d'habilitation CLIENT de rechercher les trajets proposés par les collaborateurs entre deux gares ferroviaires : une gare de départ et une gare d'arrivée.
+
+Afin de faciliter la saisie des gares, l'application s'appuie sur l'API SNCF pour proposer un système d'autocomplétion. Dès que le client commence à saisir le nom d'une gare, l'application interroge l'API et affiche une liste de résultats correspondant à sa recherche.
+
+Le client peut alors sélectionner les gares souhaitées parmi les propositions disponibles, puis lancer sa recherche.
+
+L'application consulte les trajets enregistrés dans la base de données et retourne ceux correspondant aux gares sélectionnées. Plusieurs trajets peuvent être proposés pour une même liaison, notamment lorsque différentes dates ou heures de départ sont disponibles.
+
+Pour chaque trajet affiché, les informations suivantes sont accessibles :
+
+La gare de départ.
+
+La gare d'arrivée.
+
+La date de départ.
+
+L'heure de départ.
+
+Le temps de trajet.
+
+Plusieurs contrôles sont effectués lors de la recherche :
+
+La gare de départ doit correspondre à une gare existante.
+
+La gare d'arrivée doit également correspondre à une gare existante.
+
+Les deux gares sélectionnées doivent être différentes.
+
+L'utilisateur doit disposer d'un compte actif avec les autorisations nécessaires pour effectuer une recherche.
+
+Si aucun trajet ne correspond aux critères renseignés, l'application affiche un message explicite informant le client qu'aucun résultat n'a été trouvé.
+
 
 #### Guide d'usage {.unlisted}
+
+Recherche d'un trajet
+
+Pour rechercher un trajet, le client accède à l'interface de recherche après s'être connecté à l'application avec un compte disposant du niveau d'habilitation CLIENT.
+
+Il commence par renseigner le nom de la gare de départ dans le champ correspondant. Au fur et à mesure de sa saisie, l'application interroge l'API SNCF afin de récupérer les gares correspondant à sa recherche. Les résultats sont ensuite affichés sous forme de propositions.
+
+Le client sélectionne la gare souhaitée parmi les résultats, puis effectue la même opération pour la gare d'arrivée.
+
+Une fois les deux gares sélectionnées, il valide sa recherche à l'aide du bouton prévu à cet effet.
+
+L'application vérifie alors que les deux gares existent et qu'elles sont différentes. Elle recherche ensuite dans la base de données les trajets correspondant à la liaison sélectionnée.
+
+Si des trajets correspondent aux critères renseignés, ils sont affichés sous forme de liste. Le client peut alors consulter les différentes propositions ainsi que leurs informations principales : les gares de départ et d'arrivée, la date et l'heure de départ ainsi que le temps de trajet.
+
+Si plusieurs trajets sont disponibles pour une même liaison, l'application les affiche afin de permettre au client de consulter les différentes possibilités.
+
+En revanche, si aucun trajet ne correspond à la recherche, un message informe le client qu'aucun trajet n'est actuellement proposé entre les deux gares sélectionnées.
 
 ### Positionnement commercial
 
@@ -256,6 +359,18 @@ Par la suite, le collaborateur peut modifier cette ligne pour changer sa gare de
 ### Jérémie L'Hostis
 
 ### Alexandre Yu
+
+Ce projet a été particulièrement intéressant et enrichissant, notamment parce qu'il m'a permis de mieux comprendre le fonctionnement d'une API, les échanges de données à travers les requêtes HTTP, ainsi que les interactions entre le frontend, le backend et le serveur. J'ai pu approfondir mes connaissances concernant la sécurité des données et les mécanismes nécessaires pour protéger les échanges entre les différentes parties de l'application.
+
+L'un des principaux enseignements que je retiens de ce projet concerne l'importance de définir une architecture claire dès le début du développement. En effet, nous avons été amenés à revoir plusieurs classes et à ajouter de nouveaux modules, notamment pour intégrer les mécanismes de sécurité. 
+
+J'ai ainsi pris conscience qu'une conception initiale bien réfléchie, accompagnée de diagrammes adaptés, permet de mieux anticiper les besoins du projet et de limiter les modifications importantes en cours de développement. On réalise rapidement que la principale difficulté du projet ne résidait pas nécessairement dans l'implémentation technique des fonctionnalités, mais davantage dans la manière de les concevoir et de les intégrer correctement à l'ensemble de l'application, tout en respectant les bonnes pratiques de développement et en gardant une architecture cohérente.
+
+La gestion des erreurs a également représenté un point important. Il est essentiel de prévoir des messages explicites et de bien identifier l'origine des erreurs afin de faciliter le débogage et de permettre de corriger plus rapidement les problèmes rencontrés.
+
+Enfin, ce projet m'a permis de prendre conscience de l'importance de bien définir les erreurs et de gérer les dépendances entre les différents modules. À mesure que l'application gagne en complexité, les interactions entre les composants se multiplient et rendent le débogage plus difficile. Une bonne organisation du code et une gestion rigoureuse des erreurs deviennent alors indispensables.
+
+Dans l'ensemble, ce projet a été une expérience plutôt enrichissante. Il m'a permis de développer mes compétences techniques, mais aussi de mieux appréhender les enjeux liés à la conception d'une application informatique dans sa globalité. Je retiens particulièrement l'importance de la réflexion architecturale, du respect des bonnes pratiques et de la qualité des échanges entre les différentes parties d'une application.
 
 ### Hugo Lhommeau
 
