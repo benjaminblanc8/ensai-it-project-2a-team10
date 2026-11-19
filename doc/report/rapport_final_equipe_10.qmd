@@ -47,20 +47,20 @@ format:
 
 #### Couche Objet {.unlisted}
 
-![Couche_objet](img/diagrammes_de_classe_couche_objet_V2.png){fig-align="center" width="120%"}
+![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
 
 #### Couche Controller {.unlisted}
 
-![Couche_controller](img/diagrammes_de_classe_par_couche_04-11-4 - Couche Controller.png){fig-align="center" width="120%"}
+![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="120%"}
 
 #### Couche Service {.unlisted}
 
-![Couche_Service](img/diagrammes_de_classe_par_couche_04-11-3 - Couche Service.png){fig-align="center" width="120%"}
+![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="120%"}
 
 #### Couche Dao {.unlisted}
 
 
-![Couche_Dao](img/diagrammes_de_classe_par_couche_04-11-2 - Couche DAO.png){fig-align="center" width="120%"}
+![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="120%"}
 
 ### Schéma de base de données final
 
