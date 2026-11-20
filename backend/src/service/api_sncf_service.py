@@ -157,7 +157,6 @@ class ApiSncfService:
 
         return gares
 
-
     def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
         """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas."""
         if not gare_id:
@@ -180,7 +179,7 @@ class ApiSncfService:
     def gare_existe_par_nom(self, nom_gare: str) -> bool:
         """
         Vérifie si une gare correspondant au nom existe.
-        
+
         """
 
         if not nom_gare or not nom_gare.strip():
@@ -197,10 +196,7 @@ class ApiSncfService:
     # Faisabilité et durée d'un trajet
     # ------------------------------------------------------------------ #
     def calculer_duree_trajet(
-        self,
-        gare_depart_id: str,
-        gare_arrivee_id: str,
-        date_depart: datetime
+        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
     ) -> dict | None:
         """Vérifie qu'un trajet est possible et retourne ses horaires et sa durée."""
 
@@ -223,49 +219,33 @@ class ApiSncfService:
         itineraires = [
             j
             for j in (data or {}).get("journeys", [])
-            if any(
-                s.get("type") == "public_transport"
-                for s in j.get("sections", [])
-            )
+            if any(s.get("type") == "public_transport" for s in j.get("sections", []))
         ]
 
         if not itineraires:
             return None
 
         # Sélection du trajet le plus court
-        meilleur_trajet = min(
-            itineraires,
-            key=lambda j: j["duration"]
-        )
+        meilleur_trajet = min(itineraires, key=lambda j: j["duration"])
 
         return {
             "date_depart": datetime.strptime(
-                meilleur_trajet["departure_date_time"],
-                "%Y%m%dT%H%M%S"
+                meilleur_trajet["departure_date_time"], "%Y%m%dT%H%M%S"
             ),
             "date_arrivee": datetime.strptime(
-                meilleur_trajet["arrival_date_time"],
-                "%Y%m%dT%H%M%S"
+                meilleur_trajet["arrival_date_time"], "%Y%m%dT%H%M%S"
             ),
-            "duree": timedelta(
-                seconds=meilleur_trajet["duration"]
-            )
+            "duree": timedelta(seconds=meilleur_trajet["duration"]),
         }
 
     def trajet_possible(
-        self,
-        gare_depart_id: str,
-        gare_arrivee_id: str,
-        date_depart: datetime
+        self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
     ) -> bool:
         """Indique si un trajet en train est possible."""
 
         return (
-            self.calculer_duree_trajet(
-                gare_depart_id,
-                gare_arrivee_id,
-                date_depart
-            ) is not None
+            self.calculer_duree_trajet(gare_depart_id, gare_arrivee_id, date_depart)
+            is not None
         )
 
 
@@ -280,16 +260,11 @@ if __name__ == "__main__":
     print("Gare d'arrivée :", paris)
 
     demain_8h = (datetime.now() + timedelta(days=1)).replace(
-        hour=8,
-        minute=0,
-        second=0,
-        microsecond=0
+        hour=8, minute=0, second=0, microsecond=0
     )
 
     resultat = api.calculer_duree_trajet(
-        rennes["id_gare_sncf"],
-        paris["id_gare_sncf"],
-        demain_8h
+        rennes["id_gare_sncf"], paris["id_gare_sncf"], demain_8h
     )
 
     if resultat is not None:
@@ -302,9 +277,7 @@ if __name__ == "__main__":
         print("Aucun trajet disponible.")
 
     possible = api.trajet_possible(
-        rennes["id_gare_sncf"],
-        paris["id_gare_sncf"],
-        demain_8h
+        rennes["id_gare_sncf"], paris["id_gare_sncf"], demain_8h
     )
 
     print("\nTrajet possible :", possible)

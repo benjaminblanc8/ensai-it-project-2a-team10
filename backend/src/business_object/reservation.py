@@ -7,6 +7,6 @@ class Reservation:
         self.utilisateur = utilisateur
         self.trajet = trajet
         self.id_reservation = id_reservation
- 
+
     def get_places_restantes(self):
-        return self.trajet.get_nb_places_disponibles()
+        return self.trajet.get_nb_places_disponibles

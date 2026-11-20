@@ -26,7 +26,7 @@ class UtilisateurDao:
             with self.connection.cursor() as cursor:
                 cursor.execute(
                     requete,
-                    (utilisateur.get_pseudo(), mdp_hash, utilisateur.get_niveau().name),
+                    (utilisateur.get_pseudo, mdp_hash, utilisateur.get_niveau().name),
                 )
 
                 resultat = cursor.fetchone()
