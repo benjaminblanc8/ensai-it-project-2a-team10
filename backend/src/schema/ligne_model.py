@@ -1,7 +1,7 @@
 from datetime import date
 
 from pydantic import BaseModel, Field
-from schema.gare_model import GareReadModel
+from schema.gare_model import GareModel
 
 
 class LigneModel(BaseModel):
@@ -11,8 +11,8 @@ class LigneModel(BaseModel):
 
 class LigneReadModel(BaseModel):
     id_ligne: int
-    gare_depart: GareReadModel
-    gare_arrivee: GareReadModel
+    gare_depart: GareModel
+    gare_arrivee: GareModel
     date_creation: date
 
 
@@ -23,8 +23,8 @@ class LigneCreateModel(BaseModel):
 
 class LigneReadUpdateModel(BaseModel):
     id_ligne: int
-    gare_depart: GareReadModel
-    gare_arrivee: GareReadModel
+    gare_depart: GareModel
+    gare_arrivee: GareModel
 
 
 class LigneUpdateModel(BaseModel):

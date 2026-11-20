@@ -193,8 +193,7 @@ def modifier_trajet(
             raise HTTPException(
                 status_code=422,
                 detail=(
-                    "Aucun itinéraire SNCF trouvé pour ces gares "
-                    "à la date demandée."
+                    "Aucun itinéraire SNCF trouvé pour ces gares à la date demandée."
                 ),
             )
 
