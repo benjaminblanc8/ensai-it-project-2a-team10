@@ -48,6 +48,13 @@ def ajouter_gare(
                 detail=f"Aucune gare trouvée avec le nom exact : {informations.nom}",
             )
 
+    for gare_existante in service.recherche_gare_par_nom(informations.nom):
+        if gare_existante.nom == informations.nom:
+            raise HTTPException(
+                status_code=404,
+                detail=f"La gare {informations.nom} existe déjà dans la base de donnée.",
+            )
+
     gare = Gare(
         id_gare=None,
         nom=informations.nom,
