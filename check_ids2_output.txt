@@ -1,0 +1,18 @@
+=== Recherche des gares par nom ===
+OK   Paris Gare de Lyon             => stop_area:SNCF:87686006
+OK   Lyon Part-Dieu                 => stop_area:SNCF:87723197
+OK   Marseille Saint-Charles        => stop_area:SNCF:87751008
+OK   Bordeaux Saint-Jean            => stop_area:SNCF:87581009
+OK   Strasbourg                     => stop_area:SNCF:87212027
+
+=== Verification des trajets (hiver 2026-2027) ===
+FAIL     Paris Gare de Lyon -> Lyon Part-Dieu le 2027-01-15 08:00 => HTTP 404 {"error":{"id":"date_out_of_bounds","message":"date is not in data production period"},"feed_publishers":[],"links":[],"
+FAIL     Paris Gare de Lyon -> Marseille Saint-Charles le 2027-01-16 07:45 => HTTP 404 {"error":{"id":"date_out_of_bounds","message":"date is not in data production period"},"feed_publishers":[],"links":[],"
+FAIL     Lyon Part-Dieu -> Strasbourg le 2027-01-16 10:15 => HTTP 404 {"error":{"id":"date_out_of_bounds","message":"date is not in data production period"},"feed_publishers":[],"links":[],"
+
+=== IDs a utiliser dans init_db.sql ===
+  'Paris Gare de Lyon',  'stop_area:SNCF:87686006'
+  'Lyon Part-Dieu',  'stop_area:SNCF:87723197'
+  'Marseille Saint-Charles',  'stop_area:SNCF:87751008'
+  'Bordeaux Saint-Jean',  'stop_area:SNCF:87581009'
+  'Strasbourg',  'stop_area:SNCF:87212027'

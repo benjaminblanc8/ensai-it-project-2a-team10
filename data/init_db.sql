@@ -50,11 +50,11 @@ CREATE TABLE IF NOT EXISTS Reservation (
 
 -- Gares (id_gare_sncf : identifiants Navitia/SNCF réels)
 INSERT INTO Gare (nom, ville, id_gare_sncf) VALUES
-    ('Paris Gare de Lyon',    'Paris',    'stop_area:SNCF:87471003'),
-    ('Lyon Part-Dieu',        'Lyon',     'stop_area:SNCF:87672241'),
-    ('Marseille Saint-Charles','Marseille','stop_area:SNCF:87879058'),
-    ('Bordeaux Saint-Jean',   'Bordeaux', 'stop_area:SNCF:87204196'),
-    ('Strasbourg',            'Strasbourg','stop_area:SNCF:87603042')
+    ('Paris Gare de Lyon',    'Paris',    'stop_area:SNCF:87686006'),
+    ('Lyon Part-Dieu',        'Lyon',     'stop_area:SNCF:87723197'),
+    ('Marseille Saint-Charles','Marseille','stop_area:SNCF:87751008'),
+    ('Bordeaux Saint-Jean',   'Bordeaux', 'stop_area:SNCF:87581009'),
+    ('Strasbourg',            'Strasbourg','stop_area:SNCF:87212027')
 ON CONFLICT DO NOTHING;
 
 -- Utilisateurs
@@ -77,12 +77,12 @@ INSERT INTO Ligne (id_gare_depart, id_gare_arrivee, date_creation) VALUES
     (2, 5, CURRENT_DATE)
 ON CONFLICT DO NOTHING;
 
--- Trajets
+-- Trajets (dates vérifiées auprès de l'API SNCF, dans la fenêtre Navitia)
 INSERT INTO Trajet (id_ligne, date_heure_depart, duree_minutes, nb_places, tarif, places_reservees) VALUES
-    (1, '2026-01-15 08:00:00', 155, 20, 39.50, 0),
-    (1, '2026-01-15 14:30:00', 155, 20, 42.00, 0),
-    (2, '2026-01-16 07:45:00', 300, 15, 55.90, 0),
-    (3, '2026-01-16 10:15:00', 190, 18, 32.00, 0)
+    (1, '2026-12-15 08:00:00', 116, 20, 39.50, 0),
+    (1, '2026-12-15 14:30:00', 116, 20, 42.00, 0),
+    (2, '2026-12-16 07:45:00', 184, 15, 55.90, 0),
+    (3, '2026-12-16 10:15:00', 321, 18, 32.00, 0)
 ON CONFLICT DO NOTHING;
 
 -- Réservations (client réserve le trajet 1, collab réserve le trajet 3)
