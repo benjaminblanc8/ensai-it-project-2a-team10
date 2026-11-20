@@ -45,7 +45,21 @@ format:
 
 ### Diagramme de classes final
 
-#### Couche Objet {.unlisted}
+La conception de notre projet est passée par la réalisation d'un diagramme de classes, nous permettant d'obtenir une vision d'ensemble des classes que nous souhaitions programmer et des relations entre celle-ci. Notre diagramme de classes se décompose en 4 couches : 
+
+- *Couche Objet* : Cette couche comprend toutes les classes élémentaires de notre objet. Il s'agit des différents objets que nous manipulerons dans les autres couches du projet.
+
+- *Couche Controller* : Cette couche fait l'intermédiaire entre l'interface et la couche service. Elle a pour but de d'amener les requêtes des utilisateurs vers les bons services. Il s'agit de plus de la classe qui sert à construire le Swagger de notre application.
+
+- *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appelle à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
+
+- *Couche Dao* : Comme expliqué précedemment, cette classe reprend notamment les méthodes de la couche Service en allant chercher les données nécessaires.
+
+Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
+
+- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, tout modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mock).
+
+- Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
 
 ![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
 
