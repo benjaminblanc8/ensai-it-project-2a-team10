@@ -31,12 +31,28 @@ def ajouter_gare(
     """Ajoute une gare."""
     logger.info("Ajout d'une gare")
 
+    gares = get_api_sncf_service().obtenir_arrets_par_nom(informations.nom)
+
+    gare_trouvee = next(
+            (
+                gare for gare in gares
+                if gare["nom"].strip().casefold()
+                == informations.nom.strip().casefold()
+            ),
+            None,
+        )
+
+    if not gare_trouvee:
+        raise HTTPException(
+                status_code=404,
+                detail=f"Aucune gare trouvée avec le nom exact : {informations.nom}",
+            )
+
     gare = Gare(
         id_gare=None,
         nom=informations.nom,
         ville=informations.ville,
-        # id_gare_sncf=informations.id_gare_sncf,
-        id_gare_sncf=informations.id_gare_sncf,
+        id_gare_sncf=gare_trouvee["id_gare_sncf"],
     )
 
     return service.ajout_gare(gare)
