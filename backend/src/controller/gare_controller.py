@@ -1,7 +1,7 @@
 from business_object.gare import Gare
 from business_object.niveau_habilitation import NiveauHabilitation
 from fastapi import APIRouter, Depends, HTTPException
-from schema.gare_model import GareModel
+from schema.gare_model import GareModel, GareReadModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
@@ -22,7 +22,7 @@ def get_api_sncf_service():
     return ApiSncfService()
 
 
-@router.post("/", response_model=GareModel, tags=["Gares"])
+@router.post("/", response_model=GareReadModel, tags=["Gares"])
 def ajouter_gare(
     informations: GareModel,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
