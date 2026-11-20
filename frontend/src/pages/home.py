@@ -1,84 +1,61 @@
-"""
-Streamlit home page.
-
-Provides options to log in, sign up for a new account, or reset the database.
-
-Endpoints used:
-    POST /login
-    GET /reset_database
-"""
-
 import streamlit as st
-from streamlit import config
 from utils.api_client import api_client
-from utils.log_init import get_page_logger
+from utils.helpers import afficher_resultat, message_erreur
+from utils.page_setup import setup_page
 
-if "client" in st.session_state:
-    st.switch_page("pages/client_menu.py")
+logger = setup_page("home", "Connexion", public=True)
 
-st.set_page_config(page_title="Coin flip game", page_icon="🪙", layout="centered")
+st.title("🚆 Billets de train")
+st.write("Recherche un trajet, réserve ta place et gère tes réservations.")
 
-st.markdown(
-    f"""
-    <div style="text-align:center">
-        <h1 style="color:{config.get_option("theme.primaryColor")}">Coin flip game</h1>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-logger = get_page_logger("home")
+tab_login, tab_signup = st.tabs(["Se connecter", "Créer un compte"])
 
-username = st.text_input("Username", placeholder="Enter username")
-password = st.text_input("Password", type="password", placeholder="Enter password")
+with tab_login:
+    with st.form("login"):
+        pseudo = st.text_input("Pseudo")
+        mdp = st.text_input("Mot de passe", type="password")
+        envoyer = st.form_submit_button("Se connecter")
 
-with st.container(horizontal_alignment="center"):
-    if st.button("Log in"):
-        logger.info(f"Attempting login for user: {username}")
+    if envoyer:
+        # OAuth2PasswordRequestForm attend des données de formulaire (pas du JSON)
+        res = api_client.post("/connexion/", data={"username": pseudo, "password": mdp})
 
-        try:
-            response = api_client.post(
-                "/login", json={"username": username, "password": password}
-            )
+        if res["status_code"] != 200:
+            st.error(message_erreur(res))
+        else:
+            data = res["data"]
+            token = data.get("access_token") if isinstance(data, dict) else data
+            if not token:
+                st.error(f"Réponse inattendue du serveur : {data}")
+                st.stop()
 
-            if response:
-                status_code = response.get("status_code")
-                data = response.get("data")
+            st.session_state["access_token"] = token
+            st.session_state["pseudo"] = pseudo
 
-                if status_code == 200:
-                    logger.info(f"User {username} successfully logged in.")
-                    player = data
-                    st.session_state["player"] = player
-                    st.session_state["access_token"] = player["access_token"]
-                    st.success(f"Welcome {player['username']} ! 🎉")
-                    st.switch_page("pages/player_menu.py")
-                elif status_code == 401:
-                    logger.warning(
-                        f"Login failed: 401 Unauthorized for user {username}."
-                    )
-                    st.error("Invalid credentials")
-                else:
-                    logger.error(f"Login failed: Status {status_code}, Data: {data}")
-                    st.error("Server error, see logs.")
+            # Récupère le rôle (endpoint GET /utilisateurs/me à ajouter au backend)
+            me = api_client.get("/utilisateurs/me")
+            if me["status_code"] == 200:
+                st.session_state["pseudo"] = me["data"].get("pseudo", pseudo)
+                st.session_state["niveau"] = str(
+                    me["data"].get("niveau", "CLIENT")
+                ).upper()
             else:
-                logger.error("API returned None or empty response")
-                st.error("No response from server.")
+                st.session_state["niveau"] = "CLIENT"
+                logger.warning(
+                    "GET /utilisateurs/me indisponible : rôle CLIENT par défaut"
+                )
 
-        except Exception as e:
-            logger.exception(f"Critical error during API call: {str(e)}")
-            st.error(f"Connection error: {str(e)}")
+            logger.info("Connexion réussie")
+            st.switch_page("pages/menu.py")
 
-st.space("small")
+with tab_signup:
+    with st.form("signup"):
+        pseudo_new = st.text_input("Pseudo", key="signup_pseudo")
+        mdp_new = st.text_input("Mot de passe", type="password", key="signup_mdp")
+        creer = st.form_submit_button("Créer le compte")
 
-if st.button("Sign Up"):
-    st.switch_page("pages/create_player.py")
-
-if st.button("Reset Database", type="primary"):
-    logger.info("Reset the database")
-    response = api_client.get("/reset_database")
-
-    if response:
-        logger.info("Database successfully reset")
-        st.toast("Database successfully reset ✅")
-    else:
-        logger.info("Error during database reset")
-        st.toast("Error during database reset ❌")
+    if creer:
+        res = api_client.post(
+            "/utilisateurs/", json={"pseudo": pseudo_new, "mdp": mdp_new}
+        )
+        afficher_resultat(res, "Compte créé, tu peux te connecter.")
