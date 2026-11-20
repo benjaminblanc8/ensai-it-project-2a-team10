@@ -125,16 +125,16 @@ Expected response:
 |--------|----------|----------|
 | `POST` | `/utilisateur/` | Create a user account |
 | `POST` | `/connexion/` | Log in, obtain JWT token |
-
-#### `CLIENT` (level 1)
-
-| Method | Endpoint | Use Case |
-|--------|----------|----------|
 | `GET` | `/gare/id/{id_gare}` | Search station by ID |
 | `GET` | `/gare/nom_gare/{nom_gare}` | Search stations by name (SNCF) |
 | `GET` | `/ligne/{id_ligne}` | Search line by ID |
 | `GET` | `/trajet/` | Search journeys between two stations |
 | `GET` | `/trajet/{id_trajet}` | Search journey by ID |
+
+#### `CLIENT` (level 1)
+
+| Method | Endpoint | Use Case |
+|--------|----------|----------|
 | `POST` | `/reservation/` | Reserve a seat on a journey |
 | `GET` | `/reservation/mes-reservations` | List my reservations |
 | `DELETE` | `/reservation/{id_reservation}` | Cancel a reservation |
@@ -161,11 +161,12 @@ Expected response:
 
 | Level | Name | Capabilities |
 |-------|------|--------------|
-| 1 | `CLIENT` | Read access to stations, lines, journeys + manage own reservations |
+| 0 | Unauthenticated user | Public read access to stations, lines, journeys |
+| 1 | `CLIENT` |  All public operations + manage own reservations |
 | 2 | `COLLAB` | All `CLIENT` operations, **plus** write access (create/modify/delete stations, lines, journeys) |
 | 3 | `ADMIN` | All `CLIENT` + `COLLAB` operations, **plus** role management (`PUT /utilisateur/role`) |
 
-> ⚠️ All endpoints require at least `CLIENT` (level 1). Write operations (`POST`, `PUT`, `DELETE`) on gares, lignes, and trajets require at least `COLLAB` (level 2).
+> ⚠️ All nonread endpoints require at least `CLIENT` (level 1). Write operations (`POST`, `PUT`, `DELETE`) on gares, lignes, and trajets require at least `COLLAB` (level 2).
 
 ### Creating an Account
 
@@ -247,6 +248,7 @@ If the token is missing, invalid, or expired, a `401` error is returned.
 ```bash
 curl -X POST http://localhost:5000/gare/ \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <collab_access_token>" \
   -d '{"nom": "Paris Gare de Lyon", "ville": "Paris"}'
 ```
 
@@ -273,7 +275,8 @@ curl http://localhost:5000/gare/id/42
 **`DELETE /gare/{id_gare}`**
 
 ```bash
-curl -X DELETE http://localhost:5000/gare/42
+curl -X DELETE http://localhost:5000/gare/42 \
+  -H "Authorization: Bearer <collab_access_token>"
 ```
 
 ---
@@ -292,6 +295,7 @@ curl -X DELETE http://localhost:5000/gare/42
 ```bash
 curl -X POST http://localhost:5000/ligne/ \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <collab_access_token>" \
   -d '{"id_gare_depart": 1, "id_gare_arrivee": 5}'
 ```
 
@@ -319,7 +323,8 @@ curl http://localhost:5000/ligne/10
 **`DELETE /ligne/{id_ligne}`**
 
 ```bash
-curl -X DELETE http://localhost:5000/ligne/10
+curl -X DELETE http://localhost:5000/ligne/10 \
+  -H "Authorization: Bearer <collab_access_token>"
 ```
 
 ---
@@ -341,6 +346,7 @@ curl -X DELETE http://localhost:5000/ligne/10
 ```bash
 curl -X POST http://localhost:5000/trajet/ \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <collab_access_token>" \
   -d '{
     "nom_gare_depart": "Paris Gare de Lyon",
     "nom_gare_arrivee": "Lyon Part-Dieu",
@@ -405,6 +411,7 @@ curl http://localhost:5000/trajet/100
 ```bash
 curl -X PUT http://localhost:5000/trajet/100 \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <collab_access_token>" \
   -d '{
     "id_ligne": 10,
     "date_heure_depart": "2025-07-20T10:30:00",
@@ -421,7 +428,8 @@ curl -X PUT http://localhost:5000/trajet/100 \
 **`DELETE /trajet/{id_trajet}`**
 
 ```bash
-curl -X DELETE http://localhost:5000/trajet/100
+curl -X DELETE http://localhost:5000/trajet/100 \
+  -H "Authorization: Bearer <collab_access_token>"
 ```
 
 **Response:**
