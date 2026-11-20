@@ -57,9 +57,11 @@ La conception de notre projet est passée par la réalisation d'un diagramme de 
 
 Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
 
-- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, tout modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mock).
+- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mock).
 
 - Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
+
+#### Couche Objet
 
 ![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
 
