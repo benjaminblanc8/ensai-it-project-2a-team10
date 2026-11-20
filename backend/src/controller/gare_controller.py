@@ -24,7 +24,7 @@ def get_api_sncf_service():
 
 @router.post("/", response_model=GareReadModel, tags=["Gares"])
 def ajouter_gare(
-    informations: GareModel,
+    informations: GareReadModel,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_gare_service),  # noqa: B008
 ):
