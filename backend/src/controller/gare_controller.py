@@ -1,7 +1,7 @@
 from business_object.gare import Gare
 from business_object.niveau_habilitation import NiveauHabilitation
 from fastapi import APIRouter, Depends, HTTPException
-from schema.gare_model import GareModel, GareReadModel
+from schema.gare_model import GareModel
 from service.api_sncf_service import ApiSncfService
 from service.gare_service import GareService
 from utils.log_utils import get_logger
@@ -22,9 +22,9 @@ def get_api_sncf_service():
     return ApiSncfService()
 
 
-@router.post("/", response_model=GareReadModel, tags=["Gares"])
+@router.post("/", response_model=GareModel, tags=["Gares"])
 def ajouter_gare(
-    informations: GareReadModel,
+    informations: GareModel,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_gare_service),  # noqa: B008
 ):
@@ -42,7 +42,7 @@ def ajouter_gare(
     return service.ajout_gare(gare)
 
 
-@router.get("/id/{id_gare}", response_model=GareReadModel, tags=["Gares"])
+@router.get("/id/{id_gare}", response_model=GareModel, tags=["Gares"])
 def rechercher_gare_par_id(
     id_gare: int,
     service=Depends(get_gare_service),  # noqa: B008
@@ -58,7 +58,7 @@ def rechercher_gare_par_id(
 
     return gare
 
-@router.get("/nom_gare/{nom_gare}", response_model=list[GareReadModel], tags=["Gares"])
+@router.get("/nom_gare/{nom_gare}", response_model=list[GareModel], tags=["Gares"])
 def rechercher_gare_par_nom(
     nom_gare: str,
     service=Depends(get_gare_service),  # noqa: B008
@@ -75,7 +75,7 @@ def rechercher_gare_par_nom(
     return list_gare
 
 
-@router.delete("/{id_gare}", response_model=GareReadModel, tags=["Gares"])
+@router.delete("/{id_gare}", response_model=GareModel, tags=["Gares"])
 def supprimer_gare(
     id_gare: int,
     utilisateur=Depends(require_niveau(NiveauHabilitation.COLLAB)),  # ruff: ignore[function-call-in-default-argument]

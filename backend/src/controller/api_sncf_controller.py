@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schema.gare_model import GareReadModel
+from schema.gare_model import GareModel
 from service.api_sncf_service import ApiSncfService
 from utils.log_utils import get_logger
 
@@ -13,7 +13,7 @@ def get_api_sncf_service():
     return ApiSncfService()
 
 
-@router.get("/{nom_gare}", response_model=list[GareReadModel], tags=["API SNCF"])
+@router.get("/{nom_gare}", response_model=list[GareModel], tags=["API SNCF"])
 def rechercher_gare_par_nom(
     nom_gare: str,
     service=Depends(get_api_sncf_service),  # noqa: B008
