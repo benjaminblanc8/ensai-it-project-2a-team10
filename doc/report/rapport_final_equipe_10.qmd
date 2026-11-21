@@ -139,7 +139,7 @@ Dans le cadre du développement de notre application de gestion de trajets ferro
 
 - **L'API SNCF pour l'exploitation des données ferroviaires :** Afin de disposer d'informations relatives au réseau ferroviaire français, nous avons aussi utilisé l'API SNCF. Celle-ci permet d'accéder à des données externes concernant notamment les gares et les déplacements ferroviaires. Dans notre application, elle est notamment utilisée pour récupérer des informations permettant de déterminer la durée des trajets entre différentes gares. Son intégration nous évite de devoir constituer manuellement l'ensemble de ces données et permet de nous appuyer sur une source spécialisée.
 
-- **JWT pour l'authentification et la gestion des accès :** Les JSON Web Tokens (JWT) constituent un mécanisme d'authentification reposant sur l'utilisation de jetons signés. Lorsqu'un utilisateur s'authentifie, un jeton peut lui être attribué afin de vérifier son identité lors des requêtes suivantes. Dans notre projet, ce système permet de sécuriser l'accès aux différentes fonctionnalités de l'API. Il est associé à une gestion des autorisations distinguant trois catégories d'utilisateurs : **CLIENT, COLLABORATEUR et ADMIN**. Chaque rôle dispose de permissions spécifiques, permettant notamment de restreindre certaines opérations de gestion aux utilisateurs habilités.
+- **JWT pour l'authentification et la gestion des accès :** Les JSON Web Tokens (JWT) constituent un mécanisme d'authentification reposant sur l'utilisation de jetons signés. Lorsqu'un utilisateur s'authentifie, un jeton peut lui être attribué afin de vérifier son identité lors des requêtes suivantes. Dans notre projet, ce système permet de sécuriser l'accès aux différentes fonctionnalités de l'API. Il est associé à une gestion des autorisations distinguant trois catégories d'utilisateurs : **CLIENT, COLLAB et ADMIN**. Chaque rôle dispose de permissions spécifiques, permettant notamment de restreindre certaines opérations de gestion aux utilisateurs habilités.
 
 Ainsi, l'association de FastAPI, PostgreSQL, de l'API SNCF et des JWT permet de construire une application structurée, sécurisée et adaptée aux besoins de notre projet. Ces technologies répondent à des objectifs complémentaires : faciliter le développement de l'API, assurer la fiabilité du stockage des données, exploiter des informations ferroviaires externes et contrôler l'accès aux différentes fonctionnalités selon le profil de l'utilisateur.
 
@@ -214,21 +214,21 @@ Si le jeton est absent, invalide ou expiré, l'application renvoie une erreur HT
 
 Une fois les autorisations vérifiées, le Controller chargé des trajets récupère les informations renseignées par le collaborateur : le nom de la gare de départ, le nom de la gare d'arrivée, la date et l'heure de départ, le nombre de places et le tarif.
 
-Ces données sont validées à l'aide des modèles Pydantic définis dans les fichiers Python du dossier `schema/`. Le Controller transmet ensuite la demande au fichier du dossier `service/` responsable de la gestion des trajets.
+Ces données sont validées à l'aide des modèles Pydantic définis dans les fichiers Python du dossier `schema/`. Le Controller sollicite ensuite les opérations d'accès aux données de la couche `dao/` afin de rechercher dans PostgreSQL une ligne ferroviaire reliant les deux gares indiquées.
 
-Ce Service sollicite les opérations d'accès aux données de la couche `dao/` afin de rechercher dans PostgreSQL une ligne ferroviaire reliant les deux gares indiquées. Si cette ligne n'existe pas dans la base de données de l'application, une erreur HTTP 404 est renvoyée à l'utilisateur.
+Si cette ligne n'existe pas dans la base de données de l'application, une erreur HTTP 404 est renvoyée à l'utilisateur.
 
 **Récupération de la durée auprès de l'API SNCF**
 
 Lorsque la ligne existe, le traitement se poursuit par la détermination de la durée du trajet. Celle-ci n'est pas saisie manuellement par le collaborateur : elle est récupérée automatiquement grâce à l'API SNCF.
 
-Le Service chargé des trajets fait intervenir le module Python responsable des communications avec cette API externe, en lui transmettant les informations nécessaires à la recherche d'un itinéraire, notamment les gares concernées et l'horaire de départ.
+Le Controller instancie directement `ApiSncfService()` et appelle `calculer_duree_trajet()`, en lui transmettant les informations nécessaires à la recherche d'un itinéraire, notamment les gares concernées et l'horaire de départ.
 
 Si l'API SNCF ne permet pas de trouver un itinéraire correspondant, l'application renvoie une erreur HTTP 422. Dans le cas contraire, la durée obtenue est utilisée pour compléter les informations du trajet.
 
 **Création et enregistrement du trajet**
 
-Une fois les différentes vérifications effectuées, le Service prépare les données du nouveau trajet, représentées par les objets métiers définis dans le dossier `business_object/`.
+Une fois la durée obtenue, le Controller transmet l'ensemble des données au fichier du dossier `service/` responsable de la gestion des trajets. Le Service construit alors l'objet métier du nouveau trajet, défini dans le dossier `business_object/`.
 
 Il sollicite ensuite le fichier Python du dossier `dao/` responsable des trajets, afin d'enregistrer le nouvel objet dans PostgreSQL. Le trajet est associé à la ligne ferroviaire identifiée précédemment et contient notamment sa date de départ, sa durée, son tarif et son nombre total de places. Le nombre de places réservées est initialisé à zéro.
 
@@ -240,7 +240,7 @@ Après l'insertion du trajet dans PostgreSQL, le DAO transmet le résultat au Se
 
 L'utilisateur reçoit alors les informations du trajet créé, notamment son identifiant, sa ligne ferroviaire, son horaire de départ, sa durée, son tarif et le nombre de places disponibles.
 
-Cette fonctionnalité illustre ainsi la circulation des informations entre les différentes couches de notre application : le Controller gère les requêtes HTTP, les modules de sécurité contrôlent les accès, le Service coordonne les traitements métiers, les DAO assurent les échanges avec PostgreSQL et l'API SNCF fournit les informations ferroviaires nécessaires. créées.
+Cette fonctionnalité illustre ainsi la circulation des informations entre les différentes couches de notre application : le Controller gère les requêtes HTTP, interroge directement l'API SNCF et les DAO, les modules de sécurité contrôlent les accès, et le Service coordonne la construction de l'objet métier et son enregistrement via le DAO.
 
 
 {{< pagebreak >}}
@@ -255,68 +255,73 @@ Cette fonctionnalité permet de créer un compte, de s'authentifier et de gérer
 
 - La création d'un compte (pseudo + mot de passe) attribue automatiquement le niveau **CLIENT**.
 - Les mots de passe sont hachés (argon2) et jamais stockés en clair.
-- Trois niveaux d'habilitation existent :
+- Trois niveaux d'habilitation existent, du moins élevé au plus élevé :
   - **CLIENT** : recherche de trajets, réservation.
-  - **COLLABORATEUR** : gestion des gares, lignes et trajets.
+  - **COLLAB** : gestion des gares, lignes et trajets.
   - **ADMIN** : modification des habilitations des utilisateurs.
+- Les niveaux sont cumulatifs : un COLLAB dispose également des droits CLIENT, et un ADMIN dispose des droits COLLAB et CLIENT. La vérification porte sur un niveau minimal requis, non sur un rôle exact.
 - Seul un ADMIN peut modifier le niveau d'un autre utilisateur ; un ADMIN ne peut pas modifier le niveau d'un autre ADMIN.
 
 
 #### Guide d'usage {.unlisted}
 
 - **Créer un compte** : `POST /inscription/` avec un pseudo et un mot de passe. Le compte est créé avec le niveau CLIENT.
-- **Se connecter** : `POST /connexion/` avec pseudo et mot de passe. Un JWT valable 7 jours est retourné, à transmettre dans l'en-tête `Authorization` des requêtes suivantes.
+- **Se connecter** : `POST /connexion/` avec pseudo et mot de passe. Un JWT valable 7 jours est retourné, à transmettre dans l'en-tête `Authorization` des requêtes suivantes. Le token contient l'identifiant de l'utilisateur ainsi qu'une date d'expiration. Lorsqu'une requête protégée est reçue, le serveur vérifie la validité du jeton, puis retrouve le compte correspondant dans la base de données afin de déterminer son niveau d'habilitation et les autorisations associées.
 - **Modifier une habilitation** (ADMIN uniquement) : `PUT /utilisateur/{id}/niveau` pour changer le niveau d'un utilisateur non-ADMIN.
 
-*Exemple* : Alice crée un compte (niveau CLIENT). Un admin lui attribue le niveau COLLABORATEUR via l'endpoint de modification d'habilitation.
+*Exemple* : Alice crée un compte (niveau CLIENT). Un admin lui attribue le niveau COLLAB via l'endpoint de modification d'habilitation.
 
 ### Gestion des lignes d'exploitation
 
 #### Description {.unlisted}
 
-Cette fonctionnalité permet aux utilisateurs COLLABORATEUR et ADMIN de créer, modifier et supprimer des lignes reliant une gare de départ à une gare de terminus. La consultation par identifiant est accessible sans authentification.
+Cette fonctionnalité permet aux utilisateurs COLLAB et ADMIN de créer, modifier et supprimer des lignes reliant une gare de départ à une gare de terminus. La consultation par identifiant est accessible sans authentification.
 
-Les gares sont validées via l'API SNCF (autocomplétion) pour garantir qu'elles existent réellement. Règles de gestion :
+Les gares sont identifiées par leurs identifiants SNCF, ce qui est plus robuste que la seule utilisation de leurs noms. Un endpoint dédié (`GET /api_sncf/{nom_gare}`) permet de rechercher des gares par nom partiel et d'obtenir leur identifiant SNCF correspondant. Règles de gestion :
 
-- Les deux gares doivent être différentes et correspondre à des gares SNCF valides.
-- La suppression d'une ligne est bloquée si des trajets y sont associés.
+- La création d'une ligne vérifie que les deux gares existent (via l'API SNCF) et qu'elles sont différentes.
+- Une vérification empêche de créer deux fois la même liaison dans le même sens.
+- La suppression d'une ligne est empêchée lorsqu'elle est encore référencée par des trajets, grâce à la contrainte de clé étrangère en base de données.
 
 #### Guide d'usage {.unlisted}
 
 - **Consulter les lignes** : `GET /ligne/` (liste) ou `GET /ligne/{id}` (détail, sans authentification).
-- **Créer une ligne** (COLLABORATEUR) : `POST /ligne/` avec les gares de départ et de terminus validées par l'API SNCF.
-- **Modifier une ligne** (COLLABORATEUR) : `PUT /ligne/{id}` pour changer la gare de départ, la gare de terminus ou les deux.
-- **Supprimer une ligne** (COLLABORATEUR) : `DELETE /ligne/{id}` — refusée si des trajets y sont associés.
+- **Créer une ligne** (COLLAB) : `POST /ligne/` avec les gares de départ et de terminus validées par l'API SNCF.
+- **Modifier une ligne** (COLLAB) : `PUT /ligne/{id}` pour changer la gare de départ, la gare de terminus ou les deux.
+- **Supprimer une ligne** (COLLAB) : `DELETE /ligne/{id}` — refusée si des trajets y sont associés.
 
-*Exemple* : Un collaborateur crée la ligne Rennes → Paris en sélectionnant les deux gares via l'autocomplétion SNCF. La ligne est enregistrée et apparaît dans la liste.
+*Exemple* : Un collaborateur crée la ligne Rennes → Paris en saisissant les noms des deux gares, validées par l'API SNCF. La ligne est enregistrée et apparaît dans la liste.
 
 ### Gestion des trajets proposés
 
 #### Description {.unlisted}
 
-Cette fonctionnalité permet aux utilisateurs COLLABORATEUR et ADMIN de créer, modifier et supprimer des trajets associés à une ligne existante. La consultation est accessible sans authentification.
+Cette fonctionnalité permet aux utilisateurs COLLAB et ADMIN de créer, modifier et supprimer des trajets associés à une ligne existante. La consultation est accessible sans authentification.
 
-Un trajet est caractérisé par : la ligne d'exploitation, la date et l'heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement via l'API SNCF.
+Un trajet est caractérisé par : la ligne d'exploitation, la date et l'heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement via l'API SNCF : le plus court des itinéraires retournés est sélectionné, puis sa durée est convertie en minutes avec un arrondi supérieur. Le trajet enregistré conserve l'horaire demandé par le collaborateur, sans reprendre nécessairement l'horaire de départ de l'itinéraire sélectionné par l'API SNCF.
 
 Règles de gestion :
 
 - La ligne doit exister et l'API SNCF doit confirmer la faisabilité du trajet.
 - Le nombre de places doit être strictement supérieur à zéro ; le tarif doit être positif ou nul.
+- La modification d'un trajet ne provoque un nouvel appel à l'API SNCF que si la date de départ ou la ligne est modifiée ; les autres modifications conservent la durée précédemment enregistrée.
 
 
 #### Guide d'usage {.unlisted}
 
 - **Consulter les trajets** : `GET /trajet/` (liste) ou recherche entre deux gares, sans authentification.
-- **Créer un trajet** (COLLABORATEUR) : `POST /trajet/` avec la ligne, la date/heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement.
-- **Modifier un trajet** (COLLABORATEUR) : `PUT /trajet/{id}`.
-- **Supprimer un trajet** (COLLABORATEUR) : `DELETE /trajet/{id}`.
+- **Créer un trajet** (COLLAB) : `POST /trajet/` avec la ligne, la date/heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement.
+- **Modifier un trajet** (COLLAB) : `PUT /trajet/{id}`.
+- **Supprimer un trajet** (COLLAB) : `DELETE /trajet/{id}`.
 
-*Exemple* : Un collaborateur crée un trajet sur la ligne Rennes → Paris, au départ à 8h30, 80 places, tarif 35 €. L'API SNCF confirme la faisabilité et retourne une durée de 3h35. Le trajet est enregistré.
+*Exemple* : Un COLLAB crée un trajet sur la ligne Rennes → Paris, au départ à 8h30, 80 places, tarif 35 €. L'API SNCF confirme la faisabilité et retourne une durée de 3h35. Le trajet est enregistré.
 
 ### Recherche d'un trajet
 
 #### Description {.unlisted}
-Cette fonctionnalité permet à tout utilisateur, sans authentification, de rechercher les trajets proposés entre deux gares. Les gares sont validées via l'API SNCF (autocomplétion) et doivent être différentes.
+Cette fonctionnalité est accessible publiquement, sans authentification, et permet de rechercher les trajets proposés entre deux gares. Les gares sont validées via l'API SNCF et doivent être différentes.
+
+Les résultats correspondent aux trajets enregistrés dans la base de données pour une liaison existante dans le sens demandé ; il ne s'agit pas d'une recherche de tous les itinéraires possibles sur le réseau SNCF.
 
 La réponse renvoie pour chaque trajet trouvé : les gares de départ et d'arrivée, la date et l'heure de départ, et la durée du trajet. Un message est affiché si aucun résultat ne correspond.
 
@@ -349,11 +354,9 @@ Règles de gestion :
 
 {{< pagebreak >}}
 
-## Tests
+## Tests unitaires
 
-### Tests unitaires
-
-#### Méthodologie et architecture de test
+### Méthodologie et architecture de test
 
 Dans le cadre de la phase de réalisation du projet **Trajecto**, la mise en place d'une suite de tests automatisés a permis de sécuriser la logique applicative et de prévenir les régressions au fil des développements. Les tests unitaires ont été écrits avec **`pytest`** et organisés dans le répertoire `backend/tests/` (`tests_business_object/` et `tests_service/`), en cohérence avec notre architecture en couches (`business_object`, `dao`, `service`, `controller`).
 
@@ -363,18 +366,18 @@ L'objectif de cette démarche est de valider chaque composant de façon isolée,
 - **Substitution ponctuelle (`monkeypatch`)** : surcharge temporaire de méthodes de classes ou de fonctions de modules durant l'exécution d'un test (notamment `GareService.recherche_gare` ou `TrajetDao.creer_trajet`), afin de préserver l'indépendance entre les scénarios.
 - **Neutralisation de l'environnement d'exécution** : remplacement de `DBConnection` par un mock et définition de variables d'environnement factices (`SNCF_API_KEY`, `JWT_SECRET_KEY`) lors de l'initialisation des fichiers de test.
 
-#### Couverture fonctionnelle et cas vérifiés
+### Couverture fonctionnelle et cas vérifiés
 
 La campagne de tests couvre à la fois les **cas nominaux** (comportement attendu en situation normale) et les **cas d'erreur ou cas limites** (données invalides, ressources absentes, conflits métier, défauts d'autorisation ou échecs de persistance).
 
-##### Objets métiers
+#### Objets métiers {.unlisted}
 
 Les tests de la couche `business_object` vérifient les règles internes et les calculs propres aux entités du domaine :
 
 - **`Trajet`** : validation du calcul des places disponibles (`get_nb_places_disponibles` et `places_restantes()`), du décompte des places réservées, de la lecture du tarif, de l'identification des gares de départ et d'arrivée (`depart_arrivee()`), de l'état complet (`est_complet()`) ainsi que du calcul de l'heure d'arrivée (`heure_arrivee()`), y compris le cas limite d'une durée nulle (`0` minute) renvoyant `None`.
 - **`Utilisateur`** : contrôle de l'instanciation et des accesseurs (`id_utilisateur`, `pseudo`, `niveau`), de la vérification des niveaux d'habilitation (`CLIENT`, `COLLAB`, `ADMIN`) et de la validation des mots de passe hachés via **`argon2`** (acceptation d'un mot de passe valide et rejet d'un mot de passe incorrect).
 
-##### Services métiers
+#### Services métiers {.unlisted}
 
 Les tests de la couche `service` vérifient l'enchaînement des règles de gestion, la cohérence des appels vers la couche DAO et la levée des exceptions appropriées (`HTTPException` ou exceptions standards Python telles que `ValueError`, `LookupError`, `PermissionError` et `RuntimeError`) :
 
@@ -388,7 +391,7 @@ Les tests de la couche `service` vérifient l'enchaînement des règles de gesti
 
 Cette suite de tests unitaires apporte une garantie solide sur les règles métiers structurantes de **Trajecto** (gestion des capacités, contrôle des habilitations, validation des entrées et remontée des erreurs) et facilite la maintenance de l'application.
 
-Des axes d'amélioration restent identifiés pour compléter cette validation : élargir la couverture des cas d'erreur sur `TrajetService` et des cas nominaux de `ReservationService`, uniformiser l'usage de `monkeypatch` sur l'ensemble des mocks de classes DAO
+Des axes d'amélioration restent identifiés pour compléter cette validation : élargir la couverture des cas d'erreur sur `TrajetService` et des cas nominaux de `ReservationService`, uniformiser l'usage de `monkeypatch` sur l'ensemble des mocks de classes DAO. Cela dit, la couverture actuelle couvre les cas les plus risqués et s'est donc montrée safisfaisante à nos yeux pour un projet à cette échelle.
 
 {{< pagebreak >}}
 
