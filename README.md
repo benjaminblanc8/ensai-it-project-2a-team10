@@ -563,6 +563,8 @@ curl -X PUT http://localhost:5000/utilisateur/role \
 ```
 
 > 🔒 This endpoint is restricted: only a user with `ADMIN` level can perform a role change. Otherwise a `403` error is returned.
+> 
+> 🔒 No **admin** is allowed to demote another **admin**’s role.
 
 ---
 
