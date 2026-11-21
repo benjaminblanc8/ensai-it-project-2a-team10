@@ -474,9 +474,46 @@ En revanche, si aucun trajet ne correspond à la recherche, un message informe l
 
 ### Tests unitaires
 
+#### Méthodologie et architecture de test
+
+Dans le cadre de la phase de réalisation du projet **Trajecto**, la mise en place d'une suite de tests automatisés a permis de sécuriser la logique applicative et de prévenir les régressions au fil des développements. Les tests unitaires ont été écrits avec **`pytest`** et organisés dans le répertoire `backend/tests/` (`tests_business_object/` et `tests_service/`), en cohérence avec notre architecture en couches (`business_object`, `dao`, `service`, `controller`).
+
+L'objectif de cette démarche est de valider chaque composant de façon isolée, rapide et reproductible, sans dépendre d'une instance active de PostgreSQL, d'un appel réseau vers l'API Navitia de la SNCF ou d'une configuration sensible de production. Pour y parvenir, nous avons mobilisé plusieurs mécanismes d'isolation :
+
+- **Simulation des dépendances (`MagicMock`)** : remplacement des méthodes d'accès aux données (`creer_gare`, `recherche_trajet`, `supprimer_reservation`, etc.), des appels externes (`api_sncf_service`) et des objets associés afin de maîtriser les valeurs retournées et de vérifier rigoureusement les interactions (appels attendus ou absence d'appel lors d'un échec via `assert_not_called()`).
+- **Substitution ponctuelle (`monkeypatch`)** : surcharge temporaire de méthodes de classes ou de fonctions de modules durant l'exécution d'un test (notamment `GareService.recherche_gare` ou `TrajetDao.creer_trajet`), afin de préserver l'indépendance entre les scénarios.
+- **Neutralisation de l'environnement d'exécution** : remplacement de `DBConnection` par un mock et définition de variables d'environnement factices (`SNCF_API_KEY`, `JWT_SECRET_KEY`) lors de l'initialisation des fichiers de test.
+
+#### Couverture fonctionnelle et cas vérifiés
+
+La campagne de tests couvre à la fois les **cas nominaux** (comportement attendu en situation normale) et les **cas d'erreur ou cas limites** (données invalides, ressources absentes, conflits métier, défauts d'autorisation ou échecs de persistance).
+
+##### Objets métiers
+
+Les tests de la couche `business_object` vérifient les règles internes et les calculs propres aux entités du domaine :
+
+- **`Trajet`** : validation du calcul des places disponibles (`get_nb_places_disponibles` et `places_restantes()`), du décompte des places réservées, de la lecture du tarif, de l'identification des gares de départ et d'arrivée (`depart_arrivee()`), de l'état complet (`est_complet()`) ainsi que du calcul de l'heure d'arrivée (`heure_arrivee()`), y compris le cas limite d'une durée nulle (`0` minute) renvoyant `None`.
+- **`Utilisateur`** : contrôle de l'instanciation et des accesseurs (`id_utilisateur`, `pseudo`, `niveau`), de la vérification des niveaux d'habilitation (`CLIENT`, `COLLAB`, `ADMIN`) et de la validation des mots de passe hachés via **`argon2`** (acceptation d'un mot de passe valide et rejet d'un mot de passe incorrect).
+
+##### Services métiers
+
+Les tests de la couche `service` vérifient l'enchaînement des règles de gestion, la cohérence des appels vers la couche DAO et la levée des exceptions appropriées (`HTTPException` ou exceptions standards Python telles que `ValueError`, `LookupError`, `PermissionError` et `RuntimeError`) :
+
+- **`GareService`** : vérification de l'ajout d'une gare lorsque l'arrêt est identifié via l'API SNCF et enregistré en base, ainsi que des cas d'erreur lorsque la gare est absente côté SNCF (`404`), lorsque la création en DAO échoue (`400`) ou lorsqu'une recherche ou suppression cible un identifiant inexistant (`404`).
+- **`LigneService`** : validation de la création d'une ligne entre deux gares distinctes, de la recherche (par identifiant ou par couple de gares), de la modification et de la suppression. Les cas d'erreur couvrent l'identité des gares de départ et d'arrivée (`400`), l'existence préalable d'une ligne identique (`409`), l'échec d'insertion en DAO (`500`), l'absence de ligne lors d'une modification (`404`) ainsi que la présence de plusieurs lignes correspondantes lors d'une recherche par gares (`409`).
+- **`ReservationService`** : contrôle des prérequis et des règles d'accès lors de la création et de l'annulation d'une réservation. Sont notamment vérifiés l'absence de trajet ou de réservation (`LookupError`), l'impossibilité de réserver sur un trajet complet (`ValueError`), le refus de l'annulation d'une réservation appartenant à un autre utilisateur (`PermissionError`) et la gestion d'un échec DAO (`RuntimeError`) sans modification des compteurs de places.
+- **`TrajetService`** : vérification de la recherche et de la création d'un trajet (contrôle de l'objet retourné, de la durée et du tarif).
+- **`UtilisateurService`** : validation de la création de compte, de la connexion, de la recherche d'utilisateur et de la modification d'habilitation par un administrateur. Les cas d'erreur couvrent un pseudo vide, un mot de passe trop court ou un pseudo déjà utilisé (`ValueError`), un utilisateur inconnu ou un mot de passe erroné lors de la connexion, ainsi qu'une tentative de modification d'habilitation par un utilisateur non administrateur (`PermissionError`).
+
 ### Tests d'intégration
 
+Contrairement aux tests unitaires qui isolent chaque couche à l'aide de mocks, les tests d'intégration visent à vérifier l'interaction réelle entre plusieurs composants de l'application (endpoints FastAPI, logique métier des services, requêtes SQL via les DAO, base de données PostgreSQL et service externe SNCF).
+
 ### Résultats
+
+Cette suite de tests unitaires apporte une garantie solide sur les règles métiers structurantes de **Trajecto** (gestion des capacités, contrôle des habilitations, validation des entrées et remontée des erreurs) et facilite la maintenance de l'application.
+
+Des axes d'amélioration restent identifiés pour compléter cette validation : élargir la couverture des cas d'erreur sur `TrajetService` et des cas nominaux de `ReservationService`, uniformiser l'usage de `monkeypatch` sur l'ensemble des mocks de classes DAO
 
 {{< pagebreak >}}
 
@@ -503,6 +540,14 @@ Dans l'ensemble, ce projet a été une expérience plutôt enrichissante. Il m'a
 ### Benjamin Blanc
 
 ### Manon Duquesne
+
+Ce projet informatique a constitué une expérience formatrice, en particulier parce qu'il m'a permis d'appréhender concrètement le fonctionnement d'une application structurée en couches et la manière dont les différentes briques logicielles interagissent entre elles. En travaillant sur la mise en place de la suite de tests unitaires par exemple, j'ai dû analyser en détail les objets métiers, les services ainsi que les échanges avec la base de données et l'API externe, ce qui m'a donné une vision d'ensemble de l'application.
+
+Je comprends maintenant davantage l'intérêt concret de la séparation des responsabilités. Écrire des tests unitaires avec pytest, en isolant les dépendances grâce aux mocks et au monkeypatching, m'a montré à quel point un découpage clair entre les couches (business_object, service, dao) facilite la vérification du code. À l'inverse, lorsque des dépendances sont couplées ou que des états sont partagés, l'écriture des tests devient plus délicate et révèle des points d'amélioration possibles dans la structure du programme.
+
+Cette phase de test m'a également sensibilisée à l'importance de la rigueur sur les cas limites et les règles de gestion. Au-delà du fonctionnement nominal, il est indispensable d'anticiper les situations d'erreur, données invalides, ressources introuvables, conflits ou défauts d'habilitation, et de vérifier que les exceptions levées restent cohérentes. Adopter cette démarche m'a aidée à développer un regard plus attentif à la fiabilité et à la maintenabilité du code.
+
+Enfin, sur le plan collectif, ce projet m'a permis de travailler sur un dépôt Git partagé, de m'approprier du code écrit par d'autres membres de l'équipe et de contribuer à fiabiliser l'application avant la livraison finale. Il m'a aidée à consolider mes bases en programmation orientée objet et à mieux mesurer le rôle des tests dans la qualité d'un projet informatique.
 
 {{< pagebreak >}}
 
