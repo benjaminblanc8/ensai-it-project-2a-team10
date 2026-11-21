@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="Libertinus Serif, serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="620" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">Schéma de la base de données Trajecto</text>
+
+  <!-- ============ TABLE: Gare ============ -->
+  <g>
+    <rect x="30" y="60" width="220" height="145" rx="6" fill="#e8f4fd" stroke="#2b7bba" stroke-width="2"/>
+    <rect x="30" y="60" width="220" height="28" rx="6" fill="#2b7bba"/>
+    <rect x="30" y="78" width="220" height="10" fill="#2b7bba"/>
+    <text x="140" y="80" text-anchor="middle" fill="white" font-weight="bold" font-size="14">Gare</text>
+    <text x="45" y="108" fill="#333"><tspan font-weight="bold" fill="#c0392b">PK</tspan>  id_gare  SERIAL</text>
+    <text x="45" y="128" fill="#333">     nom  VARCHAR(255) NOT NULL</text>
+    <text x="45" y="148" fill="#333">     ville  VARCHAR(255) NOT NULL</text>
+    <text x="45" y="168" fill="#333">     id_gare_sncf  VARCHAR(255)</text>
+    <text x="45" y="195" fill="#666" font-size="11">(5 enregistrements de démonstration)</text>
+  </g>
+
+  <!-- ============ TABLE: Utilisateur ============ -->
+  <g>
+    <rect x="30" y="250" width="220" height="145" rx="6" fill="#fdf2e8" stroke="#e67e22" stroke-width="2"/>
+    <rect x="30" y="250" width="220" height="28" rx="6" fill="#e67e22"/>
+    <rect x="30" y="268" width="220" height="10" fill="#e67e22"/>
+    <text x="140" y="270" text-anchor="middle" fill="white" font-weight="bold" font-size="14">Utilisateur</text>
+    <text x="45" y="298" fill="#333"><tspan font-weight="bold" fill="#c0392b">PK</tspan>  id_utilisateur  SERIAL</text>
+    <text x="45" y="318" fill="#333">     pseudo  VARCHAR(100) UNIQUE</text>
+    <text x="45" y="338" fill="#333">     mdp  TEXT NOT NULL (argon2)</text>
+    <text x="45" y="358" fill="#333">     niveau  VARCHAR(20) DEFAULT</text>
+    <text x="45" y="378" fill="#666" font-size="11">'CLIENT' | 'COLLAB' | 'ADMIN'</text>
+  </g>
+
+  <!-- ============ TABLE: Ligne ============ -->
+  <g>
+    <rect x="340" y="60" width="250" height="145" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+    <rect x="340" y="60" width="250" height="28" rx="6" fill="#27ae60"/>
+    <rect x="340" y="78" width="250" height="10" fill="#27ae60"/>
+    <text x="465" y="80" text-anchor="middle" fill="white" font-weight="bold" font-size="14">Ligne</text>
+    <text x="355" y="108" fill="#333"><tspan font-weight="bold" fill="#c0392b">PK</tspan>  id_ligne  SERIAL</text>
+    <text x="355" y="128" fill="#333"><tspan font-weight="bold" fill="#2980b9">FK</tspan>  id_gare_depart  → Gare</text>
+    <text x="355" y="148" fill="#333"><tspan font-weight="bold" fill="#2980b9">FK</tspan>  id_gare_arrivee  → Gare</text>
+    <text x="355" y="168" fill="#333">     date_creation  DATE</text>
+    <text x="355" y="195" fill="#666" font-size="11">DEFAULT CURRENT_DATE</text>
+  </g>
+
+  <!-- ============ TABLE: Trajet ============ -->
+  <g>
+    <rect x="340" y="260" width="250" height="185" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2"/>
+    <rect x="340" y="260" width="250" height="28" rx="6" fill="#8e44ad"/>
+    <rect x="340" y="278" width="250" height="10" fill="#8e44ad"/>
+    <text x="465" y="280" text-anchor="middle" fill="white" font-weight="bold" font-size="14">Trajet</text>
+    <text x="355" y="308" fill="#333"><tspan font-weight="bold" fill="#c0392b">PK</tspan>  id_trajet  SERIAL</text>
+    <text x="355" y="328" fill="#333"><tspan font-weight="bold" fill="#2980b9">FK</tspan>  id_ligne  → Ligne</text>
+    <text x="355" y="348" fill="#333">     date_heure_depart  TIMESTAMP</text>
+    <text x="355" y="368" fill="#333">     duree_minutes  INTEGER</text>
+    <text x="355" y="388" fill="#333">     nb_places  INTEGER ≥ 0</text>
+    <text x="355" y="408" fill="#333">     tarif  NUMERIC(10,2)</text>
+    <text x="355" y="428" fill="#333">     places_reservees  INTEGER</text>
+  </g>
+
+  <!-- ============ TABLE: Reservation ============ -->
+  <g>
+    <rect x="660" y="260" width="220" height="145" rx="6" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+    <rect x="660" y="260" width="220" height="28" rx="6" fill="#e74c3c"/>
+    <rect x="660" y="278" width="220" height="10" fill="#e74c3c"/>
+    <text x="770" y="280" text-anchor="middle" fill="white" font-weight="bold" font-size="14">Reservation</text>
+    <text x="675" y="308" fill="#333"><tspan font-weight="bold" fill="#c0392b">PK</tspan>  id_reservation  SERIAL</text>
+    <text x="675" y="328" fill="#333"><tspan font-weight="bold" fill="#2980b9">FK</tspan>  id_utilisateur  → Utilisateur</text>
+    <text x="675" y="348" fill="#333"><tspan font-weight="bold" fill="#2980b9">FK</tspan>  id_trajet  → Trajet</text>
+    <text x="675" y="378" fill="#666" font-size="11">Relation n:1 avec Utilisateur</text>
+    <text x="675" y="395" fill="#666" font-size="11">Relation n:1 avec Trajet</text>
+  </g>
+
+  <!-- ============ RELATIONSHIPS ============ -->
+
+  <!-- Gare → Ligne (id_gare_depart) -->
+  <path d="M 250 110 L 340 110" stroke="#2b7bba" stroke-width="1.8" fill="none" marker-end="url(#arrow)" stroke-dasharray="6,3"/>
+  <text x="295" y="104" text-anchor="middle" font-size="11" fill="#555">1</text>
+  <text x="330" y="104" text-anchor="middle" font-size="11" fill="#555">n</text>
+
+  <!-- Gare → Ligne (id_gare_arrivee) -->
+  <path d="M 250 135 L 340 135" stroke="#2b7bba" stroke-width="1.8" fill="none" marker-end="url(#arrow)" stroke-dasharray="6,3"/>
+  <text x="295" y="129" text-anchor="middle" font-size="11" fill="#555">1</text>
+  <text x="330" y="129" text-anchor="middle" font-size="11" fill="#555">n</text>
+
+  <!-- Ligne → Trajet -->
+  <path d="M 465 205 L 465 260" stroke="#27ae60" stroke-width="1.8" fill="none" marker-end="url(#arrow)" stroke-dasharray="6,3"/>
+  <text x="480" y="238" text-anchor="middle" font-size="11" fill="#555">1</text>
+  <text x="480" y="252" text-anchor="middle" font-size="11" fill="#555">n</text>
+
+  <!-- Trajet → Reservation -->
+  <path d="M 590 340 L 660 340" stroke="#8e44ad" stroke-width="1.8" fill="none" marker-end="url(#arrow)" stroke-dasharray="6,3"/>
+  <text x="625" y="334" text-anchor="middle" font-size="11" fill="#555">1</text>
+  <text x="645" y="334" text-anchor="middle" font-size="11" fill="#555">n</text>
+
+  <!-- Utilisateur → Reservation -->
+  <path d="M 250 330 C 400 330, 500 360, 660 360" stroke="#e67e22" stroke-width="1.8" fill="none" marker-end="url(#arrow)" stroke-dasharray="6,3"/>
+  <text x="440" y="324" text-anchor="middle" font-size="11" fill="#555">1</text>
+  <text x="645" y="356" text-anchor="middle" font-size="11" fill="#555">n</text>
+
+  <!-- ============ LEGEND ============ -->
+  <g transform="translate(30, 470)">
+    <rect x="0" y="0" width="840" height="120" rx="6" fill="#f9f9f9" stroke="#ccc" stroke-width="1"/>
+    <text x="15" y="22" font-weight="bold" font-size="13" fill="#333">Légende</text>
+
+    <text x="15" y="48" fill="#c0392b" font-weight="bold">PK</text>
+    <text x="45" y="48" fill="#555">— Clé primaire</text>
+
+    <text x="15" y="68" fill="#2980b9" font-weight="bold">FK</text>
+    <text x="45" y="68" fill="#555">— Clé étrangère (→ table référencée)</text>
+
+    <line x1="280" y1="42" x2="340" y2="42" stroke="#555" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+    <text x="350" y="48" fill="#555">— Relation (1 → n)</text>
+
+    <text x="15" y="95" fill="#666" font-size="11">Couleurs : Gare = bleu, Utilisateur = orange, Ligne = vert, Trajet = violet, Reservation = rouge</text>
+  </g>
+</svg>

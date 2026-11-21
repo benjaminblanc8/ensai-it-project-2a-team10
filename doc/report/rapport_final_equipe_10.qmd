@@ -31,15 +31,56 @@ format:
 
 ## Introduction {.unnumbered}
 
-sdokfichrsvvvvvvvvfklqegsdsbyhertddv
+Dans le cadre du projet informatique de deuxième année à l'ENSAI, notre équipe a été chargée de concevoir et de développer une application de gestion de trajets ferroviaires, baptisée Trajecto. Ce projet avait pour objectif de mettre en pratique les connaissances acquises en programmation et en conception logicielle, à travers la réalisation d'une application reposant sur une architecture client-serveur et une API permettant de manipuler des données persistantes.
+
+Le développement de Trajecto répond à un besoin de mise en relation entre des trajets ferroviaires proposés par des collaborateurs et des utilisateurs souhaitant réserver une place. L'application permet ainsi de gérer les comptes utilisateurs et leurs habilitations, les gares, les lignes d'exploitation et les trajets proposés. Elle intègre également un mécanisme de réservation permettant aux clients de réserver une place sur un trajet et de consulter ou d'annuler leurs réservations.
+
+Pour répondre à ces objectifs, nous avons choisi de développer une API REST en Python à l'aide du framework FastAPI, associée à une base de données relationnelle PostgreSQL. L'application s'appuie également sur l'API SNCF afin d'exploiter des informations ferroviaires externes, notamment pour rechercher des gares et déterminer la durée estimée des trajets. Enfin, un système d'authentification fondé sur les JSON Web Tokens (JWT) permet de contrôler l'accès aux différentes fonctionnalités selon le niveau d'habilitation des utilisateurs.
+
+Au-delà de l'implémentation des fonctionnalités attendues, ce projet nous a conduits à réfléchir à l'organisation du code, à la modélisation des données et à la séparation des responsabilités entre les différentes composantes d'une application. Nous avons notamment adopté une architecture en couches distinguant les objets métiers, les contrôleurs, les services et les objets d'accès aux données, afin de faciliter la compréhension, la maintenance et l'évolution du programme.
+
+Ce rapport présente les différentes étapes et les principaux résultats de notre travail. Il expose tout d'abord l'organisation du projet et sa modélisation, puis détaille les choix techniques et l'architecture retenue. Il décrit ensuite les fonctionnalités développées et leur utilisation, avant de présenter les tests réalisés et de dresser un bilan individuel et collectif de cette expérience.
 
 {{< pagebreak >}}
 
 ## Organisation
 
+La création de l'API s'est articulée en deux phases classiques : l'analyse, qui a eu lieu en parallèle des compléments de notre formation en informatique, et le développement, plus long et autonome, qui s'est concentré sur les trois jours d'immersion proposés par le cadre de notre formation, complété par un travil régulier tout le long des mois d'octobre et novembre.  
+
+Chaque semaine ou presque, une réunion avait lieu avec l'équipe pour mettre en commun notre avancement et, surtout, lever les incertitudes qui pesaient sur nos choix d'implémentation et de solutions techniques liés au projet.
+
+Nous avons réparti les rôles de façon non stricte, principalement en fonction des appétences combinées aux prises d'initiative précoces de chaque membre du groupe, avec quelques ajustements liés aux indisponibilités ponctuelles et à la difficulté que représente la coordination de cinq personnes autour d'un même environnement de travail.
+
+Nous avons utilisé les outils idoines, liés à notre formation ENSAI, à notre disposition pour travailler : 
+
+- VScode (principalement) pour programmer en Python;
+- Postgres pour établir une connexion avec notre base de données;
+- L'API de la SNCF, Navitia, pour récupérer les données utiles à nos instances de gares, lignes et trains;
+- CloudBeaver pour manipuler et tester notre base de données de manière confortable et opérationnelle;
+- Le datalab SSPcloud, maintenu par l'INSEE, pour simplifier la gestion de nos services logiciels nécessaires au développement.
+
 ### Chronologie du projet
 
+![Planning](img/Diagramme_Gantt_Creation_de_Trajecto_corrige.png){fig-align="center" width="120%"}
+
 ### Répartition des rôles
+
+La répartition des tâches au sein de l'équipe a été volontairement souple, sans affectation rigide de chacun à un périmètre fermé. Les premières prises d'initiative, combinées aux appétences de chacun, ont naturellement fait émerger des axes de travail préférentiels : 
+
+- La coordination du groupe et l'animation des réunions ont été assurées par Jérémie; 
+- Benjamin s'est chargé de créer, maintenir et gérer la connexion à la base de données;
+- Hugo s'est attaché au diagramme de classes et la synthèse plus générales des décisions architecturales prises par le groupe; 
+- Manon a couvert, dans la phase d'analyse, les diagrammes de cas d'utilisation et d'activité;
+- Alexandre s'est penché sur la description des fonctionnalités, les classes objet et l'intégration de l'API SNCF, ainsi que sur la partie numérique de la communication de travail dans le groupe.
+
+En termes de programmation pure :
+
+- La couche de contrôle (routeurs, schémas) a été initiée par Jérémie, avant qu'il ne corrige ou améliore graduellement les détails de tout le code;
+- Benjamin a prolongé son travail de préparation et a codé la couche DAO presque en entier, et modifié lorsque c'était nécessaire les autres couches;
+- Hugo et Alexandre ont étroitement collaboré sur les couches métier et services, lesquelles ont subi de nombreuses modifications au gré des contraintes que nous avons rencontré;
+- Manon a programmé les tests unitaires et assuré le débuguage qui allait avec, donc une partie de la maintenance du code dans son ensemble.
+
+Comme on le devine à cette description a posteriori, en pratique, chacun et chacune est régulièrement intervenu(e) sur des parties du code ou de l'analyse qui n'étaient pas son axe principal, et nous avons veillé à ce que tous les membres conservent une vision d'ensemble du code et de l'analyse, ce qui a facilité la relecture croisée, la correction des incohérences et le relais en cas d'indisponibilité ponctuelle.
 
 {{< pagebreak >}}
 
@@ -81,6 +122,8 @@ Ce découpage en couches permet de respecter un principe central du développeme
 ![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="120%"}
 
 ### Schéma de base de données final
+
+![Schéma de la base de données](img/diagramme_bdd_final.svg){fig-align="center" width="120%"}
 
 {{< pagebreak >}}
 
@@ -208,265 +251,101 @@ Cette fonctionnalité illustre ainsi la circulation des informations entre les d
 
 #### Description {.unlisted}
 
-La fonctionnalité de gestion des comptes utilisateur permet à chaque utilisateur de créer son propre compte et d'accéder à l'application à l'aide de ses identifiants de connexion. Elle assure également la gestion des droits d'accès en fonction du niveau d'habilitation attribué à chaque compte.
+Cette fonctionnalité permet de créer un compte, de s'authentifier et de gérer les niveaux d'habilitation.
 
-Lors de la création d'un compte, l'utilisateur doit renseigner un nom d'utilisateur ainsi qu'un mot de passe. Une fois ces informations validées, un compte est automatiquement créé avec le niveau d'habilitation CLIENT. Chaque compte dispose d'un identifiant unique permettant de le distinguer des autres utilisateurs et de le retrouver dans la base de données.
-
-Pour garantir la sécurité des informations personnelles, les mots de passe sont stockés sous forme de données hachées et ne sont jamais enregistrés en clair dans la base de données.
-
-L'application propose trois niveaux d'habilitation :
-- CLIENT : correspond au niveau d'accès attribué par défaut lors de la création d'un compte. Il permet d'utiliser les fonctionnalités accessibles aux utilisateurs classiques.
-- COLLABORATEUR : permet d'accéder aux fonctionnalités de gestion des lignes d'exploitation, notamment leur création, leur modification et leur suppression.
-- ADMIN : dispose de droits d'administration permettant notamment de consulter les comptes utilisateurs et de modifier leur niveau d'habilitation.
-
-La gestion des habilitations est réservée aux comptes ADMIN. Depuis leur espace d'administration, ces derniers peuvent consulter la liste des utilisateurs enregistrés et modifier leur niveau d'accès. Une règle de sécurité empêche toutefois un administrateur de modifier le niveau d'habilitation d'un autre compte ADMIN. Cette restriction permet de protéger les comptes disposant des droits les plus élevés.
-
-Les utilisateurs disposant des niveaux CLIENT ou COLLABORATEUR ne peuvent pas accéder à la gestion des habilitations ni modifier les droits des autres comptes.
+- La création d'un compte (pseudo + mot de passe) attribue automatiquement le niveau **CLIENT**.
+- Les mots de passe sont hachés (argon2) et jamais stockés en clair.
+- Trois niveaux d'habilitation existent :
+  - **CLIENT** : recherche de trajets, réservation.
+  - **COLLABORATEUR** : gestion des gares, lignes et trajets.
+  - **ADMIN** : modification des habilitations des utilisateurs.
+- Seul un ADMIN peut modifier le niveau d'un autre utilisateur ; un ADMIN ne peut pas modifier le niveau d'un autre ADMIN.
 
 
 #### Guide d'usage {.unlisted}
 
-Création d'un compte
+- **Créer un compte** : `POST /inscription/` avec un pseudo et un mot de passe. Le compte est créé avec le niveau CLIENT.
+- **Se connecter** : `POST /connexion/` avec pseudo et mot de passe. Un JWT valable 7 jours est retourné, à transmettre dans l'en-tête `Authorization` des requêtes suivantes.
+- **Modifier une habilitation** (ADMIN uniquement) : `PUT /utilisateur/{id}/niveau` pour changer le niveau d'un utilisateur non-ADMIN.
 
-Pour créer un compte, l'utilisateur accède à la page d'inscription de l'application. Il renseigne les informations demandées, à savoir son nom d'utilisateur et son mot de passe, puis valide le formulaire.
-
-Après vérification des informations saisies, l'application enregistre le nouveau compte dans la base de données et lui attribue automatiquement le rôle CLIENT. Un message confirme la création du compte ou indique une erreur si l'opération n'a pas pu aboutir.
-
-Connexion à l'application
-
-Une fois son compte créé, l'utilisateur peut accéder à la page de connexion. Il saisit son nom d'utilisateur et son mot de passe, puis valide le formulaire.
-
-L'application vérifie les informations transmises en les comparant aux données enregistrées. Si les identifiants sont corrects, l'utilisateur est authentifié et peut accéder aux fonctionnalités correspondant à son niveau d'habilitation. Dans le cas contraire, un message d'erreur lui indique que les informations de connexion sont incorrectes.
-
-Lorsqu'un utilisateur se connecte à l'application, ses identifiants sont vérifiés afin de confirmer son identité. Si les informations fournies sont correctes, le serveur génère un token d'authentification (par exemple, un JWT).
-
-Ce token est ensuite transmis au client et permet d'authentifier les requêtes effectuées auprès du serveur sans avoir à saisir de nouveau les identifiants à chaque opération.
-
-Le token contient notamment des informations permettant d'identifier l'utilisateur et, selon l'implémentation retenue, son niveau d'habilitation. Il est signé par le serveur afin de garantir son intégrité et de prévenir toute modification frauduleuse de son contenu.
-
-Lorsqu'un utilisateur souhaite accéder à une fonctionnalité protégée, son token est transmis avec la requête. Le serveur vérifie sa validité avant d'autoriser l'accès à la ressource demandée.
-
-Cette vérification permet également de contrôler les droits associés au compte :
-- Un CLIENT ne peut pas accéder aux fonctionnalités réservées aux collaborateurs.
-- Un COLLABORATEUR peut gérer les lignes d'exploitation.
-- Un ADMIN peut accéder aux fonctionnalités d'administration et aux fonctionnalités autorisées aux collaborateurs.
-En cas de token invalide, expiré ou absent, l'accès à la ressource protégée est refusé et une erreur d'authentification est retournée.
-
-Gestion des habilitations par un administrateur
-
-Un utilisateur disposant du rôle ADMIN peut accéder à l'interface de gestion des comptes. Celle-ci lui permet de consulter les utilisateurs enregistrés dans l'application ainsi que leur niveau d'habilitation actuel.
-
-Pour modifier les droits d'un utilisateur, l'administrateur sélectionne le compte concerné à partir de son identifiant ou de la liste des utilisateurs. Il peut ensuite choisir un nouveau niveau d'habilitation parmi les rôles disponibles.
-
-Après validation, l'application vérifie que l'opération est autorisée. Si le compte sélectionné ne possède pas le rôle ADMIN, la modification est enregistrée et un message de confirmation est affiché. En revanche, si le compte ciblé est déjà administrateur, l'opération est refusée et un message d'erreur informe l'administrateur qu'il ne peut pas modifier les droits d'un autre ADMIN.
-
-Exemple d'utilisation
-
-Un nouvel utilisateur souhaite accéder à l'application. Il se rend sur la page d'inscription et crée un compte en renseignant le nom d'utilisateur « alice » ainsi qu'un mot de passe.
-
-Une fois le formulaire validé, son compte est enregistré dans la base de données avec le rôle CLIENT. Alice peut alors se connecter à l'application et utiliser les fonctionnalités associées à ce niveau d'accès.
-
-Par la suite, un administrateur décide de lui attribuer des droits supplémentaires afin qu'elle puisse gérer les lignes d'exploitation. Il accède à la liste des comptes, sélectionne celui d'Alice et modifie son habilitation en COLLABORATEUR.
-
-À partir de cette modification, Alice bénéficie des autorisations associées à son nouveau rôle. En revanche, si l'administrateur tente de modifier le rôle d'un autre utilisateur disposant déjà du niveau ADMIN, l'application bloque cette opération.
+*Exemple* : Alice crée un compte (niveau CLIENT). Un admin lui attribue le niveau COLLABORATEUR via l'endpoint de modification d'habilitation.
 
 ### Gestion des lignes d'exploitation
 
 #### Description {.unlisted}
 
-La fonctionnalité de gestion des lignes d'exploitation permet aux utilisateurs disposant du niveau d'habilitation COLLABORATEUR de créer, modifier et supprimer des lignes reliant deux gares ferroviaires : une gare de départ et une gare de terminus. La consultation d'une ligne par son identifiant est accessible à tout utilisateur sans authentification.
+Cette fonctionnalité permet aux utilisateurs COLLABORATEUR et ADMIN de créer, modifier et supprimer des lignes reliant une gare de départ à une gare de terminus. La consultation par identifiant est accessible sans authentification.
 
-Afin de garantir la cohérence des informations enregistrées, l'application s'appuie sur l'API SNCF pour rechercher et récupérer les gares existantes. Cette intégration permet de proposer des résultats fiables lors de la saisie des gares et d'éviter l'enregistrement de noms de gares inexistants ou incorrects.
+Les gares sont validées via l'API SNCF (autocomplétion) pour garantir qu'elles existent réellement. Règles de gestion :
 
-Lorsqu'un collaborateur souhaite créer ou modifier une ligne, il dispose de champs de recherche permettant de sélectionner les deux gares. ( Une fonctionnalité d'autocomplétion facilite cette opération : dès que l'utilisateur commence à saisir le nom d'une gare, l'application interroge l'API SNCF et affiche une liste de résultats correspondants. )
-
-Le collaborateur sélectionne alors une gare de départ et une gare de terminus parmi les propositions disponibles. Une fois les deux gares renseignées, il peut valider le formulaire afin d'enregistrer la ligne d'exploitation.
-
-Plusieurs contrôles sont effectués avant l'enregistrement :
-- La gare de départ doit correspondre à une gare existante fournie par l'API SNCF.
-- La gare de terminus doit également correspondre à une gare existante.
-- Les deux gares doivent être différentes.
-- L'utilisateur doit disposer du niveau d'habilitation COLLABORATEUR ou ADMIN si les droits d'administration incluent cette gestion.
-Ces vérifications permettent de préserver la cohérence des lignes enregistrées dans l'application.
-
-La fonctionnalité permet également de modifier une ligne existante. Le collaborateur peut alors remplacer la gare de départ, la gare de terminus ou les deux, en sélectionnant de nouvelles gares à partir des résultats proposés par l'API SNCF.
-
-Enfin, la suppression d'une ligne est possible lorsque celle-ci ne présente pas de dépendances empêchant sa suppression. En particulier, si des trajets sont déjà planifiés sur une ligne, l'application peut refuser sa suppression afin de préserver l'intégrité des données et d'éviter de rendre ces trajets incohérents.
-
-Les utilisateurs possédant uniquement le rôle CLIENT ne disposent pas des autorisations nécessaires pour effectuer ces opérations.
+- Les deux gares doivent être différentes et correspondre à des gares SNCF valides.
+- La suppression d'une ligne est bloquée si des trajets y sont associés.
 
 #### Guide d'usage {.unlisted}
 
-Consultation des lignes d'exploitation
+- **Consulter les lignes** : `GET /ligne/` (liste) ou `GET /ligne/{id}` (détail, sans authentification).
+- **Créer une ligne** (COLLABORATEUR) : `POST /ligne/` avec les gares de départ et de terminus validées par l'API SNCF.
+- **Modifier une ligne** (COLLABORATEUR) : `PUT /ligne/{id}` pour changer la gare de départ, la gare de terminus ou les deux.
+- **Supprimer une ligne** (COLLABORATEUR) : `DELETE /ligne/{id}` — refusée si des trajets y sont associés.
 
-Pour accéder à la gestion des lignes d'exploitation, l'utilisateur doit être connecté avec un compte disposant des droits nécessaires.
-
-Depuis l'interface dédiée, il peut consulter les lignes déjà enregistrées dans l'application. Chaque ligne est caractérisée par une gare de départ et une gare de terminus, permettant d'identifier facilement le trajet ferroviaire correspondant.
-
-Création d'une ligne d'exploitation
-
-Pour ajouter une nouvelle ligne, le collaborateur accède au formulaire de création.
-
-Il commence par renseigner le nom de la gare de départ dans le champ correspondant. Au fur et à mesure de sa saisie, l'application sollicite l'API SNCF afin de récupérer les gares correspondant à sa recherche. Les résultats sont ensuite affichés sous forme de propositions.
-
-Le collaborateur sélectionne la gare souhaitée, puis effectue la même opération pour la gare de terminus.
-
-Une fois les deux gares sélectionnées, il valide le formulaire. L'application vérifie alors la validité des informations et s'assure notamment que les deux gares sont différentes.
-
-Si toutes les conditions sont respectées, la nouvelle ligne est enregistrée dans la base de données et un message confirme sa création. Dans le cas contraire, l'application affiche un message d'erreur précisant que l'opération n'a pas pu être effectuée.
-
-Modification d'une ligne existante
-
-Pour modifier une ligne, le collaborateur sélectionne la ligne concernée depuis la liste des lignes d'exploitation.
-
-Un formulaire lui permet alors de retrouver les informations actuelles et de modifier les gares associées. Comme lors de la création, les champs de recherche utilisent l'autocomplétion de l'API SNCF afin de proposer uniquement des gares issues des données disponibles.
-
-Après validation, l'application effectue les mêmes contrôles que lors de la création. Si les nouvelles informations sont valides, les modifications sont enregistrées et un message de confirmation est affiché.
-
-Suppression d'une ligne
-
-Pour supprimer une ligne, le collaborateur sélectionne la ligne concernée et déclenche l'action de suppression.
-
-L'application vérifie alors si la ligne peut être supprimée sans compromettre les données associées. Si aucun trajet planifié ne dépend de cette ligne, sa suppression peut être effectuée.
-
-En revanche, si des trajets sont déjà associés à cette ligne, l'application peut bloquer l'opération et afficher un message expliquant pourquoi la suppression est impossible.
-
-Cette vérification permet d'éviter la suppression accidentelle d'une ligne encore utilisée dans l'application.
-
-Exemple d'utilisation
-
-Un collaborateur souhaite créer une nouvelle ligne d'exploitation reliant Rennes à Paris.
-
-Il accède à l'interface de gestion des lignes et ouvre le formulaire de création. Dans le champ correspondant à la gare de départ, il saisit « Rennes ». L'application interroge alors l'API SNCF et affiche les résultats correspondant à cette recherche.
-
-Le collaborateur sélectionne la gare de Rennes parmi les propositions, puis saisit « Paris » dans le champ de la gare de terminus. Il sélectionne également la gare souhaitée parmi les résultats retournés par l'API.
-
-Après avoir vérifié les informations saisies, il valide la création de la ligne.
-
-L'application vérifie que les deux gares existent et qu'elles sont différentes. Les conditions étant respectées, la ligne Rennes → Paris est enregistrée dans la base de données et apparaît dans la liste des lignes d'exploitation disponibles.
-
-Par la suite, le collaborateur peut modifier cette ligne pour changer sa gare de terminus ou la supprimer si elle n'est plus utilisée par des trajets planifiés.
+*Exemple* : Un collaborateur crée la ligne Rennes → Paris en sélectionnant les deux gares via l'autocomplétion SNCF. La ligne est enregistrée et apparaît dans la liste.
 
 ### Gestion des trajets proposés
 
 #### Description {.unlisted}
 
-La fonctionnalité de gestion des trajets proposés permet aux utilisateurs disposant du niveau d'habilitation COLLABORATEUR ou ADMIN de créer, modifier et supprimer des trajets associés à une ligne d'exploitation préalablement enregistrée dans l'application. La consultation des trajets, en revanche, est accessible à tout utilisateur sans authentification.
+Cette fonctionnalité permet aux utilisateurs COLLABORATEUR et ADMIN de créer, modifier et supprimer des trajets associés à une ligne existante. La consultation est accessible sans authentification.
 
-Lors de la création d'un trajet, le collaborateur doit sélectionner une ligne d'exploitation existante, puis renseigner les informations nécessaires : la date et l'heure de départ, le nombre de places disponibles ainsi que le tarif proposé.
+Un trajet est caractérisé par : la ligne d'exploitation, la date et l'heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement via l'API SNCF.
 
-Afin de garantir la faisabilité du trajet, l'application s'appuie sur l'API SNCF pour vérifier qu'un trajet en train est possible entre la gare de départ et la gare de terminus de la ligne sélectionnée. Cette intégration permet également de récupérer les informations nécessaires au calcul automatique du temps de trajet.
+Règles de gestion :
 
-La durée du trajet est ainsi déterminée par l'application et ne nécessite aucune saisie manuelle de la part du collaborateur.
-
-Plusieurs contrôles sont effectués avant l'enregistrement :
-
-La ligne d'exploitation sélectionnée doit exister dans l'application.
-
-La date et l'heure de départ doivent être valides.
-
-Le nombre de places disponibles doit être strictement supérieur à zéro.
-
-Le tarif doit être positif ou nul, conformément aux règles commerciales retenues.
-
-L'API SNCF doit confirmer la faisabilité du trajet et fournir les informations nécessaires au calcul de sa durée.
-
-Si l'API SNCF ne permet pas de vérifier la faisabilité du trajet, sa création est refusée.
-
-Une fois le trajet enregistré, le collaborateur peut consulter les trajets proposés et effectuer les modifications ou suppressions nécessaires. Les utilisateurs disposant uniquement du rôle CLIENT ne disposent pas des autorisations nécessaires pour gérer les trajets proposés.
+- La ligne doit exister et l'API SNCF doit confirmer la faisabilité du trajet.
+- Le nombre de places doit être strictement supérieur à zéro ; le tarif doit être positif ou nul.
 
 
 #### Guide d'usage {.unlisted}
 
-Création d'un trajet
+- **Consulter les trajets** : `GET /trajet/` (liste) ou recherche entre deux gares, sans authentification.
+- **Créer un trajet** (COLLABORATEUR) : `POST /trajet/` avec la ligne, la date/heure de départ, le nombre de places et le tarif. La durée est calculée automatiquement.
+- **Modifier un trajet** (COLLABORATEUR) : `PUT /trajet/{id}`.
+- **Supprimer un trajet** (COLLABORATEUR) : `DELETE /trajet/{id}`.
 
-Pour créer un nouveau trajet, le collaborateur accède à l'interface de gestion des trajets proposés et ouvre le formulaire de création.
-
-Il commence par sélectionner une ligne d'exploitation parmi celles déjà enregistrées dans l'application. Les gares de départ et de terminus sont alors associées à la ligne sélectionnée.
-
-Le collaborateur renseigne ensuite la date et l'heure de départ souhaitées, le nombre de places disponibles ainsi que le tarif du trajet.
-
-Une fois les informations saisies, il valide le formulaire. L'application vérifie la validité des données renseignées, puis interroge l'API SNCF afin de contrôler qu'un trajet en train est réalisable sur la liaison sélectionnée.
-
-Si la faisabilité est confirmée, l'application récupère les informations nécessaires au calcul de la durée du trajet. Cette durée est automatiquement déterminée, puis enregistrée avec les autres informations du trajet.
-
-Si toutes les conditions sont respectées, le trajet est enregistré dans la base de données et un message confirme sa création. Dans le cas contraire, un message d'erreur indique que l'opération n'a pas pu aboutir.
-
-Modification d'un trajet existant
-
-Pour modifier un trajet, le collaborateur sélectionne le trajet concerné depuis la liste des trajets proposés.
-
-Il peut alors modifier les informations souhaitées à partir du formulaire correspondant. Après validation, l'application vérifie les nouvelles données et, lorsque cela est nécessaire, sollicite l'API SNCF afin de vérifier la faisabilité du trajet et de recalculer sa durée.
-
-Si les conditions sont respectées, les modifications sont enregistrées et un message de confirmation est affiché.
-
-Suppression d'un trajet
-
-Pour supprimer un trajet, le collaborateur sélectionne le trajet concerné dans la liste des trajets proposés, puis déclenche l'action de suppression.
-
-L'application effectue alors la suppression du trajet et informe l'utilisateur du résultat de l'opération à l'aide d'un message de confirmation ou d'erreur.
+*Exemple* : Un collaborateur crée un trajet sur la ligne Rennes → Paris, au départ à 8h30, 80 places, tarif 35 €. L'API SNCF confirme la faisabilité et retourne une durée de 3h35. Le trajet est enregistré.
 
 ### Recherche d'un trajet
 
 #### Description {.unlisted}
-La fonctionnalité de recherche d'un trajet permet à tout utilisateur, sans authentification préalable, de rechercher les trajets proposés par les collaborateurs entre deux gares ferroviaires : une gare de départ et une gare d'arrivée.
+Cette fonctionnalité permet à tout utilisateur, sans authentification, de rechercher les trajets proposés entre deux gares. Les gares sont validées via l'API SNCF (autocomplétion) et doivent être différentes.
 
-Afin de faciliter la saisie des gares, l'application s'appuie sur l'API SNCF pour proposer un système d'autocomplétion. Dès que le client commence à saisir le nom d'une gare, l'application interroge l'API et affiche une liste de résultats correspondant à sa recherche.
-
-Le client peut alors sélectionner les gares souhaitées parmi les propositions disponibles, puis lancer sa recherche.
-
-L'application consulte les trajets enregistrés dans la base de données et retourne ceux correspondant aux gares sélectionnées. Plusieurs trajets peuvent être proposés pour une même liaison, notamment lorsque différentes dates ou heures de départ sont disponibles.
-
-Pour chaque trajet affiché, les informations suivantes sont accessibles :
-
-La gare de départ.
-
-La gare d'arrivée.
-
-La date de départ.
-
-L'heure de départ.
-
-Le temps de trajet.
-
-Plusieurs contrôles sont effectués lors de la recherche :
-
-La gare de départ doit correspondre à une gare existante.
-
-La gare d'arrivée doit également correspondre à une gare existante.
-
-Les deux gares sélectionnées doivent être différentes.
-
-Aucune authentification n'est requise pour effectuer une recherche.
-
-Si aucun trajet ne correspond aux critères renseignés, l'application affiche un message explicite informant le client qu'aucun résultat n'a été trouvé.
+La réponse renvoie pour chaque trajet trouvé : les gares de départ et d'arrivée, la date et l'heure de départ, et la durée du trajet. Un message est affiché si aucun résultat ne correspond.
 
 
 #### Guide d'usage {.unlisted}
 
-Recherche d'un trajet
+- **Rechercher des trajets** : `GET /trajet/?gare_depart=X&gare_arrivee=Y` — sans authentification. La liste des trajets correspondants est retournée.
 
-Pour rechercher un trajet, le client accède à l'interface de recherche, sans besoin de s'authentifier.
+*Exemple* : Un client recherche un trajet Rennes → Paris. Plusieurs trajets sont proposés avec leurs horaires et durées respectifs.
 
-Il commence par renseigner le nom de la gare de départ dans le champ correspondant. Au fur et à mesure de sa saisie, l'application interroge l'API SNCF afin de récupérer les gares correspondant à sa recherche. Les résultats sont ensuite affichés sous forme de propositions.
-
-Le client sélectionne la gare souhaitée parmi les résultats, puis effectue la même opération pour la gare d'arrivée.
-
-Une fois les deux gares sélectionnées, il valide sa recherche à l'aide du bouton prévu à cet effet.
-
-L'application vérifie alors que les deux gares existent et qu'elles sont différentes. Elle recherche ensuite dans la base de données les trajets correspondant à la liaison sélectionnée.
-
-Si des trajets correspondent aux critères renseignés, ils sont affichés sous forme de liste. Le client peut alors consulter les différentes propositions ainsi que leurs informations principales : les gares de départ et d'arrivée, la date et l'heure de départ ainsi que le temps de trajet.
-
-Si plusieurs trajets sont disponibles pour une même liaison, l'application les affiche afin de permettre au client de consulter les différentes possibilités.
-
-En revanche, si aucun trajet ne correspond à la recherche, un message informe le client qu'aucun trajet n'est actuellement proposé entre les deux gares sélectionnées.
-
-### Positionnement commercial
+### Réservation
 
 #### Description {.unlisted}
 
+Cette fonctionnalité permet à tout utilisateur authentifié (CLIENT et supérieur) de réserver une place sur un trajet, de consulter ses réservations et d'annuler une réservation.
+
+Règles de gestion :
+
+- Le trajet doit exister et avoir au moins une place disponible (erreur 409 sinon).
+- L'annulation est refusée si la réservation n'appartient pas à l'utilisateur connecté (erreur 403).
+- Les compteurs de places réservées sont mis à jour automatiquement à la création et à l'annulation.
+
 #### Guide d'usage {.unlisted}
+
+- **Réserver** : `POST /reservation/` avec l'`id_trajet` — authentification CLIENT requise.
+- **Consulter ses réservations** : `GET /reservation/mes-reservations` — retourne la liste avec les infos du trajet (horaire, durée, places, tarif).
+- **Annuler** : `DELETE /reservation/{id_reservation}` — refusée si la réservation n'appartient pas à l'utilisateur.
+
+*Exemple* : Alice recherche Rennes → Paris, réserve un trajet du matin. Elle consulte ses réservations pour confirmer. Elle annule ensuite : la place est libérée.
 
 {{< pagebreak >}}
 
@@ -505,10 +384,6 @@ Les tests de la couche `service` vérifient l'enchaînement des règles de gesti
 - **`TrajetService`** : vérification de la recherche et de la création d'un trajet (contrôle de l'objet retourné, de la durée et du tarif).
 - **`UtilisateurService`** : validation de la création de compte, de la connexion, de la recherche d'utilisateur et de la modification d'habilitation par un administrateur. Les cas d'erreur couvrent un pseudo vide, un mot de passe trop court ou un pseudo déjà utilisé (`ValueError`), un utilisateur inconnu ou un mot de passe erroné lors de la connexion, ainsi qu'une tentative de modification d'habilitation par un utilisateur non administrateur (`PermissionError`).
 
-### Tests d'intégration
-
-Contrairement aux tests unitaires qui isolent chaque couche à l'aide de mocks, les tests d'intégration visent à vérifier l'interaction réelle entre plusieurs composants de l'application (endpoints FastAPI, logique métier des services, requêtes SQL via les DAO, base de données PostgreSQL et service externe SNCF).
-
 ### Résultats
 
 Cette suite de tests unitaires apporte une garantie solide sur les règles métiers structurantes de **Trajecto** (gestion des capacités, contrôle des habilitations, validation des entrées et remontée des erreurs) et facilite la maintenance de l'application.
@@ -520,6 +395,14 @@ Des axes d'amélioration restent identifiés pour compléter cette validation : 
 ## Bilans individuels
 
 ### Jérémie L'Hostis
+
+Ce projet fut pour l'occasion idéale pour me plonger dans deux rôles qui m'intéressent professionnellement : diriger une équipe (je me suis rapidement porté volontaire et mes comparses n'y ont pas vu d'inconvénient); et me plonger dans le développement complet d'une application informatique. J'ai par le passé effectué des études dont le contenu comportait de l'informatique, mais elles étaient davantage axées sur ses aspects théoriques : aborder le domaine parmi les ingénieurs était pour moi une démarche nouvelle. Comme toute la promotion, j'ai ainsi découvert avec intérêt les préoccupations d'architecture, de programmation en couches, de maintenance et d'autonomie en équipe, entre autres notions importantes pour lesquelles cette UE était un prétexte pertinent.
+
+J'ai appris beaucoup de choses, mais deux aspects du déroulé ont retenu mon attention particulièrement :
+
+- J'ai appréhendé la difficulté que représentait la coordination d'une équipe aux rythmes de travail, aux disponibilités et aux compétences variées, autour d'un même projet devant aboutir en un temps limité. Je n'étais moi-même pas le programmeur le plus chevronné du groupe et l'humilité qu'exige la nécessité de s'entraider sur ses lacunes respectivesa été un enseignement précieux; de même que la gestion des légers points d'inquiétude ou d'hésitations autour de l'avancement d'une partie ou d'une autre du projet. J'ai eu la chance de travailler dans un groupe très sérieux, où chaque personne a su être au rendez-vous quand c'était nécessaire, malgré quelques contretemps. J'ai pu alors mobiliser mon expérience professionnelle antérieure pour organiser, rassurer et garder une vue d'ensemble sereine qui nous a permis d'obtenir une application stable dans les temps. J'en suis très satisfait; et je pense par ailleurs que chacune des cinq personnes concernées peuvent être fières de leur travail.
+
+- J'ai découvert, avec autant de circonspection que d'intérêt, la programmation et la relecture assistées par IA. En effet, l'époque où j'ai été initié en informatique (autour de 2016) précédait l'arrivée en force des LLM et leurs performances actuelles. J'ai eu la confirmation des aspects de ces nouveaux outils qui m'inquiètent le plus : la perte d'autonomie sur les tâches techniques fines si on ne surveille pas (ce qu'il faut faire, donc) la quantité de travail qu'on lui délègue, et la tentation à la paresse intellectuelle au moment de proposer ou examiner une solution à un problème. J'ai été rassuré de réaliser deux choses, cependant : le gain de productivité est bien réel à condition de savoir ce que l'on souhaite faire, et la nécessité de rigueur dans le travail n'est pas levée par ce type d'usage, puisqu'il faut avoir analysé correctement avant faire toute requête en amont, puis vérifier ce que la machine propose, relire et bien sûr comprendre en aval. Cela ne fait que gonfler mon intérêt pour les enseignements futurs dédiés au machine learning, car appréhender la manière dont ces assistants sont fabriqués est plus que jamais nécessaire dans des métiers tels que auxquels l'ENSAI prépare.
 
 ### Alexandre Yu
 
@@ -552,3 +435,13 @@ Enfin, sur le plan collectif, ce projet m'a permis de travailler sur un dépôt 
 {{< pagebreak >}}
 
 ## Conclusion {.unnumbered}
+
+La réalisation de Trajecto nous a permis de mettre en œuvre les principales étapes du développement d'une application informatique structurée autour d'une API. À travers ce projet, nous avons conçu une architecture logicielle en plusieurs couches, modélisé des entités métier, développé des fonctionnalités de gestion de données et mis en place des mécanismes d'authentification et de contrôle des habilitations.
+
+L'association de FastAPI et de PostgreSQL nous a permis de construire un backend organisé, capable de gérer les comptes utilisateurs, les gares, les lignes ferroviaires, les trajets proposés et les réservations. L'intégration de l'API SNCF constitue également un apport important du projet : elle permet de compléter les données internes par des informations ferroviaires externes, notamment pour rechercher des gares et estimer la durée des déplacements. La mise en place d'une authentification par JWT et d'une hiérarchie de permissions contribue, quant à elle, à encadrer l'accès aux différentes opérations.
+
+Le développement de l'application a néanmoins mis en évidence plusieurs difficultés inhérentes à un projet informatique collectif. La définition d'une architecture cohérente, l'organisation des interfaces entre les différentes couches et la prise en compte des dépendances entre les entités ont nécessité des ajustements au cours du développement. L'intégration progressive de nouvelles fonctionnalités a également souligné l'importance de maintenir une modélisation et une organisation du code suffisamment rigoureuses pour éviter les incohérences.
+
+Ce travail nous a ainsi permis de mieux comprendre que le développement d'une application ne se limite pas à l'écriture de fonctionnalités indépendantes. Il nécessite également d'anticiper leurs interactions, de garantir la cohérence des données et de prévoir les situations d'erreur. La mise en place de tests et l'utilisation d'outils de gestion de versions ont notamment contribué à accompagner ce travail collectif.
+
+Enfin, Trajecto constitue une base fonctionnelle sur laquelle des évolutions pourraient être envisagées, notamment en matière d'interface utilisateur, d'enrichissement des fonctionnalités de réservation et de renforcement des mécanismes de validation et de sécurisation. Le projet a donc constitué une expérience formatrice, tant sur le plan technique que sur celui de la conception et du développement collaboratif, en nous confrontant aux différentes dimensions de la réalisation d'une application informatique.
