@@ -11,9 +11,6 @@ from utils.helpers import (
 from utils.page_setup import setup_page
 from utils.selecteur_gare import selecteur_gare
 
-depart = selecteur_gare("Gare de départ", key="tc_depart")
-arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
-
 # Recherche publique (cahier des charges 3.4) : pas besoin d'être connecté
 logger = setup_page("recherche_trajets", "Rechercher un trajet", public=True)
 
@@ -30,12 +27,14 @@ with st.expander("Lignes disponibles"):
     else:
         st.caption("Liste des lignes indisponible.")
 
-with st.form("recherche"):
+with st.container(border=True):
     c1, c2 = st.columns(2)
-    depart = c1.text_input("Gare de départ", placeholder="Rennes")
-    arrivee = c2.text_input("Gare d'arrivée", placeholder="Paris Montparnasse")
-    chercher = st.form_submit_button("Rechercher")
-
+    with c1:
+        depart = selecteur_gare("Gare de départ", key="sel_depart")
+    with c2:
+        arrivee = selecteur_gare("Gare d'arrivée", key="sel_arrivee")
+    chercher = st.button("Rechercher", type="primary")
+    
 if chercher:
     if not depart.strip() or not arrivee.strip():
         st.warning("Renseigne les deux gares.")

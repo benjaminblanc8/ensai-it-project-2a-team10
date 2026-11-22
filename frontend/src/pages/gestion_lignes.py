@@ -5,9 +5,6 @@ from utils.helpers import afficher_erreur, afficher_resultat
 from utils.page_setup import setup_page
 from utils.selecteur_gare import selecteur_gare
 
-depart = selecteur_gare("Gare de départ", key="tc_depart")
-arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
-
 logger = setup_page("gestion_lignes", "Gestion des lignes", min_level="COLLAB")
 
 st.title("Lignes")
@@ -23,8 +20,8 @@ tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
 
 with tab_creer:
     with st.form("ligne_creation"):
-        depart = st.text_input("Gare de départ (nom exact)")
-        arrivee = st.text_input("Gare d'arrivée (nom exact)")
+        depart = selecteur_gare("Gare de départ", key="tc_depart")
+        arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
         creer = st.form_submit_button("Créer la ligne")
     if creer:
         res = api_client.post(

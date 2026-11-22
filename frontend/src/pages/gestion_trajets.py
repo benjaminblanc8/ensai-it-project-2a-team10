@@ -5,9 +5,6 @@ from utils.helpers import afficher_erreur, afficher_resultat, saisie_horaire
 from utils.page_setup import setup_page
 from utils.selecteur_gare import selecteur_gare
 
-depart = selecteur_gare("Gare de départ", key="tc_depart")
-arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
-
 logger = setup_page("gestion_trajets", "Gestion des trajets", min_level="COLLAB")
 
 st.title("Trajets")
@@ -18,8 +15,8 @@ tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
 
 with tab_creer:
     st.caption("La durée est calculée automatiquement par le backend via l'API SNCF.")
-    depart = st.text_input("Gare de départ (nom exact)", key="tc_depart")
-    arrivee = st.text_input("Gare d'arrivée (nom exact)", key="tc_arrivee")
+    depart = selecteur_gare("Gare de départ", key="tc_depart")
+    arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
     horaire = saisie_horaire("tc")
     c1, c2 = st.columns(2)
     places = c1.number_input("Nombre de places", min_value=1, value=100, step=1, key="tc_places")

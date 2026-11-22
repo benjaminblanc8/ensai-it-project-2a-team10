@@ -6,25 +6,38 @@ logger = setup_page("menu", "Menu", min_level="CLIENT")
 
 niveau = niveau_effectif()
 
+
+def carte(icone: str, titre: str, description: str, page: str):
+    """Une carte avec un titre, une courte description et un bouton d'accès."""
+    with st.container(border=True):
+        st.markdown(f"#### {icone} {titre}")
+        st.caption(description)
+        if st.button("Ouvrir", key=f"menu_{page}"):
+            st.switch_page(page)
+
+
 st.title(f"Bonjour {st.session_state.get('pseudo', '')} 👋")
 
 st.subheader("Voyager")
 c1, c2 = st.columns(2)
 with c1:
-    st.page_link("pages/recherche_trajets.py", label="Rechercher et réserver un trajet")
+    carte("🔎", "Rechercher un trajet", "Trouve un trajet entre deux gares et réserve ta place.",
+          "pages/recherche_trajets.py")
 with c2:
-    st.page_link("pages/mes_reservations.py", label="Voir mes réservations")
+    carte("🎫", "Mes réservations", "Consulte ou annule tes réservations.",
+          "pages/mes_reservations.py")
 
 if niveau >= LEVELS["COLLAB"]:
     st.subheader("Gestion du réseau")
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.page_link("pages/gestion_gares.py", label="Gérer les gares")
+        carte("🚉", "Gares", "Ajouter ou supprimer des gares.", "pages/gestion_gares.py")
     with c2:
-        st.page_link("pages/gestion_lignes.py", label="Gérer les lignes")
+        carte("🛤️", "Lignes", "Créer et modifier les lignes.", "pages/gestion_lignes.py")
     with c3:
-        st.page_link("pages/gestion_trajets.py", label="Gérer les trajets")
+        carte("🕒", "Trajets", "Planifier les trajets et leurs tarifs.", "pages/gestion_trajets.py")
 
 if niveau >= LEVELS["ADMIN"]:
     st.subheader("Administration")
-    st.page_link("pages/admin_utilisateurs.py", label="Gérer les rôles des utilisateurs")
+    carte("🛡️", "Utilisateurs", "Modifier le niveau d'habilitation d'un utilisateur.",
+          "pages/admin_utilisateurs.py")
