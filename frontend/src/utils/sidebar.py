@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.auth_guard import LEVELS
+from utils.auth_guard import LEVELS, niveau_effectif
 
 SESSION_KEYS = ("access_token", "pseudo", "niveau", "resultats_trajets")
 
@@ -11,19 +11,25 @@ def deconnecter():
 
 def render_sidebar():
     """Menu latéral qui n'affiche que les pages autorisées pour le rôle."""
-    niveau = LEVELS.get(st.session_state.get("niveau"), 0)
+    niveau = niveau_effectif()
     with st.sidebar:
         st.header("🚆 Billets de train")
 
+        # La recherche de trajets est publique
+        st.page_link("pages/recherche_trajets.py", label="Rechercher un trajet")
+
         if not st.session_state.get("access_token"):
-            st.page_link("pages/home.py", label="Connexion")
+            st.page_link("pages/home.py", label="Connexion / inscription")
             return
 
+        st.divider()
         st.write(f"Connecté : **{st.session_state.get('pseudo', '?')}**")
-        st.caption(f"Niveau : {st.session_state.get('niveau', 'inconnu')}")
+        if st.session_state.get("niveau") == "INCONNU":
+            st.caption("Rôle non détecté : le serveur refusera les actions interdites.")
+        else:
+            st.caption(f"Niveau : {st.session_state.get('niveau', '?')}")
 
         st.page_link("pages/menu.py", label="Menu")
-        st.page_link("pages/recherche_trajets.py", label="Rechercher un trajet")
         st.page_link("pages/mes_reservations.py", label="Mes réservations")
 
         if niveau >= LEVELS["COLLAB"]:

@@ -1,10 +1,10 @@
 import streamlit as st
-from utils.auth_guard import LEVELS
+from utils.auth_guard import LEVELS, niveau_effectif
 from utils.page_setup import setup_page
 
 logger = setup_page("menu", "Menu", min_level="CLIENT")
 
-niveau = LEVELS.get(st.session_state.get("niveau"), 0)
+niveau = niveau_effectif()
 
 st.title(f"Bonjour {st.session_state.get('pseudo', '')} 👋")
 

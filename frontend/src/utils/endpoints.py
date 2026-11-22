@@ -12,17 +12,20 @@ import os
 from utils.api_client import api_client
 
 # ressource -> (tag FastAPI, préfixe par défaut)
+# Défauts = cahier des charges (routes au singulier)
 RESSOURCES = {
+    "inscription": ("Inscription", "/inscription"),
     "connexion": ("Connexion", "/connexion"),
-    "utilisateurs": ("Utilisateurs", "/utilisateurs"),
-    "gares": ("Gares", "/gares"),
-    "api_sncf": ("API SNCF", "/api-sncf"),
-    "lignes": ("Lignes", "/lignes"),
-    "trajets": ("Trajets", "/trajets"),
-    "reservations": ("Réservations", "/reservations"),
+    "utilisateurs": ("Utilisateurs", "/utilisateur"),
+    "gares": ("Gares", "/gare"),
+    "api_sncf": ("API SNCF", "/api_sncf"),
+    "lignes": ("Lignes", "/ligne"),
+    "trajets": ("Trajets", "/trajet"),
+    "reservations": ("Réservations", "/reservation"),
 }
 
 _detectes: dict[str, str] = {}
+_openapi: dict = {}
 
 
 def _prefixe_commun(chemins: list[str]) -> str:
@@ -46,6 +49,7 @@ def _detecter() -> None:
     res = api_client.get("/openapi.json")
     if res["status_code"] != 200 or not isinstance(res["data"], dict):
         return
+    _openapi.update(res["data"])
 
     par_tag: dict[str, list[str]] = {}
     for chemin, operations in res["data"].get("paths", {}).items():
@@ -76,3 +80,13 @@ def chemin(ressource: str, suffixe: str = "/") -> str:
 def etat_routes() -> dict[str, str]:
     """Préfixes utilisés actuellement (pour l'affichage de diagnostic)."""
     return {ressource: prefixe(ressource) for ressource in RESSOURCES}
+
+
+def liste_routes() -> list[str]:
+    """Routes réellement exposées par le backend (pour le diagnostic)."""
+    _detecter()
+    routes = []
+    for chemin_api, operations in _openapi.get("paths", {}).items():
+        for methode in operations:
+            routes.append(f"{methode.upper()} {chemin_api}")
+    return sorted(routes, key=lambda r: r.split(" ", 1)[1])

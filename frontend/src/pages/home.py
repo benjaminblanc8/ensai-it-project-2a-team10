@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.api_client import api_client
-from utils.endpoints import chemin, etat_routes
+from utils.endpoints import chemin, etat_routes, liste_routes
 from utils.helpers import afficher_resultat, message_erreur
 from utils.page_setup import setup_page
 
@@ -12,6 +12,8 @@ st.write("Recherche un trajet, réserve ta place et gère tes réservations.")
 with st.expander("Diagnostic de l'API"):
     st.write(f"Backend : `{api_client.base_url}`")
     st.json(etat_routes())
+    st.write("Routes exposées par le backend :")
+    st.code("\n".join(liste_routes()) or "(/openapi.json indisponible)")
 
 tab_login, tab_signup = st.tabs(["Se connecter", "Créer un compte"])
 
@@ -43,8 +45,9 @@ with tab_login:
                 st.session_state["pseudo"] = me["data"].get("pseudo", pseudo)
                 st.session_state["niveau"] = str(me["data"].get("niveau", "CLIENT")).upper()
             else:
-                st.session_state["niveau"] = "CLIENT"
-                logger.warning("GET /utilisateurs/me indisponible : rôle CLIENT par défaut")
+                # Le JWT ne contient que l'id et l'expiration : sans route /me le rôle est inconnu
+                st.session_state["niveau"] = "INCONNU"
+                logger.warning("Route « utilisateur courant » indisponible : rôle inconnu")
 
             logger.info("Connexion réussie")
             st.switch_page("pages/menu.py")
@@ -56,5 +59,8 @@ with tab_signup:
         creer = st.form_submit_button("Créer le compte")
 
     if creer:
-        res = api_client.post(chemin("utilisateurs", "/"), json={"pseudo": pseudo_new, "mdp": mdp_new})
-        afficher_resultat(res, "Compte créé, tu peux te connecter.")
+        corps = {"pseudo": pseudo_new, "mdp": mdp_new}
+        res = api_client.post(chemin("inscription", "/"), json=corps)  # POST /inscription/
+        if res["status_code"] in (404, 405):  # ancienne route POST /utilisateur(s)/
+            res = api_client.post(chemin("utilisateurs", "/"), json=corps)
+        afficher_resultat(res, "Compte créé (niveau CLIENT), tu peux te connecter.")

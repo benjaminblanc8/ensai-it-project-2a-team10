@@ -3,8 +3,20 @@ import time
 
 import streamlit as st
 
-# Même hiérarchie que NiveauHabilitation côté backend
+# Même hiérarchie que NiveauHabilitation côté backend (niveaux cumulatifs)
 LEVELS = {"CLIENT": 1, "COLLAB": 2, "ADMIN": 3}
+
+
+def niveau_effectif() -> int:
+    """Niveau numérique de l'utilisateur.
+
+    Si le rôle n'a pas pu être récupéré (niveau "INCONNU"), on n'étouffe rien :
+    toutes les pages sont proposées et c'est le backend qui répond 403 si besoin.
+    """
+    niveau = st.session_state.get("niveau")
+    if niveau == "INCONNU":
+        return max(LEVELS.values())
+    return LEVELS.get(niveau, 0)
 
 
 def check_authentification(min_level: str | None = None):
@@ -19,8 +31,6 @@ def check_authentification(min_level: str | None = None):
         time.sleep(1)
         st.switch_page("pages/home.py")
 
-    if min_level:
-        current = LEVELS.get(st.session_state.get("niveau"), 0)
-        if current < LEVELS[min_level]:
-            st.error("Accès refusé : droits insuffisants pour cette page.")
-            st.stop()
+    if min_level and niveau_effectif() < LEVELS[min_level]:
+        st.error("Accès refusé : droits insuffisants pour cette page.")
+        st.stop()

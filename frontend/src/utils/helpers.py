@@ -39,27 +39,46 @@ def afficher_resultat(res: dict, succes: str) -> bool:
 
 
 def trajets_dataframe(trajets: list) -> pd.DataFrame:
-    """Met en forme la liste de TrajetReadModel pour l'affichage."""
-    df = pd.DataFrame(trajets)
+    """Met en forme une liste de trajets (colonnes absentes ou imbriquées tolérées)."""
+    df = pd.json_normalize(trajets)
     if df.empty:
         return df
-    df["date_heure_depart"] = pd.to_datetime(df["date_heure_depart"])
-    df["arrivee_estimee"] = df["date_heure_depart"] + pd.to_timedelta(
-        df["duree_minutes"], unit="m"
-    )
-    return df[
-        [
-            "id_trajet",
-            "date_heure_depart",
-            "arrivee_estimee",
-            "duree_minutes",
-            "tarif",
-            "places_disponibles",
-            "places_reservees",
-            "nb_places",
-            "id_ligne",
-        ]
+
+    df = df.drop(columns=[c for c in df.columns if c.endswith("id_gare_sncf")])
+
+    if "date_heure_depart" in df.columns:
+        df["date_heure_depart"] = pd.to_datetime(df["date_heure_depart"])
+        if "duree_minutes" in df.columns:
+            df["arrivee_estimee"] = df["date_heure_depart"] + pd.to_timedelta(
+                df["duree_minutes"], unit="m"
+            )
+
+    ordre = ["id_trajet"]
+    ordre += [c for c in df.columns if c.startswith("gare_depart")]
+    ordre += [c for c in df.columns if c.startswith("gare_arrivee")]
+    ordre += [
+        "date_heure_depart", "arrivee_estimee", "duree_minutes", "tarif",
+        "places_disponibles", "places_reservees", "nb_places", "id_ligne",
     ]
+    colonnes = [c for c in ordre if c in df.columns]
+    colonnes += [c for c in df.columns if c not in colonnes]
+    return df[colonnes]
+
+
+def libelle_trajet(ligne: pd.Series) -> str:
+    """Texte lisible pour un trajet dans une liste déroulante."""
+    morceaux = [f"#{ligne.get('id_trajet')}"]
+    gares = [str(ligne[c]) for c in ligne.index if c in ("gare_depart", "gare_arrivee")
+             or c in ("gare_depart.nom", "gare_arrivee.nom")]
+    if gares:
+        morceaux.append(" → ".join(gares))
+    if pd.notna(ligne.get("date_heure_depart")):
+        morceaux.append(f"{ligne['date_heure_depart']:%d/%m/%Y %H:%M}")
+    if "tarif" in ligne:
+        morceaux.append(f"{ligne['tarif']} €")
+    if "places_disponibles" in ligne:
+        morceaux.append(f"{ligne['places_disponibles']} place(s)")
+    return " — ".join(morceaux)
 
 
 def saisie_horaire(prefix: str) -> datetime:
