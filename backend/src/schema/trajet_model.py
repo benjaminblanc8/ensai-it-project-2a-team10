@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
 
 
 class TrajetModel(BaseModel):
@@ -25,5 +26,5 @@ class TrajetCreationModel(BaseModel):
     nom_gare_depart: str
     nom_gare_arrivee: str
     date_heure_depart: datetime
-    nb_places: int
-    tarif: float
+    nb_places: int = Field(gt=0)
+    tarif: float = Field(ge=0)

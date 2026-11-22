@@ -79,14 +79,18 @@ class UtilisateurService:
             id_utilisateur
         )
 
-        if admin_bdd is None or admin_bdd.niveau != NiveauHabilitation.ADMIN:
+        if utilisateur_bdd is None:
+            raise LookupError("Utilisateur introuvable.")
+
+        if admin_bdd.niveau != NiveauHabilitation.ADMIN:
             raise PermissionError(
                 "Seul un administrateur peut modifier les habilitations."
             )
 
-        if utilisateur_bdd is None or utilisateur_bdd.niveau == NiveauHabilitation.ADMIN:
+        if utilisateur_bdd.niveau == NiveauHabilitation.ADMIN:
             raise PermissionError(
-                "Le niveau d'habilitation ADMIN ne peut pas être modifié."
+                "Le niveau d'habilitation d'un administrateur "
+                "ne peut pas être modifié."
             )
 
         return self.utilisateur_dao.update(id_utilisateur, nouveau_niveau)

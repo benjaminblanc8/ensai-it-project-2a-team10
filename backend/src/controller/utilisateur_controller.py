@@ -60,6 +60,12 @@ def modifier_role(
             informations.nouvelle_habilitation,
         )
 
+    except LookupError as e:
+        raise HTTPException(
+            status_code=404,
+            detail=str(e),
+        ) from e
+
     except PermissionError as e:
         raise HTTPException(
             status_code=403,
@@ -75,6 +81,7 @@ def modifier_role(
     return {
         "detail": "Habilitation modifiée avec succès"
     }
+
 
 def _valeur(attribut):
     """Renvoie la valeur d'une propriété, ou le résultat d'une méthode."""
