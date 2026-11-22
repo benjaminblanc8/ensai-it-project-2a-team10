@@ -9,6 +9,10 @@ from utils.helpers import (
     trajets_dataframe,
 )
 from utils.page_setup import setup_page
+from utils.selecteur_gare import selecteur_gare
+
+depart = selecteur_gare("Gare de départ", key="tc_depart")
+arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
 
 # Recherche publique (cahier des charges 3.4) : pas besoin d'être connecté
 logger = setup_page("recherche_trajets", "Rechercher un trajet", public=True)

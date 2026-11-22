@@ -1,9 +1,12 @@
-import pandas as pd
 import streamlit as st
 from utils.api_client import api_client
 from utils.endpoints import chemin
 from utils.helpers import afficher_erreur, afficher_resultat
 from utils.page_setup import setup_page
+from utils.selecteur_gare import selecteur_gare
+
+depart = selecteur_gare("Gare de départ", key="tc_depart")
+arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
 
 logger = setup_page("gestion_lignes", "Gestion des lignes", min_level="COLLAB")
 
@@ -14,17 +17,9 @@ st.caption(
     "Une ligne ne peut pas être supprimée si des trajets l'utilisent."
 )
 
-tab_liste, tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
-    ["Liste", "Créer", "Consulter", "Modifier", "Supprimer"]
+tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
+    ["Créer", "Consulter", "Modifier", "Supprimer"]
 )
-
-with tab_liste:
-    if st.button("Afficher toutes les lignes"):
-        res = api_client.get(chemin("lignes", "/"))
-        if res["status_code"] == 200:
-            st.dataframe(pd.json_normalize(res["data"]), hide_index=True)
-        else:
-            afficher_erreur(res)
 
 with tab_creer:
     with st.form("ligne_creation"):

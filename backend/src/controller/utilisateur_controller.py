@@ -76,14 +76,24 @@ def modifier_role(
         "detail": "Habilitation modifiée avec succès"
     }
 
+def _valeur(attribut):
+    """Renvoie la valeur d'une propriété, ou le résultat d'une méthode."""
+    return attribut() if callable(attribut) else attribut
+
+
 @router.get("/me", tags=["Utilisateurs"])
 def moi(
-    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),
+    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # noqa: B008
 ):
     """Retourne les informations de l'utilisateur connecté."""
-    habilitation = getattr(utilisateur, "habilitation", None)
+    pseudo = _valeur(utilisateur.get_pseudo)
+    id_utilisateur = _valeur(utilisateur.get_id_utilisateur)
+    niveau = _valeur(utilisateur.get_niveau)
+
+    logger.info("Informations de l'utilisateur %s", pseudo)
+
     return {
-        "id_utilisateur": utilisateur.id_utilisateur,
-        "pseudo": utilisateur.pseudo,
-        "niveau": getattr(habilitation, "name", str(habilitation)),
+        "id_utilisateur": id_utilisateur,
+        "pseudo": pseudo,
+        "niveau": getattr(niveau, "name", str(niveau)),
     }

@@ -1,24 +1,20 @@
 import streamlit as st
 from utils.api_client import api_client
 from utils.endpoints import chemin
-from utils.helpers import afficher_erreur, afficher_resultat, saisie_horaire, trajets_dataframe
+from utils.helpers import afficher_erreur, afficher_resultat, saisie_horaire
 from utils.page_setup import setup_page
+from utils.selecteur_gare import selecteur_gare
+
+depart = selecteur_gare("Gare de départ", key="tc_depart")
+arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
 
 logger = setup_page("gestion_trajets", "Gestion des trajets", min_level="COLLAB")
 
 st.title("Trajets")
 
-tab_liste, tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
-    ["Liste", "Créer", "Consulter", "Modifier", "Supprimer"]
+tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
+    ["Créer", "Consulter", "Modifier", "Supprimer"]
 )
-
-with tab_liste:
-    if st.button("Afficher tous les trajets"):
-        res = api_client.get(chemin("trajets", "/"))
-        if res["status_code"] == 200:
-            st.dataframe(trajets_dataframe(res["data"]), hide_index=True)
-        else:
-            afficher_erreur(res)
 
 with tab_creer:
     st.caption("La durée est calculée automatiquement par le backend via l'API SNCF.")

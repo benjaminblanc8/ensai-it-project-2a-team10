@@ -13,18 +13,18 @@ st.caption(
 )
 
 NIVEAUX = ["CLIENT", "COLLAB", "ADMIN"]
-
+NIVEAUX_DICT = {"CLIENT": 1, "COLLAB": 2, "ADMIN": 3}
 
 def modifier_niveau(id_utilisateur: int, niveau: str) -> dict:
     """PUT /utilisateur/{id}/niveau (cahier des charges), sinon ancienne route /role."""
     res = api_client.put(
         chemin("utilisateurs", f"/{id_utilisateur}/niveau"),
-        json={"niveau": niveau, "nouvelle_habilitation": niveau},
+        json={"niveau": NIVEAUX_DICT[niveau], "nouvelle_habilitation": NIVEAUX_DICT[niveau]},
     )
     if res["status_code"] in (404, 405):
         res = api_client.put(
             chemin("utilisateurs", "/role"),
-            json={"id_utilisateur": id_utilisateur, "nouvelle_habilitation": niveau},
+            json={"id_utilisateur": id_utilisateur, "nouvelle_habilitation": NIVEAUX_DICT[niveau]},
         )
     return res
 
