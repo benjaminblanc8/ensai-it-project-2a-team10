@@ -75,3 +75,15 @@ def modifier_role(
     return {
         "detail": "Habilitation modifiée avec succès"
     }
+
+@router.get("/me", tags=["Utilisateurs"])
+def moi(
+    utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),
+):
+    """Retourne les informations de l'utilisateur connecté."""
+    habilitation = getattr(utilisateur, "habilitation", None)
+    return {
+        "id_utilisateur": utilisateur.id_utilisateur,
+        "pseudo": utilisateur.pseudo,
+        "niveau": getattr(habilitation, "name", str(habilitation)),
+    }
