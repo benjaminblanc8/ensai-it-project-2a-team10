@@ -43,7 +43,15 @@ with tab_login:
             me = api_client.get(chemin("utilisateurs", "/me"))
             if me["status_code"] == 200:
                 st.session_state["pseudo"] = me["data"].get("pseudo", pseudo)
-                st.session_state["niveau"] = str(me["data"].get("niveau", "CLIENT")).upper()
+                donnees = me["data"]
+                brut = next(
+                    (donnees[k] for k in ("niveau", "habilitation", "niveau_habilitation", "role") if k in donnees),
+                    None,
+                )
+                # "NiveauHabilitation.ADMIN" -> "ADMIN" ; valeur inconnue -> "INCONNU"
+                niveau = str(getattr(brut, "name", brut)).split(".")[-1].upper()
+                st.session_state["niveau"] = niveau if niveau in ("CLIENT", "COLLAB", "ADMIN") else "INCONNU"
+                logger.info(f"Niveau détecté : {st.session_state['niveau']} (brut : {brut})")
             else:
                 # Le JWT ne contient que l'id et l'expiration : sans route /me le rôle est inconnu
                 st.session_state["niveau"] = "INCONNU"
