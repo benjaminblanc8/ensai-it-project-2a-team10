@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.api_client import api_client
+from utils.endpoints import chemin
 from utils.helpers import afficher_resultat
 from utils.page_setup import setup_page
 
@@ -17,7 +18,7 @@ with st.form("role"):
 
 if envoyer:
     res = api_client.put(
-        "/utilisateurs/role",
+        chemin("utilisateurs", "/role"),
         json={
             "id_utilisateur": int(id_utilisateur),
             "nouvelle_habilitation": niveau,

@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.api_client import api_client
+from utils.endpoints import chemin
 from utils.helpers import afficher_erreur, afficher_resultat, saisie_horaire
 from utils.page_setup import setup_page
 
@@ -22,7 +23,7 @@ with tab_creer:
 
     if st.button("Créer le trajet", type="primary"):
         res = api_client.post(
-            "/trajets/",
+            chemin("trajets", "/"),
             json={
                 "nom_gare_depart": depart,
                 "nom_gare_arrivee": arrivee,
@@ -39,7 +40,7 @@ with tab_creer:
 with tab_voir:
     id_voir = st.number_input("ID du trajet", min_value=1, step=1, key="tv_id")
     if st.button("Afficher le trajet"):
-        res = api_client.get(f"/trajets/{int(id_voir)}")
+        res = api_client.get(chemin("trajets", f"/{int(id_voir)}"))
         if res["status_code"] == 200:
             st.json(res["data"])
         else:
@@ -56,7 +57,7 @@ with tab_modif:
 
     if st.button("Enregistrer les modifications"):
         res = api_client.put(
-            f"/trajets/{int(id_modif)}",
+            chemin("trajets", f"/{int(id_modif)}"),
             json={
                 "id_ligne": int(id_ligne),
                 "date_heure_depart": horaire_m.isoformat(),
@@ -71,6 +72,6 @@ with tab_modif:
 with tab_suppr:
     id_suppr = st.number_input("ID du trajet", min_value=1, step=1, key="ts_id")
     if st.button("Supprimer le trajet"):
-        res = api_client.delete(f"/trajets/{int(id_suppr)}")
+        res = api_client.delete(chemin("trajets", f"/{int(id_suppr)}"))
         if afficher_resultat(res, "Trajet supprimé."):
             logger.info(f"Trajet supprimé : {id_suppr}")

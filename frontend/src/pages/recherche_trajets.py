@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.api_client import api_client
+from utils.endpoints import chemin
 from utils.helpers import afficher_erreur, afficher_resultat, trajets_dataframe
 from utils.page_setup import setup_page
 
@@ -15,7 +16,7 @@ with st.form("recherche"):
 
 if chercher:
     res = api_client.get(
-        "/trajets/",
+        chemin("trajets", "/"),
         params={"nom_gare_depart": depart, "nom_gare_arrivee": arrivee},
     )
     if res["status_code"] == 200:
@@ -48,7 +49,7 @@ else:
         }
         choix = st.selectbox("Trajet", list(libelles), format_func=libelles.get)
         if st.button("Réserver ce trajet", type="primary"):
-            res = api_client.post("/reservations/", json={"id_trajet": int(choix)})
+            res = api_client.post(chemin("reservations", "/"), json={"id_trajet": int(choix)})
             if afficher_resultat(res, "Réservation effectuée."):
                 logger.info(f"Réservation du trajet {choix}")
                 st.session_state["resultats_trajets"] = None  # rafraîchit les places

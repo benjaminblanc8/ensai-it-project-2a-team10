@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.api_client import api_client
+from utils.endpoints import chemin
 from utils.helpers import afficher_erreur, afficher_resultat
 from utils.page_setup import setup_page
 
@@ -19,7 +20,7 @@ with tab_creer:
         creer = st.form_submit_button("Créer la ligne")
     if creer:
         res = api_client.post(
-            "/lignes/",
+            chemin("lignes", "/"),
             json={"nom_gare_depart": depart, "nom_gare_arrivee": arrivee},
         )
         if afficher_resultat(res, "Ligne créée."):
@@ -29,7 +30,7 @@ with tab_creer:
 with tab_voir:
     id_voir = st.number_input("ID de la ligne", min_value=1, step=1, key="ligne_voir")
     if st.button("Afficher la ligne"):
-        res = api_client.get(f"/lignes/{int(id_voir)}")
+        res = api_client.get(chemin("lignes", f"/{int(id_voir)}"))
         if res["status_code"] == 200:
             st.json(res["data"])
         else:
@@ -43,7 +44,7 @@ with tab_modif:
         modifier = st.form_submit_button("Modifier la ligne")
     if modifier:
         res = api_client.put(
-            f"/lignes/{int(id_modif)}",
+            chemin("lignes", f"/{int(id_modif)}"),
             json={
                 "id_ligne": int(id_modif),
                 "id_gare_depart": int(id_dep),
@@ -56,6 +57,6 @@ with tab_modif:
 with tab_suppr:
     id_suppr = st.number_input("ID de la ligne", min_value=1, step=1, key="ligne_suppr")
     if st.button("Supprimer la ligne"):
-        res = api_client.delete(f"/lignes/{int(id_suppr)}")
+        res = api_client.delete(chemin("lignes", f"/{int(id_suppr)}"))
         if afficher_resultat(res, "Ligne supprimée."):
             logger.info(f"Ligne supprimée : {id_suppr}")
