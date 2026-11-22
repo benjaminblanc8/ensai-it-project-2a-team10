@@ -11,4 +11,5 @@ sqlalchemy
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
+pandas
 streamlit-searchbox 
