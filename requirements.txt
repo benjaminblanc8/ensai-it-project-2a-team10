@@ -12,4 +12,4 @@ python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
 pandas
-streamlit-searchbox 
+streamlit-searchbox>=0.0.7

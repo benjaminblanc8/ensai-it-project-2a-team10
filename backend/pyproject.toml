@@ -15,6 +15,9 @@ dependencies = [
     "passlib[bcrypt]",
     "PyYAML",
     "python-multipart",
+    "streamlit>=1.36",
+    "pandas",
+    "streamlit-searchbox>=0.0.7",
 ]
 
 [project.optional-dependencies]
