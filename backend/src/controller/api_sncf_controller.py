@@ -14,7 +14,7 @@ def get_api_sncf_service():
 
 
 @router.get("/{nom_gare}", response_model=list[GareReadModel], tags=["API SNCF"])
-def rechercher_gare_par_nom(
+def rechercher_gare_par_nom_api_sncf(
     nom_gare: str,
     service=Depends(get_api_sncf_service),  # noqa: B008
 ):

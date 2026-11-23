@@ -19,18 +19,25 @@ tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
 )
 
 with tab_creer:
-    with st.form("ligne_creation"):
-        depart = selecteur_gare("Gare de départ", key="tc_depart")
-        arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
-        creer = st.form_submit_button("Créer la ligne")
+    c1, c2 = st.columns(2)
+    with c1:
+        depart = selecteur_gare("Gare de départ", key="lc_depart", source="base")
+    with c2:
+        arrivee = selecteur_gare("Gare d'arrivée", key="lc_arrivee", source="base")
+
+    creer = st.button("Créer la ligne", type="primary")
+
     if creer:
-        res = api_client.post(
-            chemin("lignes", "/"),
-            json={"nom_gare_depart": depart, "nom_gare_arrivee": arrivee},
-        )
-        if afficher_resultat(res, "Ligne créée."):
-            logger.info(f"Ligne créée : {depart} -> {arrivee}")
-            st.json(res["data"])
+        if not depart or not arrivee:
+            st.warning("Choisis les deux gares dans les listes proposées.")
+        else:
+            res = api_client.post(
+                chemin("lignes", "/"),
+                json={"nom_gare_depart": depart, "nom_gare_arrivee": arrivee},
+            )
+            if afficher_resultat(res, "Ligne créée."):
+                logger.info(f"Ligne créée : {depart} -> {arrivee}")
+                st.json(res["data"])
 
 with tab_voir:
     id_voir = st.number_input("ID de la ligne", min_value=1, step=1, key="ligne_voir")

@@ -92,7 +92,7 @@ def rechercher_gare_par_nom(
 
     list_gare = service.recherche_gare_par_nom(nom_gare)
 
-    if len(list_gare)==0:
+    if len(list_gare) == 0:
         raise HTTPException(status_code=404, detail="Gares introuvables")
 
     return list_gare

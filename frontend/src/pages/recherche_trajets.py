@@ -30,11 +30,11 @@ with st.expander("Lignes disponibles"):
 with st.container(border=True):
     c1, c2 = st.columns(2)
     with c1:
-        depart = selecteur_gare("Gare de départ", key="sel_depart")
+        depart = selecteur_gare("Gare de départ", key="sel_depart", source="sncf")
     with c2:
-        arrivee = selecteur_gare("Gare d'arrivée", key="sel_arrivee")
+        arrivee = selecteur_gare("Gare d'arrivée", key="sel_arrivee", source="sncf")
     chercher = st.button("Rechercher", type="primary")
-    
+
 if chercher:
     if not depart.strip() or not arrivee.strip():
         st.warning("Renseigne les deux gares.")

@@ -15,28 +15,37 @@ tab_creer, tab_voir, tab_modif, tab_suppr = st.tabs(
 
 with tab_creer:
     st.caption("La durée est calculée automatiquement par le backend via l'API SNCF.")
-    depart = selecteur_gare("Gare de départ", key="tc_depart")
-    arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        depart = selecteur_gare("Gare de départ", key="tc_depart", source="base")
+    with c2:
+        arrivee = selecteur_gare("Gare d'arrivée", key="tc_arrivee", source="base")
+
     horaire = saisie_horaire("tc")
+
     c1, c2 = st.columns(2)
     places = c1.number_input("Nombre de places", min_value=1, value=100, step=1, key="tc_places")
     tarif = c2.number_input("Tarif (€)", min_value=0.0, value=30.0, step=1.0, key="tc_tarif")
 
     if st.button("Créer le trajet", type="primary"):
-        res = api_client.post(
-            chemin("trajets", "/"),
-            json={
-                "nom_gare_depart": depart,
-                "nom_gare_arrivee": arrivee,
-                "date_heure_depart": horaire.isoformat(),
-                "nb_places": int(places),
-                "tarif": float(tarif),
-            },
-            timeout=60,  # l'appel à l'API SNCF peut être lent
-        )
-        if afficher_resultat(res, "Trajet créé."):
-            logger.info(f"Trajet créé : {depart} -> {arrivee}")
-            st.json(res["data"])
+        if not depart or not arrivee:
+            st.warning("Choisis les deux gares dans les listes proposées.")
+        else:
+            res = api_client.post(
+                chemin("trajets", "/"),
+                json={
+                    "nom_gare_depart": depart,
+                    "nom_gare_arrivee": arrivee,
+                    "date_heure_depart": horaire.isoformat(),
+                    "nb_places": int(places),
+                    "tarif": float(tarif),
+                },
+                timeout=60,  # l'appel à l'API SNCF peut être lent
+            )
+            if afficher_resultat(res, "Trajet créé."):
+                logger.info(f"Trajet créé : {depart} -> {arrivee}")
+                st.json(res["data"])
 
 with tab_voir:
     id_voir = st.number_input("ID du trajet", min_value=1, step=1, key="tv_id")

@@ -79,9 +79,6 @@ class GareService:
         """ recherche les gares par leurs noms"""
         list_gare = self.dao.recherche_gare_par_nom(nom_gare)
 
-        if len(list_gare) == 0:
-            raise HTTPException(status_code=404, detail="Gares introuvables")
-   
         return list_gare
 
     @log
