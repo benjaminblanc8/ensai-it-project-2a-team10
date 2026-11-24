@@ -106,7 +106,7 @@ Ce découpage en couches permet de respecter un principe central du développeme
 
 #### Couche Objet
 
-![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
+![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="100%"}
 
 La couche objet est composée de cinq classes : Utilisateur, Gare, Ligne, Trajet et Reservation. À celles-ci s'ajoute l'énumération NiveauHabilitation, qui peut prendre les valeurs CLIENT, COLLABORATEUR et ADMIN.
 
@@ -125,7 +125,7 @@ Enfin, la classe Reservation relie un utilisateur à un trajet.
 
 #### Couche Controller {.unlisted}
 
-![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="120%"}
+![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="100%"}
 
 La couche controller est le point d'entrée de l'application. Elle est composée des routeurs FastAPI et contient un controller par grande entité : UtilisateurController, GareController, LigneController, TrajetController et ReservationController. S'y ajoutent ConnexionController, qui gère l'authentification, et ApiSncfController, qui permet de rechercher une gare par son nom.
 
@@ -134,7 +134,7 @@ Un controller ne contient pas de règle de gestion. Il reçoit la requête HTTP 
 
 #### Couche Service {.unlisted}
 
-![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="120%"}
+![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="100%"}
 
 La couche service contient les règles de gestion de l'application. Chaque service utilise les DAO pour lire ou écrire les données et manipule les objets de la couche objet.
 
@@ -145,7 +145,7 @@ ApiSncfService est un service à part, car il ne passe pas par la base de donné
 
 #### Couche Dao {.unlisted}
 
-![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="120%"}
+![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="100%"}
 
 La couche DAO est la seule à communiquer avec la base de données PostgreSQL. La classe DBConnection gère la connexion et est utilisée par tous les DAO. Il y a ensuite un DAO par entité : UtilisateurDao, GareDao, LigneDao, TrajetDao et ReservationDao. Chacun exécute les requêtes SQL et transforme les lignes obtenues en objets Python, et inversement.
 
