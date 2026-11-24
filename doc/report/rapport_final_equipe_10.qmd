@@ -45,7 +45,7 @@ Ce rapport présente les différentes étapes et les principaux résultats de no
 
 ## Organisation
 
-La création de l'API s'est articulée en deux phases classiques : l'analyse, qui a eu lieu en parallèle des compléments de notre formation en informatique, et le développement, plus long et autonome, qui s'est concentré sur les trois jours d'immersion proposés par le cadre de notre formation, complété par un travil régulier tout le long des mois d'octobre et novembre.  
+La création de l'API s'est articulée en deux phases classiques : l'analyse, qui a eu lieu en parallèle des compléments de notre formation en informatique, et le développement, plus long et autonome, qui s'est concentré sur les trois jours d'immersion proposés par le cadre de notre formation, complété par un travail régulier tout le long des mois d'octobre et novembre.  
 
 Chaque semaine ou presque, une réunion avait lieu avec l'équipe pour mettre en commun notre avancement et, surtout, lever les incertitudes qui pesaient sur nos choix d'implémentation et de solutions techniques liés au projet.
 
@@ -53,7 +53,7 @@ Nous avons réparti les rôles de façon non stricte, principalement en fonction
 
 Nous avons utilisé les outils idoines, liés à notre formation ENSAI, à notre disposition pour travailler : 
 
-- VScode (principalement) pour programmer en Python;
+- VS Code (principalement) pour programmer en Python;
 - Postgres pour établir une connexion avec notre base de données;
 - L'API de la SNCF, Navitia, pour récupérer les données utiles à nos instances de gares, lignes et trains;
 - CloudBeaver pour manipuler et tester notre base de données de manière confortable et opérationnelle;
@@ -69,7 +69,7 @@ La répartition des tâches au sein de l'équipe a été volontairement souple, 
 
 - La coordination du groupe et l'animation des réunions ont été assurées par Jérémie; 
 - Benjamin s'est chargé de créer, maintenir et gérer la connexion à la base de données;
-- Hugo s'est attaché au diagramme de classes et la synthèse plus générales des décisions architecturales prises par le groupe; 
+- Hugo s'est attaché au diagramme de classes et la synthèse plus générale des décisions architecturales prises par le groupe; 
 - Manon a couvert, dans la phase d'analyse, les diagrammes de cas d'utilisation et d'activité;
 - Alexandre s'est penché sur la description des fonctionnalités, les classes objet et l'intégration de l'API SNCF, ainsi que sur la partie numérique de la communication de travail dans le groupe.
 
@@ -77,10 +77,10 @@ En termes de programmation pure :
 
 - La couche de contrôle (routeurs, schémas) a été initiée par Jérémie, avant qu'il ne corrige ou améliore graduellement les détails de tout le code;
 - Benjamin a prolongé son travail de préparation et a codé la couche DAO presque en entier, et modifié lorsque c'était nécessaire les autres couches;
-- Hugo et Alexandre ont étroitement collaboré sur les couches métier et services, lesquelles ont subi de nombreuses modifications au gré des contraintes que nous avons rencontré;
-- Manon a programmé les tests unitaires et assuré le débuguage qui allait avec, donc une partie de la maintenance du code dans son ensemble.
+- Hugo et Alexandre ont étroitement collaboré sur les couches métier et service, lesquelles ont subi de nombreuses modifications au gré des contraintes que nous avons rencontrées;
+- Manon a programmé les tests unitaires et assuré le débogage qui allait avec, donc une partie de la maintenance du code dans son ensemble.
 
-Comme on le devine à cette description a posteriori, en pratique, chacun et chacune est régulièrement intervenu(e) sur des parties du code ou de l'analyse qui n'étaient pas son axe principal, et nous avons veillé à ce que tous les membres conservent une vision d'ensemble du code et de l'analyse, ce qui a facilité la relecture croisée, la correction des incohérences et le relais en cas d'indisponibilité ponctuelle.
+Comme on le devine à cette description a posteriori, en pratique, chacun et chacune est régulièrement intervenu(e) sur des parties du code ou de l'analyse qui n'étaient pas son axe principal, et nous avons veillé à ce que tous les membres conservent une vision d'ensemble du projet, ce qui a facilité la relecture croisée, la correction des incohérences et le relais en cas d'indisponibilité ponctuelle.
 
 {{< pagebreak >}}
 
@@ -88,15 +88,15 @@ Comme on le devine à cette description a posteriori, en pratique, chacun et cha
 
 ### Diagramme de classes final
 
-La conception de notre projet est passée par la réalisation d'un diagramme de classes, nous permettant d'obtenir une vision d'ensemble des classes que nous souhaitions programmer et des relations entre celle-ci. Notre diagramme de classes se décompose en 4 couches : 
+La conception de notre projet est passée par la réalisation d'un diagramme de classes, nous permettant d'obtenir une vision d'ensemble des classes que nous souhaitions programmer et des relations entre celles-ci. Notre diagramme de classes se décompose en 4 couches : 
 
-- *Couche Objet* : Cette couche comprend toutes les classes élémentaires de notre objet. Il s'agit des différents objets que nous manipulerons dans les autres couches du projet.
+- *Couche Objet* : Cette couche comprend toutes les classes élémentaires de notre objet. Il s'agit des différents objets que nous manipulons dans les autres couches du projet.
 
-- *Couche Controller* : Cette couche fait l'intermédiaire entre l'interface et la couche service. Elle a pour but de d'amener les requêtes des utilisateurs vers les bons services. Il s'agit de plus de la classe qui sert à construire le Swagger de notre application.
+- *Couche Controller* : Cette couche fait l'intermédiaire entre l'interface et la couche service. Elle a pour but d'amener les requêtes des utilisateurs vers les bons services. Il s'agit aussi de la classe qui sert à construire le Swagger de notre application.
 
-- *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appelle à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
+- *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appel à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
 
-- *Couche Dao* : Comme expliqué précedemment, cette classe reprend notamment les méthodes de la couche Service en allant chercher les données nécessaires.
+- *Couche Dao* : Comme expliqué précédemment, cette couche reprend notamment les méthodes de la couche Service en allant chercher les données nécessaires.
 
 Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
 
@@ -127,9 +127,7 @@ Ce découpage en couches permet de respecter un principe central du développeme
 
 {{< pagebreak >}}
 
-### Choix techniques
-
-### 3.2 Nos choix pour l'implémentation
+### Nos choix pour l'implémentation
 
 Dans le cadre du développement de notre application de gestion de trajets ferroviaires, nous avons dû effectuer plusieurs choix technologiques afin de répondre aux besoins spécifiques du projet. Ces choix ont été guidés par la nécessité de construire une API performante, de garantir une gestion fiable des données et d'assurer la sécurité des interactions entre les différents utilisateurs. Voici les principales technologies retenues et les raisons qui ont motivé leur utilisation :
 
@@ -277,7 +275,7 @@ Cette fonctionnalité permet de créer un compte, de s'authentifier et de gérer
 
 Cette fonctionnalité permet aux utilisateurs COLLAB et ADMIN de créer, modifier et supprimer des lignes reliant une gare de départ à une gare de terminus. La consultation par identifiant est accessible sans authentification.
 
-Les gares sont identifiées par leurs identifiants SNCF, ce qui est plus robuste que la seule utilisation de leurs noms. Un endpoint dédié (`GET /api_sncf/{nom_gare}`) permet de rechercher des gares par nom partiel et d'obtenir leur identifiant SNCF correspondant. Règles de gestion :
+Les gares sont identifiées par leurs identifiants SNCF, ce qui est plus robuste que la seule utilisation de leurs noms. Un endpoint dédié (`GET /api_sncf/{nom_gare}`) permet de rechercher des gares par nom partiel et d'obtenir leur identifiant SNCF correspondant. Cet endpoint est également utilisé comme source d'autocomplétion lors de la création d'une ligne ou d'un trajet dans l'interface Swagger, les suggestions étant retournées après la saisie. Règles de gestion :
 
 - La création d'une ligne vérifie que les deux gares existent (via l'API SNCF) et qu'elles sont différentes.
 - Une vérification empêche de créer deux fois la même liaison dans le même sens.
@@ -391,7 +389,7 @@ Les tests de la couche `service` vérifient l'enchaînement des règles de gesti
 
 Cette suite de tests unitaires apporte une garantie solide sur les règles métiers structurantes de **Trajecto** (gestion des capacités, contrôle des habilitations, validation des entrées et remontée des erreurs) et facilite la maintenance de l'application.
 
-Des axes d'amélioration restent identifiés pour compléter cette validation : élargir la couverture des cas d'erreur sur `TrajetService` et des cas nominaux de `ReservationService`, uniformiser l'usage de `monkeypatch` sur l'ensemble des mocks de classes DAO. Cela dit, la couverture actuelle couvre les cas les plus risqués et s'est donc montrée safisfaisante à nos yeux pour un projet à cette échelle.
+Des axes d'amélioration restent identifiés pour compléter cette validation : élargir la couverture des cas d'erreur sur `TrajetService` et des cas nominaux de `ReservationService`, uniformiser l'usage de `monkeypatch` sur l'ensemble des mocks de classes DAO. Cela dit, la couverture actuelle couvre les cas les plus risqués et s'est donc montrée satisfaisante à nos yeux pour un projet à cette échelle.
 
 {{< pagebreak >}}
 
@@ -399,13 +397,13 @@ Des axes d'amélioration restent identifiés pour compléter cette validation : 
 
 ### Jérémie L'Hostis
 
-Ce projet fut pour l'occasion idéale pour me plonger dans deux rôles qui m'intéressent professionnellement : diriger une équipe (je me suis rapidement porté volontaire et mes comparses n'y ont pas vu d'inconvénient); et me plonger dans le développement complet d'une application informatique. J'ai par le passé effectué des études dont le contenu comportait de l'informatique, mais elles étaient davantage axées sur ses aspects théoriques : aborder le domaine parmi les ingénieurs était pour moi une démarche nouvelle. Comme toute la promotion, j'ai ainsi découvert avec intérêt les préoccupations d'architecture, de programmation en couches, de maintenance et d'autonomie en équipe, entre autres notions importantes pour lesquelles cette UE était un prétexte pertinent.
+Ce projet fut l'occasion idéale pour me plonger dans deux rôles qui m'intéressent professionnellement : diriger une équipe (je me suis rapidement porté volontaire et mes comparses n'y ont pas vu d'inconvénient); et me plonger dans le développement complet d'une application informatique. J'ai par le passé effectué des études dont le contenu comportait de l'informatique, mais elles étaient davantage axées sur ses aspects théoriques : aborder le domaine parmi les ingénieurs était pour moi une démarche nouvelle. Comme toute la promotion, j'ai ainsi découvert avec intérêt les préoccupations d'architecture, de programmation en couches, de maintenance et d'autonomie en équipe, entre autres notions importantes pour lesquelles cette UE était un prétexte pertinent.
 
-J'ai appris beaucoup de choses, mais deux aspects du déroulé ont retenu mon attention particulièrement :
+J'ai appris beaucoup de choses, parmi lesquelles, bien entendu, de nombreuses notions pointues de programmation et de sécurité informatique qu'on ne peut appréhender qu'à travers la création d'une application entière ex nihilo (ce qui, pour moi qui suis entré directement en deuxième année à l'ENSAI, était inédit), mais deux aspects du déroulé ont retenu mon attention particulièrement :
 
-- J'ai appréhendé la difficulté que représentait la coordination d'une équipe aux rythmes de travail, aux disponibilités et aux compétences variées, autour d'un même projet devant aboutir en un temps limité. Je n'étais moi-même pas le programmeur le plus chevronné du groupe et l'humilité qu'exige la nécessité de s'entraider sur ses lacunes respectivesa été un enseignement précieux; de même que la gestion des légers points d'inquiétude ou d'hésitations autour de l'avancement d'une partie ou d'une autre du projet. J'ai eu la chance de travailler dans un groupe très sérieux, où chaque personne a su être au rendez-vous quand c'était nécessaire, malgré quelques contretemps. J'ai pu alors mobiliser mon expérience professionnelle antérieure pour organiser, rassurer et garder une vue d'ensemble sereine qui nous a permis d'obtenir une application stable dans les temps. J'en suis très satisfait; et je pense par ailleurs que chacune des cinq personnes concernées peuvent être fières de leur travail.
+- J'ai appréhendé la difficulté que représentait la coordination d'une équipe aux rythmes de travail, aux disponibilités et aux compétences variées, autour d'un même projet devant aboutir en un temps limité. Je n'étais moi-même pas le programmeur le plus chevronné du groupe et l'humilité qu'exige la nécessité de s'entraider sur ses lacunes respectives a été un enseignement précieux; de même que la gestion des légers points d'inquiétude ou d'hésitations autour de l'avancement d'une partie ou d'une autre du projet. J'ai eu la chance de travailler dans un groupe très sérieux, où chaque personne a su être au rendez-vous quand c'était nécessaire, malgré quelques contretemps. J'ai pu alors mobiliser mon expérience professionnelle antérieure pour organiser, rassurer et garder une vue d'ensemble sereine qui nous a permis d'obtenir une application stable dans les temps. J'en suis très satisfait; et je pense par ailleurs que chacune des cinq personnes concernées peut être fière de son travail.
 
-- J'ai découvert, avec autant de circonspection que d'intérêt, la programmation et la relecture assistées par IA. En effet, l'époque où j'ai été initié en informatique (autour de 2016) précédait l'arrivée en force des LLM et leurs performances actuelles. J'ai eu la confirmation des aspects de ces nouveaux outils qui m'inquiètent le plus : la perte d'autonomie sur les tâches techniques fines si on ne surveille pas (ce qu'il faut faire, donc) la quantité de travail qu'on lui délègue, et la tentation à la paresse intellectuelle au moment de proposer ou examiner une solution à un problème. J'ai été rassuré de réaliser deux choses, cependant : le gain de productivité est bien réel à condition de savoir ce que l'on souhaite faire, et la nécessité de rigueur dans le travail n'est pas levée par ce type d'usage, puisqu'il faut avoir analysé correctement avant faire toute requête en amont, puis vérifier ce que la machine propose, relire et bien sûr comprendre en aval. Cela ne fait que gonfler mon intérêt pour les enseignements futurs dédiés au machine learning, car appréhender la manière dont ces assistants sont fabriqués est plus que jamais nécessaire dans des métiers tels que auxquels l'ENSAI prépare.
+- J'ai découvert, avec autant de circonspection que d'intérêt, la programmation et la relecture assistées par IA. En effet, l'époque où j'ai été initié en informatique (autour de 2016) précédait l'arrivée en force des LLM et leurs performances actuelles. J'ai eu la confirmation des aspects de ces nouveaux outils qui m'inquiètent le plus : la perte d'autonomie sur les tâches techniques fines si on ne se surveille pas (ce qu'il faut faire, donc) la quantité de travail qu'on lui délègue, et la tentation à la paresse intellectuelle au moment de proposer ou examiner une solution à un problème. J'ai été rassuré de réaliser deux choses, cependant : le gain de productivité est bien réel à condition de savoir ce que l'on souhaite faire, et la nécessité de rigueur dans le travail n'est pas levée par ce type d'usage, puisqu'il faut avoir analysé correctement avant de faire toute requête en amont, puis vérifier ce que la machine propose, relire et bien sûr comprendre en aval. Cela ne fait que gonfler mon intérêt pour les enseignements futurs dédiés au machine learning, car appréhender la manière dont ces assistants sont fabriqués est plus que jamais nécessaire dans des métiers tels que ceux auxquels l'ENSAI prépare.
 
 ### Alexandre Yu
 
@@ -423,11 +421,11 @@ Dans l'ensemble, ce projet a été une expérience plutôt enrichissante. Il m'a
 
 Ce projet informatique m'aura offert la possibilité de mieux appréhender un travail en groupe, d'approfondir mes connaissances en informatique et ma pratique du code. Pour commencer, je vais aborder la question du travail collectif. Je parlerai ensuite des apports personnels de ce projet, et je finirai en donnant quelques améliorations possibles en ce qui concerne mon travail en lui-même.
 
-Ce projet informatique m'a conforté dans l'idée que l'organisation même du projet était peut-être l'élément le plus important, devant la maîtrise des notions abordées, pour la réussite de celui-ci. Dès le début, Jérémie a proposé d'occuper le rôle de chef de groupe de notre projet. Il a tenu parfaitement ce rôle en s'assurant que chacun avait des rôles et des tâches bien particulières et en organisant des points hebdomadaires afin de discuter de l'avancée du projet. Le projet informatique de première année m'avait permis de constater que l'absence de chef de groupe était délétère pour la réussite du projet, justement parce que les tâches à effectuer n'étaient pas bien réparties et car une forme de procrastination s'installait. Toutefois, l'utilité du chef du groupe repose aussi grandement sur les autres membres du groupe, leur réactivité et leur capacité à suivre les tâches et rôles répartis. Il est ainsi arrivé que nous travaillions à plusieurs sur une même tâches sans s'être préalablement coordonné, entraînant donc une perte de temps. Pour conclure cette partie, ce projet m'aura permis de mieux comprendre comment travailler efficacement en groupe. De plus, la très bonne organisation de ce projet est à l'origine selon moi du bon déroulement de celui-ci. Le fait de travailler avec de nouvelles personnes nécessite d'avoir une bonne organisation et nous force à nous intéresser à tous les aspects du projet.
+Ce projet informatique m'a conforté dans l'idée que l'organisation même du projet était peut-être l'élément le plus important, devant la maîtrise des notions abordées, pour la réussite de celui-ci. Dès le début, Jérémie a proposé d'occuper le rôle de chef de groupe de notre projet. Il a tenu parfaitement ce rôle en s'assurant que chacun avait des rôles et des tâches bien particulières et en organisant des points hebdomadaires afin de discuter de l'avancée du projet. Le projet informatique de première année m'avait permis de constater que l'absence de chef de groupe était délétère pour la réussite du projet, justement parce que les tâches à effectuer n'étaient pas bien réparties et car une forme de procrastination s'installait. Toutefois, l'utilité du chef du groupe repose aussi grandement sur les autres membres du groupe, leur réactivité et leur capacité à suivre les tâches et rôles répartis. Il est ainsi arrivé que nous travaillions à plusieurs sur une même tâche sans s'être préalablement coordonné, entraînant donc une perte de temps. Pour conclure cette partie, ce projet m'aura permis de mieux comprendre comment travailler efficacement en groupe. De plus, la très bonne organisation de ce projet est à l'origine selon moi du bon déroulement de celui-ci. Le fait de travailler avec de nouvelles personnes nécessite d'avoir une bonne organisation et nous force à nous intéresser à tous les aspects du projet.
 
-C'est un projet qui m'aura également donner l'occasion d'approfondir mes connaissances en informatique. Il s'agissait tout d'abord d'une application de l'organisation par couches [objet|Controller|Service|Dao] vue en début de deuxième année. Cette notion est loin d'être simple à comprendre et à pratiquer, et c'est grâce en grande partie à ce projet et à l'aide de notre tuteur que j'ai pu la comprendre. Je me suis également notamment occupé de la rédaction du diagramme de classes du projet informatique. La structure en couches du projet a rendu en particulier intéressante et stimulante sa rédaction. Enfin, ce projet a évidemment été à nouveau l'occasion de pratiquer la programmation orientée objet.
+C'est un projet qui m'aura également donné l'occasion d'approfondir mes connaissances en informatique. Il s'agissait tout d'abord d'une application de l'organisation par couches [objet|Controller|Service|Dao] vue en début de deuxième année. Cette notion est loin d'être simple à comprendre et à pratiquer, et c'est grâce en grande partie à ce projet et à l'aide de notre tuteur que j'ai pu la comprendre. Je me suis également notamment occupé de la rédaction du diagramme de classes du projet informatique. La structure en couches du projet a rendu en particulier intéressante et stimulante sa rédaction. Enfin, ce projet a évidemment été à nouveau l'occasion de pratiquer la programmation orientée objet.
 
-Comme après n'importe quel projet, j'ai noté quelques améliorations possibles dans mon travail. En premier lieu, j'ai le sentiment de n'avoir pas assez codé. je dirais que cela est notamment dû à l'efficacité d'autres membres du groupe. J'ai également des améliorations à faire en ce qui concerne la communication pour éviter tout perte de temps et d'énergie. Il est arrivé ponctuellement que nous travaillions à plusieurs sur une même tâche. A l'avenir, il faudra éviter que cela se reproduise. De plus, cela a été la source de quelques conflits git dont on aurait pu se passer.
+Comme après n'importe quel projet, j'ai noté quelques améliorations possibles dans mon travail. En premier lieu, j'ai le sentiment de n'avoir pas assez codé. Je dirais que cela est notamment dû à l'efficacité d'autres membres du groupe. J'ai également des améliorations à faire en ce qui concerne la communication pour éviter toute perte de temps et d'énergie. Il est arrivé ponctuellement que nous travaillions à plusieurs sur une même tâche. À l'avenir, il faudra éviter que cela se reproduise. De plus, cela a été la source de quelques conflits git dont on aurait pu se passer.
 
 En définitive, ce projet informatique aura été une expérience riche à plusieurs égards. Sur le plan collectif, il m'a montré que l'organisation, portée par un chef de groupe investi et des points réguliers, conditionne largement la réussite d'un projet, à condition que chacun soit réactif et communique sur ce qu'il fait. Sur le plan personnel, il m'a permis de mieux comprendre l'architecture en couches, d'approfondir la programmation orientée objet et la réalisation d'un diagramme de classes. Il m'a aussi permis d'identifier des points sur lesquels je pouvais m'améliorer: coder davantage et mieux communiquer afin d'éviter les doublons de travail et les conflits git. Ces enseignements me serviront dans mes futurs projets où je veillerai à m'impliquer davantage dans la réalisation technique tout en maintenant une bonne coordination avec mes coéquipiers.
 
