@@ -173,6 +173,12 @@ Ces changements ont conservé le principe du découpage en couches, mais ils mon
 
 ![Schéma de la base de données](img/diagramme_bdd_final.svg){fig-align="center" width="120%"}
 
+Le schéma de la base de données suit le diagramme de classes : chaque classe de la couche objet correspond à une table PostgreSQL. La base contient donc cinq tables : Utilisateur, Gare, Ligne, Trajet et Reservation. Les relations entre les tables sont représentées par des clés étrangères. Une ligne référence sa gare de départ et sa gare d'arrivée, un trajet référence sa ligne, et une réservation référence l'utilisateur qui l'a faite et le trajet réservé.
+
+Plusieurs règles de gestion sont directement garanties par la base. Le pseudo d'un utilisateur est unique, et son niveau d'habilitation vaut CLIENT par défaut. Le mot de passe est stocké haché avec argon2 et jamais en clair. Le nombre de places d'un trajet ne peut pas être négatif. Enfin, la clé étrangère entre Trajet et Ligne empêche de supprimer une ligne tant que des trajets lui sont associés.
+
+Ce schéma a évolué depuis le rapport intermédiaire. La table Reservation, qui était optionnelle, a été créée. Dans la table Trajet, l'heure d'arrivée a été remplacée par la durée en minutes obtenue grâce à l'API SNCF, et nous avons ajouté le nombre de places, le nombre de places réservées et le tarif, qui manquaient dans le premier schéma. Nous avons aussi retiré le lien entre un trajet et son créateur, qui n'était pas utilisé par l'application. La table Gare contient maintenant la ville et l'identifiant SNCF de la gare. Enfin, la table Reservation ne conserve plus la date de réservation prévue au départ.
+
 {{< pagebreak >}}
 
 ### Nos choix pour l'implémentation
