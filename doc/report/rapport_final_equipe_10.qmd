@@ -96,11 +96,7 @@ La conception de notre projet est passée par la réalisation d'un diagramme de 
 
 - *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appel à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
 
-<<<<<<< HEAD
 - *Couche Dao* : Comme expliqué précedemment, cette classe exécute les requêtes SQL pour le service.
-=======
-- *Couche Dao* : Comme expliqué précédemment, cette couche reprend notamment les méthodes de la couche Service en allant chercher les données nécessaires.
->>>>>>> b0d4a37a9d5fa4b05f90f32615b5e3430132cba9
 
 Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
 
