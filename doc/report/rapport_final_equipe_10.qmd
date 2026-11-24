@@ -415,11 +415,9 @@ L'un des principaux enseignements que je retiens de ce projet concerne l'importa
 
 J'ai ainsi pris conscience qu'une conception initiale bien réfléchie, accompagnée de diagrammes adaptés, permet de mieux anticiper les besoins du projet et de limiter les modifications importantes en cours de développement. On réalise rapidement que la principale difficulté du projet ne résidait pas nécessairement dans l'implémentation technique des fonctionnalités, mais davantage dans la manière de les concevoir et de les intégrer correctement à l'ensemble de l'application, tout en respectant les bonnes pratiques de développement et en gardant une architecture cohérente.
 
-La gestion des erreurs a également représenté un point important. Il est essentiel de prévoir des messages explicites et de bien identifier l'origine des erreurs afin de faciliter le débogage et de permettre de corriger plus rapidement les problèmes rencontrés.
+La gestion des erreurs a également représenté un point important. À mesure que l'application gagne en complexité, les interactions entre les composants se multiplient et rendent le débogage plus difficile. Il était donc essentiel de prévoir des messages explicites et de bien identifier l'origine des erreurs afin de faciliter le débogage et de permettre de corriger plus rapidement les problèmes rencontrés. Ce projet m'a permis de prendre conscience de l'importance de bien définir les erreurs et de gérer les dépendances entre les différents modules.
 
-Enfin, ce projet m'a permis de prendre conscience de l'importance de bien définir les erreurs et de gérer les dépendances entre les différents modules. À mesure que l'application gagne en complexité, les interactions entre les composants se multiplient et rendent le débogage plus difficile. Une bonne organisation du code et une gestion rigoureuse des erreurs deviennent alors indispensables.
-
-Dans l'ensemble, ce projet a été une expérience plutôt enrichissante. Il m'a permis de développer mes compétences techniques, mais aussi de mieux appréhender les enjeux liés à la conception d'une application informatique dans sa globalité. Je retiens particulièrement l'importance de la réflexion architecturale, du respect des bonnes pratiques et de la qualité des échanges entre les différentes parties d'une application.
+Dans l'ensemble, ce projet a été une expérience plutôt enrichissante. Il m'a permis de mieux appréhender les enjeux liés à la conception d'une application dans sa globalité. Je retiens particulièrement l'importance de la réflexion architecturale, du respect des bonnes pratiques et de la qualité des échanges entre les différentes parties d'une application.
 
 ### Hugo Lhommeau
 
