@@ -110,7 +110,7 @@ Ce découpage en couches permet de respecter un principe central du développeme
 
 #### Couche Objet
 
-![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
+![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="100%"}
 La couche objet est composée de cinq classes : Utilisateur, Gare, Ligne, Trajet et Reservation. À celles-ci s'ajoute l'énumération NiveauHabilitation, qui peut prendre les valeurs CLIENT, COLLABORATEUR et ADMIN.
 
 La classe Utilisateur contient un identifiant, un pseudo unique, un mot de passe haché et un niveau d'habilitation. Ces attributs sont privés et accessibles uniquement par des méthodes. La méthode verifier_mdp() compare un mot de passe saisi avec le mot de passe haché. La méthode verifier_role() indique si l'utilisateur possède au moins le niveau d'habilitation demandé. Comme dans le rapport intermédiaire, nous avons représenté les niveaux par une énumération et non par des classes filles. Le niveau d'un utilisateur peut être modifié par un administrateur, et avec un héritage il aurait fallu changer la classe de l'objet à chaque modification.
@@ -128,7 +128,7 @@ Enfin, la classe Reservation relie un utilisateur à un trajet.
 
 #### Couche Controller {.unlisted}
 
-![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="120%"}
+![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="100%"}
 La couche controller est le point d'entrée de l'application. Elle est composée des routeurs FastAPI et contient un controller par grande entité : UtilisateurController, GareController, LigneController, TrajetController et ReservationController. S'y ajoutent ConnexionController, qui gère l'authentification, et ApiSncfController, qui permet de rechercher une gare par son nom.
 
 Un controller ne contient pas de règle de gestion. Il reçoit la requête HTTP et vérifie les données grâce aux modèles Pydantic (par exemple TrajetCreationModel ou LigneModel). Il contrôle ensuite le jeton JWT et le niveau d'habilitation, puis appelle le service concerné. Il construit enfin la réponse au format JSON avec le code HTTP adapté. Les méthodes get_..._service() permettent à chaque routeur de récupérer le service dont il a besoin. Dans TrajetController, la méthode convertir_trajet() transforme un objet Trajet en modèle de réponse (TrajetReadModel). ConnexionController utilise le formulaire OAuth2PasswordRequestForm de FastAPI et renvoie le jeton à l'utilisateur.
@@ -136,7 +136,7 @@ Un controller ne contient pas de règle de gestion. Il reçoit la requête HTTP 
 
 #### Couche Service {.unlisted}
 
-![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="120%"}
+![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="100%"}
 La couche service contient les règles de gestion de l'application. Chaque service utilise les DAO pour lire ou écrire les données et manipule les objets de la couche objet.
 
 UtilisateurService gère la création de compte, la connexion et la modification d'habilitation. Il vérifie par exemple que le pseudo n'est pas déjà utilisé et que le mot de passe est assez long. La méthode modifier_habilitation() reçoit l'administrateur en paramètre afin de vérifier qu'il en a le droit. LigneService vérifie que les deux gares sont différentes et qu'une ligne identique n'existe pas déjà. GareService enregistre une gare après avoir vérifié qu'elle existe dans l'API SNCF. TrajetService crée, modifie et supprime des trajets. ReservationService vérifie que le trajet existe et qu'il reste des places, puis met à jour le nombre de places réservées. Lors d'une annulation, il vérifie aussi que la réservation appartient bien à l'utilisateur.
@@ -146,7 +146,7 @@ ApiSncfService est un service à part, car il ne passe pas par la base de donné
 
 #### Couche Dao {.unlisted}
 
-![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="120%"}
+![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="100%"}
 La couche DAO est la seule à communiquer avec la base de données PostgreSQL. La classe DBConnection gère la connexion et est utilisée par tous les DAO. Il y a ensuite un DAO par entité : UtilisateurDao, GareDao, LigneDao, TrajetDao et ReservationDao. Chacun exécute les requêtes SQL et transforme les lignes obtenues en objets Python, et inversement.
 
 Les méthodes de base sont la création, la recherche, la modification et la suppression. Certaines méthodes répondent à des besoins plus précis. LigneDao.rechercher_ids_par_gares() permet de retrouver une ligne à partir du nom de ses deux gares. TrajetDao.incrementer_places_reservees() et decrementer_places_reservees() modifient le compteur de places lors d'une réservation ou d'une annulation. Les méthodes renvoient soit un booléen qui indique si l'opération a réussi, soit l'objet recherché, soit None s'il n'existe pas.
@@ -171,7 +171,8 @@ Ces changements ont conservé le principe du découpage en couches, mais ils mon
 
 ### Schéma de base de données final
 
-![Schéma de la base de données](img/diagramme_bdd_final.svg){fig-align="center" width="120%"}
+![Schéma de la base de données](img/diagramme_bdd_final.svg){fig-align="center" width="100%"}
+
 
 Le schéma de la base de données suit le diagramme de classes : chaque classe de la couche objet correspond à une table PostgreSQL. La base contient donc cinq tables : Utilisateur, Gare, Ligne, Trajet et Reservation. Les relations entre les tables sont représentées par des clés étrangères. Une ligne référence sa gare de départ et sa gare d'arrivée, un trajet référence sa ligne, et une réservation référence l'utilisateur qui l'a faite et le trajet réservé.
 
