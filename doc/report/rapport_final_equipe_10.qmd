@@ -96,30 +96,74 @@ La conception de notre projet est passée par la réalisation d'un diagramme de 
 
 - *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appelle à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
 
-- *Couche Dao* : Comme expliqué précedemment, cette classe reprend notamment les méthodes de la couche Service en allant chercher les données nécessaires.
+- *Couche Dao* : Comme expliqué précedemment, cette classe exécute les requêtes SQL pour le service.
 
 Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
 
-- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mock).
+- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mocks).
 
 - Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
 
 #### Couche Objet
 
 ![Couche_objet](img/diagramme_classes_par_couche_19_11-1 - Couche Objet.png){fig-align="center" width="120%"}
+La couche objet est composée de cinq classes : Utilisateur, Gare, Ligne, Trajet et Reservation. À celles-ci s'ajoute l'énumération NiveauHabilitation, qui peut prendre les valeurs CLIENT, COLLABORATEUR et ADMIN.
+
+La classe Utilisateur contient un identifiant, un pseudo unique, un mot de passe haché et un niveau d'habilitation. Ces attributs sont privés et accessibles uniquement par des méthodes. La méthode verifier_mdp() compare un mot de passe saisi avec le mot de passe haché. La méthode verifier_role() indique si l'utilisateur possède au moins le niveau d'habilitation demandé. Comme dans le rapport intermédiaire, nous avons représenté les niveaux par une énumération et non par des classes filles. Le niveau d'un utilisateur peut être modifié par un administrateur, et avec un héritage il aurait fallu changer la classe de l'objet à chaque modification.
+
+La classe Gare contient un identifiant, un nom, une ville et l'identifiant de la gare dans l'API SNCF (id_gare_sncf). Ce dernier attribut permet de faire le lien entre nos gares et les données de Navitia.
+
+La classe Ligne relie une gare de départ à une gare d'arrivée et possède une date de création. Son identifiant vaut None tant que la ligne n'a pas été enregistrée dans la base de données, car c'est elle qui l'attribue. Une ligne planifie zéro ou plusieurs trajets, et un trajet appartient toujours à une seule ligne.
+
+La classe Trajet est rattachée à une ligne. Elle contient une date et une heure de départ, une durée en minutes, un nombre de places, un nombre de places réservées et un tarif. Ces trois derniers attributs sont privés, car ils sont modifiés lors des réservations. Ses méthodes permettent de connaître les gares de départ et d'arrivée à partir de la ligne (depart_arrivee()), l'heure d'arrivée (heure_arrivee()), le nombre de places restantes (places_restantes()) et de savoir si le trajet est complet (est_complet()).
+
+Enfin, la classe Reservation relie un utilisateur à un trajet.
+
+
+
 
 #### Couche Controller {.unlisted}
 
 ![Couche_controller](img/diagramme_classes_par_couche_19_11-4 - Couche Controller.png){fig-align="center" width="120%"}
+La couche controller est le point d'entrée de l'application. Elle est composée des routeurs FastAPI et contient un controller par grande entité : UtilisateurController, GareController, LigneController, TrajetController et ReservationController. S'y ajoutent ConnexionController, qui gère l'authentification, et ApiSncfController, qui permet de rechercher une gare par son nom.
+
+Un controller ne contient pas de règle de gestion. Il reçoit la requête HTTP et vérifie les données grâce aux modèles Pydantic (par exemple TrajetCreationModel ou LigneModel). Il contrôle ensuite le jeton JWT et le niveau d'habilitation, puis appelle le service concerné. Il construit enfin la réponse au format JSON avec le code HTTP adapté. Les méthodes get_..._service() permettent à chaque routeur de récupérer le service dont il a besoin. Dans TrajetController, la méthode convertir_trajet() transforme un objet Trajet en modèle de réponse (TrajetReadModel). ConnexionController utilise le formulaire OAuth2PasswordRequestForm de FastAPI et renvoie le jeton à l'utilisateur.
+
 
 #### Couche Service {.unlisted}
 
 ![Couche_Service](img/diagramme_classes_par_couche_19_11-3 - Couche Service.png){fig-align="center" width="120%"}
+La couche service contient les règles de gestion de l'application. Chaque service utilise les DAO pour lire ou écrire les données et manipule les objets de la couche objet.
+
+UtilisateurService gère la création de compte, la connexion et la modification d'habilitation. Il vérifie par exemple que le pseudo n'est pas déjà utilisé et que le mot de passe est assez long. La méthode modifier_habilitation() reçoit l'administrateur en paramètre afin de vérifier qu'il en a le droit. LigneService vérifie que les deux gares sont différentes et qu'une ligne identique n'existe pas déjà. GareService enregistre une gare après avoir vérifié qu'elle existe dans l'API SNCF. TrajetService crée, modifie et supprime des trajets. ReservationService vérifie que le trajet existe et qu'il reste des places, puis met à jour le nombre de places réservées. Lors d'une annulation, il vérifie aussi que la réservation appartient bien à l'utilisateur.
+
+ApiSncfService est un service à part, car il ne passe pas par la base de données. Il envoie les requêtes à l'API Navitia et garde en attribut la clé d'API, l'adresse de base et un cache des gares déjà obtenues. Il permet de rechercher des gares par leur nom, de vérifier qu'une gare existe, de savoir si un trajet est possible entre deux gares et d'en calculer la durée. Nous avons préféré regrouper tous les appels à l'API dans une seule classe plutôt que de les répartir dans chaque service. Cela limite le nombre de requêtes envoyées, ce qui est utile avec une limite de 1500 appels par jour, et cela évite de répéter le code.
+
 
 #### Couche Dao {.unlisted}
 
-
 ![Couche_Dao](img/diagramme_classes_par_couche_19_11-2 - Couche DAO.png){fig-align="center" width="120%"}
+La couche DAO est la seule à communiquer avec la base de données PostgreSQL. La classe DBConnection gère la connexion et est utilisée par tous les DAO. Il y a ensuite un DAO par entité : UtilisateurDao, GareDao, LigneDao, TrajetDao et ReservationDao. Chacun exécute les requêtes SQL et transforme les lignes obtenues en objets Python, et inversement.
+
+Les méthodes de base sont la création, la recherche, la modification et la suppression. Certaines méthodes répondent à des besoins plus précis. LigneDao.rechercher_ids_par_gares() permet de retrouver une ligne à partir du nom de ses deux gares. TrajetDao.incrementer_places_reservees() et decrementer_places_reservees() modifient le compteur de places lors d'une réservation ou d'une annulation. Les méthodes renvoient soit un booléen qui indique si l'opération a réussi, soit l'objet recherché, soit None s'il n'existe pas.
+
+
+#### Évolutions depuis le rapport intermédiaire
+
+Le diagramme de classes a beaucoup changé entre le rapport intermédiaire et la version finale. Une partie des modifications vient des remarques de notre tuteur. Les autres sont apparues en programmant, quand certains choix de conception se sont révélés peu adaptés.
+
+La modification la plus visible est l'ajout de la couche controller. Le rapport intermédiaire ne comportait que les couches objet, service et DAO, car l'interface devait être prise en charge par d'autres personnes. Pour fournir une API utilisable, il a fallu définir les routeurs FastAPI et les modèles Pydantic qui valident les données reçues. L'authentification par JWT a également conduit à ajouter des modules de sécurité qui n'étaient pas prévus au départ.
+
+Les classes Ligne et Trajet ont été revues. Dans le rapport intermédiaire, une ligne contenait une liste ordonnée de gares avec un libellé et des méthodes comme dessert() ou position(). Cette modélisation ne correspondait pas au sujet, qui définit une ligne comme une liaison entre une gare de départ et un terminus. Nous l'avons donc remplacée par deux attributs, gare_depart et gare_arrivee, et supprimé les méthodes devenues inutiles. Un trajet ne contient donc plus directement ses gares : il les obtient grâce à sa ligne, ce qui évite de stocker deux fois la même information. La classe Gare a elle aussi changé. Les coordonnées géographiques, qui n'étaient pas utilisées, ont été retirées, et l'identifiant SNCF a été ajouté.
+
+La fonctionnalité de réservation, qui était optionnelle dans le rapport intermédiaire, a finalement été implémentée. Elle apparaît dans les quatre couches avec la classe Reservation, ReservationService, ReservationDao et ReservationController, ainsi que dans la base de données.
+
+Les appels à l'API SNCF, dont l'emplacement n'était pas encore décidé dans le rapport intermédiaire, ont été regroupés dans ApiSncfService. Cette classe sert à la fois à vérifier l'existence des gares et à calculer automatiquement la durée des trajets. Dans le rapport intermédiaire, nous avions écrit que les DAO transformaient des données au format JSON en objets Python. Ce format correspond en réalité aux réponses de l'API Navitia, traitées par ApiSncfService, alors que les DAO transforment les résultats des requêtes SQL.
+
+Enfin, des modifications de moindre ampleur ont été faites dans les autres classes. Le niveau d'habilitation ADMINISTRATEUR est devenu ADMIN. Les méthodes est_collaborateur() et est_administrateur() ont été remplacées par une seule méthode, verifier_role(). Une classe DBConnection a été créée pour centraliser la connexion à la base de données, et de nouvelles méthodes de recherche ont été ajoutées aux DAO.
+
+Ces changements ont conservé le principe du découpage en couches, mais ils montrent qu'il aurait été utile de réfléchir davantage à la conception avant de commencer à coder, afin d'éviter autant de modifications en cours de développement.
+
 
 ### Schéma de base de données final
 
