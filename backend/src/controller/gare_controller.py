@@ -29,24 +29,25 @@ def ajouter_gare(
     service=Depends(get_gare_service),  # noqa: B008
 ):
     """Ajoute une gare."""
+
     logger.info("Ajout d'une gare")
 
     gares = get_api_sncf_service().obtenir_arrets_par_nom(informations.nom)
 
     gare_trouvee = next(
-            (
-                gare for gare in gares
-                if gare["nom"].strip().casefold()
-                == informations.nom.strip().casefold()
-            ),
-            None,
-        )
+        (
+            gare
+            for gare in gares
+            if gare["nom"].strip().casefold() == informations.nom.strip().casefold()
+        ),
+        None,
+    )
 
     if not gare_trouvee:
         raise HTTPException(
-                status_code=404,
-                detail=f"Aucune gare trouvée avec le nom exact : {informations.nom}",
-            )
+            status_code=404,
+            detail=f"Aucune gare trouvée avec le nom exact : {informations.nom}",
+        )
 
     for gare_existante in service.recherche_gare_par_nom(informations.nom):
         if gare_existante.nom == informations.nom:
@@ -80,6 +81,7 @@ def rechercher_gare_par_id(
         raise HTTPException(status_code=404, detail="Gare introuvable")
 
     return gare
+
 
 @router.get("/nom_gare/{nom_gare}", response_model=list[GareModel], tags=["Gares"])
 def rechercher_gare_par_nom(

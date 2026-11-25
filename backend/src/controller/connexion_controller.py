@@ -18,7 +18,25 @@ def connexion(
     informations: OAuth2PasswordRequestForm = Depends(),  # ruff: ignore[fast-api-non-annotated-dependency, function-call-in-default-argument]
     service: UtilisateurService = Depends(get_utilisateur_service),  # ruff: ignore[fast-api-non-annotated-dependency, function-call-in-default-argument]
 ):
-    """Connecte un utilisateur et retourne son token JWT."""
+    """Connecte un utilisateur et retourne son token JWT.
+
+    Parameters
+    ----------
+    informations : OAuth2PasswordRequestForm
+        Les informations de connexion.
+    service : UtilisateurService
+        Le service utilisateur.
+
+    Returns
+    -------
+    Utilisateur
+        L'utilisateur connecté.
+
+    Raises
+    ------
+    HTTPException
+        Si les identifiants sont invalides.
+    """
 
     logger.info("Connexion d'un utilisateur")
 

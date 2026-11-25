@@ -1,14 +1,11 @@
+from business_object.utilisateur import Utilisateur
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError
-
 from service.utilisateur_service import UtilisateurService
 from utils.security import decode_access_token
 
-
-oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/connexion/"
-)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/connexion/")
 
 
 def get_utilisateur_service():
@@ -19,8 +16,21 @@ def get_utilisateur_service():
 def get_current_user(
     token: str = Depends(oauth2_scheme),
     service: UtilisateurService = Depends(get_utilisateur_service),
-):
-    """Vérifie le JWT et retourne l'utilisateur connecté."""
+) -> Utilisateur:
+    """Vérifie le JWT et retourne l'utilisateur connecté.
+
+    Parameters
+    ----------
+    token : str
+        Le token JWT.
+    service : UtilisateurService
+        Le service utilisateur.
+
+    Returns
+    -------
+    Utilisateur
+        L'utilisateur connecté.
+    """
 
     try:
         payload = decode_access_token(token)

@@ -24,9 +24,21 @@ class TrajetService:
     ):
         """Crée un nouveau trajet.
 
-        Returns:
+        Parameters
+        ----------
+        ligne : Ligne
+            La ligne associée au trajet.
+        date_heure_depart : datetime.datetime
+            La date et l'heure de départ du trajet.
+        duree_minutes : int
+            La durée du trajet en minutes.
+
+        Returns
+        -------
+        Trajet | None
             Le trajet créé, ou None si la création échoue.
         """
+
         nouveau_trajet = Trajet(
             id_trajet=None,
             date_heure_depart=date_heure_depart,
@@ -41,7 +53,14 @@ class TrajetService:
     def supprimer_trajet(self, id_trajet: int):
         """Supprime un trajet.
 
-        Returns:
+        Parameters
+        ----------
+        id_trajet : int
+            L'identifiant du trajet à supprimer.
+
+        Returns
+        -------
+        bool
             True si la suppression réussit, False sinon.
         """
         return TrajetDao().supprimer_trajet(id_trajet)
@@ -58,7 +77,26 @@ class TrajetService:
     ):
         """Modifie un trajet existant.
 
-        Returns:
+        Parameters
+        ----------
+        id_trajet : int
+            L'identifiant du trajet à modifier.
+        ligne : Ligne
+            La ligne associée au trajet.
+        date_heure_depart : datetime.datetime
+            La date et l'heure de départ du trajet.
+        duree_minutes : int
+            La durée du trajet en minutes.
+        nb_places : int
+            Le nombre de places disponibles sur le trajet.
+        tarif : float
+            Le tarif du trajet.
+        places_reservees : int
+            Le nombre de places déjà réservées sur le trajet.
+
+        Returns
+        -------
+        bool
             True si la modification réussit, False sinon.
         """
         trajet = Trajet(
@@ -74,6 +112,17 @@ class TrajetService:
         return TrajetDao().modifier_trajet(trajet)
 
     def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
-        """Retourne tous les trajets associés à une ligne donnée."""
+        """Retourne tous les trajets associés à une ligne donnée.
+
+        Parameters
+        ----------
+        ligne : Ligne
+            La ligne pour laquelle rechercher les trajets.
+
+        Returns
+        -------
+        list[Trajet]
+            La liste des trajets associés à la ligne.
+        """
 
         return TrajetDao().rechercher_trajets_par_ligne(ligne)

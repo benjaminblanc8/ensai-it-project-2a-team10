@@ -88,6 +88,19 @@ class ApiSncfService:
 
     @staticmethod
     def _formater_gare(stop_area: dict) -> dict:
+        """Formate les informations d'une gare pour l'API interne.
+
+        Parameters
+        ----------
+        stop_area : dict
+            Dictionnaire contenant les informations de la gare telles que renvoyées par l'API SNCF.
+
+        Returns
+        -------
+        dict
+            Dictionnaire contenant les informations de la gare formatées pour l'API interne.
+        """
+
         coord = stop_area.get("coord") or {}
         return {
             "id": stop_area["id"],  # ex : "stop_area:SNCF:87471003"
@@ -120,7 +133,20 @@ class ApiSncfService:
                 return
 
     def obtenir_arrets_par_nom(self, name: str, limite: int = 10) -> list[dict]:
-        """Autocomplétion : retourne les gares correspondant à la saisie."""
+        """Sert à l'autocomplétion : retourne les gares correspondant à la saisie.
+
+        Parameters
+        ----------
+        name : str
+            Nom de la gare à rechercher.
+        limite : int, optional
+            Nombre maximum de résultats à retourner.
+
+        Returns
+        -------
+        list[dict]
+            Liste des gares correspondant à la saisie.
+        """
 
         name = (name or "").strip()
 
@@ -158,7 +184,18 @@ class ApiSncfService:
         return gares
 
     def obtenir_gare_par_id(self, gare_id: str) -> dict | None:
-        """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas."""
+        """Retourne la gare correspondant à l'id SNCF, ou None si elle n'existe pas.
+
+        Parameters
+        ----------
+        gare_id : str
+            id de la gare SNCF à rechercher.
+
+        Returns
+        -------
+        dict | None
+            Dictionnaire contenant les informations de la gare si elle existe, None sinon.
+        """
         if not gare_id:
             return None
         if gare_id in self._cache_gares:
@@ -174,12 +211,33 @@ class ApiSncfService:
         return gare
 
     def gare_existe_par_id(self, gare_id: str) -> bool:
+        """Vérifie si une gare correspondant à l'id existe.
+
+        Parameters
+        ----------
+        gare_id : str
+            id de la gare à vérifier.
+
+        Returns
+        -------
+        bool
+            True si une gare correspondant à l'id existe, False sinon.
+        """
+
         return self.obtenir_gare_par_id(gare_id) is not None
 
     def gare_existe_par_nom(self, nom_gare: str) -> bool:
-        """
-        Vérifie si une gare correspondant au nom existe.
+        """Vérifie si une gare correspondant au nom existe.
 
+        Parameters
+        ----------
+        nom_gare : str
+            Nom de la gare à vérifier.
+
+        Returns
+        -------
+        bool
+            True si une gare correspondant au nom existe, False sinon.
         """
 
         if not nom_gare or not nom_gare.strip():
@@ -198,7 +256,23 @@ class ApiSncfService:
     def calculer_duree_trajet(
         self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
     ) -> dict | None:
-        """Vérifie qu'un trajet est possible et retourne ses horaires et sa durée."""
+        """Calcul la durée d'un trajet entre deux gares à une date donnée.
+
+        Parameters
+        ----------
+        gare_depart_id : str
+            id de la gare de départ
+        gare_arrivee_id : str
+            id de la gare d'arrivée
+        date_depart : datetime
+            date et heure de départ souhaitées
+
+        Returns
+        -------
+        dict | None
+            Dictionnaire contenant les informations du trajet ( date de départ, date d'arrivée, durée) si un trajet est possible,
+            None si aucun trajet n'est possible.
+        """
 
         params = {
             "from": gare_depart_id,
@@ -241,7 +315,22 @@ class ApiSncfService:
     def trajet_possible(
         self, gare_depart_id: str, gare_arrivee_id: str, date_depart: datetime
     ) -> bool:
-        """Indique si un trajet en train est possible."""
+        """Vérifie si un trajet est possible entre deux gares à une date donnée.
+
+        Parameters
+        ----------
+        gare_depart_id : str
+            id de la gare de départ
+        gare_arrivee_id : str
+            id de la gare d'arrivée
+        date_depart : datetime
+            date et heure de départ souhaitées
+
+        Returns
+        -------
+        bool
+            True si un trajet est possible, False sinon.
+        """
 
         return (
             self.calculer_duree_trajet(gare_depart_id, gare_arrivee_id, date_depart)

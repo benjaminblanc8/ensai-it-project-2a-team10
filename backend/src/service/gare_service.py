@@ -14,7 +14,19 @@ class GareService:
 
     @log
     def ajout_gare(self, gare: Gare) -> Gare:
-        """Trouve l'identifiant SNCF de la gare et l'enregistre en base."""
+        """Trouve l'identifiant SNCF de la gare et l'enregistre en base.
+
+        Args:
+            gare (Gare): La gare à ajouter.
+
+        Returns:
+            Gare: La gare ajoutée avec son identifiant SNCF.
+        Raises:
+            HTTPException: 404 si aucune gare ne correspond à ce nom.
+            HTTPException: 409 si plusieurs gares portent ce nom.
+            HTTPException: 502 si la recherche auprès de la SNCF échoue.
+        """
+
         nom_normalise = gare.nom.strip().casefold()
 
         try:
@@ -53,7 +65,7 @@ class GareService:
             )
 
         return gare
-    
+
     @log
     def recherche_gare(self, id: int):
         """Recherche une gare à partir de son id.
@@ -75,8 +87,16 @@ class GareService:
         return gare
 
     @log
-    def recherche_gare_par_nom(self, nom_gare: int):
-        """ recherche les gares par leurs noms"""
+    def recherche_gare_par_nom(self, nom_gare: str):
+        """Recherche les gares par leurs noms
+
+        Args:
+            nom_gare (str): Le nom de la gare recherchée.
+
+        Returns:
+            list[Gare]: La liste des gares correspondant au nom donné.
+        """
+
         list_gare = self.dao.recherche_gare_par_nom(nom_gare)
 
         return list_gare

@@ -14,10 +14,12 @@ logger = get_logger(__name__)
 
 
 def get_trajet_service():
+    """Injecte la dépendance au service trajet."""
     return TrajetService()
 
 
 def get_ligne_service():
+    """Injecte la dépendance au service ligne."""
     return LigneService()
 
 

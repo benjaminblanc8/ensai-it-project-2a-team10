@@ -3,8 +3,9 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
-
 class TrajetModel(BaseModel):
+    """Modèle de données pour la création d'un trajet."""
+
     id_ligne: int
     date_heure_depart: datetime
     nb_places: int
@@ -12,6 +13,8 @@ class TrajetModel(BaseModel):
 
 
 class TrajetReadModel(BaseModel):
+    """Modèle de données pour la lecture d'un trajet."""
+
     id_trajet: int
     id_ligne: int
     date_heure_depart: datetime
@@ -23,6 +26,8 @@ class TrajetReadModel(BaseModel):
 
 
 class TrajetCreationModel(BaseModel):
+    """Modèle de données pour la création d'un trajet."""
+
     nom_gare_depart: str
     nom_gare_arrivee: str
     date_heure_depart: datetime

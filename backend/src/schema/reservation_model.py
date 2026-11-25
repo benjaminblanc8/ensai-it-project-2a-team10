@@ -10,34 +10,34 @@ class ReservationCreateModel(BaseModel):
 
 
 class ReservationUtilisateurReadModel(BaseModel):
+    """Informations d'un utilisateur pour la lecture d'une réservation."""
+
     model_config = ConfigDict(from_attributes=True)
 
     id_utilisateur: int
-    pseudo: str = Field(
-        validation_alias=AliasChoices("pseudo", "_Utilisateur__pseudo")
-    )
+    pseudo: str = Field(validation_alias=AliasChoices("pseudo", "_Utilisateur__pseudo"))
     niveau: str
 
 
 class ReservationTrajetReadModel(BaseModel):
+    """Informations d'un trajet pour la lecture d'une réservation."""
+
     model_config = ConfigDict(from_attributes=True)
 
     id_trajet: int
     date_heure_depart: datetime
     duree_minutes: int
 
-    nb_places: int = Field(
-        validation_alias=AliasChoices("nb_places", "_nb_places")
-    )
-    tarif: float = Field(
-        validation_alias=AliasChoices("tarif", "_tarif")
-    )
+    nb_places: int = Field(validation_alias=AliasChoices("nb_places", "_nb_places"))
+    tarif: float = Field(validation_alias=AliasChoices("tarif", "_tarif"))
     places_reservees: int = Field(
         validation_alias=AliasChoices("places_reservees", "_places_reservees")
     )
 
 
 class ReservationReadModel(BaseModel):
+    """Informations d'une réservation pour la lecture."""
+
     model_config = ConfigDict(from_attributes=True)
 
     id_reservation: int

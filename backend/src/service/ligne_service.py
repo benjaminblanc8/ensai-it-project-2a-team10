@@ -14,8 +14,26 @@ class LigneService:
         self.api_sncf_service = ApiSncfService()
         self.dao = LigneDao()
 
-    def creer(self, gare_depart: Gare, gare_arrivee: Gare):
-        """Crée une ligne entre deux gares existantes."""
+    def creer(self, gare_depart: Gare, gare_arrivee: Gare) -> Ligne:
+        """Crée une ligne entre deux gares existantes.
+
+        Parameters
+        ----------
+        gare_depart : Gare
+            La gare de départ.
+        gare_arrivee : Gare
+            La gare d'arrivée.
+
+        Returns
+        -------
+        Ligne
+            La ligne créée entre les deux gares.
+
+        Raises:
+            HTTPException: 400 si les gares sont identiques.
+            HTTPException: 404 si les gares ne sont pas trouvées.
+            HTTPException: 409 si une ligne existe déjà entre ces deux gares.
+        """
 
         if not gare_depart or not gare_arrivee:
             raise HTTPException(
@@ -58,8 +76,31 @@ class LigneService:
 
         return nouvelle_ligne
 
-    def modifier_ligne(self, id_ligne: int, gare_depart: Gare, gare_arrivee: Gare):
-        """Modifie une ligne existante avec de nouvelles gares de départ et d'arrivée."""
+    def modifier_ligne(
+        self, id_ligne: int, gare_depart: Gare, gare_arrivee: Gare
+    ) -> Ligne:
+        """Modifie une ligne existante avec de nouvelles gares de départ et d'arrivée.
+
+        Parameters
+        ----------
+        id_ligne : int
+            L'identifiant de la ligne à modifier.
+        gare_depart : Gare
+            La nouvelle gare de départ.
+        gare_arrivee : Gare
+            La nouvelle gare d'arrivée.
+
+        Returns
+        -------
+        Ligne
+            La ligne modifiée.
+
+        Raises
+        --------
+        HTTPException: 400 si les gares sont identiques.
+        HTTPException: 404 si la ligne n'existe pas.
+        HTTPException: 409 si une ligne existe déjà entre les nouvelles gares.
+        """
 
         if gare_depart.id_gare == gare_arrivee.id_gare:
             raise HTTPException(
@@ -90,15 +131,36 @@ class LigneService:
 
         return self.dao.modifier_ligne(id_ligne, gare_depart, gare_arrivee)
 
-    def rechercher_ligne(self, id_ligne: int):
+    def rechercher_ligne(self, id_ligne: int) -> Ligne:
+        """Recherche une ligne à partir de son identifiant."""
         return self.dao.recherche_ligne(id_ligne)
 
-    def supprimer_ligne(self, id_ligne: int):
+    def supprimer_ligne(self, id_ligne: int) -> None:
+        """Supprime une ligne à partir de son identifiant."""
         return self.dao.supprimer_ligne(id_ligne)
 
     def rechercher_ligne_par_gares(
         self, nom_depart: str, nom_arrivee: str
     ) -> Ligne | None:
+        """Recherche une ligne à partir des noms des gares de départ et d'arrivée.
+
+        Parameters
+        ----------
+        nom_depart : str
+            Le nom de la gare de départ.
+        nom_arrivee : str
+            Le nom de la gare d'arrivée.
+
+        Returns
+        -------
+        Ligne | None
+            La ligne trouvée ou None si aucune ligne ne correspond.
+
+        Raises
+        ------
+        HTTPException: 409 si plusieurs lignes correspondent aux noms des gares.
+        """
+
         ids_lignes = self.dao.rechercher_ids_par_gares(nom_depart, nom_arrivee)
 
         if not ids_lignes:

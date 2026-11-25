@@ -12,7 +12,23 @@ class UtilisateurDao:
         self.password_hasher = PasswordHasher()
 
     def creer(self, utilisateur: Utilisateur) -> bool:
-        """Ajoute un utilisateur avec un mot de passe hashé."""
+        """Ajoute un utilisateur avec un mot de passe hashé.
+
+        Parameters
+        ----------
+        utilisateur : Utilisateur
+            L'utilisateur à ajouter.
+
+        Returns
+        -------
+        bool
+            True si l'ajout a été effectué, False sinon.
+
+        Raises
+        ------
+        Exception
+            Si une erreur survient lors de l'exécution de la requête SQL.
+        """
 
         requete = """
             INSERT INTO Utilisateur (pseudo, mdp, niveau)
@@ -42,7 +58,23 @@ class UtilisateurDao:
             raise
 
     def recherche_utilisateur(self, id_utilisateur: int) -> Utilisateur | None:
-        """Recherche un utilisateur par son identifiant."""
+        """Recherche un utilisateur par son identifiant.
+
+        Parameters
+        ----------
+        id_utilisateur : int
+            L'identifiant de l'utilisateur à rechercher.
+
+        Returns
+        -------
+        Utilisateur | None
+            L'utilisateur trouvé ou None s'il n'existe pas.
+
+        Raises
+        ------
+        Exception
+            Si une erreur survient lors de l'exécution de la requête SQL.
+        """
 
         requete = """
             SELECT id_utilisateur, pseudo, mdp, niveau
@@ -65,7 +97,23 @@ class UtilisateurDao:
         )
 
     def recherche_par_pseudo(self, pseudo: str) -> Utilisateur | None:
-        """Recherche un utilisateur par son pseudo."""
+        """Recherche un utilisateur par son pseudo.
+
+        Parameters
+        ----------
+        pseudo : str
+            Le pseudo de l'utilisateur à rechercher.
+
+        Returns
+        -------
+        Utilisateur | None
+            L'utilisateur trouvé ou None s'il n'existe pas.
+
+        Raises
+        ------
+        Exception
+            Si une erreur survient lors de l'exécution de la requête SQL.
+        """
 
         requete = """
             SELECT id_utilisateur, pseudo, mdp, niveau
@@ -88,6 +136,25 @@ class UtilisateurDao:
         )
 
     def update(self, id_utilisateur: int, habilitation: NiveauHabilitation) -> bool:
+        """Met à jour l'habilitation d'un utilisateur.
+
+        Parameters
+        ----------
+        id_utilisateur : int
+            L'identifiant de l'utilisateur.
+        habilitation : NiveauHabilitation
+            Le nouveau niveau d'habilitation.
+
+        Returns
+        -------
+        bool
+            True si la mise à jour a été effectuée, False sinon.
+
+        Raises
+        ------
+        Exception
+            Si une erreur survient lors de l'exécution de la requête SQL.
+        """
 
         requete = """
             UPDATE Utilisateur
