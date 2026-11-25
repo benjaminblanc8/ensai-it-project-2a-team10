@@ -37,7 +37,7 @@ Le développement de Trajecto répond à un besoin de mise en relation entre des
 
 Pour répondre à ces objectifs, nous avons choisi de développer une API REST en Python à l'aide du framework FastAPI, associée à une base de données relationnelle PostgreSQL. L'application s'appuie également sur l'API SNCF afin d'exploiter des informations ferroviaires externes, notamment pour rechercher des gares et déterminer la durée estimée des trajets. Enfin, un système d'authentification fondé sur les JSON Web Tokens (JWT) permet de contrôler l'accès aux différentes fonctionnalités selon le niveau d'habilitation des utilisateurs.
 
-Au-delà de l'implémentation des fonctionnalités attendues, ce projet nous a conduit à réfléchir à l'organisation du code, à la modélisation des données et à la séparation des responsabilités entre les différentes composantes d'une application. Nous avons notamment adopté une architecture en couches distinguant les objets métiers, les contrôleurs, les services et les objets d'accès aux données, afin de faciliter la compréhension, la maintenance et l'évolution du programme.
+Au-delà de l'implémentation des fonctionnalités attendues, ce projet nous a conduit à réfléchir à l'organisation du code, à la modélisation des données et à la séparation des responsabilités entre les différentes composantes d'une application. Nous avons notamment adopté une architecture en couches distinguant les objets métiers, les contrôleurs (controllers), les services et les objets d'accès aux données, afin de faciliter la compréhension, la maintenance et l'évolution du programme.
 
 Ce rapport présente les différentes étapes et les principaux résultats de notre travail. Il expose tout d'abord l'organisation du projet et sa modélisation, puis détaille les choix techniques et l'architecture retenue. Il décrit ensuite les fonctionnalités développées et leur utilisation, avant de présenter les tests réalisés et de dresser un bilan individuel et collectif de cette expérience.
 
@@ -45,7 +45,7 @@ Ce rapport présente les différentes étapes et les principaux résultats de no
 
 ## Organisation
 
-La création de l'API s'est articulée en deux phases classiques : l'analyse, qui a eu lieu en parallèle des compléments de notre formation en informatique, et le développement, plus long et autonome, qui s'est concentré sur les trois jours d'immersion proposés par le cadre de notre formation, complété par un travail régulier tout le long des mois d'octobre et novembre.  
+La création de l'API s'est articulée en deux phases classiques : l'analyse, qui a eu lieu en parallèle des compléments de notre formation en informatique, et le développement, plus long et autonome, qui s'est concentré sur les trois jours d'immersion proposés dans le cadre de notre formation, complété par un travail régulier tout le long des mois d'octobre et novembre. 
 
 Chaque semaine ou presque, une réunion avait lieu avec l'équipe pour mettre en commun notre avancement et, surtout, lever les incertitudes qui pesaient sur nos choix d'implémentation et de solutions techniques liés au projet.
 
@@ -86,6 +86,61 @@ Comme on le devine à cette description a posteriori, en pratique, chacun et cha
 
 ## Modélisation finale
 
+### Architecture globale
+
+L'architecture logicielle de notre application Trajecto repose sur une organisation en plusieurs couches, permettant de séparer les différentes responsabilités du programme. Cette structure favorise la modularité du code, facilite sa maintenance et permet de faire évoluer certaines fonctionnalités sans modifier l'ensemble de l'application. Chaque couche remplit ainsi un rôle spécifique, depuis la réception des requêtes des utilisateurs jusqu'à l'accès aux données stockées dans PostgreSQL ou récupérées depuis l'API SNCF. Ce découpage en couches permet ainsi de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
+
+- Une meilleure *maintenabilité* : Étant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mocks).
+
+- Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
+
+
+Notre application s'articule autour de plusieurs composantes principales : la couche de contrôle (*Controller Layer*), la couche de services (*Service Layer*), la couche d'accès aux données (*DAO Layer*), les modèles métiers (*Business Objects*) et la couche de persistance (*Persistence Layer*). À celles-ci s'ajoute l'interaction avec l'API externe de la SNCF.
+
+Voici l'arborescence de notre application :
+
+```text
+ensai-it-project-2a-team10/
+├── backend/
+│   ├── src/
+│   │   ├── business_object/
+│   │   ├── controller/
+│   │   ├── dao/
+│   │   ├── schema/
+│   │   ├── service/
+│   │   ├── utils/
+│   │   └── main.py
+│   ├── tests/
+│   │   ├── tests_business_object/
+│   │   └── tests_service/
+│   ├── logging_config.yml
+│   └── pyproject.toml
+├── Diagrammes/
+├── doc/
+│   └── report/
+│       └── rapport_final_equipe_10.qmd
+├── .env
+├── README.md
+└── requirements.txt
+```
+**La couche de contrôle (Controller Layer)** constitue le point d'entrée de notre application. Développée à l'aide du framework FastAPI, elle assure la communication entre les utilisateurs et les différentes fonctionnalités de Trajecto. Les interactions s'effectuent au moyen de requêtes HTTP, adressées à des endpoints organisés selon les principales entités de notre application : les utilisateurs, les gares, les lignes, les trajets et les réservations. Par exemple, l'endpoint `GET /trajet/` permet de rechercher des trajets entre deux gares, tandis que `POST /reservation/` permet d'effectuer une réservation. Le Controller réceptionne les requêtes, récupère les paramètres transmis, puis sollicite les traitements nécessaires à leur exécution. Il assure également la gestion des réponses HTTP, notamment en cas d'erreur ou lorsque les ressources demandées sont introuvables.
+
+Cette couche intervient également dans la sécurisation de notre API. L'accès à la majorité des endpoints nécessite une authentification reposant sur l'utilisation de JSON Web Tokens (JWT). Lorsqu'un utilisateur se connecte via l'endpoint `/connexion/`, un jeton lui est attribué, qu'il doit ensuite transmettre lors de ses requêtes vers les endpoints protégés. Les autorisations dépendent de trois niveaux d'habilitation : CLIENT, COLLAB et ADMIN. Un CLIENT peut notamment gérer ses réservations, tandis qu'un COLLAB dispose de permissions supplémentaires pour créer, modifier ou supprimer des gares, des lignes et des trajets. Enfin, un ADMIN possède l'ensemble de ces droits et peut également modifier les habilitations des utilisateurs. Cette hiérarchisation permet de limiter l'accès aux fonctionnalités sensibles de notre application.
+
+**La couche de services (Service Layer)** regroupe les traitements métiers nécessaires au fonctionnement de Trajecto. Elle constitue le cœur logique de l'application et permet de répondre aux demandes transmises par la couche de contrôle. Les traitements concernent notamment la gestion des trajets ferroviaires, la création de lignes entre différentes gares ou encore la réservation de places. Cette couche assure également la vérification des règles métiers propres à notre application. Par exemple, lors d'une réservation, le système doit vérifier l'existence du trajet demandé ainsi que la disponibilité des places avant de valider l'opération. De même, lors de l'annulation d'une réservation, le nombre de places réservées doit être actualisé afin de garantir la cohérence des disponibilités.
+
+**La couche d'accès aux données (DAO Layer, pour Data Access Object)** assure les échanges entre les traitements de l'application et la base de données PostgreSQL. Elle permet de centraliser les opérations nécessaires à la consultation, à l'ajout, à la modification et à la suppression des informations. Ainsi, les traitements métiers peuvent s'appuyer sur des méthodes d'accès aux données sans avoir à gérer directement les requêtes SQL. Ce découpage permet de distinguer les opérations relatives au stockage des données de celles liées au fonctionnement métier de l'application.
+
+**La couche de persistance (Persistence Layer)** correspond à notre base de données PostgreSQL. Celle-ci contient les différentes informations nécessaires au fonctionnement de Trajecto, réparties entre plusieurs tables représentant notamment les utilisateurs, les gares, les lignes, les trajets et les réservations. Les relations entre ces entités permettent de relier un trajet à une ligne ferroviaire, une ligne à ses gares de départ et d'arrivée, ou encore une réservation à un utilisateur et à un trajet. La base de données assure ainsi la conservation des informations, tandis que les opérations de consultation et de modification sont effectuées par l'intermédiaire de la couche d'accès aux données.
+
+**Les modèles métiers (Business Objects)** représentent les principales entités manipulées dans notre application. Ils permettent de structurer les informations échangées entre les différentes composantes, notamment celles relatives aux gares, aux lignes, aux trajets, aux utilisateurs et aux réservations. En complément, les modèles de validation utilisés par FastAPI permettent de définir les données attendues dans les requêtes et les informations retournées dans les réponses. Cette organisation contribue à garantir la cohérence des données manipulées par notre API.
+
+Enfin, **l'intégration de l'API SNCF** constitue une particularité importante de notre architecture. Contrairement aux informations stockées dans notre propre base de données, certaines données ferroviaires sont obtenues directement auprès d'un service externe. Notre application utilise notamment l'API SNCF pour rechercher des gares à partir de leur nom et récupérer des informations permettant de déterminer la durée d'un trajet. Lorsqu'un collaborateur crée un trajet via l'endpoint `POST /trajet/`, l'application exploite les noms des gares de départ et d'arrivée ainsi que la date et l'heure de départ pour obtenir une estimation de la durée auprès de l'API SNCF. Cette durée est ensuite associée au trajet créé. L'utilisation de cette API externe nous permet ainsi de compléter les données propres à Trajecto sans avoir à gérer manuellement l'ensemble des informations ferroviaires.
+
+Le fonctionnement général de notre application repose donc sur les échanges entre ces différentes composantes. Lorsqu'un utilisateur effectue une requête depuis l'interface Swagger de FastAPI, celle-ci est réceptionnée par le Controller. Après validation des paramètres et vérification des éventuelles autorisations, les traitements nécessaires sont exécutés. Selon la fonctionnalité demandée, ils peuvent nécessiter la consultation ou la modification de données dans PostgreSQL, ou encore la récupération d'informations externes depuis l'API SNCF. Une fois les opérations terminées, les résultats sont retournés à la couche de contrôle, qui construit la réponse HTTP envoyée à l'utilisateur, généralement au format JSON.
+
+Cette architecture permet donc de répartir les responsabilités entre les différentes composantes de Trajecto, tout en assurant leur communication. Elle facilite également les tests, la correction des erreurs et l'ajout de nouvelles fonctionnalités, sans nécessiter de modifications importantes dans l'ensemble du programme.
+
 ### Diagramme de classes final
 
 La conception de notre projet est passée par la réalisation d'un diagramme de classes, nous permettant d'obtenir une vision d'ensemble des classes que nous souhaitions programmer et des relations entre celles-ci. Notre diagramme de classes se décompose en 4 couches : 
@@ -97,12 +152,6 @@ La conception de notre projet est passée par la réalisation d'un diagramme de 
 - *Couche Service* : Elle recèle toutes les fonctionnalités demandées pour les différents objets. Elle fait appel à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
 
 - *Couche Dao* : Comme expliqué précédemment, cette classe exécute les requêtes SQL pour le service.
-
-Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
-
-- Une meilleure *maintenabilité* : Étant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mocks).
-
-- Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
 
 #### Couche Objet
 
@@ -195,55 +244,6 @@ Dans le cadre du développement de notre application de gestion de trajets ferro
 - **JWT pour l'authentification et la gestion des accès :** Les JSON Web Tokens (JWT) constituent un mécanisme d'authentification reposant sur l'utilisation de jetons signés. Lorsqu'un utilisateur s'authentifie, un jeton peut lui être attribué afin de vérifier son identité lors des requêtes suivantes. Dans notre projet, ce système permet de sécuriser l'accès aux différentes fonctionnalités de l'API. Il est associé à une gestion des autorisations distinguant trois catégories d'utilisateurs : **CLIENT, COLLAB et ADMIN**. Chaque rôle dispose de permissions spécifiques, permettant notamment de restreindre certaines opérations de gestion aux utilisateurs habilités.
 
 Ainsi, l'association de FastAPI, PostgreSQL, de l'API SNCF et des JWT permet de construire une application structurée, sécurisée et adaptée aux besoins de notre projet. Ces technologies répondent à des objectifs complémentaires : faciliter le développement de l'API, assurer la fiabilité du stockage des données, exploiter des informations ferroviaires externes et contrôler l'accès aux différentes fonctionnalités selon le profil de l'utilisateur.
-
-### Architecture globale
-
-L'architecture logicielle de notre application Trajecto repose sur une organisation en plusieurs couches, permettant de séparer les différentes responsabilités du programme. Cette structure favorise la modularité du code, facilite sa maintenance et permet de faire évoluer certaines fonctionnalités sans modifier l'ensemble de l'application. Chaque couche remplit ainsi un rôle spécifique, depuis la réception des requêtes des utilisateurs jusqu'à l'accès aux données stockées dans PostgreSQL ou récupérées depuis l'API SNCF.
-
-Notre application s'articule autour de plusieurs composantes principales : la couche de contrôle (*Controller Layer*), la couche de services (*Service Layer*), la couche d'accès aux données (*DAO Layer*), les modèles métiers (*Business Objects*) et la couche de persistance (*Persistence Layer*). À celles-ci s'ajoute l'interaction avec l'API externe de la SNCF.
-
-Voici l'arborescence de notre application :
-
-```text
-ensai-it-project-2a-team10/
-├── backend/
-│   ├── src/
-│   │   ├── business_object/
-│   │   ├── controller/
-│   │   ├── dao/
-│   │   ├── schema/
-│   │   ├── service/
-│   │   ├── utils/
-│   │   └── main.py
-│   ├── tests/
-│   │   ├── tests_business_object/
-│   │   └── tests_service/
-│   ├── logging_config.yml
-│   └── pyproject.toml
-├── Diagrammes/
-├── doc/
-│   └── report/
-│       └── rapport_final_equipe_10.qmd
-├── README.md
-└── requirements.txt
-```
-**La couche de contrôle (Controller Layer)** constitue le point d'entrée de notre application. Développée à l'aide du framework FastAPI, elle assure la communication entre les utilisateurs et les différentes fonctionnalités de Trajecto. Les interactions s'effectuent au moyen de requêtes HTTP, adressées à des endpoints organisés selon les principales entités de notre application : les utilisateurs, les gares, les lignes, les trajets et les réservations. Par exemple, l'endpoint `GET /trajet/` permet de rechercher des trajets entre deux gares, tandis que `POST /reservation/` permet d'effectuer une réservation. Le Controller réceptionne les requêtes, récupère les paramètres transmis, puis sollicite les traitements nécessaires à leur exécution. Il assure également la gestion des réponses HTTP, notamment en cas d'erreur ou lorsque les ressources demandées sont introuvables.
-
-Cette couche intervient également dans la sécurisation de notre API. L'accès à la majorité des endpoints nécessite une authentification reposant sur l'utilisation de JSON Web Tokens (JWT). Lorsqu'un utilisateur se connecte via l'endpoint `/connexion/`, un jeton lui est attribué, qu'il doit ensuite transmettre lors de ses requêtes vers les endpoints protégés. Les autorisations dépendent de trois niveaux d'habilitation : CLIENT, COLLAB et ADMIN. Un CLIENT peut notamment gérer ses réservations, tandis qu'un COLLAB dispose de permissions supplémentaires pour créer, modifier ou supprimer des gares, des lignes et des trajets. Enfin, un ADMIN possède l'ensemble de ces droits et peut également modifier les habilitations des utilisateurs. Cette hiérarchisation permet de limiter l'accès aux fonctionnalités sensibles de notre application.
-
-**La couche de services (Service Layer)** regroupe les traitements métiers nécessaires au fonctionnement de Trajecto. Elle constitue le cœur logique de l'application et permet de répondre aux demandes transmises par la couche de contrôle. Les traitements concernent notamment la gestion des trajets ferroviaires, la création de lignes entre différentes gares ou encore la réservation de places. Cette couche assure également la vérification des règles métiers propres à notre application. Par exemple, lors d'une réservation, le système doit vérifier l'existence du trajet demandé ainsi que la disponibilité des places avant de valider l'opération. De même, lors de l'annulation d'une réservation, le nombre de places réservées doit être actualisé afin de garantir la cohérence des disponibilités.
-
-**La couche d'accès aux données (DAO Layer, pour Data Access Object)** assure les échanges entre les traitements de l'application et la base de données PostgreSQL. Elle permet de centraliser les opérations nécessaires à la consultation, à l'ajout, à la modification et à la suppression des informations. Ainsi, les traitements métiers peuvent s'appuyer sur des méthodes d'accès aux données sans avoir à gérer directement les requêtes SQL. Ce découpage permet de distinguer les opérations relatives au stockage des données de celles liées au fonctionnement métier de l'application.
-
-**La couche de persistance (Persistence Layer)** correspond à notre base de données PostgreSQL. Celle-ci contient les différentes informations nécessaires au fonctionnement de Trajecto, réparties entre plusieurs tables représentant notamment les utilisateurs, les gares, les lignes, les trajets et les réservations. Les relations entre ces entités permettent de relier un trajet à une ligne ferroviaire, une ligne à ses gares de départ et d'arrivée, ou encore une réservation à un utilisateur et à un trajet. La base de données assure ainsi la conservation des informations, tandis que les opérations de consultation et de modification sont effectuées par l'intermédiaire de la couche d'accès aux données.
-
-**Les modèles métiers (Business Objects)** représentent les principales entités manipulées dans notre application. Ils permettent de structurer les informations échangées entre les différentes composantes, notamment celles relatives aux gares, aux lignes, aux trajets, aux utilisateurs et aux réservations. En complément, les modèles de validation utilisés par FastAPI permettent de définir les données attendues dans les requêtes et les informations retournées dans les réponses. Cette organisation contribue à garantir la cohérence des données manipulées par notre API.
-
-Enfin, **l'intégration de l'API SNCF** constitue une particularité importante de notre architecture. Contrairement aux informations stockées dans notre propre base de données, certaines données ferroviaires sont obtenues directement auprès d'un service externe. Notre application utilise notamment l'API SNCF pour rechercher des gares à partir de leur nom et récupérer des informations permettant de déterminer la durée d'un trajet. Lorsqu'un collaborateur crée un trajet via l'endpoint `POST /trajet/`, l'application exploite les noms des gares de départ et d'arrivée ainsi que la date et l'heure de départ pour obtenir une estimation de la durée auprès de l'API SNCF. Cette durée est ensuite associée au trajet créé. L'utilisation de cette API externe nous permet ainsi de compléter les données propres à Trajecto sans avoir à gérer manuellement l'ensemble des informations ferroviaires.
-
-Le fonctionnement général de notre application repose donc sur les échanges entre ces différentes composantes. Lorsqu'un utilisateur effectue une requête depuis l'interface Swagger de FastAPI, celle-ci est réceptionnée par le Controller. Après validation des paramètres et vérification des éventuelles autorisations, les traitements nécessaires sont exécutés. Selon la fonctionnalité demandée, ils peuvent nécessiter la consultation ou la modification de données dans PostgreSQL, ou encore la récupération d'informations externes depuis l'API SNCF. Une fois les opérations terminées, les résultats sont retournés à la couche de contrôle, qui construit la réponse HTTP envoyée à l'utilisateur, généralement au format JSON.
-
-Cette architecture permet donc de répartir les responsabilités entre les différentes composantes de Trajecto, tout en assurant leur communication. Elle facilite également les tests, la correction des erreurs et l'ajout de nouvelles fonctionnalités, sans nécessiter de modifications importantes dans l'ensemble du programme.
 
 ### Exemple détaillé d'une fonctionnalité
 
