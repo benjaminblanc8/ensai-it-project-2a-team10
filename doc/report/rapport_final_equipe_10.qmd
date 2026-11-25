@@ -37,7 +37,7 @@ Le développement de Trajecto répond à un besoin de mise en relation entre des
 
 Pour répondre à ces objectifs, nous avons choisi de développer une API REST en Python à l'aide du framework FastAPI, associée à une base de données relationnelle PostgreSQL. L'application s'appuie également sur l'API SNCF afin d'exploiter des informations ferroviaires externes, notamment pour rechercher des gares et déterminer la durée estimée des trajets. Enfin, un système d'authentification fondé sur les JSON Web Tokens (JWT) permet de contrôler l'accès aux différentes fonctionnalités selon le niveau d'habilitation des utilisateurs.
 
-Au-delà de l'implémentation des fonctionnalités attendues, ce projet nous a conduits à réfléchir à l'organisation du code, à la modélisation des données et à la séparation des responsabilités entre les différentes composantes d'une application. Nous avons notamment adopté une architecture en couches distinguant les objets métiers, les contrôleurs, les services et les objets d'accès aux données, afin de faciliter la compréhension, la maintenance et l'évolution du programme.
+Au-delà de l'implémentation des fonctionnalités attendues, ce projet nous a conduit à réfléchir à l'organisation du code, à la modélisation des données et à la séparation des responsabilités entre les différentes composantes d'une application. Nous avons notamment adopté une architecture en couches distinguant les objets métiers, les contrôleurs, les services et les objets d'accès aux données, afin de faciliter la compréhension, la maintenance et l'évolution du programme.
 
 Ce rapport présente les différentes étapes et les principaux résultats de notre travail. Il expose tout d'abord l'organisation du projet et sa modélisation, puis détaille les choix techniques et l'architecture retenue. Il décrit ensuite les fonctionnalités développées et leur utilisation, avant de présenter les tests réalisés et de dresser un bilan individuel et collectif de cette expérience.
 
@@ -90,7 +90,7 @@ Comme on le devine à cette description a posteriori, en pratique, chacun et cha
 
 La conception de notre projet est passée par la réalisation d'un diagramme de classes, nous permettant d'obtenir une vision d'ensemble des classes que nous souhaitions programmer et des relations entre celles-ci. Notre diagramme de classes se décompose en 4 couches : 
 
-- *Couche Objet* : Cette couche comprend toutes les classes élémentaires de notre objet. Il s'agit des différents objets que nous manipulons dans les autres couches du projet.
+- *Couche Objet* : Cette couche comprend toutes les classes élémentaires de notre projet. Il s'agit des différents objets que nous manipulons dans les autres couches du projet.
 
 - *Couche Controller* : Cette couche fait l'intermédiaire entre l'interface et la couche service. Elle a pour but d'amener les requêtes des utilisateurs vers les bons services. Il s'agit aussi de la classe qui sert à construire le Swagger de notre application.
 
