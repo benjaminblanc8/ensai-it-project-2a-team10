@@ -31,7 +31,7 @@ format:
 
 ## Introduction {.unnumbered}
 
-Dans le cadre du projet informatique de deuxième année à l'ENSAI, notre équipe a été chargée de concevoir et de développer une application de gestion de trajets ferroviaires, baptisée Trajecto. Ce projet avait pour objectif de mettre en pratique les connaissances acquises en programmation et en conception logicielle, à travers la réalisation d'une application reposant sur une architecture client-serveur et une API permettant de manipuler des données persistantes.
+Dans le cadre du projet informatique de deuxième année à l'ENSAI, notre équipe a été chargée de concevoir et de développer une application de gestion de trajets ferroviaires, baptisée Trajecto. Ce projet avait pour objectif de mettre en pratique les connaissances acquises en programmation et en conception logicielle, à travers la réalisation d'une application reposant sur une architecture client\-serveur et une API permettant de manipuler des données persistantes.
 
 Le développement de Trajecto répond à un besoin de mise en relation entre des trajets ferroviaires proposés par des collaborateurs et des utilisateurs souhaitant réserver une place. L'application permet ainsi de gérer les comptes utilisateurs et leurs habilitations, les gares, les lignes d'exploitation et les trajets proposés. Elle intègre également un mécanisme de réservation permettant aux clients de réserver une place sur un trajet et de consulter ou d'annuler leurs réservations.
 
@@ -54,7 +54,7 @@ Nous avons réparti les rôles de façon non stricte, principalement en fonction
 Nous avons utilisé les outils idoines, liés à notre formation ENSAI, à notre disposition pour travailler : 
 
 - VS Code (principalement) pour programmer en Python;
-- Postgres pour établir une connexion avec notre base de données;
+- PostgreSQL pour établir une connexion avec notre base de données;
 - L'API de la SNCF, Navitia, pour récupérer les données utiles à nos instances de gares, lignes et trains;
 - CloudBeaver pour manipuler et tester notre base de données de manière confortable et opérationnelle;
 - Le datalab SSPcloud, maintenu par l'INSEE, pour simplifier la gestion de nos services logiciels nécessaires au développement.
@@ -94,13 +94,13 @@ La conception de notre projet est passée par la réalisation d'un diagramme de 
 
 - *Couche Controller* : Cette couche fait l'intermédiaire entre l'interface et la couche service. Elle a pour but d'amener les requêtes des utilisateurs vers les bons services. Il s'agit aussi de la classe qui sert à construire le Swagger de notre application.
 
-- *Couche Service* : Elle recelle toutes les fonctionnalités demandées pour les différents objets. Elle fait appel à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
+- *Couche Service* : Elle recèle toutes les fonctionnalités demandées pour les différents objets. Elle fait appel à la couche Dao pour récupérer les données contenues dans notre base de données et les données obtenues via des requêtes vers l'API Navitia de la SNCF. La couche service s'occupe également de vérifier les règles de gestion et les éventuels calculs.
 
-- *Couche Dao* : Comme expliqué précedemment, cette classe exécute les requêtes SQL pour le service.
+- *Couche Dao* : Comme expliqué précédemment, cette classe exécute les requêtes SQL pour le service.
 
 Ce découpage en couches permet de respecter un principe central du développement d'applications : la séparation des responsabilités. Chaque couche a un rôle précis et ne connaît que la couche en-dessous d'elle. Cela permet notamment :
 
-- Une meilleure *maintenabilité* : Etant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mocks).
+- Une meilleure *maintenabilité* : Étant donné que le projet est structuré, toute modification à apporter au projet est plus facile à réaliser. On peut également tester facilement les couches séparément (via notamment la mise en place de mocks).
 
 - Un *travail d'équipe* facilité : La répartition de l'écriture du code se fait plus facilement. On peut s'occuper à plusieurs d'une même fonctionnalité mais dans des couches différentes, c'est-à-dire sur des aspects différents de celle-ci.
 
@@ -399,7 +399,7 @@ Règles de gestion :
 
 #### Guide d'usage {.unlisted}
 
-- **Réserver** : `POST /reservation/` avec l'`id_trajet` — authentification CLIENT requise.
+- **Réserver** : `POST /reservation/` avec l'`id_trajet` — authentification CLIENT minimum requise.
 - **Consulter ses réservations** : `GET /reservation/mes-reservations` — retourne la liste avec les infos du trajet (horaire, durée, places, tarif).
 - **Annuler** : `DELETE /reservation/{id_reservation}` — refusée si la réservation n'appartient pas à l'utilisateur.
 
@@ -458,7 +458,7 @@ J'ai appris beaucoup de choses, parmi lesquelles, bien entendu, de nombreuses no
 
 - J'ai appréhendé la difficulté que représentait la coordination d'une équipe aux rythmes de travail, aux disponibilités et aux compétences variées, autour d'un même projet devant aboutir en un temps limité. Je n'étais moi-même pas le programmeur le plus chevronné du groupe et l'humilité qu'exige la nécessité de s'entraider sur ses lacunes respectives a été un enseignement précieux; de même que la gestion des légers points d'inquiétude ou d'hésitations autour de l'avancement d'une partie ou d'une autre du projet. J'ai eu la chance de travailler dans un groupe très sérieux, où chaque personne a su être au rendez-vous quand c'était nécessaire, malgré quelques contretemps. J'ai pu alors mobiliser mon expérience professionnelle antérieure pour organiser, rassurer et garder une vue d'ensemble sereine qui nous a permis d'obtenir une application stable dans les temps. J'en suis très satisfait; et je pense par ailleurs que chacune des cinq personnes concernées peut être fière de son travail.
 
-- J'ai découvert, avec autant de circonspection que d'intérêt, la programmation et la relecture assistées par IA. En effet, l'époque où j'ai été initié en informatique (autour de 2016) précédait l'arrivée en force des LLM et leurs performances actuelles. J'ai eu la confirmation des aspects de ces nouveaux outils qui m'inquiètent le plus : la perte d'autonomie sur les tâches techniques fines si on ne se surveille pas (ce qu'il faut faire, donc) la quantité de travail qu'on lui délègue, et la tentation à la paresse intellectuelle au moment de proposer ou examiner une solution à un problème. J'ai été rassuré de réaliser deux choses, cependant : le gain de productivité est bien réel à condition de savoir ce que l'on souhaite faire, et la nécessité de rigueur dans le travail n'est pas levée par ce type d'usage, puisqu'il faut avoir analysé correctement avant de faire toute requête en amont, puis vérifier ce que la machine propose, relire et bien sûr comprendre en aval. Cela ne fait que gonfler mon intérêt pour les enseignements futurs dédiés au machine learning, car appréhender la manière dont ces assistants sont fabriqués est plus que jamais nécessaire dans des métiers tels que ceux auxquels l'ENSAI prépare.
+- J'ai découvert, avec autant de circonspection que d'intérêt, la programmation et la relecture assistées par IA. En effet, l'époque où j'ai été initié en informatique (autour de 2016) précédait l'arrivée en force des LLM et leurs performances actuelles. J'ai eu la confirmation des aspects de ces nouveaux outils qui m'inquiètent le plus : la perte d'autonomie sur les tâches techniques fines si on ne se surveille pas (ce qu'il faut faire, donc), la quantité de travail qu'on lui délègue, et la tentation à la paresse intellectuelle au moment de proposer ou examiner une solution à un problème. J'ai été rassuré de réaliser deux choses, cependant : le gain de productivité est bien réel à condition de savoir ce que l'on souhaite faire, et la nécessité de rigueur dans le travail n'est pas levée par ce type d'usage, puisqu'il faut avoir analysé correctement avant de faire toute requête en amont, puis vérifier ce que la machine propose, relire et bien sûr comprendre en aval. Cela ne fait que gonfler mon intérêt pour les enseignements futurs dédiés au machine learning, car appréhender la manière dont ces assistants sont fabriqués est plus que jamais nécessaire dans des métiers tels que ceux auxquels l'ENSAI prépare.
 
 ### Alexandre Yu
 
