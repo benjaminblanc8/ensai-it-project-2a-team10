@@ -20,6 +20,8 @@ def require_niveau(niveau_minimal: NiveauHabilitation):
     """
 
     def verifieur(user: Utilisateur = Depends(get_current_user)):  # ruff: ignore[function-call-in-default-argument]
+        """Vérifie le niveau d'habilitation de l'utilisateur connecté."""
+
         if user.get_niveau().value < niveau_minimal.value:
             raise HTTPException(
                 status_code=403,

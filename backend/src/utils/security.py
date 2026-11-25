@@ -11,6 +11,8 @@ TOKEN_EXPIRE_DAYS = 7
 
 
 def create_access_token(utilisateur_id: int) -> str:
+    """Crée un token d'accès JWT pour un utilisateur donné."""
+
     expiration = datetime.now(UTC) + timedelta(days=TOKEN_EXPIRE_DAYS)
 
     payload = {
@@ -26,6 +28,8 @@ def create_access_token(utilisateur_id: int) -> str:
 
 
 def decode_access_token(token: str) -> dict:
+    """Décode un token d'accès JWT et retourne le payload."""
+
     return jwt.decode(
         token,
         SECRET_KEY,

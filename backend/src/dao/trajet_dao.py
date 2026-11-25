@@ -210,6 +210,8 @@ class TrajetDao:
             raise
 
     def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
+        """Retourne tous les trajets associés à une ligne donnée."""
+
         requete = """
             SELECT id_trajet, date_heure_depart, duree_minutes,
                 nb_places, tarif, places_reservees
@@ -217,7 +219,7 @@ class TrajetDao:
             WHERE id_ligne = %s
             ORDER BY date_heure_depart, id_trajet
         """
-            
+
         with (
             closing(DBConnection().connection) as connexion,
             connexion.cursor() as cursor,

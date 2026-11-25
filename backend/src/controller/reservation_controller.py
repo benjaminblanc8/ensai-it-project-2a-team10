@@ -32,6 +32,7 @@ def creer_reservation(
     utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
+    """Créer une réservation pour un utilisateur donné."""
     try:
         reservation = service.creer_reservation(
             utilisateur,
@@ -59,8 +60,10 @@ def rechercher_mes_reservations(
     utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
+    """Recherche les réservations d'un utilisateur donné."""
     logger.info(
-    "Utilisateur connecté : %s", utilisateur.id_utilisateur,
+        "Utilisateur connecté : %s",
+        utilisateur.id_utilisateur,
     )
 
     reservations = service.rechercher_reservations(utilisateur)
@@ -71,16 +74,12 @@ def rechercher_mes_reservations(
 
         print(
             "Utilisateur converti :",
-            ReservationUtilisateurReadModel.model_validate(
-                reservation.utilisateur
-            )
+            ReservationUtilisateurReadModel.model_validate(reservation.utilisateur),
         )
 
         print(
             "Trajet converti :",
-            ReservationTrajetReadModel.model_validate(
-                reservation.trajet
-            )
+            ReservationTrajetReadModel.model_validate(reservation.trajet),
         )
 
     return reservations
@@ -96,6 +95,7 @@ def annuler_reservation(
     utilisateur=Depends(require_niveau(NiveauHabilitation.CLIENT)),  # ruff: ignore[function-call-in-default-argument]
     service=Depends(get_reservation_service),  # ruff: ignore[function-call-in-default-argument]
 ):
+    """Annule une réservation pour un utilisateur donné."""
     try:
         service.annuler_reservation(utilisateur, id_reservation)
 

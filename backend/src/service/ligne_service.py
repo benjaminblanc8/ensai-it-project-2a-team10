@@ -59,6 +59,8 @@ class LigneService:
         return nouvelle_ligne
 
     def modifier_ligne(self, id_ligne: int, gare_depart: Gare, gare_arrivee: Gare):
+        """Modifie une ligne existante avec de nouvelles gares de départ et d'arrivée."""
+
         if gare_depart.id_gare == gare_arrivee.id_gare:
             raise HTTPException(
                 status_code=400,

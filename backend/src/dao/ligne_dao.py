@@ -147,6 +147,8 @@ class LigneDao:
         )
 
     def rechercher_ids_par_gares(self, nom_depart: str, nom_arrivee: str) -> list[int]:
+        """Recherche les identifiants des lignes correspondant aux gares de départ et d'arrivée."""
+
         requete = """
         SELECT l.id_ligne
         FROM Ligne AS l
@@ -155,7 +157,7 @@ class LigneDao:
         WHERE LOWER(depart.nom) = LOWER(%s)
           AND LOWER(arrivee.nom) = LOWER(%s)
         LIMIT 2
-    """
+     """
         with DBConnection().connection.cursor() as cursor:
             cursor.execute(
                 requete,

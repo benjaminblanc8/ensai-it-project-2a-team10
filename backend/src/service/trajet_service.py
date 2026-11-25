@@ -1,4 +1,3 @@
-
 import datetime
 
 from business_object.ligne import Ligne
@@ -37,11 +36,7 @@ class TrajetService:
             _tarif=tarif,
         )
 
-        return (
-            nouveau_trajet
-            if TrajetDao().creer_trajet(nouveau_trajet)
-            else None
-        )
+        return nouveau_trajet if TrajetDao().creer_trajet(nouveau_trajet) else None
 
     def supprimer_trajet(self, id_trajet: int):
         """Supprime un trajet.
@@ -79,4 +74,6 @@ class TrajetService:
         return TrajetDao().modifier_trajet(trajet)
 
     def rechercher_trajets_par_ligne(self, ligne: Ligne) -> list[Trajet]:
+        """Retourne tous les trajets associés à une ligne donnée."""
+
         return TrajetDao().rechercher_trajets_par_ligne(ligne)
